@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "openframeWebApp",
+    "style": "scss",
+    "postcss": false
+  }
+}

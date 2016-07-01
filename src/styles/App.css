@@ -1,0 +1,90 @@
+/* Base Application Styles */
+body.openframe {
+  padding-top: 100px;
+  font-family: "Lato", sans-serif;
+  color: black;
+}
+
+/* Global */
+
+a {
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.container-centered-well {
+    max-width: 600px;
+    margin-top: 70px;
+}
+
+.container-centered-well a {
+    text-decoration: underline;
+}
+
+
+/* User page navigation */
+
+.row-navigation {
+    border-bottom: 1px solid #D2D2D2;
+    height: 28px;
+}
+
+.tabs {
+    width: 100%;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-left: 0px;
+}
+
+.tabs li {
+    display: inline;
+    margin-right: 25px;
+}
+
+.tabs a {
+    color: #B2B2B2;
+    font-weight: normal;
+}
+
+.tabs a:hover {
+    color: black;
+}
+
+.active a {
+    font-weight: 600;
+    text-decoration: none;
+    padding-bottom: 6px;
+    border-bottom: 3px solid black;
+    color: black;
+}
+
+.row-collection {
+    margin-top: 40px;
+    padding: 0px;
+}
+
+h4 {
+    font-size: 14px;
+    margin: 0px;
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 18px;
+    float: left;
+    padding-top: 3px;
+}
+
+h3 {
+    font-weight: normal;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    margin-bottom: 50px;
+}

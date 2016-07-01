@@ -1,0 +1,88 @@
+/* Navigation top bar */
+
+.navbar {
+    height: 66px;
+}
+
+.navbar-nav li a {
+    height: 66px;
+    padding-top: 22px;
+    padding-bottom: 15px;
+}
+
+.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
+    margin-left: 5px;
+}
+
+.of-logo {
+    width: 28px;
+    padding-top: 4px;
+}
+
+.navbar-nav ul {
+    background-color: #f8f8f8;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #B2B2B2;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.navbar-default {
+    border: none;
+}
+
+.navbar-collapse {
+    text-align: center;
+}
+
+.topbar__username {
+    font-weight: normal;
+    font-size: 18px;
+    float: left;
+    padding-top: 3px;
+}
+
+.current-frame-status {
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.2px;
+}
+
+.current-frame-status span {
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.btn-logout {
+    color: #DEDEDE;
+}
+
+.navbar-right.navbar-btn-item--menu {
+    margin: 0;
+}
+.navbar-btn-item {
+    height: 66px;
+    padding: 23px 3px;
+}
+
+.btn-menu {
+    border: 1px solid black;
+    height: 18px;
+    width: 30px;
+    border-radius: 2px;
+    opacity: 0.3;
+    transition: opacity 0.1s;
+    background: url('../../images/threedots.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.navbar-btn-item:hover .btn-menu {
+    opacity: 1;
+}
