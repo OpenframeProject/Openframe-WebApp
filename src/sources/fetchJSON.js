@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import config from 'config';
+import {getToken} from '../services/auth';
 
 /**
  * Prepend the api base to url path via config
@@ -8,6 +9,17 @@ import config from 'config';
  */
 function prependApiBase(url) {
   return `${config.apiBase}${url}`;
+}
+
+/**
+ * If there is an access token present, append it to the url as
+ * a query param.
+ * @param  {String} url
+ * @return {String}
+ */
+function appendAccessToken(url) {
+  let token = getToken();
+  return token ? `${url}?access_token=${token}` : url;
 }
 
 /**
@@ -43,7 +55,9 @@ function parseJSON(response) {
  */
 export default function(url, { method = 'GET', data = {} } = {}) {
   return new Promise((resolve, reject) => {
-    fetch(prependApiBase(url), {
+    url = prependApiBase(url);
+    url = appendAccessToken(url);
+    fetch(url, {
         method: method,
         headers: {
           'Accept': 'application/json',

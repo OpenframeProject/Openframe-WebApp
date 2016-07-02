@@ -11,10 +11,11 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Main from '../components/Main';
+
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, artwork, frames, user} = this.props;
+    const {actions, artwork, frames, user, auth} = this.props;
     return (
       <Main
         actions={actions}
@@ -24,6 +25,7 @@ class App extends Component {
     );
   }
 }
+
 /* Populated by react-webpack-redux:reducer
  *
  * HINT: if you adjust the initial type of your reducer, you will also have to
@@ -35,12 +37,14 @@ App.propTypes = {
   frames: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired
 };
+
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
   const props = {
     artwork: state.artwork,
     frames: state.frames,
-    user: state.user
+    user: state.user,
+    auth: state.auth
   };
   return props;
 }

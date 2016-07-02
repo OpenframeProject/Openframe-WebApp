@@ -1,5 +1,8 @@
 import {LOGIN_SUCCESS} from './../const';
 
-module.exports = function(accessToken) {
-  return { type: LOGIN_SUCCESS, accessToken };
+import {setToken} from './../../services/auth';
+
+module.exports = function(token) {
+  setToken(token.id);
+  return { type: LOGIN_SUCCESS, token };
 };

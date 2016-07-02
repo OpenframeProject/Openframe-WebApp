@@ -11,6 +11,8 @@ class AppComponent extends React.Component {
   componentDidMount() {
     const { actions, user } = this.props;
 
+    console.log(user);
+
     actions.loginRequest(user.user);
   }
 

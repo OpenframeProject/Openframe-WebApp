@@ -3,6 +3,10 @@ module.exports = {
     user: {
         isFetching: false,
         lastUpdated: 1035209385293,
+        user: {
+            'username': 'ppan',
+            'password': 'asdf'
+        },
         current: {
             'website': 'http://jonathanwohl.com',
             'twitter': 'jonwohl',
