@@ -1,5 +1,8 @@
 // test data
 module.exports = {
+    ui: {
+        sidebarOpen: false
+    },
     user: {
         isFetching: false,
         lastUpdated: 1035209385293,
@@ -7,16 +10,16 @@ module.exports = {
             'username': 'ppan',
             'password': 'asdf'
         },
-        current: {
-            'website': 'http://jonathanwohl.com',
-            'twitter': 'jonwohl',
-            'username': 'jonwohl',
-            'created': '2016-02-17T14:14:04.506Z',
-            'id': '56c4802c30eda27c7a0de423',
-            'modified': '2016-02-17T14:14:04.506Z',
-            'profiles': [],
-            'accounts': []
-        }
+        // current: {
+        //     'website': 'http://jonathanwohl.com',
+        //     'twitter': 'jonwohl',
+        //     'username': 'jonwohl',
+        //     'created': '2016-02-17T14:14:04.506Z',
+        //     'id': '56c4802c30eda27c7a0de423',
+        //     'modified': '2016-02-17T14:14:04.506Z',
+        //     'profiles': [],
+        //     'accounts': []
+        // }
     },
     frames: {
         isFetching: false,

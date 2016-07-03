@@ -11,40 +11,53 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Main from '../components/Main';
-
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
+  componentDidMount() {
+    const {actions, user, auth} = this.props;
+    if (!auth.accessToken) {
+      // no access token present, initiate login
+      actions.loginRequest(user.user);
+    } else {
+      // access token present, fetch user
+      actions.fetchUserRequest();
+    }
+  }
+
   render() {
-    const {actions, artwork, frames, user, auth} = this.props;
+    const {actions, artwork, frames, user, auth, ui} = this.props;
     return (
       <Main
+        ui={ui}
         actions={actions}
         artwork={artwork}
         frames={frames}
-        user={user}/>
+        user={user}
+        auth={auth} />
     );
   }
 }
-
 /* Populated by react-webpack-redux:reducer
  *
  * HINT: if you adjust the initial type of your reducer, you will also have to
  *       adjust it here.
  */
 App.propTypes = {
+  ui: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   artwork: PropTypes.object.isRequired,
   frames: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
-
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
   const props = {
     artwork: state.artwork,
     frames: state.frames,
     user: state.user,
-    auth: state.auth
+    auth: state.auth,
+    ui: state.ui
   };
   return props;
 }
@@ -64,13 +77,21 @@ function mapDispatchToProps(dispatch) {
     fetchFramesRequest: require('../actions/frame/fetchFramesRequest.js'),
     fetchFramesSuccess: require('../actions/frame/fetchFramesSuccess.js'),
     fetchFramesFailure: require('../actions/frame/fetchFramesFailure.js'),
-    loginRequest: require('../actions/user/loginRequest.js'),
-    loginSuccess: require('../actions/user/loginSuccess.js'),
-    loginFailure: require('../actions/user/loginFailure.js'),
-    logoutRequest: require('../actions/user/logoutRequest.js'),
-    logoutSuccess: require('../actions/user/logoutSuccess.js'),
-    logoutFailure: require('../actions/user/logoutFailure.js'),
-    selectFrame: require('../actions/frame/selectFrame.js')
+    loginRequest: require('../actions/auth/loginRequest.js'),
+    loginSuccess: require('../actions/auth/loginSuccess.js'),
+    loginFailure: require('../actions/auth/loginFailure.js'),
+    logoutRequest: require('../actions/auth/logoutRequest.js'),
+    logoutSuccess: require('../actions/auth/logoutSuccess.js'),
+    logoutFailure: require('../actions/auth/logoutFailure.js'),
+    selectFrame: require('../actions/frame/selectFrame.js'),
+    fetchUserRequest: require('../actions/user/fetchUserRequest.js'),
+    fetchUserSuccess: require('../actions/user/fetchUserSuccess.js'),
+    fetchUserFailure: require('../actions/user/fetchUserFailure.js'),
+    fetchConfigRequest: require('../actions/config/fetchConfigRequest.js'),
+    fetchConfigSuccess: require('../actions/config/fetchConfigSuccess.js'),
+    fetchConfigFailure: require('../actions/config/fetchConfigFailure.js'),
+    openSidebar: require('../actions/ui/openSidebar.js'),
+    closeSidebar: require('../actions/ui/closeSidebar.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

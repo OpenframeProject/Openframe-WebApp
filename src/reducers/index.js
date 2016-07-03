@@ -11,6 +11,8 @@ import { combineReducers } from 'redux';
 const reducers = {
   artwork: require('../reducers/artwork.js'),
   frames: require('../reducers/frames.js'),
-  user: require('../reducers/user.js')
+  user: require('../reducers/user.js'),
+  auth: require('../reducers/auth.js'),
+  ui: require('../reducers/ui.js')
 };
 module.exports = combineReducers(reducers);

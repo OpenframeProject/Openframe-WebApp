@@ -2,6 +2,8 @@ import fetch from 'isomorphic-fetch';
 import config from 'config';
 import {getToken} from '../services/auth';
 
+const jQuery = require('jQuery');
+
 /**
  * Prepend the api base to url path via config
  * @param  {String} url
@@ -19,7 +21,21 @@ function prependApiBase(url) {
  */
 function appendAccessToken(url) {
   let token = getToken();
-  return token ? `${url}?access_token=${token}` : url;
+  return token ? `${url}?access_token=${token}` : `${url}?`;
+}
+
+/**
+ * Append query params
+ * @param  {String} url
+ * @param  {Object} data
+ * @param  {String} format
+ * @return {String}
+ */
+function appendParams(url, data, format = 'url') {
+  if (format === 'url') {
+    let encoded = jQuery.param(data);
+    return `${url}&${encoded}`;
+  }
 }
 
 /**
@@ -57,14 +73,19 @@ export default function(url, { method = 'GET', data = {} } = {}) {
   return new Promise((resolve, reject) => {
     url = prependApiBase(url);
     url = appendAccessToken(url);
-    fetch(url, {
-        method: method,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
+    let conf = {
+      method: method,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
+    if (method !== 'GET' && method !== 'OPTIONS') {
+      conf.body = JSON.stringify(data);
+    } else {
+      url = appendParams(url, data);
+    }
+    fetch(url, conf)
       .then(checkStatus)
       .then(parseJSON)
       .then(data => {

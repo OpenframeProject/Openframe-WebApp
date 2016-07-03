@@ -10,6 +10,7 @@ let logo = require('../../images/of-logo.svg');
 class TopbarComponent extends React.Component {
   render() {
     let username = this.props.user.username || '...';
+    let {openSidebar} = this.props;
     return (
       <div className="topbar">
         <nav className="navbar navbar-default navbar-fixed-top">
@@ -27,7 +28,7 @@ class TopbarComponent extends React.Component {
 
 
                 <div className="navbar-btn-item navbar-btn-item--menu navbar-right">
-                    <div className="btn-menu"></div>
+                    <div className="btn-menu" onClick={openSidebar}></div>
                 </div>
 
             </div>

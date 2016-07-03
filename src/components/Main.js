@@ -3,33 +3,31 @@ require('styles/App.css');
 
 import React from 'react';
 import TopbarComponent from '../components/topbar/TopbarComponent';
+import SidebarComponent from '../components/sidebar/SidebarComponent';
 
 // let yeomanImage = require('../images/yeoman.png');
 
 class AppComponent extends React.Component {
 
   componentDidMount() {
-    const { actions, user } = this.props;
 
-    console.log(user);
-
-    actions.loginRequest(user.user);
   }
 
   render() {
-    let frames = this.props.frames;
+    let {actions, frames, user, ui} = this.props;
     let selectedFrame = null;
     if (frames.items && frames.items.length && frames.selectedFrame) {
       selectedFrame = frames.items.find(f => f.id === frames.selectedFrame);
     }
 
-    let user = this.props.user.current || '...';
+    let currentUser = user.current || '...';
 
     return (
       <div className="index">
           <TopbarComponent
-              user={user}
-              selectedFrame={selectedFrame} />
+              user={currentUser}
+              selectedFrame={selectedFrame}
+              openSidebar={actions.openSidebar} />
           <div className="container container-centered-artwork">
 
               <div className="row row-navigation hidden-xs">
@@ -56,6 +54,12 @@ class AppComponent extends React.Component {
           </nav>
 
           <div className="sidebar-wrap">
+            <SidebarComponent
+              user={currentUser}
+              frames={frames.items}
+              selectedFrame={selectedFrame}
+              isOpen={ui.sidebarOpen}
+              closeSidebar={actions.closeSidebar} />
           </div>
 
       </div>
