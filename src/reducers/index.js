@@ -10,9 +10,11 @@ import { combineReducers } from 'redux';
 /* Populated by react-webpack-redux:reducer */
 const reducers = {
   artwork: require('../reducers/artwork.js'),
-  frames: require('../reducers/frames.js'),
+  frames: require('../reducers/frames.js').default,
   user: require('../reducers/user.js'),
   auth: require('../reducers/auth.js'),
-  ui: require('../reducers/ui.js')
+  ui: require('../reducers/ui.js'),
+  channels: require('../reducers/channels.js'),
+  collections: require('../reducers/collections.js')
 };
 module.exports = combineReducers(reducers);

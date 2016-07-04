@@ -14,53 +14,50 @@ class AppComponent extends React.Component {
   }
 
   render() {
-    let {actions, frames, user, ui} = this.props;
-    let selectedFrame = null;
-    if (frames.items && frames.items.length && frames.selectedFrame) {
-      selectedFrame = frames.items.find(f => f.id === frames.selectedFrame);
-    }
-
+    let {actions, frames, user, ui, selectedFrame} = this.props;
     let currentUser = user.current || '...';
 
     return (
       <div className="index">
-          <TopbarComponent
-              user={currentUser}
-              selectedFrame={selectedFrame}
-              openSidebar={actions.openSidebar} />
-          <div className="container container-centered-artwork">
 
-              <div className="row row-navigation hidden-xs">
-              <ul className="tabs">
-                      <li><a href="/stream">Stream</a></li>
-                <li className="active"><a href="">Collection</a></li>
+        <TopbarComponent
+            user={currentUser}
+            selectedFrame={selectedFrame}
+            openSidebar={actions.openSidebar} />
+
+        <div className="container container-centered-artwork">
+          <div className="row row-navigation hidden-xs">
+            <ul className="tabs">
+              <li><a href="#">Stream</a></li>
+              <li><a href="">Channels</a></li>
+              <li className="active"><a href="">Collections</a></li>
             </ul>
           </div>
           <div className="row row-collection row-tile">
-
-                  <button className="btn tile-item add-button" data-toggle="modal" data-target="#AddArtworkModal">
-                      Add artwork
-                  </button>
+            <button className="btn tile-item add-button" data-toggle="modal" data-target="#AddArtworkModal">
+                Add artwork
+            </button>
           </div>
-          </div>
+        </div>
 
-          <nav className="navbar navbar-default navbar-fixed-bottom visible-xs">
-              <div className="container">
-                  <ul className="tabs-bottom">
-                      <li className="stream-btn"><a href="/stream">Stream</a></li>
-                      <li className="collection-btn bottom-active"><a href="<%= user.username %> ">Collection</a></li>
-                  </ul>
-              </div>
-          </nav>
+        <nav className="navbar navbar-default navbar-fixed-bottom visible-xs">
+            <div className="container">
+                <ul className="tabs-bottom">
+                    <li className="stream-btn"><a href="/stream">Stream</a></li>
+                    <li className="collection-btn bottom-active"><a href="<%= user.username %> ">Collection</a></li>
+                </ul>
+            </div>
+        </nav>
 
-          <div className="sidebar-wrap">
-            <SidebarComponent
-              user={currentUser}
-              frames={frames.items}
-              selectedFrame={selectedFrame}
-              isOpen={ui.sidebarOpen}
-              closeSidebar={actions.closeSidebar} />
-          </div>
+        <div className="sidebar-wrap">
+          <SidebarComponent
+            user={currentUser}
+            frames={frames.items}
+            selectedFrame={selectedFrame}
+            isOpen={ui.sidebarOpen}
+            closeSidebar={actions.closeSidebar}
+            selectFrame={actions.selectFrame} />
+        </div>
 
       </div>
     );

@@ -13,12 +13,14 @@ class SidebarComponent extends Component {
 
 	// when clicking outside the sidebar, close it.
 	handleClickOutside() {
-   	this.props.closeSidebar();
+		if (this.props.isOpen) {
+   		this.props.closeSidebar();
+		}
   }
 
   render() {
   	let className = 'sidebar';
-  	let {isOpen, closeSidebar, frames, selectedFrame, user} = this.props;
+  	let {isOpen, closeSidebar, frames, selectedFrame, user, selectFrame} = this.props;
 
   	if (isOpen) {
   		className += ' sidebar--open';
@@ -39,7 +41,8 @@ class SidebarComponent extends Component {
 		    			key={frame.id}
 		    			frame={frame}
 		    			isCurrent={frame.id === selectedFrame}
-		    			isOwner={frame.owner && (frame.owner.id === user.id)} />
+		    			isOwner={frame.owner && (frame.owner.id === user.id)}
+              selectFrame={selectFrame} />
 		    	)}
 		    </ul>
 

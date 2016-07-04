@@ -8,8 +8,17 @@ let checkmarkIcon = require('../../images/frame-checkmark.svg');
 let settingsIcon = require('../../images/settings.svg');
 
 class FrameItemComponent extends React.Component {
+
+  handleClick() {
+    let {selectFrame, frame} = this.props;
+    selectFrame(frame.id);
+  }
+
   render() {
-  	let {isCurrent, isConnected, isOwner, frame} = this.props;
+  	let {isCurrent, isOwner, frame} = this.props;
+
+  	let isConnected = frame.connected;
+
     let className = 'sidebar__row sidebar__row--frame';
     className += isCurrent ? ' sidebar_row--frame-active' : '';
 
@@ -17,7 +26,7 @@ class FrameItemComponent extends React.Component {
     isConnectedClass += isConnected ? ' current-frame-indicator--connected' : ' current-frame-indicator--disconnected';
 
     return (
-      <li className={className}>
+      <li className={className} onClick={this.handleClick.bind(this)}>
         { isCurrent
         	? <img className="mark-frame-active" src={checkmarkIcon} />
         	: ''

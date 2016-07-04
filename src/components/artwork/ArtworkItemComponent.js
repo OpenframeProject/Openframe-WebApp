@@ -64,10 +64,9 @@ class ArtworkItemComponent extends Component {
         <div className="artworkitem tile-item tile-artwork hover-actions {{ if (isCurrent) { }} tile-artwork--current {{ } }}" data-artworkid="{{- id }}">
             <div className="bg-image">
                 <img
-                    src="{ artwork.thumb_url }"
+                    src={ artwork.thumb_url }
                     className="artwork__preview-image"
-                    onerror="this.onerror=null;this.src='/img/preview-missing.png'"
-                    data-zoom-padding='20' data-zoom-url="{ artwork.thumb_url }" data-zoom-overlay='true' />
+                    onerror="this.onerror=null;this.src='/img/preview-missing.png'" />
                 <div className="artwork-interface">
                     { ::this._renderSettingsBtn() }
 

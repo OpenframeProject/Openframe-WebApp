@@ -8,9 +8,16 @@ import React, {
   Component,
   PropTypes
 } from 'react';
+import TopbarComponent from '../components/topbar/TopbarComponent';
+import SidebarComponent from '../components/sidebar/SidebarComponent';
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Main from '../components/Main';
+import { getSelectedFrame } from '../reducers/frames';
+
+require('normalize.css/normalize.css');
+require('styles/App.css');
+
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   componentDidMount() {
@@ -21,19 +28,56 @@ class App extends Component {
     } else {
       // access token present, fetch user
       actions.fetchUserRequest();
+      actions.fetchFramesRequest();  // actions.fetchCollectionRequest();
     }
   }
-
   render() {
-    const {actions, artwork, frames, user, auth, ui} = this.props;
+    let {actions, frames, user, ui, selectedFrame} = this.props;
+    let currentUser = user.current || '...';
+
     return (
-      <Main
-        ui={ui}
-        actions={actions}
-        artwork={artwork}
-        frames={frames}
-        user={user}
-        auth={auth} />
+      <div className="index">
+
+        <TopbarComponent
+            user={currentUser}
+            selectedFrame={selectedFrame}
+            openSidebar={actions.openSidebar} />
+
+        <div className="container container-centered-artwork">
+          <div className="row row-navigation hidden-xs">
+            <ul className="tabs">
+              <li><a href="#">Stream</a></li>
+              <li><a href="">Channels</a></li>
+              <li className="active"><a href="">Collections</a></li>
+            </ul>
+          </div>
+          <div className="row row-collection row-tile">
+            <button className="btn tile-item add-button" data-toggle="modal" data-target="#AddArtworkModal">
+                Add artwork
+            </button>
+          </div>
+        </div>
+
+        <nav className="navbar navbar-default navbar-fixed-bottom visible-xs">
+            <div className="container">
+                <ul className="tabs-bottom">
+                    <li className="stream-btn"><a href="/stream">Stream</a></li>
+                    <li className="collection-btn bottom-active"><a href="<%= user.username %> ">Collection</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div className="sidebar-wrap">
+          <SidebarComponent
+            user={currentUser}
+            frames={frames.items}
+            selectedFrame={selectedFrame}
+            isOpen={ui.sidebarOpen}
+            closeSidebar={actions.closeSidebar}
+            selectFrame={actions.selectFrame} />
+        </div>
+
+      </div>
     );
   }
 }
@@ -48,16 +92,21 @@ App.propTypes = {
   artwork: PropTypes.object.isRequired,
   frames: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  channels: PropTypes.object.isRequired,
+  collections: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
   const props = {
     artwork: state.artwork,
     frames: state.frames,
+    selectedFrame: getSelectedFrame(state.frames.items, state.frames.selectedFrameId),
     user: state.user,
     auth: state.auth,
-    ui: state.ui
+    ui: state.ui,
+    channels: state.channels,
+    collections: state.collections
   };
   return props;
 }
@@ -91,7 +140,13 @@ function mapDispatchToProps(dispatch) {
     fetchConfigSuccess: require('../actions/config/fetchConfigSuccess.js'),
     fetchConfigFailure: require('../actions/config/fetchConfigFailure.js'),
     openSidebar: require('../actions/ui/openSidebar.js'),
-    closeSidebar: require('../actions/ui/closeSidebar.js')
+    closeSidebar: require('../actions/ui/closeSidebar.js'),
+    fetchCollectionsRequest: require('../actions/collections/fetchCollectionsRequest.js'),
+    fetchCollectionsSuccess: require('../actions/collections/fetchCollectionsSuccess.js'),
+    fetchCollectionsFailure: require('../actions/collections/fetchCollectionsFailure.js'),
+    fetchChannelsRequest: require('../actions/channels/fetchChannelsRequest.js'),
+    fetchChannelsSuccess: require('../actions/channels/fetchChannelsSuccess.js'),
+    fetchChannelsFailure: require('../actions/channels/fetchChannelsFailure.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
