@@ -1,5 +1,5 @@
 import {FETCH_ARTWORK_SUCCESS} from './../const';
 
-module.exports = function(parameter) {
-  return { type: FETCH_ARTWORK_SUCCESS, parameter };
+module.exports = function(artwork) {
+  return { type: FETCH_ARTWORK_SUCCESS, artwork };
 };

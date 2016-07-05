@@ -6,9 +6,25 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 class StreamContainer extends Component {
-  render() {
+  componentDidMount() {
     const {actions} = this.props;
-    return (<div>StreamContainer</div>);
+    actions.fetchArtworkRequest();
+  }
+
+  render() {
+    const {artwork} = this.props;
+    let items = artwork.items;
+    return (
+      <div>
+        {
+          items.map(work => (
+              <div key={work.id}>
+                {work.title}
+              </div>
+          ))
+        }
+      </div>
+    );
   }
 }
 
@@ -17,12 +33,18 @@ StreamContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const props = {};
+  const props = {
+    artwork: state.artwork
+  };
   return props;
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = {};
+  const actions = {
+    fetchArtworkRequest: require('../actions/artwork/fetchArtworkRequest.js'),
+    fetchArtworkSuccess: require('../actions/artwork/fetchArtworkSuccess.js'),
+    fetchArtworkFailure: require('../actions/artwork/fetchArtworkFailure.js')
+  };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }

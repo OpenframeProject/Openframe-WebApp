@@ -4,26 +4,46 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Main from '../components/Main';
 
 class ChannelsContainer extends Component {
-  render() {
+  componentDidMount() {
     const {actions} = this.props;
-    return (<div>ChannelsContainer</div>);
+    actions.fetchChannelsRequest();
+  }
+
+  render() {
+    const {channels} = this.props;
+    let items = channels.items;
+    return (
+      <div>
+        {
+          items.map(channel => (
+              <div key={channel.id}>{channel.name}</div>
+          ))
+        }
+      </div>
+    );
   }
 }
 
 ChannelsContainer.propTypes = {
+  channels: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
-  const props = {};
+  const props = {
+    channels: state.channels
+  };
   return props;
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = {};
+  const actions = {
+    fetchChannelsRequest: require('../actions/channels/fetchChannelsRequest.js'),
+    fetchChannelsSuccess: require('../actions/channels/fetchChannelsSuccess.js'),
+    fetchChannelsFailure: require('../actions/channels/fetchChannelsFailure.js')
+  };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }

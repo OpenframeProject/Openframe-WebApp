@@ -48,9 +48,9 @@ class App extends Component {
         <div className="container container-centered-artwork">
           <div className="row row-navigation hidden-xs">
             <ul className="tabs">
-              <li><Link to="/stream">Stream</Link></li>
-              <li><Link to="/channels">Channels</Link></li>
-              <li><Link to="/collections">Collections</Link></li>
+              <li><Link to="/stream" activeClassName="active">Stream</Link></li>
+              <li><Link to="/channels" activeClassName="active">Channels</Link></li>
+              <li><Link to="/collections" activeClassName="active">Collections</Link></li>
             </ul>
           </div>
 
@@ -98,7 +98,6 @@ App.propTypes = {
   frames: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  channels: PropTypes.object.isRequired,
   collections: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
@@ -110,7 +109,6 @@ function mapStateToProps(state) {
     user: state.user,
     auth: state.auth,
     ui: state.ui,
-    channels: state.channels,
     collections: state.collections
   };
   return props;
@@ -125,9 +123,6 @@ function mapDispatchToProps(dispatch) {
     previewArtwork: require('../actions/artwork/previewArtwork.js'),
     unlikeArtwork: require('../actions/artwork/unlikeArtwork.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
-    fetchArtworkRequest: require('../actions/artwork/fetchArtworkRequest.js'),
-    fetchArtworkSuccess: require('../actions/artwork/fetchArtworkSuccess.js'),
-    fetchArtworkFailure: require('../actions/artwork/fetchArtworkFailure.js'),
     fetchFramesRequest: require('../actions/frame/fetchFramesRequest.js'),
     fetchFramesSuccess: require('../actions/frame/fetchFramesSuccess.js'),
     fetchFramesFailure: require('../actions/frame/fetchFramesFailure.js'),
@@ -145,13 +140,7 @@ function mapDispatchToProps(dispatch) {
     fetchConfigSuccess: require('../actions/config/fetchConfigSuccess.js'),
     fetchConfigFailure: require('../actions/config/fetchConfigFailure.js'),
     openSidebar: require('../actions/ui/openSidebar.js'),
-    closeSidebar: require('../actions/ui/closeSidebar.js'),
-    fetchCollectionsRequest: require('../actions/collections/fetchCollectionsRequest.js'),
-    fetchCollectionsSuccess: require('../actions/collections/fetchCollectionsSuccess.js'),
-    fetchCollectionsFailure: require('../actions/collections/fetchCollectionsFailure.js'),
-    fetchChannelsRequest: require('../actions/channels/fetchChannelsRequest.js'),
-    fetchChannelsSuccess: require('../actions/channels/fetchChannelsSuccess.js'),
-    fetchChannelsFailure: require('../actions/channels/fetchChannelsFailure.js')
+    closeSidebar: require('../actions/ui/closeSidebar.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

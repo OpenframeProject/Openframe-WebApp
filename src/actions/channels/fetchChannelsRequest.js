@@ -9,7 +9,7 @@ module.exports = function() {
       type: FETCH_CHANNELS_REQUEST
     });
     return channels.fetch().then(
-      response => dispatch(fetchChannelsSuccess(response.collections)),
+      response => dispatch(fetchChannelsSuccess(response)),
       error => dispatch(fetchChannelsFailure(error))
     );
   };

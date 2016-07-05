@@ -36,10 +36,12 @@ a:hover {
 .tabs {
     width: 100%;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 20px;
     letter-spacing: 1px;
-    text-transform: uppercase;
+    font-style: italic;
     padding-left: 0px;
+    position: relative;
+    top: -5px;
 }
 
 .tabs li {
@@ -56,11 +58,11 @@ a:hover {
     color: black;
 }
 
-.active a {
+.tabs a.active {
     font-weight: 600;
     text-decoration: none;
-    padding-bottom: 6px;
-    border-bottom: 3px solid black;
+    padding-bottom: 3px;
+    border-bottom: 4px solid black;
     color: black;
 }
 
