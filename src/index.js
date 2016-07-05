@@ -4,6 +4,11 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './stores';
 import App from './containers/App';
+import StreamContainer from './containers/StreamContainer';
+import CollectionsContainer from './containers/CollectionsContainer';
+import ChannelsContainer from './containers/ChannelsContainer';
+
+
 
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
 
@@ -16,12 +21,10 @@ render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={App}>
-        {/*
-        <IndexRoute component={Stream} />
-        <Route path="stream" component={Stream} />
-        <Route path="collections" component={Collections} />
-        <Route path="channels" component={Channels} />
-        */}
+        <IndexRoute component={StreamContainer} />
+        <Route path="stream" component={StreamContainer} />
+        <Route path="collections" component={CollectionsContainer} />
+        <Route path="channels" component={ChannelsContainer} />
       </Route>
     </Router>
   </Provider>,

@@ -15,6 +15,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getSelectedFrame } from '../reducers/frames';
 
+import { Link } from 'react-router'
+
 require('normalize.css/normalize.css');
 require('styles/App.css');
 
@@ -39,32 +41,35 @@ class App extends Component {
       <div className="index">
 
         <TopbarComponent
-            user={currentUser}
-            selectedFrame={selectedFrame}
-            openSidebar={actions.openSidebar} />
+          user={currentUser}
+          selectedFrame={selectedFrame}
+          openSidebar={actions.openSidebar} />
 
         <div className="container container-centered-artwork">
           <div className="row row-navigation hidden-xs">
             <ul className="tabs">
-              <li><a href="#">Stream</a></li>
-              <li><a href="">Channels</a></li>
-              <li className="active"><a href="">Collections</a></li>
+              <li><Link to="/stream">Stream</Link></li>
+              <li><Link to="/channels">Channels</Link></li>
+              <li><Link to="/collections">Collections</Link></li>
             </ul>
           </div>
+
           <div className="row row-collection row-tile">
-            <button className="btn tile-item add-button" data-toggle="modal" data-target="#AddArtworkModal">
-                Add artwork
-            </button>
+            {/*
+              next we replace `<Child>` with `this.props.children`
+              the router will figure out the children for us
+            */}
+            {this.props.children}
           </div>
         </div>
 
         <nav className="navbar navbar-default navbar-fixed-bottom visible-xs">
-            <div className="container">
-                <ul className="tabs-bottom">
-                    <li className="stream-btn"><a href="/stream">Stream</a></li>
-                    <li className="collection-btn bottom-active"><a href="<%= user.username %> ">Collection</a></li>
-                </ul>
-            </div>
+          <div className="container">
+            <ul className="tabs-bottom">
+              <li className="stream-btn"><a href="/stream">Stream</a></li>
+              <li className="collection-btn bottom-active"><a href="<%= user.username %> ">Collection</a></li>
+            </ul>
+          </div>
         </nav>
 
         <div className="sidebar-wrap">
