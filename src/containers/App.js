@@ -8,80 +8,67 @@ import React, {
   Component,
   PropTypes
 } from 'react';
-import TopbarComponent from '../components/topbar/TopbarComponent';
-import SidebarComponent from '../components/sidebar/SidebarComponent';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import TopbarComponent from '../components/topbar/TopbarComponent';
+import SidebarComponent from '../components/sidebar/SidebarComponent';
+import LoginModalComponent from '../components/common/LoginModalComponent';
 import { getSelectedFrame } from '../reducers/frames';
 
-import { Link } from 'react-router'
-
 require('normalize.css/normalize.css');
+require('styles/bootstrap-overrides.scss');
 require('styles/App.css');
+
 
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   componentDidMount() {
     const {actions, user, auth} = this.props;
-    if (!auth.accessToken) {
-      // no access token present, initiate login
-      actions.loginRequest(user.user);
-    } else {
-      // access token present, fetch user
-      actions.fetchUserRequest();
-      actions.fetchFramesRequest();  // actions.fetchCollectionRequest();
-    }
+    // if (!auth.accessToken) {
+    //   // no access token present, initiate login
+    //   actions.loginRequest(user.user);
+    // } else {
+    //   // access token present, fetch user
+    //   actions.fetchUserRequest();
+    //   actions.fetchFramesRequest();  // actions.fetchCollectionRequest();
+    // }
   }
+
+  handleSubmitLogin(fields) {
+    let { actions } = this.props;
+    console.log('fields', fields);
+    actions.loginRequest(fields);
+  }
+
   render() {
     let {actions, frames, user, ui, selectedFrame} = this.props;
-    let currentUser = user.current || '...';
-
+    let currentUser = user.current;
     return (
-      <div className="index">
-
+      <div>
         <TopbarComponent
           user={currentUser}
           selectedFrame={selectedFrame}
-          openSidebar={actions.openSidebar} />
+          openSidebar={actions.openSidebar}
+          openLoginModal={actions.openLoginModal} />
 
-        <div className="container container-centered-artwork">
-          <div className="row row-navigation hidden-xs">
-            <ul className="tabs">
-              <li><Link to="/stream" activeClassName="active">Stream</Link></li>
-              <li><Link to="/channels" activeClassName="active">Channels</Link></li>
-              <li><Link to="/collections" activeClassName="active">Collections</Link></li>
-            </ul>
-          </div>
-
-          <div className="row row-collection row-tile">
-            {/*
-              next we replace `<Child>` with `this.props.children`
-              the router will figure out the children for us
-            */}
-            {this.props.children}
-          </div>
+        <div className='container'>
+          {this.props.children}
         </div>
 
-        <nav className="navbar navbar-default navbar-fixed-bottom visible-xs">
-          <div className="container">
-            <ul className="tabs-bottom">
-              <li className="stream-btn"><a href="/stream">Stream</a></li>
-              <li className="collection-btn bottom-active"><a href="<%= user.username %> ">Collection</a></li>
-            </ul>
-          </div>
-        </nav>
-
-        <div className="sidebar-wrap">
+        <div className='sidebar-wrap'>
           <SidebarComponent
             user={currentUser}
             frames={frames.items}
             selectedFrame={selectedFrame}
             isOpen={ui.sidebarOpen}
             closeSidebar={actions.closeSidebar}
-            selectFrame={actions.selectFrame} />
+            selectFrame={actions.selectFrame}/>
         </div>
 
+        <LoginModalComponent
+          isOpen={ui.loginModalOpen}
+          closeLoginModal={actions.closeLoginModal}
+          onSubmit={::this.handleSubmitLogin} />
       </div>
     );
   }
@@ -140,7 +127,9 @@ function mapDispatchToProps(dispatch) {
     fetchConfigSuccess: require('../actions/config/fetchConfigSuccess.js'),
     fetchConfigFailure: require('../actions/config/fetchConfigFailure.js'),
     openSidebar: require('../actions/ui/openSidebar.js'),
-    closeSidebar: require('../actions/ui/closeSidebar.js')
+    closeSidebar: require('../actions/ui/closeSidebar.js'),
+    openLoginModal: require('../actions/ui/openLoginModal.js'),
+    closeLoginModal: require('../actions/ui/closeLoginModal.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

@@ -5,7 +5,9 @@
  */
 import {FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE} from '../actions/const';
 
-const initialState = {};
+const initialState = {
+  current: null
+};
 
 module.exports = function(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */

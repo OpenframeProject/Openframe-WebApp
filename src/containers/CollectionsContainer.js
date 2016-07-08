@@ -5,6 +5,13 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import CollectionListItemComponent from '../components/collection/CollectionListItemComponent';
+import BrowseSubMenuComponent from '../components/common/BrowseSubMenuComponent';
+import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
+
+import { getCollectionList } from '../reducers/collections/index';
+
+
 class CollectionsContainer extends Component {
 
   componentDidMount() {
@@ -13,15 +20,24 @@ class CollectionsContainer extends Component {
   }
 
   render() {
-    const {collections} = this.props;
-    let items = collections.items;
+    const { collectionList, auth, actions } = this.props;
     return (
       <div>
-        {
-          items.map(collection => (
-              <div key={collection.id}>{collection.name}</div>
-          ))
-        }
+        <BrowseSubMenuComponent />
+
+        <div className="row">
+          {
+            collectionList.map(collection => (
+                <CollectionListItemComponent
+                  isAuthenticated={auth.isAuthenticated}
+                  key={collection.id}
+                  collection={collection}
+                  pushCollection={actions.pushCollection} />
+            ))
+          }
+        </div>
+
+        <MobileSubMenuComponent />
       </div>
     );
   }
@@ -33,7 +49,8 @@ CollectionsContainer.propTypes = {
 
 function mapStateToProps(state) {
   const props = {
-    collections: state.collections
+    collectionList: getCollectionList(state),
+    auth: state.auth
   };
   return props;
 }
@@ -42,7 +59,8 @@ function mapDispatchToProps(dispatch) {
   const actions = {
     fetchCollectionsRequest: require('../actions/collections/fetchCollectionsRequest.js'),
     fetchCollectionsSuccess: require('../actions/collections/fetchCollectionsSuccess.js'),
-    fetchCollectionsFailure: require('../actions/collections/fetchCollectionsFailure.js')
+    fetchCollectionsFailure: require('../actions/collections/fetchCollectionsFailure.js'),
+    pushCollection: require('../actions/collections/pushCollection.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

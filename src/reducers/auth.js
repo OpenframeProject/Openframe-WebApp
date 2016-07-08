@@ -9,7 +9,8 @@ import {getToken} from '../services/auth';
 
 const initialState = {
   isFetching: false,
-  accessToken: getToken()
+  accessToken: getToken(),
+  isAuthenticated: false
 };
 
 module.exports = function(state = initialState, action) {
@@ -30,7 +31,8 @@ module.exports = function(state = initialState, action) {
       return {...state,
         isFetching: false,
         lastUpdated: Date.now(),
-        accessToken: action.token
+        accessToken: action.token,
+        isAuthenticated: true
       };
 
     case LOGIN_FAILURE:
@@ -38,7 +40,8 @@ module.exports = function(state = initialState, action) {
       return {...state,
         isFetching: false,
         lastUpdated: Date.now(),
-        accessToken: null
+        accessToken: null,
+        isAuthenticated: false
       };
 
     default: {

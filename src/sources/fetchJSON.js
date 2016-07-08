@@ -31,10 +31,15 @@ function appendAccessToken(url) {
  * @param  {String} format
  * @return {String}
  */
-function appendParams(url, data, format = 'url') {
-  if (format === 'url') {
-    let encoded = jQuery.param(data);
-    return `${url}&${encoded}`;
+function appendParams(url, data, format = 'filter') {
+  let encoded = '';
+  switch (format) {
+    case 'url':
+      encoded = jQuery.param(data);
+      return `${url}&${encoded}`;
+    case 'filter':
+      encoded = 'filter='+JSON.stringify(data);
+      return `${url}&${encoded}`;
   }
 }
 

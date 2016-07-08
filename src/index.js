@@ -7,8 +7,10 @@ import App from './containers/App';
 import StreamContainer from './containers/StreamContainer';
 import CollectionsContainer from './containers/CollectionsContainer';
 import ChannelsContainer from './containers/ChannelsContainer';
+import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
+import CollectionDetailContainer from './containers/CollectionDetailContainer';
 
-import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router'
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
 
 // test data
 const initialState = require('../test/fixture.js');
@@ -23,6 +25,9 @@ render(
         <Route path="stream" component={StreamContainer} />
         <Route path="collections" component={CollectionsContainer} />
         <Route path="channels" component={ChannelsContainer} />
+
+        <Route path="artwork/:artworkId" component={ArtworkDetailContainer} />
+        <Route path="collections/:collectionId" component={CollectionDetailContainer} />
       </Route>
     </Router>
   </Provider>,

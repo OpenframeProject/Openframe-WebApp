@@ -15,7 +15,7 @@ class AppComponent extends React.Component {
 
   render() {
     let {actions, frames, user, ui, selectedFrame} = this.props;
-    let currentUser = user.current || '...';
+    let currentUser = user.current || null;
 
     return (
       <div className="index">

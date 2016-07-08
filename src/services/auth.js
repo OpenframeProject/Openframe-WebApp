@@ -13,3 +13,11 @@ export const setToken = function(token) {
 		return null;
 	}
 };
+
+export const clearToken = function() {
+	try {
+		localStorage.removeItem('accessToken');
+	} catch(e) {
+		// nada
+	}
+};

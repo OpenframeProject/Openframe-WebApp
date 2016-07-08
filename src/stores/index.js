@@ -1,7 +1,7 @@
 import thunk from 'redux-thunk';
 
 import { createStore, applyMiddleware } from 'redux';
-const reducers = require('../reducers');
+import reducers from '../reducers';
 
 /**
  * configureStore method, called from the src/index.js

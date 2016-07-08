@@ -7,14 +7,25 @@
  *          you edit them, they are not updated again.
  */
 import { combineReducers } from 'redux';
+import {reducer as formReducer} from 'redux-form';
 /* Populated by react-webpack-redux:reducer */
 const reducers = {
-  artwork: require('../reducers/artwork.js'),
+  artwork: require('../reducers/artwork/index').default,
+  collections: require('../reducers/collections/index').default,
   frames: require('../reducers/frames.js').default,
   user: require('../reducers/user.js'),
   auth: require('../reducers/auth.js'),
   ui: require('../reducers/ui.js'),
   channels: require('../reducers/channels.js'),
-  collections: require('../reducers/collections.js')
+  form: formReducer
 };
-module.exports = combineReducers(reducers);
+
+export default combineReducers(reducers);
+
+/**
+ * Get a single entity by id
+ * @param  {Object} state (hash of entities by id)
+ * @param  {String} id
+ * @return {Object} An entity object
+ */
+export const getById = (state, id) => state[id];

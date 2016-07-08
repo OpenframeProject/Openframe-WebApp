@@ -5,9 +5,11 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./webpack.config');
 const open = require('open');
+const path = require('path');
 
-new WebpackDevServer(webpack(config), config.devServer)
-.listen(config.port, 'localhost', (err) => {
+let server = new WebpackDevServer(webpack(config), config.devServer);
+
+server.listen(config.port, 'localhost', (err) => {
   if (err) {
     console.log(err);
   }

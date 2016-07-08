@@ -1,8 +1,9 @@
 /* Base Application Styles */
-body.openframe {
+body {
   padding-top: 100px;
   font-family: "Lato", sans-serif;
   color: black;
+  background: #eee;
 }
 
 /* Global */
@@ -11,9 +12,10 @@ a {
     color: black;
 }
 
-a:hover {
+a:hover, a:focus {
     text-decoration: none;
     color: black;
+    outline: none;
 }
 
 .container-centered-well {
@@ -27,44 +29,6 @@ a:hover {
 
 
 /* User page navigation */
-
-.row-navigation {
-    border-bottom: 1px solid #D2D2D2;
-    height: 28px;
-}
-
-.tabs {
-    width: 100%;
-    font-weight: 600;
-    font-size: 20px;
-    letter-spacing: 1px;
-    font-style: italic;
-    padding-left: 0px;
-    position: relative;
-    top: -5px;
-}
-
-.tabs li {
-    display: inline;
-    margin-right: 25px;
-}
-
-.tabs a {
-    color: #B2B2B2;
-    font-weight: normal;
-}
-
-.tabs a:hover {
-    color: black;
-}
-
-.tabs a.active {
-    font-weight: 600;
-    text-decoration: none;
-    padding-bottom: 3px;
-    border-bottom: 4px solid black;
-    color: black;
-}
 
 .row-collection {
     margin-top: 40px;

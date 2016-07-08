@@ -5,6 +5,10 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import ChannelListItemComponent from '../components/channel/ChannelListItemComponent';
+import BrowseSubMenuComponent from '../components/common/BrowseSubMenuComponent';
+import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
+
 class ChannelsContainer extends Component {
   componentDidMount() {
     const {actions} = this.props;
@@ -12,16 +16,27 @@ class ChannelsContainer extends Component {
   }
 
   render() {
-    const {channels} = this.props;
+    const {channels, auth, actions} = this.props;
     let items = channels.items;
     return (
       <div>
-        {
-          items.map(channel => (
-              <div key={channel.id}>{channel.name}</div>
-          ))
-        }
+        <BrowseSubMenuComponent />
+
+        <div className="row">
+          {
+            items.map(channel => (
+                <ChannelListItemComponent
+                  isAuthenticated={auth.isAuthenticated}
+                  key={channel.id}
+                  channel={channel}
+                  pushChannel={actions.pushChannel} />
+            ))
+          }
+        </div>
+
+        <MobileSubMenuComponent />
       </div>
+
     );
   }
 }
@@ -33,7 +48,8 @@ ChannelsContainer.propTypes = {
 
 function mapStateToProps(state) {
   const props = {
-    channels: state.channels
+    channels: state.channels,
+    auth: state.auth
   };
   return props;
 }
@@ -42,7 +58,9 @@ function mapDispatchToProps(dispatch) {
   const actions = {
     fetchChannelsRequest: require('../actions/channels/fetchChannelsRequest.js'),
     fetchChannelsSuccess: require('../actions/channels/fetchChannelsSuccess.js'),
-    fetchChannelsFailure: require('../actions/channels/fetchChannelsFailure.js')
+    fetchChannelsFailure: require('../actions/channels/fetchChannelsFailure.js'),
+    pushChannel: require('../actions/channels/pushChannel.js'),
+
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

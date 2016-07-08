@@ -17,11 +17,12 @@ const dfltPort = 8000;
 function getDefaultModules() {
   return {
     preLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        include: srcPath,
-        loader: 'eslint-loader'
-      }
+      // If you want to show eslint warnings in the browser console:
+      // {
+      //   test: /\.(js|jsx)$/,
+      //   include: srcPath,
+      //   loader: 'eslint-loader'
+      // }
     ],
     loaders: [
       {
@@ -30,11 +31,11 @@ function getDefaultModules() {
       },
       {
         test: /\.sass/,
-        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax'
+        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&includePaths[]=' + path.resolve(__dirname, '../node_modules/compass-mixins/lib')
       },
       {
         test: /\.scss/,
-        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&includePaths[]=' + path.resolve(__dirname, '../node_modules/compass-mixins/lib')
       },
       {
         test: /\.less/,
@@ -45,11 +46,11 @@ function getDefaultModules() {
         loader: 'style-loader!css-loader!stylus-loader'
       },
       {
-        test: /\.(png|jpg|gif|woff|woff2|ttf|eot)$/,
+        test: /\.(png|jpg|gif|svg|woff|woff2|ttf|eot)$/,
         loader: 'url-loader?limit=8192'
       },
       {
-        test: /\.(mp4|ogg|svg)$/,
+        test: /\.(mp4|ogg)$/,
         loader: 'file-loader'
       }
     ]

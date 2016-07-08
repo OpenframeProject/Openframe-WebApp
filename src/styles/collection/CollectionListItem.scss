@@ -1,0 +1,54 @@
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+
+.collection-list-item {
+  @include transition(all 0.1s ease-in-out);
+  @include scale(1, 1);
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px #999;
+  overflow: hidden;
+  background: #fff;
+  margin-bottom: 30px;
+
+  &:hover {
+    @include scale(1.02, 1.02);
+    cursor: pointer;
+    box-shadow: 0px 0px 6px #999;
+    .collection-list-item__push-btn {
+      display: block;
+    }
+  }
+
+
+  &__thumb {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  &__info {
+    padding: 15px;
+  }
+
+  &__name {
+    text-align: center;
+    font-weight: 600;
+  }
+
+  &__count {
+    text-align: center;
+    color: #aaa;
+  }
+
+  &__push-btn {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+

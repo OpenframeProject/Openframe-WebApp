@@ -1,6 +1,7 @@
 import {LOGIN_REQUEST} from '../const';
 import loginSuccess from './loginSuccess';
 import loginFailure from './loginFailure';
+import fetchUserRequest from '../user/fetchUserRequest';
 import {users} from '../../sources/api';
 
 module.exports = function(credentials) {
@@ -9,7 +10,9 @@ module.exports = function(credentials) {
   	  type: LOGIN_REQUEST
   	});
     return users.login(credentials).then(
-      response => dispatch(loginSuccess(response)),
+      response => {
+        dispatch(loginSuccess(response));
+      },
       error => dispatch(loginFailure(error))
     );
   };
