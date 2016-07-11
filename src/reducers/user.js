@@ -3,7 +3,12 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import {FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE} from '../actions/const';
+import {
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE,
+  LOGOUT_SUCCESS
+} from '../actions/const';
 
 const initialState = {
   current: null
@@ -28,10 +33,16 @@ module.exports = function(state = initialState, action) {
       };
 
     case FETCH_USER_FAILURE:
-      // Modify next state depending on the action and return it
       return {
         ...state,
-        user: null,
+        current: null,
+        isFetching: false
+      };
+
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        current: null,
         isFetching: false
       };
 

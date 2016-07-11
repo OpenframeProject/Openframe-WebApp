@@ -19,7 +19,7 @@ class SelectedFrameComponent extends React.Component {
 
 
     return (
-      <div className="selected-frame">
+      <div className="selected-frame pull-right">
         <div className="selected-frame__name">
             <span className={ connectedClass }>&bull;</span>
             { name }

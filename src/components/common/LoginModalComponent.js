@@ -8,7 +8,10 @@ require('styles/common/LoginModal.scss');
 
 class LoginModalComponent extends React.Component {
   componentDidMount() {
+  }
 
+  afterOpenModal() {
+    this.refs.username.focus();
   }
 
   closeModal() {
@@ -21,7 +24,7 @@ class LoginModalComponent extends React.Component {
       <Modal
         isOpen={isOpen}
         shouldCloseOnOverlayClick={true}
-        // onAfterOpen={this.afterOpenModal}
+        onAfterOpen={::this.afterOpenModal}
         onRequestClose={::this.closeModal}
         className="of-modal modal-dialog"
         overlayClassName="modal-backdrop"
@@ -46,11 +49,11 @@ class LoginModalComponent extends React.Component {
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
                       <label for="Username">Username</label>
-                      <input type="text" className="form-control" placeholder="username" autocapitalize="off" autofocus {...username}/>
+                      <input type="text" ref={username.name} className="form-control" placeholder="username" autoFocus={true} autoCapitalize="off" {...username}/>
                   </div>
                   <div className="form-group">
                       <label for="Password">Password</label>
-                      <input type="password" className="form-control" autocapitalize="off" placeholder="password" {...password}/>
+                      <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
                   </div>
                   <div className="form-group">
                       <button id="LoginButton" href="#" className="btn btn-default">Log In</button>

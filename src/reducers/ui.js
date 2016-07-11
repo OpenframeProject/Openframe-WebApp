@@ -3,7 +3,16 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import {OPEN_SIDEBAR, CLOSE_SIDEBAR, OPEN_ARTWORK_DETAIL, OPEN_LOGIN_MODAL, CLOSE_LOGIN_MODAL, LOGIN_SUCCESS} from '../actions/const';
+import {
+  OPEN_SIDEBAR,
+  CLOSE_SIDEBAR,
+  OPEN_ARTWORK_DETAIL,
+  OPEN_LOGIN_MODAL,
+  CLOSE_LOGIN_MODAL,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  SELECT_FRAME
+} from '../actions/const';
 
 const initialState = {
   sidebarOpen: false,
@@ -18,12 +27,13 @@ module.exports = function(state = initialState, action) {
         sidebarOpen: true
       };
     }
-    case CLOSE_SIDEBAR: {
+    case CLOSE_SIDEBAR:
+    case SELECT_FRAME:
+    case LOGOUT_SUCCESS:
       return {
         ...state,
         sidebarOpen: false
       };
-    }
     case OPEN_ARTWORK_DETAIL: {
       return {
         ...state,

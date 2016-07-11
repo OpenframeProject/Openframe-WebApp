@@ -2,53 +2,67 @@
 
 import React from 'react';
 import SelectedFrameComponent from './SelectedFrameComponent';
+import { Link } from 'react-router';
 
 require('styles//topbar/Topbar.scss');
 
 let logo = require('../../images/of-logo.svg');
+let sidebarBtn = require('../../images/threedots.svg');
 
 class TopbarComponent extends React.Component {
   render() {
     let {openSidebar, openLoginModal, selectedFrame, user} = this.props;
-    console.log('openSidebar', openSidebar);
-    console.log('openLoginModal', openLoginModal);
+    let username = user.current ? `/${user.current.username}` : null;
     return (
-      <div className="topbar">
-        <nav className="navbar navbar-default navbar-fixed-top">
-          <div className="container-fluid">
+      <nav className="topbar">
 
-            <div className="navbar-header">
-              <a className="navbar-brand hidden-xs" href="/">
-                <img className="of-logo" alt="Openframe" src={logo} />
-              </a>
+          <Link className="topbar__tab topbar__tab--logo" to="/">
+            <img alt="Openframe" src={logo} />
+          </Link>
 
-              { user
-                ? <h2 className="topbar__username hidden-xs">{ user.username }</h2>
-                : ''
-              }
+          {
+            user.current
+            ? (
+                <span>
+                  <Link className="topbar__tab" activeClassName="active" to="/">Browse</Link>
+                  <Link className="topbar__tab" activeClassName="active" to={username}>You</Link>
+                </span>
+              )
+            : null
+          }
 
-            </div>
+          {
+            user.current
+            ? (
+                <div className="topbar__tab topbar__tab--transparent pull-right" onClick={openSidebar}>
+                  <div className="sidebar-btn" ></div>
+                </div>
+              )
+            : null
+          }
 
-            {selectedFrame
-              ? <SelectedFrameComponent selectedFrame={selectedFrame} />
-              : ''
-            }
+          {
+            !user.current && !user.isFetching
+            ? (
+                <div>
+                  <a className="topbar__tab topbar__tab--link pull-right" href="#login" onClick={openLoginModal} >Log in</a>
+                  <a className="topbar__tab topbar__tab--link pull-right" href="#create-an-account">Create an account</a>
+                </div>
+              )
+            : null
+          }
 
-            <div className="navbar-btn-item navbar-btn-item--menu navbar-right">
-            { user
-              ? (<div className="btn-menu" onClick={openSidebar}></div>)
-              : (
-                  <div>
-                    <a className="navbar-menu-link" href="#create-an-account">Create an account</a>
-                    <a className="navbar-menu-link" href="#login" onClick={openLoginModal} >Log in</a>
-                  </div>
-                )
-            }
-            </div>
+          {
+            selectedFrame && user.current
+            ? (
+                <div className="topbar__tab topbar__tab--transparent topbar__tab--selected-frame pull-right">
+                  <SelectedFrameComponent selectedFrame={selectedFrame} />
+                </div>
+              )
+            : null
+          }
 
-          </div>
-        </nav>
-      </div>
+      </nav>
     );
   }
 }

@@ -4,7 +4,13 @@
  * src/container/App.js accordingly.
  */
 
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from '../actions/const';
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_SUCCESS,
+  FETCH_USER_SUCCESS
+} from '../actions/const';
 import {getToken} from '../services/auth';
 
 const initialState = {
@@ -14,20 +20,15 @@ const initialState = {
 };
 
 module.exports = function(state = initialState, action) {
-  /* Keep the reducer clean - do not mutate the original state. */
-  //let nextState = Object.assign({}, state);
-
    switch(action.type) {
 
     case LOGIN_REQUEST:
-      // Modify next state depending on the action and return it
       return {...state,
         isFetching: true,
         accessToken: null
       };
 
     case LOGIN_SUCCESS:
-      // Modify next state depending on the action and return it
       return {...state,
         isFetching: false,
         lastUpdated: Date.now(),
@@ -36,12 +37,19 @@ module.exports = function(state = initialState, action) {
       };
 
     case LOGIN_FAILURE:
-      // Modify next state depending on the action and return it
+    case LOGOUT_SUCCESS:
       return {...state,
         isFetching: false,
         lastUpdated: Date.now(),
         accessToken: null,
         isAuthenticated: false
+      };
+
+    case FETCH_USER_SUCCESS:
+      return {...state,
+        isFetching: false,
+        lastUpdated: Date.now(),
+        isAuthenticated: true
       };
 
     default: {

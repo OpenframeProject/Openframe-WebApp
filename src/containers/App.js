@@ -24,14 +24,9 @@ require('styles/App.css');
 class App extends Component {
   componentDidMount() {
     const {actions, user, auth} = this.props;
-    // if (!auth.accessToken) {
-    //   // no access token present, initiate login
-    //   actions.loginRequest(user.user);
-    // } else {
-    //   // access token present, fetch user
-    //   actions.fetchUserRequest();
-    //   actions.fetchFramesRequest();  // actions.fetchCollectionRequest();
-    // }
+    if (auth.accessToken) {
+      actions.fetchUserRequest();
+    }
   }
 
   handleSubmitLogin(fields) {
@@ -46,7 +41,7 @@ class App extends Component {
     return (
       <div>
         <TopbarComponent
-          user={currentUser}
+          user={user}
           selectedFrame={selectedFrame}
           openSidebar={actions.openSidebar}
           openLoginModal={actions.openLoginModal} />
@@ -62,7 +57,8 @@ class App extends Component {
             selectedFrame={selectedFrame}
             isOpen={ui.sidebarOpen}
             closeSidebar={actions.closeSidebar}
-            selectFrame={actions.selectFrame}/>
+            selectFrame={actions.selectFrame}
+            logoutRequest={actions.logoutRequest} />
         </div>
 
         <LoginModalComponent

@@ -14,14 +14,15 @@ function prependApiBase(url) {
 }
 
 /**
- * If there is an access token present, append it to the url as
+ * If there is an access token present, append it to the conf as
  * a query param.
- * @param  {String} url
+ * @param  {String} conf
  * @return {String}
  */
-function appendAccessToken(url) {
+function appendAccessToken(conf) {
   let token = getToken();
-  return token ? `${url}?access_token=${token}` : `${url}?`;
+  conf.headers.Authorization = token;
+  return conf;
 }
 
 /**
@@ -31,16 +32,10 @@ function appendAccessToken(url) {
  * @param  {String} format
  * @return {String}
  */
-function appendParams(url, data, format = 'filter') {
+function appendParams(url, data) {
   let encoded = '';
-  switch (format) {
-    case 'url':
-      encoded = jQuery.param(data);
-      return `${url}&${encoded}`;
-    case 'filter':
-      encoded = 'filter='+JSON.stringify(data);
-      return `${url}&${encoded}`;
-  }
+  encoded = jQuery.param(data);
+  return `${url}?${encoded}`;
 }
 
 /**
@@ -77,7 +72,6 @@ function parseJSON(response) {
 export default function(url, { method = 'GET', data = {} } = {}) {
   return new Promise((resolve, reject) => {
     url = prependApiBase(url);
-    url = appendAccessToken(url);
     let conf = {
       method: method,
       headers: {
@@ -85,6 +79,8 @@ export default function(url, { method = 'GET', data = {} } = {}) {
         'Content-Type': 'application/json'
       }
     };
+    conf = appendAccessToken(conf);
+    console.log(conf);
     if (method !== 'GET' && method !== 'OPTIONS') {
       conf.body = JSON.stringify(data);
     } else {

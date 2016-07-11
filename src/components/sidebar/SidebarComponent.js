@@ -20,7 +20,7 @@ class SidebarComponent extends Component {
 
   render() {
   	let className = 'sidebar';
-  	let {isOpen, closeSidebar, frames, selectedFrame, user, selectFrame} = this.props;
+  	let {isOpen, closeSidebar, frames, selectedFrame, user, selectFrame, logoutRequest} = this.props;
 
   	if (isOpen) {
   		className += ' sidebar--open';
@@ -47,7 +47,9 @@ class SidebarComponent extends Component {
 		    </ul>
 
 		    <div className="sidebar__row sidebar__row--logout">
-		        <a href="#" className="btn-edit-profile">Edit profile</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/logout">Log out</a>
+		        <a href="#" className="btn-edit-profile">Edit profile</a>
+            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <a href="javascript: void(0)" onClick={logoutRequest}>Log out</a>
 		    </div>
 		  </div>
     );

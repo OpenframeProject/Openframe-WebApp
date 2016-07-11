@@ -1,8 +1,9 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
-
 import { Link } from 'react-router'
+
+import PushButtonComponent from '../common/PushButtonComponent';
 
 require('styles//collection/CollectionListItem.scss');
 

@@ -26,14 +26,15 @@ class CollectionDetailContainer extends Component {
   }
 
   render() {
-    const {collection, artwork, auth, actions, isFetching} = this.props;
+    const {collection, artwork, user, actions, isFetching} = this.props;
+    console.log('ARTWORK', artwork);
     return (
       <div>
         {
           isFetching
           ? <LoadingIndicatorComponent />
           : (<div>
-              <CollectionDetailSubMenuComponent collection={collection} />
+              <CollectionDetailSubMenuComponent collection={collection} user={user} />
                 <div className="row">
                   {
                   <Masonry
@@ -41,7 +42,7 @@ class CollectionDetailContainer extends Component {
                   {
                     artwork.map(artwork => (
                         <ArtworkListItemComponent
-                          isAuthenticated={auth.isAuthenticated}
+                          user={user}
                           key={artwork.id}
                           artwork={artwork}
                           pushArtwork={actions.pushArtwork} />
@@ -68,7 +69,7 @@ function mapStateToProps(state, { params }) {
     collection: getById(state.collections.byId, params.collectionId),
     artwork: getArtworkForCollection(state,params.collectionId),
     isFetching: state.collections.isFetching,
-    auth: state.auth
+    user: state.user
   };
   return props;
 }

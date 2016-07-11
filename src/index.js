@@ -4,13 +4,15 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './stores';
 import App from './containers/App';
+import BrowseSectionComponent from './components/sections/BrowseSectionComponent';
+import YouSectionComponent from './components/sections/YouSectionComponent';
 import StreamContainer from './containers/StreamContainer';
 import CollectionsContainer from './containers/CollectionsContainer';
 import ChannelsContainer from './containers/ChannelsContainer';
 import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
 import CollectionDetailContainer from './containers/CollectionDetailContainer';
 
-import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
+import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router'
 
 // test data
 const initialState = require('../test/fixture.js');
@@ -21,13 +23,24 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRedirect to="/stream" />
-        <Route path="stream" component={StreamContainer} />
-        <Route path="collections" component={CollectionsContainer} />
-        <Route path="channels" component={ChannelsContainer} />
+        <IndexRedirect to="stream" />
 
-        <Route path="artwork/:artworkId" component={ArtworkDetailContainer} />
-        <Route path="collections/:collectionId" component={CollectionDetailContainer} />
+        <Route component={BrowseSectionComponent}>
+          <IndexRoute component={StreamContainer} />
+          <Route path="stream" component={StreamContainer} />
+          <Route path="collections" component={CollectionsContainer} />
+          <Route path="channels" component={ChannelsContainer} />
+
+          <Route path="artwork/:artworkId" component={ArtworkDetailContainer} />
+          <Route path="collections/:collectionId" component={CollectionDetailContainer} />
+        </Route>
+
+        <Route component={YouSectionComponent}>
+
+        </Route>
+        {
+          //<Route path="/:name" component={UserProfileContainer} />
+        }
       </Route>
     </Router>
   </Provider>,

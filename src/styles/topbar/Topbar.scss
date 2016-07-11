@@ -1,92 +1,85 @@
-/* Navigation top bar */
+@import "compass/css3/flexbox";
+@import "compass/css3/transition";
 
-.navbar {
-    height: 66px;
-}
+$topbar-height: 66px;
 
-.navbar-nav li a {
-    height: 66px;
-    padding-top: 22px;
-    padding-bottom: 15px;
-}
+.topbar {
+    height: $topbar-height;
+    background-color: #444;
+    color: #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
 
-.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
-    margin-left: 5px;
-}
+    &__tab {
+        @include display-flex(inline-flex);
+        @include justify-content(center);
+        @include align-items(center);
+        @include transition(all 0.1s);
+        float: left;
+        height: $topbar-height;
+        padding: 0 30px;
+        letter-spacing: 1px;
+        color: #eee;
+        background-color: transparent;
+        text-transform: uppercase;
+        cursor: pointer;
 
-.of-logo {
-    width: 28px;
-    padding-top: 4px;
-}
+        &.active {
+            background-color: #333;
+            color: #fff;
+        }
 
-.navbar-nav ul {
-    background-color: #f8f8f8;
-}
+        &:hover {
+            background-color: #222;
+            color: #fff;
 
-.navbar-default .navbar-nav>li>a {
-    color: #B2B2B2;
-    font-weight: 300;
-    font-size: 14px;
-}
+            .sidebar-btn {
+                opacity: 1;
+            }
+        }
 
-.navbar-default {
-    border: none;
-}
+        &:focus {
+            color: #fff;
+        }
 
-.navbar-collapse {
-    text-align: center;
-}
+        &--logo {
+            padding: 0 20px;
 
-.topbar__username {
-    font-weight: normal;
-    font-size: 18px;
-    float: left;
-    padding-top: 3px;
-}
+            img {
+                padding: 0;
+                width: 28px;
+            }
+        }
 
-.current-frame-status {
-    font-size: 14px;
-    font-weight: 400;
-    font-style: italic;
-    letter-spacing: 0.2px;
-}
+        &--link {
+            text-transform: none;
+        }
 
-.current-frame-status span {
-    max-width: 200px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    display: inline-block;
-}
+        &--transparent {
+            &:hover {
+                background-color: transparent;
+            }
+        }
 
-.btn-logout {
-    color: #DEDEDE;
-}
+        &--selected-frame {
+            text-transform: none;
+            cursor: default;
+        }
 
-.navbar-right.navbar-btn-item--menu {
-    margin: 0;
-}
-.navbar-btn-item {
-    height: 66px;
-    padding: 23px 3px;
-}
+        .sidebar-btn {
+            @include transition(opacity 0.1s);
+            border: 1px solid #fff;
+            height: 18px;
+            width: 30px;
+            border-radius: 2px;
+            opacity: 0.5;
+            background: url('../../images/threedots.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
 
-.btn-menu {
-    border: 1px solid black;
-    height: 18px;
-    width: 30px;
-    border-radius: 2px;
-    opacity: 0.3;
-    transition: opacity 0.1s;
-    background: url('../../images/threedots.svg');
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-
-.navbar-btn-item:hover .btn-menu {
-    opacity: 1;
-}
-
-.navbar-menu-link {
-    margin-left: 40px;
+    }
 }

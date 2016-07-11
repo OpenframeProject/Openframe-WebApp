@@ -39,10 +39,6 @@ class ArtworkListItemComponent extends Component {
   render() {
     let { artwork } = this.props;
 
-    var divStyle = {
-      backgroundImage: 'url(' + artwork.thumb_url + ')'
-    };
-
     return (
         <div className="col-xs-6 col-sm-4 col-lg-3">
           <Link to={'/artwork/'+artwork.id}>
@@ -66,7 +62,8 @@ ArtworkListItemComponent.displayName = 'ArtworkListItemComponent';
 
 // Uncomment properties you need
 ArtworkListItemComponent.propTypes = {
-  artwork: PropTypes.object.isRequired
+  artwork: PropTypes.object.isRequired,
+  user: PropTypes.object
 };
 
 ArtworkListItemComponent.defaultProps = {

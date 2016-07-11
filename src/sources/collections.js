@@ -21,7 +21,11 @@ const collections = {
    * @return {Promise}
    */
   fetchById: function(collectionId, filter = {}) {
-    let defaultFilter = { include: 'artwork' };
+    let defaultFilter = {
+      filter: {
+        include: 'artwork'
+      }
+    };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}/${collectionId}`, { data: finalFilter });
   }
