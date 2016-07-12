@@ -9,6 +9,10 @@ import YouSectionComponent from './components/sections/YouSectionComponent';
 import StreamContainer from './containers/StreamContainer';
 import CollectionsContainer from './containers/CollectionsContainer';
 import ChannelsContainer from './containers/ChannelsContainer';
+import LikesContainer from './containers/LikesContainer';
+import AddedContainer from './containers/AddedContainer';
+
+
 import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
 import CollectionDetailContainer from './containers/CollectionDetailContainer';
 
@@ -35,8 +39,10 @@ render(
           <Route path="collections/:collectionId" component={CollectionDetailContainer} />
         </Route>
 
-        <Route component={YouSectionComponent}>
-
+        <Route path="/:username" component={YouSectionComponent}>
+          <IndexRoute component={LikesContainer} />
+          <Route path="/:username/likes" component={LikesContainer} />
+          <Route path="/:username/added" component={AddedContainer} />
         </Route>
         {
           //<Route path="/:name" component={UserProfileContainer} />

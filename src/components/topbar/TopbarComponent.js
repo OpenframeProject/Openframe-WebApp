@@ -7,12 +7,16 @@ import { Link } from 'react-router';
 require('styles//topbar/Topbar.scss');
 
 let logo = require('../../images/of-logo.svg');
-let sidebarBtn = require('../../images/threedots.svg');
 
 class TopbarComponent extends React.Component {
   render() {
-    let {openSidebar, openLoginModal, selectedFrame, user} = this.props;
+    let {openSidebar, openLoginModal, selectedFrame, user, location} = this.props;
     let username = user.current ? `/${user.current.username}` : null;
+
+    let browseActiveRoutes = ['/stream', '/channels', '/collections', '/artwork'];
+
+    let active = browseActiveRoutes.indexOf(location.pathname) !== -1 ? 'active' : '';
+
     return (
       <nav className="topbar">
 
@@ -24,7 +28,7 @@ class TopbarComponent extends React.Component {
             user.current
             ? (
                 <span>
-                  <Link className="topbar__tab" activeClassName="active" to="/">Browse</Link>
+                  <Link className="topbar__tab" activeClassName={active} to="/">Browse</Link>
                   <Link className="topbar__tab" activeClassName="active" to={username}>You</Link>
                 </span>
               )

@@ -36,12 +36,15 @@ class App extends Component {
   }
 
   render() {
-    let {actions, frames, user, ui, selectedFrame} = this.props;
+    let {actions, frames, user, ui, selectedFrame, route, location} = this.props;
     let currentUser = user.current;
+
     return (
       <div>
         <TopbarComponent
           user={user}
+          route={route}
+          location={location}
           selectedFrame={selectedFrame}
           openSidebar={actions.openSidebar}
           openLoginModal={actions.openLoginModal} />

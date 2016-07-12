@@ -1,0 +1,39 @@
+.you-sub-menu {
+  margin-bottom: 40px;
+  &__wrap {
+    border-bottom: 1px solid #333;
+  }
+
+  .tabs {
+    width: 100%;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 0px;
+    font-style: italic;
+    position: relative;
+    padding: 0px;
+    margin-bottom: 4px;
+  }
+
+  .tabs li {
+      display: inline;
+      margin-right: 25px;
+  }
+
+  .tabs a {
+      color: #333;
+      font-weight: normal;
+  }
+
+  .tabs a:hover {
+      color: black;
+  }
+
+  .tabs a.active {
+      font-weight: 600;
+      text-decoration: none;
+      padding-bottom: 3px;
+      border-bottom: 4px solid black;
+      color: black;
+  }
+}
