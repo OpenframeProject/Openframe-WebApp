@@ -27,20 +27,20 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRedirect to="stream" />
+        <IndexRedirect to="/stream" />
 
         <Route component={BrowseSectionComponent}>
           <IndexRoute component={StreamContainer} />
-          <Route path="stream" component={StreamContainer} />
-          <Route path="collections" component={CollectionsContainer} />
-          <Route path="channels" component={ChannelsContainer} />
+          <Route path="/stream" component={StreamContainer} />
+          <Route path="/collections" component={CollectionsContainer} />
+          <Route path="/channels" component={ChannelsContainer} />
 
           <Route path="artwork/:artworkId" component={ArtworkDetailContainer} />
           <Route path="collections/:collectionId" component={CollectionDetailContainer} />
         </Route>
 
         <Route path="/:username" component={YouSectionComponent}>
-          <IndexRoute component={LikesContainer} />
+          <IndexRedirect to="/:username/likes" />
           <Route path="/:username/likes" component={LikesContainer} />
           <Route path="/:username/added" component={AddedContainer} />
         </Route>

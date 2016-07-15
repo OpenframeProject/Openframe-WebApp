@@ -3,6 +3,17 @@ import fetchJSON from './fetchJSON';
 const modelPrefix = 'users';
 
 const users = {
+
+  /**
+   * Create
+   * @param  {Object} data
+   * @return {Promise}
+   */
+  create: function(data) {
+    return fetchJSON(`${modelPrefix}`, { method: 'POST', data: data });
+  },
+
+
   /**
    * Login
    * @param  {Object} credentials {username, password}

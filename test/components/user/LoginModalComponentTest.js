@@ -7,7 +7,7 @@
 // import TestUtils from 'react-addons-test-utils';
 import createComponent from 'helpers/shallowRenderHelper';
 
-import LoginModalComponent from 'components/common/LoginModalComponent.js';
+import LoginModalComponent from 'components/user/LoginModalComponent.js';
 
 describe('LoginModalComponent', () => {
   let component;

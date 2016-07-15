@@ -12,7 +12,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TopbarComponent from '../components/topbar/TopbarComponent';
 import SidebarComponent from '../components/sidebar/SidebarComponent';
-import LoginModalComponent from '../components/common/LoginModalComponent';
+import LoginModalComponent from '../components/user/LoginModalComponent';
+import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
 import { getSelectedFrame } from '../reducers/frames';
 
 require('normalize.css/normalize.css');
@@ -23,7 +24,7 @@ require('styles/App.css');
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   componentDidMount() {
-    const {actions, user, auth} = this.props;
+    const {actions, auth} = this.props;
     if (auth.accessToken) {
       actions.fetchUserRequest();
     }
@@ -31,13 +32,23 @@ class App extends Component {
 
   handleSubmitLogin(fields) {
     let { actions } = this.props;
-    console.log('fields', fields);
     actions.loginRequest(fields);
+  }
+
+  handleSubmitCreateAccount(fields) {
+    let { actions } = this.props;
+    if (fields.password && fields.password !== fields.passwordConfirm) {
+      actions.createAccountFailure('Passwords do not match');
+      return;
+    }
+    actions.createAccountRequest(fields);
   }
 
   render() {
     let {actions, frames, user, ui, selectedFrame, route, location} = this.props;
     let currentUser = user.current;
+
+    console.log('ui.createError', ui.createError);
 
     return (
       <div>
@@ -47,6 +58,7 @@ class App extends Component {
           location={location}
           selectedFrame={selectedFrame}
           openSidebar={actions.openSidebar}
+          openCreateAccountModal={actions.openCreateAccountModal}
           openLoginModal={actions.openLoginModal} />
 
         <div className='container'>
@@ -68,6 +80,12 @@ class App extends Component {
           isOpen={ui.loginModalOpen}
           closeLoginModal={actions.closeLoginModal}
           onSubmit={::this.handleSubmitLogin} />
+
+        <CreateAccountModalComponent
+          isOpen={ui.createAccountModalOpen}
+          closeCreateAccountModal={actions.closeCreateAccountModal}
+          onSubmit={::this.handleSubmitCreateAccount}
+          createError={ui.createError} />
       </div>
     );
   }
@@ -128,7 +146,11 @@ function mapDispatchToProps(dispatch) {
     openSidebar: require('../actions/ui/openSidebar.js'),
     closeSidebar: require('../actions/ui/closeSidebar.js'),
     openLoginModal: require('../actions/ui/openLoginModal.js'),
-    closeLoginModal: require('../actions/ui/closeLoginModal.js')
+    closeLoginModal: require('../actions/ui/closeLoginModal.js'),
+    openCreateAccountModal: require('../actions/ui/openCreateAccountModal.js'),
+    closeCreateAccountModal: require('../actions/ui/closeCreateAccountModal.js'),
+    createAccountRequest: require('../actions/user/createAccountRequest.js'),
+    createAccountFailure: require('../actions/user/createAccountFailure.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

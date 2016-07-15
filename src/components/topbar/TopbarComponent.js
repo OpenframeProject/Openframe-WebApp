@@ -10,7 +10,7 @@ let logo = require('../../images/of-logo.svg');
 
 class TopbarComponent extends React.Component {
   render() {
-    let {openSidebar, openLoginModal, selectedFrame, user, location} = this.props;
+    let {openSidebar, openLoginModal, openCreateAccountModal, selectedFrame, user, location} = this.props;
     let username = user.current ? `/${user.current.username}` : null;
 
     let browseActiveRoutes = ['/stream', '/channels', '/collections', '/artwork'];
@@ -27,7 +27,7 @@ class TopbarComponent extends React.Component {
           {
             user.current
             ? (
-                <span>
+                <span className="hidden-xs">
                   <Link className="topbar__tab" activeClassName={active} to="/">Browse</Link>
                   <Link className="topbar__tab" activeClassName="active" to={username}>You</Link>
                 </span>
@@ -49,8 +49,8 @@ class TopbarComponent extends React.Component {
             !user.current && !user.isFetching
             ? (
                 <div>
-                  <a className="topbar__tab topbar__tab--link pull-right" href="#login" onClick={openLoginModal} >Log in</a>
-                  <a className="topbar__tab topbar__tab--link pull-right" href="#create-an-account">Create an account</a>
+                  <span className="topbar__tab topbar__tab--link pull-right" onClick={openLoginModal} >Log in</span>
+                  <span className="topbar__tab topbar__tab--link pull-right" onClick={openCreateAccountModal} >Create an account</span>
                 </div>
               )
             : null

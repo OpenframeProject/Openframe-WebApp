@@ -11,12 +11,17 @@ import {
   CLOSE_LOGIN_MODAL,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
+  OPEN_CREATE_ACCOUNT_MODAL,
+  CLOSE_CREATE_ACCOUNT_MODAL,
+  CREATE_ACCOUNT_SUCCESS,
+  CREATE_ACCOUNT_FAILURE,
   SELECT_FRAME
 } from '../actions/const';
 
 const initialState = {
   sidebarOpen: false,
-  loginModalOpen: false
+  loginModalOpen: false,
+  createError: null
 };
 
 module.exports = function(state = initialState, action) {
@@ -53,10 +58,35 @@ module.exports = function(state = initialState, action) {
         loginModalOpen: false
       }
     }
+    case OPEN_CREATE_ACCOUNT_MODAL: {
+      return {
+        ...state,
+        createAccountModalOpen: true,
+        createError: null
+      }
+    }
+    case CLOSE_CREATE_ACCOUNT_MODAL: {
+      return {
+        ...state,
+        createAccountModalOpen: false,
+        createError: null
+      }
+    }
     case LOGIN_SUCCESS:
       return {
         ...state,
         loginModalOpen: false
+      }
+    case CREATE_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        createAccountModalOpen: false,
+        createError: null
+      }
+    case CREATE_ACCOUNT_FAILURE:
+      return {
+        ...state,
+        createError: action.error
       }
     default: {
       /* Return original state if no actions were consumed. */

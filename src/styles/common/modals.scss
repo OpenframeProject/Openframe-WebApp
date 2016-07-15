@@ -1,0 +1,41 @@
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+
+.ReactModal__Content {
+  @include transition(all 0.2s ease-in-out);
+  @include scale(.9, .9);
+  opacity: 0;
+
+  &--after-open {
+    @include scale(1, 1);
+    opacity: 1;
+  }
+
+  &--before-close {
+    opacity: 0;
+    @include scale(1.1, 1.1);
+  }
+}
+
+.ReactModal__Overlay {
+  @include transition(all 0.1s ease-in-out);
+  background-color: rgba(0,0,0,.5);
+  opacity: 0;
+
+  &--after-open {
+    opacity: 1;
+  }
+
+  &--before-close {
+    opacity: 0;
+  }
+}
+
+// bootstrap overrides
+.modal-dialog {
+  margin-top: 80px;
+}
+
+.modal-content {
+  border-radius: 0;
+}

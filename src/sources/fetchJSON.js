@@ -44,13 +44,13 @@ function appendParams(url, data) {
  * @return {Object}
  */
 function checkStatus(response) {
-  if (response.status >= 200 && response.status < 400) {
-    return response
-  } else {
-    var error = new Error(response.statusText)
-    error.response = response
-    throw error
+  if (response.ok) {
+    return response;
   }
+  return response.json().then(json => {
+    const error = new Error(json.error && json.error.message || response.statusText)
+    return Promise.reject(Object.assign(error, { response }))
+  })
 }
 
 /**
@@ -80,7 +80,6 @@ export default function(url, { method = 'GET', data = {} } = {}) {
       }
     };
     conf = appendAccessToken(conf);
-    console.log(conf);
     if (method !== 'GET' && method !== 'OPTIONS') {
       conf.body = JSON.stringify(data);
     } else {

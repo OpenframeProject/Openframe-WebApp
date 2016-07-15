@@ -4,7 +4,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import {reduxForm} from 'redux-form';
 
-require('styles/common/LoginModal.scss');
+require('styles/user/LoginModal.scss');
 
 class LoginModalComponent extends React.Component {
   componentDidMount() {
@@ -28,6 +28,7 @@ class LoginModalComponent extends React.Component {
         onRequestClose={::this.closeModal}
         className="of-modal modal-dialog"
         overlayClassName="modal-backdrop"
+        closeTimeoutMS={500}
         >
 
         <div className="modal-content">
