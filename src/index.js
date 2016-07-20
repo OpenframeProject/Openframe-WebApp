@@ -44,9 +44,6 @@ render(
           <Route path="/:username/likes" component={LikesContainer} />
           <Route path="/:username/added" component={AddedContainer} />
         </Route>
-        {
-          //<Route path="/:name" component={UserProfileContainer} />
-        }
       </Route>
     </Router>
   </Provider>,

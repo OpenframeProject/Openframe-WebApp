@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import TopbarComponent from '../components/topbar/TopbarComponent';
 import SidebarComponent from '../components/sidebar/SidebarComponent';
 import LoginModalComponent from '../components/user/LoginModalComponent';
+import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
 import { getSelectedFrame } from '../reducers/frames';
 
@@ -86,6 +87,10 @@ class App extends Component {
           closeCreateAccountModal={actions.closeCreateAccountModal}
           onSubmit={::this.handleSubmitCreateAccount}
           createError={ui.createError} />
+
+
+        <MobileSubMenuComponent
+          user={user} />
       </div>
     );
   }

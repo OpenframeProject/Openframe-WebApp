@@ -31,11 +31,15 @@ function getDefaultModules() {
       },
       {
         test: /\.sass/,
-        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&includePaths[]=' + path.resolve(__dirname, '../node_modules/compass-mixins/lib')
+        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+          + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/compass-mixins/lib')
+          + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/bootstrap-sass/assets/stylesheets')
       },
       {
         test: /\.scss/,
-        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&includePaths[]=' + path.resolve(__dirname, '../node_modules/compass-mixins/lib')
+        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+          + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/compass-mixins/lib')
+          + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/bootstrap-sass/assets/stylesheets')
       },
       {
         test: /\.less/,

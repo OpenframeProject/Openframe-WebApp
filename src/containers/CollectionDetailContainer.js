@@ -9,7 +9,6 @@ import Masonry from 'react-masonry-component';
 
 import ArtworkListItemComponent from '../components/artwork/ArtworkListItemComponent';
 import CollectionDetailSubMenuComponent from '../components/collection/CollectionDetailSubMenuComponent';
-import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 
 import { getById } from '../reducers/index';
@@ -51,8 +50,6 @@ class CollectionDetailContainer extends Component {
                   </Masonry>
                   }
                 </div>
-
-              <MobileSubMenuComponent />
             </div>)
         }
       </div>

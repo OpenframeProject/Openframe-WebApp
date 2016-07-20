@@ -1,3 +1,54 @@
-.mobilesubmenu-component {
-  border: 1px dashed #f00;
+@import "compass/css3/flexbox";
+@import "bootstrap/variables";
+
+$footerber-height: 45px;
+
+.footerbar {
+  @include display-flex;
+  height: $footerber-height;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+
+  &__tab {
+    @include flex(1);
+    position: relative;
+    background: #444;
+    color: #ccc;
+    text-align: center;
+    &:hover {
+      background: #333;
+      color: #fff;
+    }
+    &--active {
+      background: #333;
+    }
+  }
+
+  &__tab-icon {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+  }
+
+  &__tab-text {
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+  }
 }
+
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+  .footerbar {
+    display: none;
+  }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {}

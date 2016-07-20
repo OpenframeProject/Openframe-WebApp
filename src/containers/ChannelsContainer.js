@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 import ChannelListItemComponent from '../components/channel/ChannelListItemComponent';
 import BrowseSubMenuComponent from '../components/common/BrowseSubMenuComponent';
-import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 
 class ChannelsContainer extends Component {
   componentDidMount() {
@@ -33,8 +32,6 @@ class ChannelsContainer extends Component {
             ))
           }
         </div>
-
-        <MobileSubMenuComponent />
       </div>
 
     );

@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import Masonry from 'react-masonry-component';
 
@@ -19,8 +20,13 @@ const masonryOptions = {
 };
 
 class LikesContainer extends Component {
-  componentDidMount() {
-    const {actions} = this.props;
+  componentWillMount() {
+    const {actions, user, params} = this.props;
+    console.log('PARAMS', params, user.current);
+    if (user.current && user.current.username !== params.username) {
+      browserHistory.push('/');
+      return;
+    }
     actions.fetchArtworkRequest();
   }
 

@@ -9,7 +9,6 @@ import Masonry from 'react-masonry-component';
 
 import ArtworkListItemComponent from '../components/artwork/ArtworkListItemComponent';
 import BrowseSubMenuComponent from '../components/common/BrowseSubMenuComponent';
-import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 
 import { getArtworkList } from '../reducers/artwork/index';
@@ -58,7 +57,6 @@ class StreamContainer extends Component {
 
             </div>)
         }
-        <MobileSubMenuComponent />
       </div>
     );
   }

@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 import CollectionListItemComponent from '../components/collection/CollectionListItemComponent';
 import BrowseSubMenuComponent from '../components/common/BrowseSubMenuComponent';
-import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 
 import { getCollectionList } from '../reducers/collections/index';
 
@@ -36,8 +35,6 @@ class CollectionsContainer extends Component {
             ))
           }
         </div>
-
-        <MobileSubMenuComponent />
       </div>
     );
   }

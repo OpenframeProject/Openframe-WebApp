@@ -7,8 +7,9 @@ require('styles//topbar/SelectedFrame.scss');
 class SelectedFrameComponent extends React.Component {
   render() {
     let {connected, name, _current_artwork} = this.props.selectedFrame;
-    let connectedClass = 'selected-frame__indicator';
-    connectedClass += connected ? ' selected-frame__indicator--connected' : '';
+
+    let connectedClass = 'selected-frame-indicator';
+    connectedClass += connected ? ' selected-frame-indicator--connected' : '';
 
     let curArt;
     if (_current_artwork) {

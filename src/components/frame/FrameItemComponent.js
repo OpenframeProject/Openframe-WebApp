@@ -22,8 +22,8 @@ class FrameItemComponent extends React.Component {
     let className = 'sidebar__row sidebar__row--frame';
     className += isCurrent ? ' sidebar_row--frame-active' : '';
 
-    let isConnectedClass = 'current-frame-indicator';
-    isConnectedClass += isConnected ? ' current-frame-indicator--connected' : ' current-frame-indicator--disconnected';
+    let isConnectedClass = 'selected-frame-indicator';
+    isConnectedClass += isConnected ? ' selected-frame-indicator--connected' : '';
 
     return (
       <li className={className} onClick={this.handleClick.bind(this)}>
