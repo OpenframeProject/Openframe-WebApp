@@ -29,13 +29,7 @@ const users = {
    * @return {Promise}
    */
   fetch: function(filter = {}) {
-    let defaultFilter = {
-      'fields': {
-        email: true,
-        website: true,
-        twitter: true
-      }
-    };
+    let defaultFilter = {};
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}`, { data: finalFilter });
   },
@@ -43,19 +37,44 @@ const users = {
   /**
    * Fetch a single user by ID
    * @param  {String}  userId defaults to 'current'
-   * @param  {Boolean} includeCollections
    * @return {Promise}
    */
   fetchById: function(userId = 'current', filter = {}) {
-    let defaultFilter = {
-      'fields': {
-        email: true,
-        website: true,
-        twitter: true
-      }
-    };
+    let defaultFilter = {};
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}/${userId}`, { data: finalFilter });
+  },
+
+  /**
+   * Fetch a single user by username
+   * @param  {String} username
+   * @return {Promise}
+   */
+  fetchByUsername: function(username, filter = {}) {
+    let defaultFilter = {
+      where: {
+        username: username
+      },
+      limit: 1
+    };
+    let finalFilter = Object.assign({}, defaultFilter, filter);
+    return this.fetch(finalFilter);
+  },
+
+  /**
+   * Fetch a single user's owned artwork by username
+   *
+   * // TODO - pagination
+   *
+   * @param  {String} username
+   * @return {Promise}
+   */
+  fetchUserArtwork: function(userId, filter = {}) {
+    let defaultFilter = {
+      limit: 100
+    };
+    let finalFilter = Object.assign({}, defaultFilter, filter);
+    return fetchJSON(`${modelPrefix}/${userId}/owned_artwork`, { data: finalFilter });
   },
 
   /**

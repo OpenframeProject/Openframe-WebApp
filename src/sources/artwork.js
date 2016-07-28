@@ -21,7 +21,9 @@ const artwork = {
    * @return {Promise}
    */
   fetchById: function(artworkId, filter = {}) {
-    let defaultFilter = {};
+    let defaultFilter = {
+      include: ['owner']
+    };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}/${artworkId}`, { data: finalFilter });
   },

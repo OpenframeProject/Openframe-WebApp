@@ -40,7 +40,7 @@ class ArtworkListItemComponent extends Component {
     let { artwork } = this.props;
 
     return (
-        <div className="col-xs-6 col-sm-4 col-lg-3">
+        <div className="col-xs-12 col-sm-4 col-lg-3">
           <Link to={'/artwork/'+artwork.id}>
             <div className="artwork-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
               <div className="artwork-list-item__thumb">

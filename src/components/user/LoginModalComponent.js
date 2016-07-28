@@ -35,7 +35,7 @@ class LoginModalComponent extends React.Component {
           <div className="modal-header">
             <button className="close" onClick={::this.closeModal} type=
             "button">&times;</button>
-            <h3 className="modal-title">Login</h3>
+            <h3 className="modal-title">Log In</h3>
           </div>
           <div className="modal-body">
             <div className="row row-errors hide">
@@ -57,7 +57,7 @@ class LoginModalComponent extends React.Component {
                       <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
                   </div>
                   <div className="form-group">
-                      <button id="LoginButton" href="#" className="btn btn-default">Log In</button>
+                      <button id="LoginButton" href="#" className="btn btn-default btn-fw">Log In</button>
                   </div>
                   <div className="switch-text">
                       <p>Don't have an account? <a href="/create-account" target="_blank">Create one here</a></p>

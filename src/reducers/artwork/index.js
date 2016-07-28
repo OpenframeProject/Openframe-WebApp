@@ -17,7 +17,7 @@ export default combineReducers({
   lastUpdated
 });
 
-export const getArtworkList = function(state, filter) {
-  const ids = state.artwork.ids;
-  return ids.map(id => getById(state.artwork.byId, id));
+export const getArtworkList = function(artworkIds, artworksById) {
+  return artworkIds.map(id => getById(artworksById, id));
 }
+

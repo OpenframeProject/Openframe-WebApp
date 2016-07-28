@@ -1,13 +1,17 @@
 import {FETCH_USER_SUCCESS} from './../const';
-import fetchFramesRequest from '../frame/fetchFramesRequest';
+import { normalize } from 'normalizr';
+import * as schema from '../schema';
+import fetchUserArtworkRequest from './fetchUserArtworkRequest';
 
-module.exports = function(user) {
+
+module.exports = function(response) {
   return dispatch => {
+    let normalized = normalize(response, schema.arrayOfUsers);
     dispatch({
       type: FETCH_USER_SUCCESS,
-      user
+      response: normalized
     });
 
-    dispatch(fetchFramesRequest());
+    dispatch(fetchUserArtworkRequest(normalized.result[0]));
   }
 };

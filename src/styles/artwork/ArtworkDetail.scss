@@ -1,14 +1,16 @@
 .artwork-detail {
+  margin-bottom: 80px;
 
-  &__image-wrap {
+  &__wrap {
     width: 100%;
     background: #fff;
     border-radius: 4px;
-    padding: 15px;
+    padding: 20px;
   }
 
   &__img {
     width: 100%;
+    margin: 20px 0;
   }
 
   &__label {
@@ -17,25 +19,40 @@
   }
 
   &__info {
+    padding: 10px;
+    position: relative;
   }
 
-  &__author, &__title  {
+  &__heading {
+    text-align: center;
+  }
+
+  &__title  {
     color: #333;
     font-weight: 600;
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  &__author {
+    color: #666;
+    font-weight: 100;
+    font-size: 18px;
   }
 
   &__format {
     color: #aaa;
     font-size: 12px;
     text-transform: uppercase;
-    margin-bottom: 20px;
+  }
+
+  &__resolution {
+    color: #aaa;
+    font-size: 12px;
   }
 
   &__description {
-    font-size: 14px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin: 20px 0;
   }
 
   &__added-by {

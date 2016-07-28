@@ -32,9 +32,10 @@ function appendAccessToken(conf) {
  * @param  {String} format
  * @return {String}
  */
-function appendParams(url, data) {
-  let encoded = '';
-  encoded = jQuery.param(data);
+function appendFilterParams(url, data) {
+  let encoded = 'filter=';
+  encoded += JSON.stringify(data);
+  console.log('encoded', encoded);
   return `${url}?${encoded}`;
 }
 
@@ -83,7 +84,8 @@ export default function(url, { method = 'GET', data = {} } = {}) {
     if (method !== 'GET' && method !== 'OPTIONS') {
       conf.body = JSON.stringify(data);
     } else {
-      url = appendParams(url, data);
+      console.log(url, data);
+      url = appendFilterParams(url, data);
     }
     fetch(url, conf)
       .then(checkStatus)

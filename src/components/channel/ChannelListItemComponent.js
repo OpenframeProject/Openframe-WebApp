@@ -33,7 +33,7 @@ class ChannelsListItemComponent extends React.Component {
     };
 
     return (
-      <div className="col-xs-6 col-sm-4 col-md-3">
+      <div className="col-xs-12 col-sm-4 col-md-3">
         <div className="channel-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
           <div className="channel-list-item__thumb-wrap">
             <div className="channel-list-item__thumb" style={divStyle}>

@@ -10,7 +10,10 @@ module.exports = function(artworkId) {
 		// fetchById defaults to 'current' user
 		return artwork.fetchById(artworkId).then(
 			response => dispatch(fetchSingleArtworkSuccess(response)),
-			error => dispatch(fetchSingleArtworkFailure(error))
+			error => {
+				console.log('ERROR', error);
+				dispatch(fetchSingleArtworkFailure(error))
+			}
 		);
 	}
 };

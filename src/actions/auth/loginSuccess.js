@@ -1,6 +1,6 @@
 import {LOGIN_SUCCESS} from './../const';
 import {setToken} from '../../services/auth';
-import fetchUserRequest from '../user/fetchUserRequest';
+import fetchCurrentUserRequest from '../user/fetchCurrentUserRequest';
 import fetchFramesRequest from '../frame/fetchFramesRequest';
 
 module.exports = function(token) {
@@ -13,7 +13,7 @@ module.exports = function(token) {
       token
     });
 
-    dispatch(fetchUserRequest());
+    dispatch(fetchCurrentUserRequest());
     dispatch(fetchFramesRequest());
 
   };

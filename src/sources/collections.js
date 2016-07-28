@@ -22,9 +22,7 @@ const collections = {
    */
   fetchById: function(collectionId, filter = {}) {
     let defaultFilter = {
-      filter: {
-        include: 'artwork'
-      }
+      include: 'artwork'
     };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}/${collectionId}`, { data: finalFilter });

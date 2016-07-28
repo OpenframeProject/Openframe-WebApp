@@ -4,8 +4,7 @@ module.exports = {
         sidebarOpen: false
     },
     user: {
-        isFetching: false,
-        lastUpdated: 1035209385293
+        isFetching: false
         // current: {
         //     username: 'slewitt',
         //     email: 'slewitt@openframe.io',

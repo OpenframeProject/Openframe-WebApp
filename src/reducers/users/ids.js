@@ -4,21 +4,26 @@
  * src/container/App.js accordingly.
  */
 import {
-  FETCH_ARTWORK_SUCCESS,
-  FETCH_SINGLE_ARTWORK_SUCCESS,
-  FETCH_USER_ARTWORK_SUCCESS
+  FETCH_USER_SUCCESS,
+  FETCH_CURRENT_USER_SUCCESS
 } from '../../actions/const'
 
 const initialState = [];
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case FETCH_ARTWORK_SUCCESS: {
-      return action.response.result;
+    case FETCH_USER_SUCCESS: {
+      // if the user isn't already in our list of ids, add it
+      return state.indexOf(action.response.result) === -1
+        ? [
+          ...state,
+          action.response.result
+        ]
+        : state
+      ;
     }
-    case FETCH_SINGLE_ARTWORK_SUCCESS:
-    case FETCH_USER_ARTWORK_SUCCESS: {
-      // if the artwork isn't already in our list of ids, add it
+    case FETCH_CURRENT_USER_SUCCESS: {
+      // if the user isn't already in our list of ids, add it
       return state.indexOf(action.response.result) === -1
         ? [
           ...state,

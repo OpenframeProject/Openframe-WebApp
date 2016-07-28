@@ -9,6 +9,7 @@ import YouSectionComponent from './components/sections/YouSectionComponent';
 import StreamContainer from './containers/StreamContainer';
 import CollectionsContainer from './containers/CollectionsContainer';
 import ChannelsContainer from './containers/ChannelsContainer';
+import ProfileContainer from './containers/ProfileContainer';
 import LikesContainer from './containers/LikesContainer';
 import AddedContainer from './containers/AddedContainer';
 
@@ -39,8 +40,9 @@ render(
           <Route path="collections/:collectionId" component={CollectionDetailContainer} />
         </Route>
 
-        <Route path="/:username" component={YouSectionComponent}>
-          <IndexRedirect to="/:username/likes" />
+        // User routes
+        <Route path="/:username" component={ProfileContainer}>
+          <IndexRoute component={AddedContainer} />
           <Route path="/:username/likes" component={LikesContainer} />
           <Route path="/:username/added" component={AddedContainer} />
         </Route>

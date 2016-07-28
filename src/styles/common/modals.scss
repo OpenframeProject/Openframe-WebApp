@@ -1,26 +1,57 @@
+@import "bootstrap/variables";
 @import "compass/css3/transition";
 @import "compass/css3/transform";
 
 .ReactModal__Content {
   @include transition(all 0.2s ease-in-out);
-  @include scale(.9, .9);
+  @include transform(translate3d(0, 700px, 0));
   opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
 
   &--after-open {
-    @include scale(1, 1);
+    @include transform(translate3d(0,0,0));
     opacity: 1;
   }
 
   &--before-close {
+    @include transform(translate3d(0, 700px, 0));
     opacity: 0;
-    @include scale(1.1, 1.1);
+  }
+
+  .modal-content {
+    height: 100%;
+    margin: 0px;
+    border: none;
+    border-radius: 0;
+  }
+
+  .modal-header {
+    height: 45px;
+    padding: 11px;
+    position: relative;
+    letter-spacing: 1px;
+
+    .close {
+      height: 45px;
+      width: 45px;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+  }
+
+  .modal-title {
+    font-size: 16px;
   }
 }
 
 .ReactModal__Overlay {
-  @include transition(all 0.1s ease-in-out);
-  background-color: rgba(0,0,0,.5);
+  @include transition(all 0.2s ease-in-out);
   opacity: 0;
+  background-color: rgba(0,0,0,.8);
 
   &--after-open {
     opacity: 1;
@@ -31,11 +62,58 @@
   }
 }
 
-// bootstrap overrides
-.modal-dialog {
-  margin-top: 80px;
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+  .ReactModal__Content {
+    @include transform(scale(.9,.9));
+    opacity: 0;
+    position: relative;
+    width: 600px;
+    height: auto;
+    margin: 35px auto;
+
+    &--after-open {
+      opacity: 1;
+      @include transform(scale(1,1));
+    }
+
+    &--before-close {
+      @include transform(scale(.9,.9));
+      opacity: 0;
+    }
+
+    .modal-content {
+      height: auto;
+      margin: 0px;
+    }
+
+    .modal-header {
+      height: 45px;
+      padding: 11px;
+      text-transform: uppercase;
+      position: relative;
+
+      .close {
+        height: 45px;
+        width: 45px;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+      }
+    }
+
+    .modal-title {
+      font-size: 16px;
+    }
+  }
 }
 
-.modal-content {
-  border-radius: 0;
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {
+
+}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {
+
 }

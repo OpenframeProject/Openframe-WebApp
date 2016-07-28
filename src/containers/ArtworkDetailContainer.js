@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 
 import { getById } from '../reducers/index';
 
+import moment from 'moment';
+
 require('styles/artwork/ArtworkDetail.scss');
 
 class ArtworkDetailContainer extends Component {
@@ -16,8 +18,9 @@ class ArtworkDetailContainer extends Component {
   }
 
   render() {
-    const {artwork, params} = this.props;
+    const {artwork, user, params} = this.props;
     let singleArtwork = getById(artwork.byId, params.artworkId);
+    let owner = singleArtwork && singleArtwork.owner ? getById(user.byId, singleArtwork.owner) : null;
     if (!singleArtwork) {
       // artwork wasn't present, fetch it...
       return (<div>ART NOT FOUND</div>);
@@ -25,35 +28,36 @@ class ArtworkDetailContainer extends Component {
     return (
       <div className="artwork-detail">
         <div className="row">
-          <div className="col-md-8">
-            <div className="artwork-detail__image-wrap">
+          <div className="col-md-6 col-md-offset-3">
+
+            <div className="artwork-detail__wrap">
+
+              <div className="artwork-detail__heading">
+                <div className="artwork-detail__title">{singleArtwork.title}</div>
+                <div className="artwork-detail__author">by {singleArtwork.author_name}</div>
+              </div>
+
               <img className="artwork-detail__img" src={singleArtwork.thumb_url} />
+
+              <div className="artwork-detail__info">
+
+                <div className="artwork-detail__format">{singleArtwork.format}</div>
+                {
+                  singleArtwork.resolution
+                  ? <div className="artwork-detail__resolution">{singleArtwork.resolution}</div>
+                  : null
+                }
+
+                <div className="artwork-detail__description">{singleArtwork.description}</div>
+
+                {
+                  owner
+                  ? <div className="artwork-detail__added-by">Added by {owner.username} on {moment(singleArtwork.created).format('L')}</div>
+                  : null
+                }
+              </div>
             </div>
-          </div>
-          <div className="col-md-4">
-            <div className="artwork-detail__info">
-              <div className="artwork-detail__label">Author</div>
-              <div className="artwork-detail__author">{singleArtwork.author_name}</div>
 
-              <div className="artwork-detail__label">Title</div>
-              <div className="artwork-detail__title">{singleArtwork.title}</div>
-
-              <div className="artwork-detail__format">{singleArtwork.format}</div>
-              {
-                singleArtwork.resolution
-                ? <div className="artwork-detail__resolution">{singleArtwork.resolution}</div>
-                : null
-              }
-
-              <div className="artwork-detail__description">{singleArtwork.description}</div>
-
-              {
-                singleArtwork.owner
-                ? <div className="artwork-detail__added-by">Added by {singleArtwork.owner.name} on {singleArtwork.created}</div>
-                : null
-              }
-
-            </div>
           </div>
         </div>
       </div>
@@ -68,7 +72,8 @@ ArtworkDetailContainer.propTypes = {
 function mapStateToProps(state) {
   const props = {
     ui: state.ui,
-    artwork: state.artwork
+    artwork: state.artwork,
+    user: state.user
   };
   return props;
 }

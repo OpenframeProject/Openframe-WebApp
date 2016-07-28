@@ -1,0 +1,21 @@
+.btn {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-fw {
+  width: 100%;
+}
+
+.btn-default {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #000;
+
+  &:hover {
+    background-color: #222;
+    border: 1px solid #000;
+    color: #fff;
+  }
+}

@@ -26,7 +26,6 @@ class CollectionDetailContainer extends Component {
 
   render() {
     const {collection, artwork, user, actions, isFetching} = this.props;
-    console.log('ARTWORK', artwork);
     return (
       <div>
         {

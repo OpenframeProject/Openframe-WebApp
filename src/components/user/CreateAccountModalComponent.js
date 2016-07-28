@@ -95,7 +95,7 @@ class CreateAccountModalComponent extends React.Component {
                         <input type="text" className="form-control" placeholder="handle" autoCapitalize="off" {...twitter}/>
                     </div>
                     <div className="form-group">
-                        <button id="LoginButton" href="#" className="btn btn-default">Create account</button>
+                        <button href="#" className="btn btn-default btn-fw">Create account</button>
                     </div>
                     <div className="switch-text">
                         <p>Already have an account? <a href="/login">Log in here</a></p>

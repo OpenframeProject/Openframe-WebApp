@@ -30,14 +30,12 @@ class StreamContainer extends Component {
   render() {
     const {artworkList, auth, actions, isFetching} = this.props;
     return (
-      <div>
+      <div className="container">
         <BrowseSubMenuComponent />
         {
           isFetching
           ? <LoadingIndicatorComponent />
-          : (<div>
-
-              <div className="row">
+          : (<div className="row">
                 <Masonry
                   options={masonryOptions}>
                 {
@@ -53,9 +51,7 @@ class StreamContainer extends Component {
                   })
                 }
                 </Masonry>
-              </div>
-
-            </div>)
+              </div>)
         }
       </div>
     );
@@ -68,7 +64,7 @@ StreamContainer.propTypes = {
 
 function mapStateToProps(state) {
   const props = {
-    artworkList: getArtworkList(state),
+    artworkList: getArtworkList(state.artwork.ids, state.artwork.byId),
     auth: state.auth,
     isFetching: state.artwork.isFetching
   };

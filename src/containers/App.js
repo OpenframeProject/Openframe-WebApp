@@ -15,19 +15,21 @@ import SidebarComponent from '../components/sidebar/SidebarComponent';
 import LoginModalComponent from '../components/user/LoginModalComponent';
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
+
 import { getSelectedFrame } from '../reducers/frames';
+import { getCurrentUser } from '../reducers/users/index';
 
 require('normalize.css/normalize.css');
 require('styles/bootstrap-overrides.scss');
-require('styles/App.css');
+require('styles/App.scss');
 
 
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const {actions, auth} = this.props;
     if (auth.accessToken) {
-      actions.fetchUserRequest();
+      actions.fetchCurrentUserRequest();
     }
   }
 
@@ -46,15 +48,13 @@ class App extends Component {
   }
 
   render() {
-    let {actions, frames, user, ui, selectedFrame, route, location} = this.props;
-    let currentUser = user.current;
-
-    console.log('ui.createError', ui.createError);
+    let {actions, frames, user, currentUser, ui, selectedFrame, route, location} = this.props;
 
     return (
       <div>
         <TopbarComponent
-          user={user}
+          user={currentUser}
+          isFetching={user.isFetching}
           route={route}
           location={location}
           selectedFrame={selectedFrame}
@@ -62,7 +62,7 @@ class App extends Component {
           openCreateAccountModal={actions.openCreateAccountModal}
           openLoginModal={actions.openLoginModal} />
 
-        <div className='container'>
+        <div className='app-content-wrap'>
           {this.props.children}
         </div>
 
@@ -90,7 +90,7 @@ class App extends Component {
 
 
         <MobileSubMenuComponent
-          user={user} />
+          user={currentUser} />
       </div>
     );
   }
@@ -116,6 +116,7 @@ function mapStateToProps(state) {
     frames: state.frames,
     selectedFrame: getSelectedFrame(state.frames.items, state.frames.selectedFrameId),
     user: state.user,
+    currentUser: getCurrentUser(state.user),
     auth: state.auth,
     ui: state.ui,
     collections: state.collections
@@ -142,9 +143,7 @@ function mapDispatchToProps(dispatch) {
     logoutSuccess: require('../actions/auth/logoutSuccess.js'),
     logoutFailure: require('../actions/auth/logoutFailure.js'),
     selectFrame: require('../actions/frame/selectFrame.js'),
-    fetchUserRequest: require('../actions/user/fetchUserRequest.js'),
-    fetchUserSuccess: require('../actions/user/fetchUserSuccess.js'),
-    fetchUserFailure: require('../actions/user/fetchUserFailure.js'),
+    fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js'),
     fetchConfigRequest: require('../actions/config/fetchConfigRequest.js'),
     fetchConfigSuccess: require('../actions/config/fetchConfigSuccess.js'),
     fetchConfigFailure: require('../actions/config/fetchConfigFailure.js'),

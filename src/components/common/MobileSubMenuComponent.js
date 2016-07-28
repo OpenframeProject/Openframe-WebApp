@@ -29,7 +29,7 @@ class MobileSubMenuComponent extends React.Component {
             Collect.
           </div>
         </Link>
-        { user && user.current
+        { user
           ? (
             <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/you/likes">
               <img className="footerbar__tab-icon" src="" />
@@ -40,7 +40,7 @@ class MobileSubMenuComponent extends React.Component {
             )
           : null
         }
-        { user && user.current
+        { user
           ? (
             <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/you">
               <img className="footerbar__tab-icon" src="" />
@@ -62,7 +62,7 @@ MobileSubMenuComponent.displayName = 'CommonMobileSubMenuComponent';
 
 // Uncomment properties you need
 MobileSubMenuComponent.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object
 };
 // MobileSubMenuComponent.defaultProps = {};
 

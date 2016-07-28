@@ -13,7 +13,7 @@ const reducers = {
   artwork: require('../reducers/artwork/index').default,
   collections: require('../reducers/collections/index').default,
   frames: require('../reducers/frames.js').default,
-  user: require('../reducers/user.js'),
+  user: require('../reducers/users/index').default,
   auth: require('../reducers/auth.js'),
   ui: require('../reducers/ui.js'),
   channels: require('../reducers/channels.js'),

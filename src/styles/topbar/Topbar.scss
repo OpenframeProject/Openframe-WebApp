@@ -1,7 +1,8 @@
 @import "compass/css3/flexbox";
 @import "compass/css3/transition";
+@import "bootstrap/variables";
 
-$topbar-height: 66px;
+$topbar-height: 45px;
 
 .topbar {
     height: $topbar-height;
@@ -19,9 +20,8 @@ $topbar-height: 66px;
         @include align-items(center);
         @include transition(all 0.1s);
         float: left;
-        height: $topbar-height;
-        padding: 0 30px;
-        letter-spacing: 1px;
+        height: 100%;
+        padding: 0 15px;
         color: #eee;
         background-color: transparent;
         text-transform: uppercase;
@@ -46,11 +46,11 @@ $topbar-height: 66px;
         }
 
         &--logo {
-            padding: 0 20px;
+            padding: 0 10px;
 
             img {
                 padding: 0;
-                width: 28px;
+                width: 22px;
             }
         }
 
@@ -82,4 +82,35 @@ $topbar-height: 66px;
         }
 
     }
+}
+
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+    $topbar-height-sm: 66px;
+    .topbar {
+        height: $topbar-height-sm;
+
+        &__tab {
+            padding: 0 30px;
+            letter-spacing: 1px;
+            &--logo {
+                padding: 0 20px;
+
+                img {
+                    padding: 0;
+                    width: 28px;
+                }
+            }
+        }
+    }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {
+
+}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {
+
 }

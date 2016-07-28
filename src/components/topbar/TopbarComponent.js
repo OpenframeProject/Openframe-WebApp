@@ -10,8 +10,8 @@ let logo = require('../../images/of-logo.svg');
 
 class TopbarComponent extends React.Component {
   render() {
-    let {openSidebar, openLoginModal, openCreateAccountModal, selectedFrame, user, location} = this.props;
-    let username = user.current ? `/${user.current.username}` : null;
+    let {openSidebar, openLoginModal, openCreateAccountModal, selectedFrame, user, isFetching, location} = this.props;
+    let username = user ? `/${user.username}` : null;
 
     let browseActiveRoutes = ['/stream', '/channels', '/collections', '/artwork'];
 
@@ -25,7 +25,7 @@ class TopbarComponent extends React.Component {
           </Link>
 
           {
-            user.current
+            user
             ? (
                 <span className="hidden-xs">
                   <Link className="topbar__tab" activeClassName={active} to="/">Browse</Link>
@@ -36,7 +36,7 @@ class TopbarComponent extends React.Component {
           }
 
           {
-            user.current
+            user
             ? (
                 <div className="topbar__tab topbar__tab--transparent pull-right" onClick={openSidebar}>
                   <div className="sidebar-btn" ></div>
@@ -46,18 +46,23 @@ class TopbarComponent extends React.Component {
           }
 
           {
-            !user.current && !user.isFetching
+            !user && !isFetching
             ? (
-                <div>
                   <span className="topbar__tab topbar__tab--link pull-right" onClick={openLoginModal} >Log in</span>
-                  <span className="topbar__tab topbar__tab--link pull-right" onClick={openCreateAccountModal} >Create an account</span>
-                </div>
               )
             : null
           }
 
           {
-            selectedFrame && user.current
+            !user && !isFetching
+            ? (
+                  <span className="topbar__tab topbar__tab--link pull-right" onClick={openCreateAccountModal} >Create an account</span>
+              )
+            : null
+          }
+
+          {
+            selectedFrame && user
             ? (
                 <div className="topbar__tab topbar__tab--transparent topbar__tab--selected-frame pull-right">
                   <SelectedFrameComponent selectedFrame={selectedFrame} />
