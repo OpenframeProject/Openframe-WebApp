@@ -1,13 +1,17 @@
 @import "compass/css3/transition";
 @import "compass/css3/transform";
+@import "compass/css3/flexbox";
+@import "bootstrap/variables";
 
 .channel-list-item {
   @include transition(all 0.1s ease-in-out);
   @include scale(1, 1);
-  border-radius: 5px;
+  border-radius: 4px;
   background: #fff;
   box-shadow: 0px 0px 2px #999;
-  margin-bottom: 30px;
+  margin: 10px 10px 0 10px;
+  padding: 10px;
+
 
   &:hover {
     @include scale(1.02, 1.02);
@@ -19,8 +23,14 @@
     }
   }
 
+  &__flex-wrap {
+    @include display-flex;
+    @include align-items(center);
+  }
+
   &__thumb-wrap {
-    padding: 15px;
+    flex-grow: 0;
+    width: 20%;
   }
 
   &__thumb {
@@ -32,11 +42,19 @@
   }
 
   &__info {
-    padding: 15px;
+    flex-grow: 0;
+    width: 60%;
+    padding: 0 10px
   }
 
   &__name {
     font-weight: 600;
+  }
+
+  &__description {
+    color: #999;
+    font-size: 12px;
+    height: 1.5em;
   }
 
   &__push-btn {
@@ -49,3 +67,70 @@
 }
 
 
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+  .channel-list-item {
+    @include transition(all 0.1s ease-in-out);
+    @include scale(1, 1);
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0px 0px 2px #999;
+    margin: 0 0 30px 0;
+    padding: 10px;
+
+    &:hover {
+      @include scale(1.02, 1.02);
+      cursor: pointer;
+      box-shadow: 0px 0px 6px #999;
+
+      .channel-list-item__push-btn {
+        display: block;
+      }
+    }
+
+    &__flex-wrap {
+      @include display-flex;
+      @include flex-direction(column);
+      @include align-items(flex-start);
+    }
+
+    &__thumb-wrap {
+      width: 100%;
+    }
+
+    &__thumb {
+      position: relative;
+      border-radius: 500px;
+      width: 100%;
+      padding-bottom: 100%;
+      background-position: center center;
+    }
+
+    &__info {
+      padding: 10px 0;
+      width: 100%;
+    }
+
+    &__name {
+      font-weight: 600;
+    }
+
+    &__push-btn {
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {
+
+}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {
+
+}

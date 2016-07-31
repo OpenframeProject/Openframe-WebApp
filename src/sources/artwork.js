@@ -15,6 +15,15 @@ const artwork = {
   },
 
   /**
+   * Fetch a list of artwork.
+   * @param  {Boolean}
+   * @return {Promise}
+   */
+  fetchStream: function(filter = {}) {
+    return this.fetch(filter);
+  },
+
+  /**
    * Fetch a single artwork by ID
    * @param  {String}  artworkId defaults to 'current'
    * @param  {Boolean} includeCollections
@@ -65,25 +74,25 @@ const artwork = {
    */
   delete: function(artworkId) {
     return fetchJSON(`${modelPrefix}/${artworkId}`, { method: 'DELETE' });
-  },
-
-  /**
-   * Fetch the stream.
-   * @param  {Number} skip
-   * @param  {Number} limit
-   * @return {Promise}
-   */
-  fetchStream: function(skip, limit) {
-    skip = skip || 0;
-    limit = limit || 25;
-    let filter = {
-      filter: {
-        skip: skip,
-        limit: limit
-      }
-    };
-    return fetchJSON(`${modelPrefix}/stream`, { data: filter });
   }
+
+  // /**
+  //  * Fetch the stream.
+  //  * @param  {Number} skip
+  //  * @param  {Number} limit
+  //  * @return {Promise}
+  //  */
+  // fetchStream: function(skip, limit) {
+  //   skip = skip || 0;
+  //   limit = limit || 25;
+  //   let filter = {
+  //     filter: {
+  //       skip: skip,
+  //       limit: limit
+  //     }
+  //   };
+  //   return fetchJSON(`${modelPrefix}/stream`, { data: filter });
+  // }
 };
 
 export default artwork;

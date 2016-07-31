@@ -21,8 +21,7 @@ const masonryOptions = {
 
 class AddedContainer extends Component {
   render() {
-    const { actions, user, currentUser, isFetching, auth, artworkList } = this.props;
-
+    const { actions, user, currentUser, isFetching, auth, artworkList, location } = this.props;
     return (
       <div>
         <ProfileHeaderComponent user={user} />
@@ -30,7 +29,7 @@ class AddedContainer extends Component {
         <div className="container">
           {
             currentUser && user && user.id === currentUser.id
-            ? <YouSubMenuComponent user={user} />
+            ? <YouSubMenuComponent location={location} user={user} />
             : null
           }
           {

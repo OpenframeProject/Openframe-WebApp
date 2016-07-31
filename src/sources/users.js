@@ -62,11 +62,11 @@ const users = {
   },
 
   /**
-   * Fetch a single user's owned artwork by username
+   * Fetch a single user's owned artwork by user id
    *
    * // TODO - pagination
    *
-   * @param  {String} username
+   * @param  {String} userId
    * @return {Promise}
    */
   fetchUserArtwork: function(userId, filter = {}) {
@@ -75,6 +75,22 @@ const users = {
     };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}/${userId}/owned_artwork`, { data: finalFilter });
+  },
+
+  /**
+   * Fetch a single user's liked artwork by user id
+   *
+   * // TODO - pagination
+   *
+   * @param  {String} userId
+   * @return {Promise}
+   */
+  fetchUserLikedArtwork: function(userId, filter = {}) {
+    let defaultFilter = {
+      limit: 100
+    };
+    let finalFilter = Object.assign({}, defaultFilter, filter);
+    return fetchJSON(`${modelPrefix}/${userId}/liked_artwork`, { data: finalFilter });
   },
 
   /**

@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-fetch';
+import _ from 'lodash';
 import config from 'config';
 import {getToken} from '../services/auth';
 
-const jQuery = require('jQuery');
 
 /**
  * Prepend the api base to url path via config
@@ -35,7 +35,6 @@ function appendAccessToken(conf) {
 function appendFilterParams(url, data) {
   let encoded = 'filter=';
   encoded += JSON.stringify(data);
-  console.log('encoded', encoded);
   return `${url}?${encoded}`;
 }
 
@@ -84,17 +83,26 @@ export default function(url, { method = 'GET', data = {} } = {}) {
     if (method !== 'GET' && method !== 'OPTIONS') {
       conf.body = JSON.stringify(data);
     } else {
-      console.log(url, data);
       url = appendFilterParams(url, data);
     }
-    fetch(url, conf)
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(data => {
-        resolve(data);
-      })
-      .catch(error => {
-        reject(error);
-      });
+
+    // on dev, add 1000ms delay to simulate loading
+    if (config.appEnv === 'dev') {
+      _.delay(doFetch, 1000, url, conf);
+    } else {
+      doFetch(url, conf);
+    }
+
+    function doFetch(url, conf) {
+      fetch(url, conf)
+        .then(checkStatus)
+        .then(parseJSON)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    }
   });
 }

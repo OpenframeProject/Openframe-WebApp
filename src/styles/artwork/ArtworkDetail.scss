@@ -1,10 +1,22 @@
+@import "bootstrap/variables";
+
+.artwork-detail-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #eee;
+    z-index: 100;
+    overflow: auto;
+}
+
 .artwork-detail {
-  margin-bottom: 80px;
+  margin-bottom: 30px;
 
   &__wrap {
     width: 100%;
     background: #fff;
-    border-radius: 4px;
     padding: 20px;
   }
 
@@ -62,3 +74,21 @@
 }
 
 
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+  .artwork-detail {
+    &__wrap {
+      border-radius: 4px;
+    }
+  }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {
+
+}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {
+
+}

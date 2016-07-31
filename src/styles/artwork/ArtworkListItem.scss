@@ -58,12 +58,12 @@
   .artwork-list-item {
     @include transition(all 0.1s ease-in-out);
     @include scale(1, 1);
-    box-shadow: 0px 0px 2px #999;
+    box-shadow: 0px 1px 2px #aaa;
 
     &:hover {
       @include scale(1.02, 1.02);
       cursor: pointer;
-      box-shadow: 0px 0px 6px #999;
+      box-shadow: 0px 2px 6px #999;
       .artwork-list-item__push-btn {
         display: block;
       }

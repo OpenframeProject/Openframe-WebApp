@@ -24,6 +24,14 @@ a:hover, a:focus {
     padding: 0;
 }
 
+.row {
+    margin: 0;
+}
+
+div[class^="col-"] {
+    padding: 0;
+}
+
 .container-centered-well {
     max-width: 600px;
     margin-top: 70px;
@@ -75,6 +83,14 @@ h3 {
         padding-right: 15px;
         padding-left: 15px;
     }
+
+    .row {
+        margin: 0 -15px;
+    }
+
+    div[class^="col-"] {
+        padding: 0 15px;
+    }
 }
 
 // overridden styles for md screen / desktop
@@ -87,6 +103,7 @@ h3 {
 
 }
 
+@import 'common/util';
 @import 'common/modals';
 @import 'common/forms';
 @import 'common/buttons';

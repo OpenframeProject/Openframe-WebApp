@@ -5,9 +5,9 @@
  */
 
 import {
-  FETCH_ARTWORK_REQUEST,
-  FETCH_ARTWORK_SUCCESS,
-  FETCH_ARTWORK_FAILURE,
+  FETCH_STREAM_REQUEST,
+  FETCH_STREAM_SUCCESS,
+  FETCH_STREAM_FAILURE,
   FETCH_SINGLE_ARTWORK_REQUEST,
   FETCH_SINGLE_ARTWORK_SUCCESS,
   FETCH_SINGLE_ARTWORK_FAILURE
@@ -15,10 +15,10 @@ import {
 
 export const lastUpdated = function(state = null, action) {
   switch(action.type) {
-    case FETCH_ARTWORK_SUCCESS: {
+    case FETCH_STREAM_SUCCESS: {
       return Date.now();
     }
-    case FETCH_ARTWORK_FAILURE: {
+    case FETCH_STREAM_FAILURE: {
       return Date.now();
     }
     case FETCH_SINGLE_ARTWORK_SUCCESS: {
@@ -36,13 +36,13 @@ export const lastUpdated = function(state = null, action) {
 
 export const isFetching = function(state = false, action) {
   switch(action.type) {
-    case FETCH_ARTWORK_REQUEST: {
+    case FETCH_STREAM_REQUEST: {
       return true;
     }
-    case FETCH_ARTWORK_SUCCESS: {
+    case FETCH_STREAM_SUCCESS: {
       return false;
     }
-    case FETCH_ARTWORK_FAILURE: {
+    case FETCH_STREAM_FAILURE: {
       return false;
     }
     case FETCH_SINGLE_ARTWORK_REQUEST: {
@@ -52,6 +52,20 @@ export const isFetching = function(state = false, action) {
       return false;
     }
     case FETCH_SINGLE_ARTWORK_FAILURE: {
+      return false;
+    }
+    default: {
+      /* Return original state if no actions were consumed. */
+      return state;
+    }
+  }
+}
+
+export const isFirstLoad = function(state = true, action) {
+  switch(action.type) {
+    // If artwork has been loaded successfully, it's no longer the first load
+    case FETCH_STREAM_SUCCESS:
+    case FETCH_SINGLE_ARTWORK_SUCCESS: {
       return false;
     }
     default: {

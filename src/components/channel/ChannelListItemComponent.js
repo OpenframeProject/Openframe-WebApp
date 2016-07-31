@@ -35,16 +35,18 @@ class ChannelsListItemComponent extends React.Component {
     return (
       <div className="col-xs-12 col-sm-4 col-md-3">
         <div className="channel-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
-          <div className="channel-list-item__thumb-wrap">
-            <div className="channel-list-item__thumb" style={divStyle}>
-              { isAuthenticated
-                ? <PushButtonComponent handleClick={::this.handlePushClick} show={this.state.hover} />
-                : null
-              }
+          <div className="channel-list-item__flex-wrap">
+            <div className="channel-list-item__thumb-wrap">
+              <div className="channel-list-item__thumb" style={divStyle}></div>
             </div>
-          </div>
-          <div className="channel-list-item__info">
-            <div className="channel-list-item__name">{channel.name}</div>
+            <div className="channel-list-item__info">
+              <div className="channel-list-item__name">{channel.name}</div>
+              <div className="channel-list-item__description truncate">{channel.description}</div>
+            </div>
+            { isAuthenticated
+              ? <PushButtonComponent handleClick={::this.handlePushClick} show={this.state.hover} />
+              : null
+            }
           </div>
         </div>
       </div>

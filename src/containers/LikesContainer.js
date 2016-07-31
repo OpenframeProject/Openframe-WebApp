@@ -4,7 +4,6 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 
 import Masonry from 'react-masonry-component';
 
@@ -13,36 +12,27 @@ import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 import ProfileHeaderComponent from '../components/user/ProfileHeaderComponent';
 
+import { getProfileUser, getCurrentUser } from '../reducers/users/index';
 import { getArtworkList } from '../reducers/artwork/index';
-import { getCurrentUser } from '../reducers/users/index';
 
 const masonryOptions = {
     transitionDuration: '0.2s'
 };
 
 class LikesContainer extends Component {
-  componentWillMount() {
-    const {actions, user, params} = this.props;
-    if (user && user.username !== params.username) {
-      browserHistory.push('/');
-      return;
-    }
-    actions.fetchArtworkRequest();
-  }
-
-  componentWillUnmount() {
-      // this.masonry.off('layoutComplete', () => console.log('masonry'));
-  }
 
   render() {
-    const {artworkList, auth, actions, isFetching, user} = this.props;
+    const { actions, user, currentUser, isFetching, auth, artworkList, location } = this.props;
     return (
       <div>
-
         <ProfileHeaderComponent user={user} />
 
         <div className="container">
-          <YouSubMenuComponent user={user} />
+          {
+            currentUser && user && user.id === currentUser.id
+            ? <YouSubMenuComponent location={location} user={user} />
+            : null
+          }
           {
             isFetching
             ? <LoadingIndicatorComponent />
@@ -80,9 +70,10 @@ LikesContainer.propTypes = {
 
 function mapStateToProps(state) {
   const props = {
-    artworkList: getArtworkList(state),
+    user: getProfileUser(state.user),
+    currentUser: getCurrentUser(state.user),
+    artworkList: getArtworkList(state.user.likedArtworkIds, state.artwork.byId),
     auth: state.auth,
-    user: getCurrentUser(state.user),
     isFetching: state.artwork.isFetching
   };
   return props;
@@ -90,9 +81,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchArtworkRequest: require('../actions/artwork/fetchArtworkRequest.js'),
-    fetchArtworkSuccess: require('../actions/artwork/fetchArtworkSuccess.js'),
-    fetchArtworkFailure: require('../actions/artwork/fetchArtworkFailure.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
     openArtworkDetail: require('../actions/artwork/openArtworkDetail.js')
   };

@@ -18,9 +18,9 @@ const masonryOptions = {
 };
 
 class StreamContainer extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const {actions} = this.props;
-    actions.fetchArtworkRequest();
+    actions.fetchStreamRequest();
   }
 
   componentWillUnmount() {
@@ -28,12 +28,12 @@ class StreamContainer extends Component {
   }
 
   render() {
-    const {artworkList, auth, actions, isFetching} = this.props;
+    const {artworkList, auth, actions, isFetching, isFirstLoad } = this.props;
     return (
       <div className="container">
         <BrowseSubMenuComponent />
         {
-          isFetching
+          isFirstLoad
           ? <LoadingIndicatorComponent />
           : (<div className="row">
                 <Masonry
@@ -64,18 +64,17 @@ StreamContainer.propTypes = {
 
 function mapStateToProps(state) {
   const props = {
-    artworkList: getArtworkList(state.artwork.ids, state.artwork.byId),
+    artworkList: getArtworkList(state.artwork.streamIds, state.artwork.byId),
     auth: state.auth,
-    isFetching: state.artwork.isFetching
+    isFetching: state.artwork.isFetching,
+    isFirstLoad: state.artwork.isFirstLoad
   };
   return props;
 }
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchArtworkRequest: require('../actions/artwork/fetchArtworkRequest.js'),
-    fetchArtworkSuccess: require('../actions/artwork/fetchArtworkSuccess.js'),
-    fetchArtworkFailure: require('../actions/artwork/fetchArtworkFailure.js'),
+    fetchStreamRequest: require('../actions/artwork/fetchStreamRequest.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
     openArtworkDetail: require('../actions/artwork/openArtworkDetail.js')
   };

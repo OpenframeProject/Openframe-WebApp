@@ -9,7 +9,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT_SUCCESS,
-  FETCH_USER_SUCCESS
+  FETCH_CURRENT_USER_SUCCESS
 } from '../actions/const';
 import {getToken} from '../services/auth';
 
@@ -45,7 +45,7 @@ module.exports = function(state = initialState, action) {
         isAuthenticated: false
       };
 
-    case FETCH_USER_SUCCESS:
+    case FETCH_CURRENT_USER_SUCCESS:
       return {...state,
         isFetching: false,
         lastUpdated: Date.now(),

@@ -17,7 +17,8 @@ import AddedContainer from './containers/AddedContainer';
 import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
 import CollectionDetailContainer from './containers/CollectionDetailContainer';
 
-import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRedirect, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router'
+import useScroll from 'react-router-scroll';
 
 // test data
 const initialState = require('../test/fixture.js');
@@ -26,7 +27,7 @@ const store = configureStore(initialState);
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={browserHistory} render={applyRouterMiddleware(useScroll())} >
       <Route path="/" component={App}>
         <IndexRedirect to="/stream" />
 

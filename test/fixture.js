@@ -23,24 +23,7 @@ module.exports = {
     artwork: {
         isFetching: false,
         lastUpdated: 1035209385293,
-        byId: [{
-            '576d9d3ec0006da8310e8bed': {
-                'title': 'Distorded sphere',
-                'is_public': true,
-                'url': 'https://thebookofshaders.com/log/160624205152.frag',
-                'thumb_url': 'https://thebookofshaders.com/log/160624205152.png',
-                'author_name': 'Karim Naaji',
-                'plugins': {},
-                'format': 'openframe-glslviewer',
-                'liked': false,
-                'id': '576d9d3ec0006da8310e8bed',
-                'ownerId': '56e1ee0917bbab454407c2d9',
-                'created': '2016-06-24T20:51:10.386Z',
-                'modified': '2016-06-24T20:51:10.386Z',
-                'format_other': '',
-                'aspect_mode': 'fill'
-              }
-        }]
+        byId: {}
 
     }
     // collections: {

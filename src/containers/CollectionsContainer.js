@@ -21,7 +21,7 @@ class CollectionsContainer extends Component {
   render() {
     const { collectionList, auth, actions } = this.props;
     return (
-      <div>
+      <div className="container">
         <BrowseSubMenuComponent />
 
         <div className="row">

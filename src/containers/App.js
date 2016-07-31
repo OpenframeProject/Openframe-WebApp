@@ -90,7 +90,8 @@ class App extends Component {
 
 
         <MobileSubMenuComponent
-          user={currentUser} />
+          user={currentUser}
+          location={location} />
       </div>
     );
   }
@@ -126,16 +127,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
-    addArtwork: require('../actions/artwork/addArtwork.js'),
-    removeArtwork: require('../actions/artwork/removeArtwork.js'),
-    editArtwork: require('../actions/artwork/editArtwork.js'),
-    likeArtwork: require('../actions/artwork/likeArtwork.js'),
-    previewArtwork: require('../actions/artwork/previewArtwork.js'),
-    unlikeArtwork: require('../actions/artwork/unlikeArtwork.js'),
-    pushArtwork: require('../actions/artwork/pushArtwork.js'),
-    fetchFramesRequest: require('../actions/frame/fetchFramesRequest.js'),
-    fetchFramesSuccess: require('../actions/frame/fetchFramesSuccess.js'),
-    fetchFramesFailure: require('../actions/frame/fetchFramesFailure.js'),
     loginRequest: require('../actions/auth/loginRequest.js'),
     loginSuccess: require('../actions/auth/loginSuccess.js'),
     loginFailure: require('../actions/auth/loginFailure.js'),

@@ -18,7 +18,7 @@ class ChannelsContainer extends Component {
     const {channels, auth, actions} = this.props;
     let items = channels.items;
     return (
-      <div>
+      <div className="container">
         <BrowseSubMenuComponent />
 
         <div className="row">

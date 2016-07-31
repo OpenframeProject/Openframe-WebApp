@@ -8,7 +8,12 @@ require('styles/common/MobileSubMenu.scss');
 
 class MobileSubMenuComponent extends React.Component {
   render() {
-    let { user } = this.props;
+    let { user, location } = this.props;
+    let username = user ? user.username : '';
+    let [likes, added] = [`/${username}/likes`,`/${username}/added`];
+
+    let activeRoutes = [`/${username}`, `/${username}/added`];
+    let active = activeRoutes.indexOf(location.pathname) !== -1 ? 'footerbar__tab footerbar__tab--active' : 'footerbar__tab';
     return (
       <nav className="footerbar">
         <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/stream">
@@ -31,7 +36,7 @@ class MobileSubMenuComponent extends React.Component {
         </Link>
         { user
           ? (
-            <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/you/likes">
+            <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to={likes}>
               <img className="footerbar__tab-icon" src="" />
               <div className="footerbar__tab-text">
                 Likes
@@ -42,7 +47,7 @@ class MobileSubMenuComponent extends React.Component {
         }
         { user
           ? (
-            <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/you">
+            <Link className={active} to={added}>
               <img className="footerbar__tab-icon" src="" />
               <div className="footerbar__tab-text">
                 You

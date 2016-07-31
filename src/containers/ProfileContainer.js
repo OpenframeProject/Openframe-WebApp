@@ -4,30 +4,33 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 
-import { getProfileUser, getProfileNotFound } from '../reducers/users/index';
+import NotFoundComponent from '../components/common/NotFoundComponent';
+import { getProfileNotFound } from '../reducers/users/index';
 
 class ProfileContainer extends Component {
-  componentWillMount() {
+  fetchUser() {
     const {actions, params} = this.props;
     let username = params.username;
     actions.fetchUserRequest(username);
   }
 
-  componentDidUpdate() {
-    const { profileNotFound } = this.props;
-    if (profileNotFound) {
-      // TODO: push to 404 page
-      browserHistory.push('/');
-      return;
-    }
+  componentWillMount() {
+    this.fetchUser();
+  }
+
+  componentWillUpdate() {
+    this.fetchUser();
   }
 
   render() {
+    const { profileNotFound } = this.props;
     return (
       <div className="profile-container">
-        {this.props.children}
+        { profileNotFound
+          ? <NotFoundComponent></NotFoundComponent>
+          : this.props.children
+        }
       </div>
     );
   }
@@ -39,7 +42,6 @@ ProfileContainer.propTypes = {
 
 function mapStateToProps(state) {
   const props = {
-    user: getProfileUser(state.user),
     profileNotFound: getProfileNotFound(state.user)
   };
   return props;

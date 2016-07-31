@@ -33,7 +33,6 @@ export default function(state = initialState, action) {
       };
     }
     case FETCH_SINGLE_ARTWORK_SUCCESS: {
-      console.log('users.byId', action);
       return {
         ...state,
         ...action.response.entities.user

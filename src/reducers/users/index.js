@@ -12,6 +12,7 @@ import current from './current';
 import profile from './profile';
 import profileNotFound from './profileNotFound';
 import profileArtworkIds from './profileArtworkIds';
+import likedArtworkIds from './likedArtworkIds';
 import { isFetching } from './meta';
 
 export default combineReducers({
@@ -21,6 +22,7 @@ export default combineReducers({
   profile,
   profileNotFound,
   profileArtworkIds,
+  likedArtworkIds,
   isFetching
 });
 

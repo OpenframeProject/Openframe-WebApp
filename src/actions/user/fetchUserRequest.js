@@ -11,7 +11,11 @@ module.exports = function(username) {
 
 		return users.fetchByUsername(username).then(
 			response => {
-        console.log('response', response.length);
+        // Since we're using a RESTful request with a filter by username,
+        // an empty array will be returned rather than a 404 if user doesn't exist.
+        // On the client, we want that to be an error, so we handle it here.
+        //
+        // TODO: create an endpoint for user by username that responds with 404 if not found?
         if (response.length === 0) {
           dispatch(fetchUserFailure('User not found.'));
         } else {
