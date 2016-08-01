@@ -7,6 +7,8 @@ import PushButtonComponent from '../common/PushButtonComponent';
 
 require('styles//collection/CollectionListItem.scss');
 
+let rightCaret = require('../../images/right_caret.svg');
+
 class CollectionListItemComponent extends React.Component {
   constructor() {
     super();
@@ -34,18 +36,19 @@ class CollectionListItemComponent extends React.Component {
     };
 
     return (
-      <div className="col-xs-6 col-sm-4 col-md-3">
+      <div className="col-xs-12 col-sm-4 col-md-3">
         <Link to={'/collections/'+collection.id}>
           <div className="collection-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
-            <div className="collection-list-item__thumb" style={divStyle}>
-              { isAuthenticated
-                ? <PushButtonComponent handleClick={::this.handlePushClick} show={this.state.hover} />
-                : null
-              }
-            </div>
-            <div className="collection-list-item__info">
-              <div className="collection-list-item__name">{collection.name}</div>
-              <div className="collection-list-item__count">{collection.count} artworks</div>
+            <div className="collection-list-item__flex-wrap">
+              <div className="collection-list-item__thumb" style={divStyle}>
+              </div>
+              <div className="collection-list-item__info">
+                <div className="collection-list-item__name">{collection.name}</div>
+                <div className="collection-list-item__count">{collection.count} artworks</div>
+              </div>
+              <div className="collection-list-item__open-btn">
+                <img src={rightCaret} />
+              </div>
             </div>
           </div>
         </Link>

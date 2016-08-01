@@ -9,18 +9,28 @@ import NotFoundComponent from '../components/common/NotFoundComponent';
 import { getProfileNotFound } from '../reducers/users/index';
 
 class ProfileContainer extends Component {
-  fetchUser() {
-    const {actions, params} = this.props;
-    let username = params.username;
+  fetchUser(username) {
+    const {actions} = this.props;
     actions.fetchUserRequest(username);
   }
 
   componentWillMount() {
-    this.fetchUser();
+    const {params} = this.props;
+    this.fetchUser(params.username);
   }
 
-  componentWillUpdate() {
-    this.fetchUser();
+  // componentWillUpdate() {
+  //   this.fetchUser();
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(this.props, nextProps);
+    const {params} = this.props;
+    let username = params.username;
+
+    if (nextProps.params.username !== username) {
+      this.fetchUser(nextProps.params.username);
+    }
   }
 
   render() {

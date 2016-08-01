@@ -6,7 +6,7 @@ import {
 export default function(state = null, action) {
   switch(action.type) {
     case FETCH_USER_SUCCESS:
-      return action.response.result;
+      return action.response.result[0];
 
     case FETCH_USER_FAILURE:
       return null;

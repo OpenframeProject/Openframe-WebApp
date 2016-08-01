@@ -76,6 +76,10 @@
 
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
+  .artwork-detail-bg {
+    padding-top: 40px;
+  }
+
   .artwork-detail {
     &__wrap {
       border-radius: 4px;

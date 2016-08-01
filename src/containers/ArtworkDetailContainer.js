@@ -19,9 +19,7 @@ class ArtworkDetailContainer extends Component {
   componentWillMount() {
     const {artwork, actions, params} = this.props;
     let singleArtwork = getById(artwork.byId, params.artworkId);
-    if (!singleArtwork) {
-      actions.fetchSingleArtworkRequest(params.artworkId);
-    }
+    actions.fetchSingleArtworkRequest(params.artworkId);
   }
 
   render() {
@@ -30,7 +28,7 @@ class ArtworkDetailContainer extends Component {
     let owner = singleArtwork && singleArtwork.owner ? getById(user.byId, singleArtwork.owner) : null;
     let ownerUrl = owner ? `/${owner.username}` : null;
 
-    if (artwork.isFetching) {
+    if (artwork.isFetching && !singleArtwork) {
       return (<LoadingIndicatorComponent />);
     }
 
