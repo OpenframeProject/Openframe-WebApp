@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Modal from 'react-modal';
 import {reduxForm} from 'redux-form';
 
@@ -16,6 +16,11 @@ class LoginModalComponent extends React.Component {
 
   closeModal() {
     this.props.closeLoginModal();
+  }
+
+  goToCreate() {
+    this.props.closeLoginModal();
+    this.props.openCreateAccountModal();
   }
 
   render() {
@@ -60,7 +65,7 @@ class LoginModalComponent extends React.Component {
                       <button id="LoginButton" href="#" className="btn btn-default btn-fw">Log In</button>
                   </div>
                   <div className="switch-text">
-                      <p>Don't have an account? <a href="/create-account" target="_blank">Create one here</a></p>
+                      <p>Don't have an account? <span className="anchor" onClick={::this.goToCreate}>Create one here</span></p>
                   </div>
                 </form>
               </div>
@@ -82,7 +87,7 @@ LoginModalComponent.displayName = 'CommonLoginModalComponent';
 
 // Uncomment properties you need
 LoginModalComponent.propTypes = {
-
+  onSubmit: PropTypes.func.isRequired
 };
 // LoginModalComponent.defaultProps = {};
 

@@ -1,31 +1,28 @@
 // test data
 module.exports = {
-    ui: {
-        sidebarOpen: false
-    },
-    user: {
-        isFetching: false
-        // current: {
-        //     username: 'slewitt',
-        //     email: 'slewitt@openframe.io',
-        //     password: 'asdf',
-        //     full_name: 'Sol Lewitt',
-        //     id: '56e1ee0917bbab454407c2d9'
-        // },
-        // byId: [
-        //     '56e1ee0917bbab454407c2d9'
-        // ]
-        // user: {
-        //     'username': 'ppan',
-        //     'password': 'asdf'
-        // }
-    },
-    artwork: {
-        isFetching: false,
-        lastUpdated: 1035209385293,
-        byId: {}
+    // user: {
+    //     isFetching: false
+    //     // current: {
+    //     //     username: 'slewitt',
+    //     //     email: 'slewitt@openframe.io',
+    //     //     password: 'asdf',
+    //     //     full_name: 'Sol Lewitt',
+    //     //     id: '56e1ee0917bbab454407c2d9'
+    //     // },
+    //     // byId: [
+    //     //     '56e1ee0917bbab454407c2d9'
+    //     // ]
+    //     // user: {
+    //     //     'username': 'ppan',
+    //     //     'password': 'asdf'
+    //     // }
+    // },
+    // artwork: {
+    //     isFetching: false,
+    //     lastUpdated: 1035209385293,
+    //     byId: {}
 
-    }
+    // }
     // collections: {
     //     isFetching: false,
     //     lastUpdated: 1035209385293,

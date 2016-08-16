@@ -7,7 +7,8 @@ import {
   FETCH_FRAMES_REQUEST,
   FETCH_FRAMES_SUCCESS,
   FETCH_FRAMES_FAILURE,
-  SELECT_FRAME
+  SELECT_FRAME,
+  LOGOUT_SUCCESS
 } from '../actions/const'
 
 // pull selected frame id from localStorage, if present
@@ -59,6 +60,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         selectedFrameId: action.frameId
+      };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        items: [],
+        selectedFrameId: null
       };
     default: {
       /* Return original state if no actions were consumed. */

@@ -14,7 +14,9 @@ import TopbarComponent from '../components/topbar/TopbarComponent';
 import SidebarComponent from '../components/sidebar/SidebarComponent';
 import LoginModalComponent from '../components/user/LoginModalComponent';
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
+import ConfirmDialogComponent from '../components/common/ConfirmDialogComponent';
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
+import EditProfileModalComponent from '../components/user/EditProfileModalComponent';
 
 import { getSelectedFrame } from '../reducers/frames';
 import { getCurrentUser } from '../reducers/users/index';
@@ -47,6 +49,15 @@ class App extends Component {
     actions.createAccountRequest(fields);
   }
 
+  handleSubmitEditProfile(fields) {
+    let { actions } = this.props;
+    if (fields.password && fields.password !== fields.passwordConfirm) {
+      actions.updateUserFailure('Passwords do not match');
+      return;
+    }
+    actions.updateUserRequest(fields);
+  }
+
   render() {
     let {actions, frames, user, currentUser, ui, selectedFrame, route, location} = this.props;
 
@@ -74,24 +85,43 @@ class App extends Component {
             isOpen={ui.sidebarOpen}
             closeSidebar={actions.closeSidebar}
             selectFrame={actions.selectFrame}
+            openEditProfileModal={actions.openEditProfileModal}
             logoutRequest={actions.logoutRequest} />
         </div>
 
         <LoginModalComponent
           isOpen={ui.loginModalOpen}
           closeLoginModal={actions.closeLoginModal}
+          openCreateAccountModal={actions.openCreateAccountModal}
           onSubmit={::this.handleSubmitLogin} />
 
         <CreateAccountModalComponent
           isOpen={ui.createAccountModalOpen}
           closeCreateAccountModal={actions.closeCreateAccountModal}
+          openLoginModal={actions.openLoginModal}
           onSubmit={::this.handleSubmitCreateAccount}
           createError={ui.createError} />
+
+        <EditProfileModalComponent
+          isOpen={ui.editProfileModalOpen}
+          closeEditProfileModal={actions.closeEditProfileModal}
+          onSubmit={::this.handleSubmitEditProfile}
+          editError={ui.editError} />
 
 
         <MobileSubMenuComponent
           user={currentUser}
           location={location} />
+
+        <ConfirmDialogComponent
+          isOpen={ui.confirmDialogOpen}
+          body="Are you sure you want to do that?"
+          title="Hmmm..."
+          acceptText="Do it."
+          cancelText="Stop!"
+          acceptAction={{ type: 'TEST_ACTION'}}
+          hideConfirmDialog={actions.hideConfirmDialog}
+           />
       </div>
     );
   }
@@ -145,7 +175,12 @@ function mapDispatchToProps(dispatch) {
     openCreateAccountModal: require('../actions/ui/openCreateAccountModal.js'),
     closeCreateAccountModal: require('../actions/ui/closeCreateAccountModal.js'),
     createAccountRequest: require('../actions/user/createAccountRequest.js'),
-    createAccountFailure: require('../actions/user/createAccountFailure.js')
+    createAccountFailure: require('../actions/user/createAccountFailure.js'),
+    updateUserRequest: require('../actions/user/updateUserRequest'),
+    updateUserFailure: require('../actions/user/updateUserFailure'),
+    openEditProfileModal: require('../actions/ui/openEditProfileModal.js'),
+    closeEditProfileModal: require('../actions/ui/closeEditProfileModal.js'),
+    hideConfirmDialog: require('../actions/common/hideConfirmDialog.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

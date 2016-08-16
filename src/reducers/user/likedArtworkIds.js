@@ -1,20 +1,14 @@
 import {
-  FETCH_CURRENT_USER_SUCCESS,
-  FETCH_CURRENT_USER_FAILURE,
+  FETCH_USER_LIKES_SUCCESS,
   LOGOUT_SUCCESS
 } from '../../actions/const'
 
-export default function(state = null, action) {
+export default function(state = [], action) {
   switch(action.type) {
-    case FETCH_CURRENT_USER_SUCCESS:
+    case FETCH_USER_LIKES_SUCCESS:
       return action.response.result;
-
-    case FETCH_CURRENT_USER_FAILURE:
-      return null;
-
     case LOGOUT_SUCCESS:
-      return  null;
-
+      return [];
     default: {
       /* Return original state if no actions were consumed. */
       return state;

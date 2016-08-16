@@ -12,8 +12,8 @@ import {reducer as formReducer} from 'redux-form';
 const reducers = {
   artwork: require('../reducers/artwork/index').default,
   collections: require('../reducers/collections/index').default,
-  frames: require('../reducers/frames.js').default,
-  user: require('../reducers/users/index').default,
+  frames: require('./frames.js').default,
+  user: require('./user/index').default,
   auth: require('../reducers/auth.js'),
   ui: require('../reducers/ui.js'),
   channels: require('../reducers/channels.js'),

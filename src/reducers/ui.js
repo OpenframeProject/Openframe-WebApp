@@ -13,15 +13,23 @@ import {
   LOGOUT_SUCCESS,
   OPEN_CREATE_ACCOUNT_MODAL,
   CLOSE_CREATE_ACCOUNT_MODAL,
+  OPEN_EDIT_PROFILE_MODAL,
+  CLOSE_EDIT_PROFILE_MODAL,
   CREATE_ACCOUNT_SUCCESS,
   CREATE_ACCOUNT_FAILURE,
-  SELECT_FRAME
+  SELECT_FRAME,
+  SHOW_CONFIRM_DIALOG,
+  HIDE_CONFIRM_DIALOG,
+  UPDATE_USER_SUCCESS
 } from '../actions/const';
 
 const initialState = {
   sidebarOpen: false,
   loginModalOpen: false,
-  createError: null
+  createAccountModalOpen: false,
+  editProfileModalOpen: false,
+  createError: null,
+  confirmDialogOpen: false
 };
 
 module.exports = function(state = initialState, action) {
@@ -72,6 +80,21 @@ module.exports = function(state = initialState, action) {
         createError: null
       }
     }
+    case OPEN_EDIT_PROFILE_MODAL: {
+      return {
+        ...state,
+        editProfileModalOpen: true,
+        editError: null
+      }
+    }
+    case CLOSE_EDIT_PROFILE_MODAL:
+    case UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
+        editProfileModalOpen: false,
+        editError: null
+      }
+    }
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -87,6 +110,16 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         createError: action.error
+      }
+    case SHOW_CONFIRM_DIALOG:
+      return {
+        ...state,
+        confirmDialogOpen: true
+      }
+    case HIDE_CONFIRM_DIALOG:
+      return {
+        ...state,
+        confirmDialogOpen: false
       }
     default: {
       /* Return original state if no actions were consumed. */

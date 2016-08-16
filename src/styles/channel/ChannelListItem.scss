@@ -6,10 +6,9 @@
 .channel-list-item {
   @include transition(all 0.1s ease-in-out);
   @include scale(1, 1);
-  border-radius: 4px;
   background: #fff;
-  box-shadow: 0px 0px 2px #999;
-  margin: 10px 10px 0 10px;
+  box-shadow: 0px 1px 2px #999;
+  margin: 6px 0 0;
   padding: 10px;
 
 
@@ -64,6 +63,7 @@
   .channel-list-item {
     margin: 0 0 30px 0;
     padding: 10px;
+    border-radius: 4px;
 
 
     &__flex-wrap {

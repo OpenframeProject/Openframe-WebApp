@@ -123,7 +123,7 @@ const users = {
    * @param  {Object} userData
    * @return {Promise}
    */
-  update: function(userId, userData) {
+  update: function(userId = 'current', userData) {
     return fetchJSON(`${modelPrefix}/${userId}`, { method: 'PUT', data: userData });
   },
 

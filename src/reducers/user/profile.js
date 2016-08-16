@@ -1,6 +1,7 @@
 import {
   FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE
+  FETCH_USER_FAILURE,
+  LOGOUT_SUCCESS
 } from '../../actions/const'
 
 export default function(state = null, action) {
@@ -9,6 +10,7 @@ export default function(state = null, action) {
       return action.response.result[0];
 
     case FETCH_USER_FAILURE:
+    case LOGOUT_SUCCESS:
       return null;
 
     default: {

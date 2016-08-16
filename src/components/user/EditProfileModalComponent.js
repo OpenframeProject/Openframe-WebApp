@@ -5,16 +5,11 @@ import Modal from 'react-modal';
 
 import EditProfileFormComponent from './EditProfileFormComponent';
 
-require('styles/user/CreateAccountModal.scss');
+require('styles/user/EditProfileModal.scss');
 
-class CreateAccountModalComponent extends React.Component {
+class EditProfileModalComponent extends React.Component {
   closeModal() {
-    this.props.closeCreateAccountModal();
-  }
-
-  goToLogin() {
-    this.props.closeCreateAccountModal();
-    this.props.openLoginModal();
+    this.props.closeEditProfileModal();
   }
 
   render() {
@@ -37,7 +32,7 @@ class CreateAccountModalComponent extends React.Component {
           <div className="modal-header">
             <button className="close" onClick={::this.closeModal} type=
             "button">&times;</button>
-            <h3 className="modal-title">Create Account</h3>
+            <h3 className="modal-title">Edit Profile</h3>
           </div>
           <div className="modal-body">
             <div className={errorClasses}>
@@ -49,16 +44,10 @@ class CreateAccountModalComponent extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-12">
-
                 <EditProfileFormComponent
                   onSubmit={onSubmit}
-                  submitText="Create Account"
+                  submitText="Save Profile"
                   ref="form" />
-
-                <div className="switch-text">
-                  <p>Already have an account? <span className="anchor" onClick={::this.goToLogin} >Log in here</span></p>
-                </div>
-
               </div>
             </div>
           </div>
@@ -69,10 +58,10 @@ class CreateAccountModalComponent extends React.Component {
   }
 }
 
-CreateAccountModalComponent.displayName = 'UserCreateAccountModalComponent';
+EditProfileModalComponent.displayName = 'EditProfileModalComponent';
 
 // Uncomment properties you need
-// CreateAccountModalComponent.propTypes = {};
-// CreateAccountModalComponent.defaultProps = {};
+// EditProfileModalComponent.propTypes = {};
+// EditProfileModalComponent.defaultProps = {};
 
-export default CreateAccountModalComponent;
+export default EditProfileModalComponent;

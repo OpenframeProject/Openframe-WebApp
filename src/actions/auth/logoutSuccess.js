@@ -1,9 +1,15 @@
-import {LOGOUT_SUCCESS} from './../const';
-import { browserHistory } from 'react-router'
+import { LOGOUT_SUCCESS } from './../const';
+import { browserHistory } from 'react-router';
+import { reset } from 'redux-form';
 
 module.exports = function() {
-  browserHistory.push('/');
-  return {
-    type: LOGOUT_SUCCESS
-  };
+  return dispatch => {
+    browserHistory.push('/');
+
+    dispatch({
+      type: LOGOUT_SUCCESS
+    });
+
+    dispatch(reset('login'));
+  }
 };
