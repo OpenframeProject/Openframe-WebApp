@@ -5,7 +5,7 @@ const modelPrefix = 'frames';
 const frames = {
   /**
    * Fetch a list of frames.
-   * @param  {Boolean}
+   * @param  {Object}
    * @return {Promise}
    */
   fetch: function(filter = {}) {
@@ -17,7 +17,7 @@ const frames = {
   /**
    * Fetch a single frame by ID
    * @param  {String}  frameId defaults to 'current'
-   * @param  {Boolean} includeCollections
+   * @param  {Object} filter
    * @return {Promise}
    */
   fetchById: function(frameId, filter = {}) {

@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import NotFoundComponent from '../components/common/NotFoundComponent';
-import { getProfileNotFound } from '../reducers/users/index';
+import { getProfileNotFound } from '../reducers/user/index';
 
 class ProfileContainer extends Component {
   fetchUser(username) {

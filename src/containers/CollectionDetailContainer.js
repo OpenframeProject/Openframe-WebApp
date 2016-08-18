@@ -27,7 +27,7 @@ class CollectionDetailContainer extends Component {
   render() {
     const {collection, artwork, user, actions, isFetching} = this.props;
     return (
-      <div>
+      <div className="container">
         {
           isFetching
           ? <LoadingIndicatorComponent />

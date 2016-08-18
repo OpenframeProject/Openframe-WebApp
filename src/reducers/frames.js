@@ -8,6 +8,7 @@ import {
   FETCH_FRAMES_SUCCESS,
   FETCH_FRAMES_FAILURE,
   SELECT_FRAME,
+  FRAME_UPDATED,
   LOGOUT_SUCCESS
 } from '../actions/const'
 
@@ -61,6 +62,9 @@ export default function(state = initialState, action) {
         ...state,
         selectedFrameId: action.frameId
       };
+    case FRAME_UPDATED:
+      console.log('reducer ----->>> FRAME_UPDATED')
+      return state;
     case LOGOUT_SUCCESS:
       return {
         ...state,

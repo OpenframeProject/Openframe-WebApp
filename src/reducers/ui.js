@@ -20,7 +20,8 @@ import {
   SELECT_FRAME,
   SHOW_CONFIRM_DIALOG,
   HIDE_CONFIRM_DIALOG,
-  UPDATE_USER_SUCCESS
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE
 } from '../actions/const';
 
 const initialState = {
@@ -29,7 +30,9 @@ const initialState = {
   createAccountModalOpen: false,
   editProfileModalOpen: false,
   createError: null,
+  updateUserError: null,
   confirmDialogOpen: false
+  // notice: '<div class="alert alert-info">Hello!</div>'
 };
 
 module.exports = function(state = initialState, action) {
@@ -84,7 +87,7 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         editProfileModalOpen: true,
-        editError: null
+        updateUserError: null
       }
     }
     case CLOSE_EDIT_PROFILE_MODAL:
@@ -92,7 +95,13 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         editProfileModalOpen: false,
-        editError: null
+        updateUserError: null
+      }
+    }
+    case UPDATE_USER_FAILURE: {
+      return {
+        ...state,
+        updateUserError: action.error
       }
     }
     case LOGIN_SUCCESS:

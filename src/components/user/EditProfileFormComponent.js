@@ -26,6 +26,7 @@ class EditProfileFormComponent extends React.Component {
     if (fields.password !== fields.confirmPassword) {
       return false;
     }
+    delete fields.confirmPassword;
     this.handleSubmit(fields);
   }
 
@@ -94,7 +95,10 @@ EditProfileFormComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
     ] // all the fields in your form
   },
   state => ({ // mapStateToProps
-    initialValues: getCurrentUser(state.user) // will pull state into form's initialValues
+    initialValues: {
+      ...getCurrentUser(state.user),
+      passwordConfirm: ''
+    }  // will pull state into form's initialValues
   }))(EditProfileFormComponent);
 
 

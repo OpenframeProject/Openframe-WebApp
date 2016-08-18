@@ -1,0 +1,12 @@
+@import 'common/colors';
+
+.alert {
+  margin: 0;
+  border-radius: 4px;
+
+  &-info {
+    background-color: $of-info;
+    border: 1px solid darken($of-info, 5%);
+    color: darken($of-info, 75%);
+  }
+}

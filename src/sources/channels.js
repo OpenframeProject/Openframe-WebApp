@@ -4,8 +4,8 @@ const modelPrefix = 'channels';
 
 const channels = {
   /**
-   * Fetch a list of frames.
-   * @param  {Boolean}
+   * Fetch a list of channels.
+   * @param  {Object} filter
    * @return {Promise}
    */
   fetch: function(filter = {}) {

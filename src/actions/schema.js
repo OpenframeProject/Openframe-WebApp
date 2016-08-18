@@ -12,6 +12,7 @@ artwork.define({
 export const frame = new Schema('frames');
 export const arrayOfFrames = arrayOf(frame);
 frame.define({
+  owner: user,
   _current_artwork: artwork
 });
 

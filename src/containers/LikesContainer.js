@@ -12,7 +12,7 @@ import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 import ProfileHeaderComponent from '../components/user/ProfileHeaderComponent';
 
-import { getProfileUser, getCurrentUser } from '../reducers/users/index';
+import { getProfileUser, getCurrentUser } from '../reducers/user/index';
 import { getArtworkList } from '../reducers/artwork/index';
 
 const masonryOptions = {

@@ -2,10 +2,11 @@ import 'babel-polyfill'
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { Router, Route, IndexRedirect, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router'
+import useScroll from 'react-router-scroll';
 import configureStore from './stores';
 import App from './containers/App';
 import BrowseSectionComponent from './components/sections/BrowseSectionComponent';
-import YouSectionComponent from './components/sections/YouSectionComponent';
 import StreamContainer from './containers/StreamContainer';
 import CollectionsContainer from './containers/CollectionsContainer';
 import ChannelsContainer from './containers/ChannelsContainer';
@@ -13,17 +14,19 @@ import ProfileContainer from './containers/ProfileContainer';
 import LikesContainer from './containers/LikesContainer';
 import AddedContainer from './containers/AddedContainer';
 
-
 import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
 import CollectionDetailContainer from './containers/CollectionDetailContainer';
 
-import { Router, Route, IndexRedirect, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router'
-import useScroll from 'react-router-scroll';
+import PubSub from './services/pubsub';
 
 // test data
 const initialState = require('../test/fixture.js');
 
 const store = configureStore(initialState);
+
+// this should be a middleware, but for now PubSub gets initialized with the store
+// so that we can call dispatch() direcly from the pubsub service.
+PubSub.init(store);
 
 render(
   <Provider store={store}>

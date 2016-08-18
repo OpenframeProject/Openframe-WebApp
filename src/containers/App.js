@@ -13,13 +13,14 @@ import { connect } from 'react-redux';
 import TopbarComponent from '../components/topbar/TopbarComponent';
 import SidebarComponent from '../components/sidebar/SidebarComponent';
 import LoginModalComponent from '../components/user/LoginModalComponent';
+import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import ConfirmDialogComponent from '../components/common/ConfirmDialogComponent';
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
 import EditProfileModalComponent from '../components/user/EditProfileModalComponent';
 
-import { getSelectedFrame } from '../reducers/frames';
-import { getCurrentUser } from '../reducers/users/index';
+import { getSelectedFrame, getFramesList } from '../reducers/frame';
+import { getCurrentUser } from '../reducers/user/index';
 
 require('normalize.css/normalize.css');
 require('styles/bootstrap-overrides.scss');
@@ -30,6 +31,7 @@ require('styles/App.scss');
 class App extends Component {
   componentWillMount() {
     const {actions, auth} = this.props;
+    actions.fetchConfigRequest();
     if (auth.accessToken) {
       actions.fetchCurrentUserRequest();
     }
@@ -73,6 +75,11 @@ class App extends Component {
           openCreateAccountModal={actions.openCreateAccountModal}
           openLoginModal={actions.openLoginModal} />
 
+        { ui.notice
+          ? <NoticeBannerComponent notice={ ui.notice } />
+          : null
+        }
+
         <div className='app-content-wrap'>
           {this.props.children}
         </div>
@@ -80,7 +87,7 @@ class App extends Component {
         <div className='sidebar-wrap'>
           <SidebarComponent
             user={currentUser}
-            frames={frames.items}
+            frames={getFramesList(frames.ids, frames.byId)}
             selectedFrame={selectedFrame}
             isOpen={ui.sidebarOpen}
             closeSidebar={actions.closeSidebar}
@@ -106,7 +113,7 @@ class App extends Component {
           isOpen={ui.editProfileModalOpen}
           closeEditProfileModal={actions.closeEditProfileModal}
           onSubmit={::this.handleSubmitEditProfile}
-          editError={ui.editError} />
+          updateUserError={ui.updateUserError} />
 
 
         <MobileSubMenuComponent
@@ -145,7 +152,7 @@ function mapStateToProps(state) {
   const props = {
     artwork: state.artwork,
     frames: state.frames,
-    selectedFrame: getSelectedFrame(state.frames.items, state.frames.selectedFrameId),
+    selectedFrame: getSelectedFrame(state.frames.byId, state.frames.selectedFrameId),
     user: state.user,
     currentUser: getCurrentUser(state.user),
     auth: state.auth,
@@ -166,8 +173,6 @@ function mapDispatchToProps(dispatch) {
     selectFrame: require('../actions/frame/selectFrame.js'),
     fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js'),
     fetchConfigRequest: require('../actions/config/fetchConfigRequest.js'),
-    fetchConfigSuccess: require('../actions/config/fetchConfigSuccess.js'),
-    fetchConfigFailure: require('../actions/config/fetchConfigFailure.js'),
     openSidebar: require('../actions/ui/openSidebar.js'),
     closeSidebar: require('../actions/ui/closeSidebar.js'),
     openLoginModal: require('../actions/ui/openLoginModal.js'),

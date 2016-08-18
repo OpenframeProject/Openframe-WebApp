@@ -2,6 +2,7 @@ import {LOGIN_SUCCESS} from './../const';
 import {setToken} from '../../services/auth';
 import fetchCurrentUserRequest from '../user/fetchCurrentUserRequest';
 import fetchFramesRequest from '../frame/fetchFramesRequest';
+import fetchConfigRequest from '../config/fetchConfigRequest';
 
 module.exports = function(token) {
   // set accesToken on localStorage
@@ -13,6 +14,7 @@ module.exports = function(token) {
       token
     });
 
+    dispatch(fetchConfigRequest());
     dispatch(fetchCurrentUserRequest());
     dispatch(fetchFramesRequest());
 

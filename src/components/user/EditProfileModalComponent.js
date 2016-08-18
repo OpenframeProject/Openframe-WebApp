@@ -13,10 +13,10 @@ class EditProfileModalComponent extends React.Component {
   }
 
   render() {
-    const { isOpen, createError, onSubmit } = this.props;
+    const { isOpen, updateUserError, onSubmit } = this.props;
 
     let errorClasses = 'row row-errors ';
-    errorClasses += createError ? 'show' : 'hide';
+    errorClasses += updateUserError ? 'show' : 'hide';
 
     return (
       <Modal
@@ -25,7 +25,7 @@ class EditProfileModalComponent extends React.Component {
         onRequestClose={::this.closeModal}
         className="of-modal modal-dialog"
         overlayClassName="modal-backdrop"
-        closeTimeoutMS={500}
+        closeTimeoutMS={100}
         >
 
         <div className="modal-content">
@@ -38,7 +38,7 @@ class EditProfileModalComponent extends React.Component {
             <div className={errorClasses}>
               <div className="col-md-12">
                 <div className="alert alert-danger" role="alert">
-                  {createError}
+                  {updateUserError}
                 </div>
               </div>
             </div>

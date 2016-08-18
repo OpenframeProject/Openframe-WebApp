@@ -20,8 +20,8 @@ class CollectionDetailSubMenuComponent extends React.Component {
       <div className="collection-detail-sub-menu row hidden-xs">
         <div className="col-md-12">
           <div className="collection-detail-sub-menu__wrap">
-            <div className="collection-detail-sub-menu__name">{collection.name}</div>
             <Link to="/collections" className="collection-detail-sub-menu__back" >Back to Collections</Link>
+            <div className="collection-detail-sub-menu__name">{collection.name}</div>
             {
               user.current
               ? <a href="#" className="collection-detail-sub-menu__play-btn" onClick={::this.handlePlayClick}>Play this collection</a>

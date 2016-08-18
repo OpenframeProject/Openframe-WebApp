@@ -10,13 +10,14 @@ import { combineReducers } from 'redux';
 import {reducer as formReducer} from 'redux-form';
 /* Populated by react-webpack-redux:reducer */
 const reducers = {
-  artwork: require('../reducers/artwork/index').default,
-  collections: require('../reducers/collections/index').default,
-  frames: require('./frames.js').default,
+  artwork: require('./artwork/index').default,
+  collections: require('./collections/index').default,
+  frames: require('./frame/index').default,
   user: require('./user/index').default,
-  auth: require('../reducers/auth.js'),
-  ui: require('../reducers/ui.js'),
-  channels: require('../reducers/channels.js'),
+  config: require('./config.js'),
+  auth: require('./auth.js'),
+  ui: require('./ui.js'),
+  channels: require('./channels.js'),
   form: formReducer
 };
 
