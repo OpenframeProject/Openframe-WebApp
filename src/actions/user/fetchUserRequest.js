@@ -4,7 +4,6 @@ import fetchUserFailure from './fetchUserFailure';
 import {users} from '../../sources/api';
 
 module.exports = function(username) {
-  console.log(username);
 	return dispatch => {
 		dispatch({
 			type: FETCH_USER_REQUEST

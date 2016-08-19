@@ -14,7 +14,6 @@ export default function(state = initialState, action) {
   switch(action.type) {
     case FETCH_FRAMES_SUCCESS:
     case FRAME_UPDATED: {
-      console.log('------>>>', action.type);
       return {
         ...state,
         ...action.response.entities.frames

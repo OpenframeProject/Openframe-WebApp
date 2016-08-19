@@ -11,7 +11,6 @@ module.exports = function(artworkId) {
 		return artwork.fetchById(artworkId).then(
 			response => dispatch(fetchSingleArtworkSuccess(response)),
 			error => {
-				console.log('ERROR', error);
 				dispatch(fetchSingleArtworkFailure(error))
 			}
 		);

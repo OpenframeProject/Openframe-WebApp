@@ -8,7 +8,6 @@ import frameUpdated from '../frame/frameUpdated';
 module.exports = function(response) {
   let frames = response.frames;
 
-  console.log('frames!', frames);
   // set up frame pubsub event subscriptions for each frame
   //
   // TODO: Potential race condition... make sure pubsub client is connected before FETCH_FRAMES_REQUEST?
