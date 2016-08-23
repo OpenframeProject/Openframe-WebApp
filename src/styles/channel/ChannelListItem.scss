@@ -41,19 +41,25 @@
   }
 
   &__info {
-    flex-grow: 0;
+    @include flex-grow(3);
     width: 60%;
-    padding: 0 10px
+    padding: 10px;
   }
 
   &__name {
     font-weight: 600;
   }
 
-  &__description {
+  &__description, &__author {
     color: #999;
     font-size: 12px;
     height: 1.5em;
+  }
+
+  &__actions {
+    @include flex-grow(1);
+    @include display-flex;
+    padding: 0;
   }
 }
 
@@ -76,7 +82,6 @@
     }
     &__info {
       width: 100%;
-      padding: 10px;
     }
   }
 }

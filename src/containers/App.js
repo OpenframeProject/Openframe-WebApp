@@ -16,6 +16,7 @@ import LoginModalComponent from '../components/user/LoginModalComponent';
 import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import ConfirmDialogComponent from '../components/common/ConfirmDialogComponent';
+import StatefulModalComponent from '../components/common/StatefulModalComponent';
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
 import EditProfileModalComponent from '../components/user/EditProfileModalComponent';
 
@@ -26,7 +27,6 @@ require('normalize.css/normalize.css');
 require('styles/bootstrap-overrides.scss');
 require('styles/App.scss');
 
-
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   componentWillMount() {
@@ -34,6 +34,18 @@ class App extends Component {
     actions.fetchConfigRequest();
     if (auth.accessToken) {
       actions.fetchCurrentUserRequest();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // if we changed routes...
+    if ((
+      nextProps.location.key !== this.props.location.key &&
+      nextProps.location.state &&
+      nextProps.location.state.modal
+    )) {
+      // save the old children (just like animation)
+      this.previousChildren = this.props.children
     }
   }
 
@@ -63,6 +75,12 @@ class App extends Component {
   render() {
     let {actions, frames, user, currentUser, ui, selectedFrame, route, location} = this.props;
 
+    let isStatefulModal = (
+      location.state &&
+      location.state.modal &&
+      this.previousChildren
+    );
+
     return (
       <div>
         <TopbarComponent
@@ -80,9 +98,25 @@ class App extends Component {
           : null
         }
 
+
+
         <div className='app-content-wrap'>
-          {this.props.children}
+          {isStatefulModal ?
+            this.previousChildren :
+            this.props.children
+          }
+
+          {isStatefulModal && (
+            <StatefulModalComponent
+              initialOpenState={true}
+              returnTo={location.state.returnTo}
+              showHeader={false}>
+              {this.props.children}
+            </StatefulModalComponent>
+          )}
         </div>
+
+
 
         <div className='sidebar-wrap'>
           <SidebarComponent
@@ -114,7 +148,6 @@ class App extends Component {
           closeEditProfileModal={actions.closeEditProfileModal}
           onSubmit={::this.handleSubmitEditProfile}
           updateUserError={ui.updateUserError} />
-
 
         <MobileSubMenuComponent
           user={currentUser}

@@ -7,10 +7,10 @@
   background: #fff;
   font-size: 14px;
   margin-bottom: 15px;
-  padding: 10px;
   box-shadow: 0px 1px 2px #aaa;
 
   &__thumb {
+    padding: 10px;
     position: relative;
     width: 100%;
     background-position: center center;
@@ -22,7 +22,7 @@
   }
 
   &__info {
-    padding: 6px 8px;
+    padding: 10px;
   }
 
   &__author {
@@ -45,13 +45,13 @@
     letter-spacing: 1px;
   }
 
-  &__push-btn {
-    display: none;
+  &__actions {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    right: 0px;
+    bottom: 15px;
+    padding: 10px;
   }
+
 }
 
 // overridden styles for sm screen / tablet
@@ -59,6 +59,7 @@
   .artwork-list-item {
     @include transition(all 0.1s ease-in-out);
     @include scale(1, 1);
+    margin-bottom: 30px;
     box-shadow: 0px 1px 2px #aaa;
 
     &:hover {
@@ -68,6 +69,14 @@
       .artwork-list-item__push-btn {
         display: block;
       }
+    }
+
+     &__thumb {
+      padding: 0px;
+    }
+
+    &__actions {
+      bottom: 0px;
     }
   }
 }

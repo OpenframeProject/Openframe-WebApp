@@ -14,7 +14,7 @@ class ChannelsListItemComponent extends React.Component {
     };
   }
 
-  handlePushClick() {
+  _handlePushClick() {
     let {channel, pushChannel} = this.props;
     pushChannel(channel.id);
   }
@@ -27,6 +27,8 @@ class ChannelsListItemComponent extends React.Component {
 
   render() {
     let {channel, isAuthenticated} = this.props;
+
+    console.log('channel', channel);
 
     var divStyle = {
       backgroundImage: 'url(' + channel.thumb_url + ')'
@@ -41,10 +43,20 @@ class ChannelsListItemComponent extends React.Component {
             </div>
             <div className="channel-list-item__info">
               <div className="channel-list-item__name">{channel.name}</div>
-              <div className="channel-list-item__description truncate">{channel.description}</div>
+              {/* <div className="channel-list-item__description truncate">{channel.description}</div> */}
+              { channel.owner
+                ? <div className="channel-list-item__author">By {channel.owner.full_name}</div>
+                : null
+              }
             </div>
             { isAuthenticated
-              ? <PushButtonComponent handleClick={::this.handlePushClick} show={this.state.hover} />
+              ? <div className="channel-list-item__actions">
+                  <div className="channel-list-item__push" title="Push to frame">
+                    <PushButtonComponent handleClick={::this._handlePushClick} show={this.state.hover} />
+                  </div>
+                  <div className="channel-list-item__like">
+                  </div>
+                </div>
               : null
             }
           </div>

@@ -31,8 +31,8 @@ const initialState = {
   editProfileModalOpen: false,
   createError: null,
   updateUserError: null,
-  confirmDialogOpen: false
-  // notice: '<div class="alert alert-info">Hello!</div>'
+  confirmDialogOpen: false,
+  // notice: '<div class=""><h3>Hello!</h3><p>Welcome to Openframe!</p></div>'
 };
 
 module.exports = function(state = initialState, action) {

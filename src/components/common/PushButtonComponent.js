@@ -8,8 +8,8 @@ let pushBtn = require('../../images/push.svg');
 
 class PushButtonComponent extends React.Component {
 
-  handleClick() {
-    this.props.handleClick();
+  handleClick(e) {
+    this.props.handleClick(e);
   }
 
   render() {

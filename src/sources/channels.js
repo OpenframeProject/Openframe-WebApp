@@ -9,7 +9,9 @@ const channels = {
    * @return {Promise}
    */
   fetch: function(filter = {}) {
-    let defaultFilter = {};
+    let defaultFilter = {
+      include: ['owner']
+    };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}`, { data: finalFilter });
   },
@@ -21,7 +23,9 @@ const channels = {
    * @return {Promise}
    */
   fetchById: function(channelId, filter = {}) {
-    let defaultFilter = {};
+    let defaultFilter = {
+      include: ['owner']
+    };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}/${channelId}`, { data: finalFilter });
   }

@@ -1,3 +1,5 @@
+@import "compass/css3/flexbox";
+
 .collection-detail-sub-menu {
   margin-top: 40px;
   margin-bottom: 40px;
@@ -5,11 +7,13 @@
 
   &__wrap {
     border-bottom: 1px solid #333;
+    @include display-flex();
+    @include justify-content(space-between);
+    @include align-items(baseline);
   }
 
   &__back {
-    position: absolute;
-    bottom: 8px;
+
   }
 
   &__name {
@@ -17,12 +21,10 @@
     font-weight: 600;
     font-size: 22px;
     letter-spacing: 0px;
-    width: 100%;
     margin-bottom: 4px;
   }
 
   &__play-btn {
-    float: right;
-    position: relative;
+
   }
 }

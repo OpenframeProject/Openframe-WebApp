@@ -7,6 +7,8 @@ import React, {
 
 import { Link } from 'react-router'
 
+import PushButtonComponent from '../common/PushButtonComponent';
+
 require('styles/artwork/ArtworkListItem.scss');
 // let settingsBtnImage = require('../../images/artwork-settings.svg');
 
@@ -36,12 +38,21 @@ class ArtworkListItemComponent extends Component {
     }
   }
 
+  _handlePushClick(e) {
+    e.preventDefault();
+    let {artwork, pushArtwork} = this.props;
+    pushArtwork(artwork.id);
+  }
+
   render() {
-    let { artwork } = this.props;
+    let { artwork, isAuthenticated } = this.props;
 
     return (
-        <div className="col-xs-12 col-sm-4 col-lg-3">
-          <Link to={'/artwork/'+artwork.id}>
+        <div className="col-xs-12 col-sm-6 col-md-4">
+          <Link to={{
+              pathname: '/artwork/'+artwork.id,
+              state: { modal: true, returnTo: this.props.location.pathname }
+            }}>
             <div className="artwork-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
               <div className="artwork-list-item__thumb">
                 <img className="artwork-list-item__thumb-img" src={artwork.thumb_url} />
@@ -51,6 +62,16 @@ class ArtworkListItemComponent extends Component {
                 <div className="artwork-list-item__title">{artwork.title}</div>
                 <div className="artwork-list-item__format">{this._formatDisplayName(artwork.format)}</div>
               </div>
+              { isAuthenticated
+                ? <div className="artwork-list-item__actions">
+                    <div className="artwork-list-item__push" title="Push to frame">
+                      <PushButtonComponent handleClick={::this._handlePushClick} show={this.state.hover} />
+                    </div>
+                    <div className="artwork-list-item__like">
+                    </div>
+                  </div>
+                : null
+              }
             </div>
           </Link>
         </div>
@@ -63,7 +84,9 @@ ArtworkListItemComponent.displayName = 'ArtworkListItemComponent';
 // Uncomment properties you need
 ArtworkListItemComponent.propTypes = {
   artwork: PropTypes.object.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
+  isAuthenticated: PropTypes.bool,
+  pushArtwork: PropTypes.func.isRequired
 };
 
 ArtworkListItemComponent.defaultProps = {

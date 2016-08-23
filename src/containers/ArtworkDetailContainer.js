@@ -4,8 +4,9 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import moment from 'moment';
+import Modal from 'react-modal';
 
 import NotFoundComponent from '../components/common/NotFoundComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
@@ -17,8 +18,7 @@ require('styles/artwork/ArtworkDetail.scss');
 
 class ArtworkDetailContainer extends Component {
   componentWillMount() {
-    const {artwork, actions, params} = this.props;
-    let singleArtwork = getById(artwork.byId, params.artworkId);
+    const {actions, params} = this.props;
     actions.fetchSingleArtworkRequest(params.artworkId);
   }
 
@@ -37,10 +37,11 @@ class ArtworkDetailContainer extends Component {
     }
 
     return (
+
       <div className="artwork-detail-bg">
         <div className="artwork-detail">
           <div className="row">
-            <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div className="col-xs-12">
 
               <div className="artwork-detail__wrap">
 
@@ -69,11 +70,11 @@ class ArtworkDetailContainer extends Component {
                   }
                 </div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
+
     );
   }
 }

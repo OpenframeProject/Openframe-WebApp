@@ -1,4 +1,5 @@
 import faye from 'faye';
+import { getToken } from '../services/auth';
 
 const PubSub = {
   client: null,
@@ -33,7 +34,7 @@ function connect(psUrl, accessToken) {
             }
 
             // Set the auth token
-            message.ext.accessToken = accessToken;
+            message.ext.accessToken = getToken();
 
             // Carry on and send the message to the server
             callback(message);
@@ -46,8 +47,10 @@ function connect(psUrl, accessToken) {
     return this.client;
 }
 
+/**
+ * Pass-through to the Faye client's subscribe method
+ */
 function subscribe() {
-  console.log('subscribe', arguments);
   if (!this.client) {
     throw new Error('PubSub client hasn\'t been initialized.');
   }
@@ -55,7 +58,6 @@ function subscribe() {
 }
 
 export const bindEventToAction = (event, action) => {
-  console.log(event, action);
   if (typeof action !== 'function') {
     throw new Error('action must be an action creator function')
   }

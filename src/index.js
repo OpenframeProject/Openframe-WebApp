@@ -30,7 +30,7 @@ PubSub.init(store);
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory} render={applyRouterMiddleware(useScroll())} >
+    <Router history={browserHistory} >
       <Route path="/" component={App}>
         <IndexRedirect to="/stream" />
 

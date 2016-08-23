@@ -28,7 +28,7 @@ class StreamContainer extends Component {
   }
 
   render() {
-    const {artworkList, auth, actions, isFetching, isFirstLoad } = this.props;
+    const {artworkList, auth, actions, isFetching, isFirstLoad, location } = this.props;
     return (
       <div className="container">
         <BrowseSubMenuComponent />
@@ -45,6 +45,7 @@ class StreamContainer extends Component {
                         isAuthenticated={auth.isAuthenticated}
                         key={artwork.id}
                         artwork={artwork}
+                        location={location}
                         pushArtwork={actions.pushArtwork}
                         openArtworkDetail={actions.openArtworkDetail} />
                     )

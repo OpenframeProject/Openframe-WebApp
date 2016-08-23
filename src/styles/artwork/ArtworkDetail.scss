@@ -1,23 +1,18 @@
 @import "bootstrap/variables";
 
 .artwork-detail-bg {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
     background: #eee;
     z-index: 100;
     overflow: auto;
 }
 
 .artwork-detail {
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
 
   &__wrap {
     width: 100%;
     background: #fff;
-    padding: 20px;
+    // padding: 20px;
   }
 
   &__img {
@@ -76,8 +71,12 @@
 
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
+
+  .artwork-detail-modal {
+    width: 640px;
+  }
+
   .artwork-detail-bg {
-    padding-top: 40px;
   }
 
   .artwork-detail {
