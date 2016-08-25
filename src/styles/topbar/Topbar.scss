@@ -1,13 +1,14 @@
 @import "compass/css3/flexbox";
 @import "compass/css3/transition";
 @import "bootstrap/variables";
+@import "../common/colors";
 
 $topbar-height: 45px;
 
 .topbar {
     height: $topbar-height;
-    background-color: #444;
-    color: #ddd;
+    background-color: $of-dark-background;
+    color: $of-light-text;
     position: fixed;
     top: 0;
     left: 0;
@@ -22,19 +23,19 @@ $topbar-height: 45px;
         float: left;
         height: 100%;
         padding: 0 15px;
-        color: #eee;
+        color: $of-light-text;;
         background-color: transparent;
         text-transform: uppercase;
         cursor: pointer;
 
         &.active {
-            background-color: #333;
-            color: #fff;
+            background-color: $of-selected-background;
+            color: $of-light-text;
         }
 
         &:hover {
-            background-color: #222;
-            color: #fff;
+            background-color: $of-selected-background;
+            color: $of-light-text;
 
             .sidebar-btn {
                 opacity: 1;
@@ -42,7 +43,7 @@ $topbar-height: 45px;
         }
 
         &:focus {
-            color: #fff;
+            color: $of-light-text;
         }
 
         &--logo {
@@ -52,6 +53,10 @@ $topbar-height: 45px;
                 padding: 0;
                 width: 22px;
             }
+        }
+
+        &--menu {
+            width: 120px;
         }
 
         &--link {
@@ -86,13 +91,14 @@ $topbar-height: 45px;
 
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
-    $topbar-height-sm: 66px;
+    $topbar-height-sm: 60px;
     .topbar {
         height: $topbar-height-sm;
 
         &__tab {
             padding: 0 30px;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
+            font-size: 13px;
             &--logo {
                 padding: 0 20px;
 

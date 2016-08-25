@@ -1,10 +1,12 @@
+@import "../common/colors";
+
 .browse-sub-menu {
   margin-top: 40px;
   margin-bottom: 40px;
   height: 40px;
 
   &__wrap {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid $of-light-grey;
   }
 
   .tabs {
@@ -20,7 +22,7 @@
 
   .tabs li {
       display: inline;
-      margin-right: 25px;
+      margin-right: 30px;
   }
 
   .tabs a {
@@ -36,7 +38,7 @@
       font-weight: 600;
       text-decoration: none;
       padding-bottom: 3px;
-      border-bottom: 4px solid black;
+      border-bottom: 3px solid black;
       color: black;
   }
 }

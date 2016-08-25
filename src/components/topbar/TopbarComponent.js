@@ -28,8 +28,8 @@ class TopbarComponent extends React.Component {
             user
             ? (
                 <span className="hidden-xs">
-                  <Link className="topbar__tab" activeClassName={active} to="/">Browse</Link>
-                  <Link className="topbar__tab" activeClassName="active" to={username}>You</Link>
+                  <Link className="topbar__tab topbar__tab--menu" activeClassName={active} to="/">Browse</Link>
+                  <Link className="topbar__tab topbar__tab--menu" activeClassName="active" to={username}>You</Link>
                 </span>
               )
             : null

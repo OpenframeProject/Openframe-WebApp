@@ -1,13 +1,13 @@
 @import "compass/css3/transition";
 @import "compass/css3/transform";
 @import "bootstrap/variables";
+@import "../common/colors";
 
 .artwork-list-item {
   overflow: hidden;
   background: #fff;
-  font-size: 14px;
   margin-bottom: 15px;
-  box-shadow: 0px 1px 2px #aaa;
+  box-shadow: 0px 2px 0px $of-light-grey;
 
   &__thumb {
     padding: 10px;
@@ -22,27 +22,31 @@
   }
 
   &__info {
-    padding: 10px;
+    padding: 8px;
+    padding-left: 12px;
   }
 
   &__author {
     color: #333;
     font-weight: 100;
+    font-size: 13px;
   }
 
   &__title {
     color: #333;
-    font-weight: 600;
+    font-weight: 400;
+    font-size: 14px;
     display: inline;
   }
 
   &__format {
-    color: #ccc;
+    color: $of-normal-grey;
     font-size: 9px;
+    font-weight: 200;
     text-transform: uppercase;
     display: inline;
     padding: 0px 10px;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
   }
 
   &__actions {
@@ -57,15 +61,25 @@
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
   .artwork-list-item {
-    @include transition(all 0.1s ease-in-out);
+    //@include transition(all 0.05s ease-in-out);
     @include scale(1, 1);
-    margin-bottom: 30px;
-    box-shadow: 0px 1px 2px #aaa;
+    margin-bottom: 20px;
+    box-shadow: 0px 1.5px 0px $of-light-grey;
 
     &:hover {
-      @include scale(1.02, 1.02);
+      //@include scale(1.013, 1.013);
+      // @include translateY(-2px);
       cursor: pointer;
-      box-shadow: 0px 2px 6px #999;
+
+      @include scale(1.015, 1.015);
+      box-shadow: 0px 1.8px 0px $of-light-grey;
+      //box-shadow: 0px 4px 0px $of-light-grey;
+
+      
+      //outline: 2px solid $of-normal-grey;
+      //.box-shadow: none;
+
+      //box-shadow: 0px 2px 4px #999;
       .artwork-list-item__push-btn {
         display: block;
       }
