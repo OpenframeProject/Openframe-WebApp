@@ -25,7 +25,7 @@ class CollectionDetailContainer extends Component {
   }
 
   render() {
-    const {collection, artwork, user, actions, isFetching} = this.props;
+    const {collection, artwork, user, actions, isFetching, location} = this.props;
     return (
       <div className="container">
         {
@@ -43,6 +43,7 @@ class CollectionDetailContainer extends Component {
                           user={user}
                           key={artwork.id}
                           artwork={artwork}
+                          location={location}
                           pushArtwork={actions.pushArtwork} />
                     ))
                   }

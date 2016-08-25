@@ -47,6 +47,7 @@ class AddedContainer extends Component {
                           isAuthenticated={auth.isAuthenticated}
                           key={artwork.id}
                           artwork={artwork}
+                          location={location}
                           pushArtwork={actions.pushArtwork}
                           openArtworkDetail={actions.openArtworkDetail} />
                       )

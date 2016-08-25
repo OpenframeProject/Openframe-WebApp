@@ -48,7 +48,7 @@ class ArtworkListItemComponent extends Component {
     let { artwork, isAuthenticated } = this.props;
 
     return (
-        <div className="col-xs-12 col-sm-6 col-md-4">
+        <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <Link to={{
               pathname: '/artwork/'+artwork.id,
               state: { modal: true, returnTo: this.props.location.pathname }

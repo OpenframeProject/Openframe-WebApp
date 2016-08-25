@@ -159,7 +159,7 @@ class App extends Component {
           title="Hmmm..."
           acceptText="Do it."
           cancelText="Stop!"
-          acceptAction={{ type: 'TEST_ACTION'}}
+          acceptAction={{ type: 'TEST_ACTION' }}
           hideConfirmDialog={actions.hideConfirmDialog}
            />
       </div>
