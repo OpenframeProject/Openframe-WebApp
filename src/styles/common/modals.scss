@@ -7,10 +7,24 @@
   overflow: hidden;
 }
 
+.ReactModal__Overlay {
+  @include transition(all 0.2s ease-in-out);
+  opacity: 0;
+  background-color: rgba(0,0,0,.3);
+
+  &--after-open {
+    opacity: 1;
+  }
+
+  &--before-close {
+    opacity: 0;
+  }
+}
+
 .ReactModal__Content {
   @include transition(all 0.2s ease-in-out);
-  @include transform(translate3d(0, 700px, 0));
-  // opacity: 0;
+  // @include transform(translate3d(0, 700px, 0));
+  opacity: 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -20,22 +34,23 @@
   height: 100%;
   margin: 0px;
   outline: none;
+  overflow: auto;
 
   &--after-open {
-    @include transform(translate3d(0,0,0));
+    // @include transform(translate3d(0,0,0));
     opacity: 1;
   }
 
   &--before-close {
-    @include transform(translate3d(0, 700px, 0));
+    // @include transform(translate3d(0, 700px, 0));
     opacity: 0;
   }
 
   .modal-content {
-    height: 100%;
     margin: 0px;
     border: none;
     border-radius: 0;
+    min-height: 100%;
   }
 
   .modal-header {
@@ -67,10 +82,12 @@
   }
 }
 
-.ReactModal__Overlay {
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+  .ReactModal__Overlay {
     @include transition(all 0.2s ease-in-out);
     opacity: 0;
-    background-color: rgba(0,0,0,.3);
+    background-color: rgba(100,100,100,.8);
     overflow: auto;
 
     &--after-open {
@@ -82,15 +99,13 @@
     }
   }
 
-// overridden styles for sm screen / tablet
-@media(min-width: $screen-sm-min) {
   .ReactModal__Content {
     @include transform(scale(.9,.9));
     opacity: 0;
     position: relative;
     width: 600px;
     height: auto;
-    margin: 100px auto 20px;
+    margin: 0px auto;
 
     &--after-open {
       opacity: 1;
@@ -104,7 +119,8 @@
 
     .modal-content {
       height: auto;
-      margin: 0px;
+      min-height: auto;
+      margin: 100px 0;
     }
 
     .modal-header {
@@ -129,20 +145,6 @@
 
     .modal-title {
       font-size: 16px;
-    }
-  }
-
-  .ReactModal__Overlay {
-    @include transition(all 0.2s ease-in-out);
-    opacity: 0;
-    background-color: rgba(100,100,100,.8);
-
-    &--after-open {
-      opacity: 1;
-    }
-
-    &--before-close {
-      opacity: 0;
     }
   }
 }
