@@ -10,7 +10,7 @@ module.exports = function(response) {
       type: FETCH_CURRENT_USER_SUCCESS,
       response: normalize(response, schema.user)
     });
-
+    console.log('FETCH FRAME REQUEST', fetchFramesRequest);
     dispatch(fetchFramesRequest());
   }
 };

@@ -18,6 +18,7 @@ class FrameItemComponent extends React.Component {
   	let {isCurrent, isOwner, frame} = this.props;
 
   	let isConnected = frame.connected;
+    let current_artwork_ref = frame.current_artwork_ref;
 
     let className = 'sidebar__row sidebar__row--frame';
     className += isCurrent ? ' sidebar_row--frame-active' : '';
@@ -44,7 +45,7 @@ class FrameItemComponent extends React.Component {
         }
 
         <div className="frame-status displaying">
-        	{ frame._current_artwork ? frame._current_artwork.author_name + ' - ' + frame._current_artwork.title : 'No Artwork Displayed'}
+        	{ current_artwork_ref ? current_artwork_ref.author_name + ' - ' + current_artwork_ref.title : 'No Artwork Displayed'}
         </div>
     </li>
     );

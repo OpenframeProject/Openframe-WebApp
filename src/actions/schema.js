@@ -13,7 +13,7 @@ export const frame = new Schema('frames');
 export const arrayOfFrames = arrayOf(frame);
 frame.define({
   owner: user,
-  _current_artwork: artwork
+  current_artwork: artwork
 });
 
 export const channel = new Schema('channel');
