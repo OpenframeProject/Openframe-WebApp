@@ -185,7 +185,7 @@ function mapStateToProps(state) {
   const props = {
     artwork: state.artwork,
     frames: state.frames,
-    selectedFrame: getSelectedFrame(state.frames.byId, state.frames.selectedFrameId),
+    selectedFrame: getSelectedFrame(state.frames.byId, state.frames.selectedFrameId, state.artwork.byId),
     user: state.user,
     currentUser: getCurrentUser(state.user),
     auth: state.auth,

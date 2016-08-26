@@ -3,7 +3,7 @@ import fetchFramesSuccess from './fetchFramesSuccess';
 import fetchFramesFailure from './fetchFramesFailure';
 import {users} from '../../sources/api';
 
-module.exports = function() {
+export default function() {
   return dispatch => {
 		dispatch({
 			type: FETCH_FRAMES_REQUEST
@@ -14,4 +14,4 @@ module.exports = function() {
 			error => dispatch(fetchFramesFailure(error))
 		);
 	}
-};
+}

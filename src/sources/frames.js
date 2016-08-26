@@ -9,7 +9,9 @@ const frames = {
    * @return {Promise}
    */
   fetch: function(filter = {}) {
-    let defaultFilter = {};
+    let defaultFilter = {
+      include: 'current_artwork'
+    };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}`, { data: finalFilter });
   },

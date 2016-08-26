@@ -8,7 +8,8 @@ import {
   FETCH_SINGLE_ARTWORK_SUCCESS,
   FETCH_SINGLE_COLLECTION_SUCCESS,
   FETCH_USER_ARTWORK_SUCCESS,
-  FETCH_USER_LIKES_SUCCESS
+  FETCH_USER_LIKES_SUCCESS,
+  FETCH_FRAMES_SUCCESS
 } from '../../actions/const'
 
 const initialState = {};
@@ -19,7 +20,8 @@ export default function(state = initialState, action) {
     case FETCH_SINGLE_COLLECTION_SUCCESS:
     case FETCH_USER_ARTWORK_SUCCESS:
     case FETCH_USER_LIKES_SUCCESS:
-    case FETCH_SINGLE_ARTWORK_SUCCESS: {
+    case FETCH_SINGLE_ARTWORK_SUCCESS:
+    case FETCH_FRAMES_SUCCESS: {
       return {
         ...state,
         ...action.response.entities.artwork

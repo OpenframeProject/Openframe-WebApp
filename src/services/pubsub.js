@@ -58,10 +58,12 @@ function subscribe() {
 }
 
 export const bindEventToAction = (event, action) => {
+  console.log('ACTION', action);
   if (typeof action !== 'function') {
     throw new Error('action must be an action creator function')
   }
   PubSub.subscribe(event, function(data) {
+    // action(data);
     PubSub.dispatch(action(data));
   });
 }

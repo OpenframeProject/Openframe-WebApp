@@ -35,7 +35,11 @@ export const getFramesList = function(frameIds, framesById) {
  * @param  {String} selectedFrameId
  * @return {Object}
  */
-export const getSelectedFrame = function(framesById, selectedFrameId) {
-  let selectedFrame = null;
-  return getById(framesById, selectedFrameId);
+export const getSelectedFrame = function(framesById, selectedFrameId, artworkById) {
+  let selectedFrame = getById(framesById, selectedFrameId);
+  if (selectedFrame) {
+    let currentArtwork = selectedFrame && selectedFrame.current_artwork && getById(artworkById, selectedFrame.current_artwork);
+    selectedFrame.current_artwork_ref = currentArtwork;
+  }
+  return selectedFrame;
 }
