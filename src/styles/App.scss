@@ -1,11 +1,12 @@
 @import "bootstrap/variables";
+@import "common/colors";
 
 /* Base Application Styles */
 body {
   padding-top: 45px;
   font-family: "Lato", sans-serif;
   color: black;
-  background: #eee;
+  background: $of-lightest-grey;
 }
 
 /* Global */
@@ -26,10 +27,6 @@ a:hover, a:focus {
 
 .row {
     margin: 0;
-}
-
-div[class^="col-"] {
-    padding: 0;
 }
 
 .container-centered-well {
@@ -86,10 +83,6 @@ h3 {
 
     .row {
         margin: 0 -15px;
-    }
-
-    div[class^="col-"] {
-        padding: 0 15px;
     }
 }
 

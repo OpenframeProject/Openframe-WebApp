@@ -1,4 +1,5 @@
 @import 'common/colors';
+@import "bootstrap/variables";
 
 .alert {
   margin: 0;
@@ -9,4 +10,28 @@
     border: 1px solid darken($of-info, 5%);
     color: darken($of-info, 75%);
   }
+}
+
+div[class^="col-"] {
+    padding: 0;
+}
+
+
+
+@media(min-width: $screen-sm-min) {
+  div[class^="col-"] {
+		padding: 0 10px;
+	}
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {
+
+}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {
+	.container {
+	  width: 1000px;
+	}
 }
