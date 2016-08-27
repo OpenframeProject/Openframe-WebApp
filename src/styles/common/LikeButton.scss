@@ -1,11 +1,11 @@
 @import "../common/colors";
 @import "compass/css3/transform";
 
-.push-button {
+.like-button {
   width: 34px;
   height: 34px;
   border-radius: 34px;
-  padding: 5px 9px;
+  padding: 6px 8px;
 
   &:hover {
     // background-color: darken($of-lightest-grey, 5%);

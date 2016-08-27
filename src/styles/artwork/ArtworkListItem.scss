@@ -1,15 +1,17 @@
 @import "compass/css3/transition";
 @import "compass/css3/transform";
+@import "compass/css3/images";
 @import "bootstrap/variables";
 @import "../common/colors";
 
 .artwork-list-item {
   overflow: hidden;
   background: #fff;
-  margin-bottom: 15px;
   box-shadow: 0px 2px 0px $of-light-grey;
+  margin: 10px 10px 0px 10px;
 
   &__thumb {
+    // padding: 10px;
     position: relative;
     width: 100%;
     background-position: center center;
@@ -51,8 +53,13 @@
   &__actions {
     position: absolute;
     right: 0px;
-    bottom: 15px;
-    padding: 10px;
+    bottom: 10px;
+    padding: 0px 10px;
+  }
+
+  &__action {
+    float: right;
+    margin-left: 5px;
   }
 
 }
@@ -64,6 +71,10 @@
     @include scale(1, 1);
     margin-bottom: 20px;
     box-shadow: 0px 1.5px 0px $of-light-grey;
+
+    &__actions {
+      display: none;
+    }
 
     &:hover {
       //@include scale(1.013, 1.013);
@@ -82,15 +93,18 @@
       .artwork-list-item__push-btn {
         display: block;
       }
+
+      .artwork-list-item__actions {
+        // bottom: 0px;
+        display: block;
+        @include background-image(linear-gradient(to left,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 80%,rgba(255,255,255,0) 100%));
+      }
     }
 
      &__thumb {
       padding: 0px;
     }
 
-    &__actions {
-      bottom: 0px;
-    }
   }
 }
 

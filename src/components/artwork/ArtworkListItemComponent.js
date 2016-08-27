@@ -8,6 +8,7 @@ import React, {
 import { Link } from 'react-router'
 
 import PushButtonComponent from '../common/PushButtonComponent';
+import LikeButtonComponent from '../common/LikeButtonComponent';
 
 require('styles/artwork/ArtworkListItem.scss');
 // let settingsBtnImage = require('../../images/artwork-settings.svg');
@@ -40,12 +41,26 @@ class ArtworkListItemComponent extends Component {
 
   _handlePushClick(e) {
     e.preventDefault();
-    let {artwork, pushArtwork} = this.props;
-    pushArtwork(artwork.id);
+    let {artwork, pushArtwork, isAuthenticated} = this.props;
+    if (isAuthenticated) {
+      pushArtwork(artwork.id);
+    } else {
+      // TODO: user-facing notice about what pushing an artwork means.
+    }
+  }
+
+  _handleLikeClick(e) {
+    e.preventDefault();
+    let {artwork, likeArtwork, isAuthenticated} = this.props;
+    if (isAuthenticated) {
+      likeArtwork(artwork.id);
+    } else {
+      // TODO: user-facing notice about what liking an artwork means.
+    }
   }
 
   render() {
-    let { artwork, isAuthenticated } = this.props;
+    let { artwork } = this.props;
 
     return (
         <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -62,16 +77,16 @@ class ArtworkListItemComponent extends Component {
                 <div className="artwork-list-item__title">{artwork.title}</div>
                 <div className="artwork-list-item__format">{this._formatDisplayName(artwork.format)}</div>
               </div>
-              { isAuthenticated
-                ? <div className="artwork-list-item__actions">
-                    <div className="artwork-list-item__push" title="Push to frame">
-                      <PushButtonComponent handleClick={::this._handlePushClick} show={this.state.hover} />
-                    </div>
-                    <div className="artwork-list-item__like">
-                    </div>
+                <div className="artwork-list-item__actions">
+                  <div className="artwork-list-item__action" title="Like artwork">
+                    <LikeButtonComponent handleClick={::this._handleLikeClick} show={this.state.hover} />
                   </div>
-                : null
-              }
+                  <div className="artwork-list-item__action" title="Push to frame">
+                    <PushButtonComponent handleClick={::this._handlePushClick} show={this.state.hover} />
+                  </div>
+                  <div className="artwork-list-item__like">
+                  </div>
+                </div>
             </div>
           </Link>
         </div>
