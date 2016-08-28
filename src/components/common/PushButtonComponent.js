@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 
 require('styles/common/PushButton.scss');
 
-let pushBtn = require('../../images/push.svg');
+let pushBtn = require('../../images/icon_push.svg');
 
 class PushButtonComponent extends React.Component {
 

@@ -6,11 +6,11 @@ import { Link } from 'react-router'
 
 require('styles/common/MobileSubMenu.scss');
 
-let streamImg = require('../../images/stream.svg');
-let channelsImg = require('../../images/channels.svg');
-let collectionsImg = require('../../images/collection.svg');
-let likesImg = require('../../images/likes.svg');
-let youImg = require('../../images/you.svg');
+let streamImg = require('../../images/icon_stream.svg');
+let channelsImg = require('../../images/icon_channels.svg');
+let collectionsImg = require('../../images/icon_collection.svg');
+let likesImg = require('../../images/icon_likes.svg');
+let youImg = require('../../images/icon_you.svg');
 
 class MobileSubMenuComponent extends React.Component {
   render() {

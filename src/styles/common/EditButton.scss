@@ -1,20 +1,18 @@
 @import "../common/colors";
 @import "compass/css3/transform";
 
-.push-button {
+.edit-button {
   width: 34px;
   height: 34px;
   border-radius: 34px;
   padding: 5px 9px;
 
-  // Hovering over this button
   &:hover {
     // background-color: darken($of-lightest-grey, 5%);
     background-color: $of-lightest-grey;
     @include scale(1.1);
   }
 
-  // Hovering over artwork list item
   &--hover {
     cursor: pointer;
   }

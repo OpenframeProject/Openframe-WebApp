@@ -1,15 +1,12 @@
 @import "compass/css3/transition";
 @import "compass/css3/transform";
+@import "compass/css3/images";
 @import "bootstrap/variables";
 @import "../common/colors";
 
 .artwork-list-item {
-  overflow: hidden;
-  background: #fff;
-  margin-bottom: 15px;
-  box-shadow: 0px 2px 0px $of-light-grey;
-
   &__thumb {
+    // padding: 10px;
     position: relative;
     width: 100%;
     background-position: center center;
@@ -51,35 +48,47 @@
   &__actions {
     position: absolute;
     right: 0px;
-    bottom: 15px;
-    padding: 10px;
+    bottom: 10px;
+    padding: 0px 10px;
+    z-index: 2;
+    @include background-image(linear-gradient(to left,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 80%,rgba(255,255,255,0) 100%));
   }
 
+  &__action {
+    float: right;
+    margin-left: 5px;
+  }
+
+  &__current-indicator {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    font-size: 24px;
+    z-index: 1;
+  }
 }
 
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
   .artwork-list-item {
-    //@include transition(all 0.05s ease-in-out);
-    @include scale(1, 1);
-    margin-bottom: 20px;
-    box-shadow: 0px 1.5px 0px $of-light-grey;
+
+    &__actions {
+      display: none;
+    }
+
+    &__current-indicator {
+      position: absolute;
+      right: 20px;
+      bottom: 12px;
+      font-size: 24px;
+    }
 
     &:hover {
-      //@include scale(1.013, 1.013);
-      // @include translateY(-2px);
-      cursor: pointer;
-
-      @include scale(1.015, 1.015);
-      box-shadow: 0px 1.8px 0px $of-light-grey;
-      //box-shadow: 0px 4px 0px $of-light-grey;
-
-
-      //outline: 2px solid $of-normal-grey;
-      //.box-shadow: none;
-
-      //box-shadow: 0px 2px 4px #999;
       .artwork-list-item__push-btn {
+        display: block;
+      }
+
+      .artwork-list-item__actions {
         display: block;
       }
     }
@@ -88,9 +97,6 @@
       padding: 0px;
     }
 
-    &__actions {
-      bottom: 0px;
-    }
   }
 }
 

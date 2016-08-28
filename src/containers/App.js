@@ -86,6 +86,7 @@ class App extends Component {
         <TopbarComponent
           user={currentUser}
           isFetching={user.isFetching}
+          isPushing={frames.isPushing}
           route={route}
           location={location}
           selectedFrame={selectedFrame}

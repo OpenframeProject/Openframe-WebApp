@@ -2,11 +2,20 @@
 
 import React, { PropTypes } from 'react';
 
+import EditButtonComponent from '../common/EditButtonComponent';
+
 require('styles/user/ProfileHeader.scss');
 
 class ProfileHeaderComponent extends React.Component {
+
+  _handleEditClick(e) {
+    e.preventDefault();
+    let { currentUser } = this.props;
+  }
+
+
   render() {
-    const { user } = this.props;
+    const { user, currentUser } = this.props;
 
     if (!user) return null;
 
@@ -15,6 +24,13 @@ class ProfileHeaderComponent extends React.Component {
         <div className="profile-header__name">{user.full_name}</div>
         <div className="profile-header__social">{user.website} &bull; {user.twitter}</div>
         <div className="profile-header__bio">{user.bio}</div>
+
+        <div className="profile-header__actions">
+          { user.id === currentUser.id
+            ? <EditButtonComponent handleClick={::this._handleEditClick} />
+            : null
+          }
+        </div>
       </div>
     );
   }

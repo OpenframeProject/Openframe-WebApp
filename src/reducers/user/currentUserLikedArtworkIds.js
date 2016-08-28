@@ -1,8 +1,6 @@
 import {
   FETCH_USER_LIKES_SUCCESS,
-  LOGOUT_SUCCESS,
-  LIKE_ARTWORK_SUCCESS,
-  UNLIKE_ARTWORK_SUCCESS
+  LOGOUT_SUCCESS
 } from '../../actions/const'
 
 export default function(state = [], action) {

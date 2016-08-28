@@ -12,7 +12,7 @@ import current from './current';
 import profile from './profile';
 import profileNotFound from './profileNotFound';
 import profileArtworkIds from './profileArtworkIds';
-import likedArtworkIds from './likedArtworkIds';
+import userLikedArtworksById from './userLikedArtworksById';
 import { isFetching } from './meta';
 
 export default combineReducers({
@@ -22,7 +22,7 @@ export default combineReducers({
   profile,
   profileNotFound,
   profileArtworkIds,
-  likedArtworkIds,
+  userLikedArtworksById,
   isFetching
 });
 
@@ -31,14 +31,28 @@ export const getUserList = function(state, filter) {
   return ids.map(id => getById(state.user.byId, id));
 }
 
-export const getCurrentUser = function(user) {
-  return getById(user.byId, user.current) || null;
+export const getCurrentUser = function(userState) {
+  return getById(userState.byId, userState.current) || null;
 }
 
-export const getProfileUser = function(user) {
-  return getById(user.byId, user.profile) || null;
+export const getProfileUser = function(userState) {
+  return getById(userState.byId, userState.profile) || null;
 }
 
-export const getProfileNotFound = function(user) {
-  return user.profileNotFound === true;
+export const getProfileNotFound = function(userState) {
+  return userState.profileNotFound === true;
 }
+
+export const getUserLikes = function(userState, userId) {
+  return userState.userLikedArtworksById[userId] || [];
+}
+
+export const isLiked = function(userState, artworkId) {
+  const currentUserId = userState.current;
+  if (!currentUserId) return false;
+
+  const likes = getUserLikes(userState, currentUserId);
+
+  return likes.indexOf(artworkId) !== -1;
+}
+

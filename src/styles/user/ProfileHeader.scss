@@ -1,4 +1,5 @@
 .profile-header {
+  position: relative;
   background-color: #fff;
   padding: 30px 15px;
   text-align: center;
@@ -17,5 +18,11 @@
   }
 
   &__bio {
+  }
+
+  &__actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 }
