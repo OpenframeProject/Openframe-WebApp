@@ -59,6 +59,26 @@ class ArtworkListItemComponent extends Component {
     }
   }
 
+  _generateThumbUrl(url) {
+    let parser = document.createElement('a');
+    parser.href = url;
+    // console.log('ORIGINAL', url);
+    let newHost = parser.hostname + '.rsz.io';
+    let newSearch = parser.search ? parser.search + '&width=300' : '?width=300';
+    let newUrl = 'http://' + newHost + parser.port + parser.pathname + newSearch;
+
+    // console.log('NEW', newUrl);
+
+    return newUrl;
+    // parser.protocol; // => "http:"
+    // parser.hostname; // => "example.com"
+    // parser.port;     // => "3000"
+    // parser.pathname; // => "/pathname/"
+    // parser.search;   // => "?search=test"
+    // parser.hash;     // => "#hash"
+    // parser.host;     // => "example.com:3000"
+  }
+
   render() {
     let { artwork, currentArtwork } = this.props;
 
@@ -71,9 +91,9 @@ class ArtworkListItemComponent extends Component {
               pathname: '/artwork/'+artwork.id,
               state: { modal: true, returnTo: this.props.location.pathname }
             }}>
-            <div className="artwork-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
+            <div className="list-item artwork-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
               <div className="artwork-list-item__thumb">
-                <img className="artwork-list-item__thumb-img" src={artwork.thumb_url} />
+                <img className="artwork-list-item__thumb-img" src={this._generateThumbUrl(artwork.thumb_url)} />
               </div>
               <div className="artwork-list-item__info">
                 <div className="artwork-list-item__author">{artwork.author_name}</div>
@@ -110,7 +130,8 @@ ArtworkListItemComponent.propTypes = {
   artwork: PropTypes.object.isRequired,
   user: PropTypes.object,
   isAuthenticated: PropTypes.bool,
-  pushArtwork: PropTypes.func.isRequired
+  pushArtwork: PropTypes.func.isRequired,
+  likeArtwork: PropTypes.func.isRequired
 };
 
 ArtworkListItemComponent.defaultProps = {

@@ -24,7 +24,7 @@ class AddedContainer extends Component {
     const { actions, user, currentUser, isFetching, auth, artworkList, location } = this.props;
     return (
       <div>
-        <ProfileHeaderComponent user={user} />
+        <ProfileHeaderComponent user={user} currentUser={currentUser} />
 
         <div className="container">
           {
@@ -49,7 +49,7 @@ class AddedContainer extends Component {
                           artwork={artwork}
                           location={location}
                           pushArtwork={actions.pushArtwork}
-                          openArtworkDetail={actions.openArtworkDetail} />
+                          likeArtwork={actions.likeArtwork} />
                       )
                     })
                   }
@@ -81,7 +81,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchUserArtworkRequest: require('../actions/user/fetchUserArtworkRequest.js')
+    fetchUserArtworkRequest: require('../actions/user/fetchUserArtworkRequest.js'),
+    pushArtwork: require('../actions/artwork/pushArtwork.js'),
+    likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
+    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

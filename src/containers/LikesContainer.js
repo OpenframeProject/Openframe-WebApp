@@ -12,7 +12,7 @@ import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 import ProfileHeaderComponent from '../components/user/ProfileHeaderComponent';
 
-import { getProfileUser, getCurrentUser } from '../reducers/user/index';
+import { getProfileUser, getCurrentUser, getUserLikes, isLiked } from '../reducers/user/index';
 import { getArtworkList } from '../reducers/artwork/index';
 
 const masonryOptions = {
@@ -25,7 +25,7 @@ class LikesContainer extends Component {
     const { actions, user, currentUser, isFetching, auth, artworkList, location } = this.props;
     return (
       <div>
-        <ProfileHeaderComponent user={user} />
+        <ProfileHeaderComponent user={user} currentUser={currentUser} />
 
         <div className="container">
           {
@@ -50,7 +50,8 @@ class LikesContainer extends Component {
                           artwork={artwork}
                           location={location}
                           pushArtwork={actions.pushArtwork}
-                          openArtworkDetail={actions.openArtworkDetail} />
+                          likeArtwork={actions.likeArtwork}
+                          isLiked={isLiked(currentUser, artwork.id)} />
                       )
                     })
                   }
@@ -70,10 +71,12 @@ LikesContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
+  const currentUser = getCurrentUser(state.user);
+  const currentUserId = currentUser ? currentUser.id : null;
   const props = {
     user: getProfileUser(state.user),
-    currentUser: getCurrentUser(state.user),
-    artworkList: getArtworkList(state.user.likedArtworkIds, state.artwork.byId),
+    currentUser: currentUser,
+    artworkList: getArtworkList(getUserLikes(state.user, currentUserId), state.artwork.byId),
     auth: state.auth,
     isFetching: state.artwork.isFetching
   };
@@ -83,7 +86,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   const actions = {
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
-    openArtworkDetail: require('../actions/artwork/openArtworkDetail.js')
+    likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
+    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

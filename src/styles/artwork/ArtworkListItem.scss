@@ -5,11 +5,6 @@
 @import "../common/colors";
 
 .artwork-list-item {
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0px 2px 0px $of-light-grey;
-  margin: 10px 10px 0px 10px;
-
   &__thumb {
     // padding: 10px;
     position: relative;
@@ -76,10 +71,6 @@
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
   .artwork-list-item {
-    //@include transition(all 0.05s ease-in-out);
-    @include scale(1, 1);
-    margin-bottom: 20px;
-    box-shadow: 0px 1.5px 0px $of-light-grey;
 
     &__actions {
       display: none;
@@ -93,19 +84,6 @@
     }
 
     &:hover {
-      //@include scale(1.013, 1.013);
-      // @include translateY(-2px);
-      cursor: pointer;
-
-      @include scale(1.015, 1.015);
-      box-shadow: 0px 1.8px 0px $of-light-grey;
-      //box-shadow: 0px 4px 0px $of-light-grey;
-
-
-      //outline: 2px solid $of-normal-grey;
-      //.box-shadow: none;
-
-      //box-shadow: 0px 2px 4px #999;
       .artwork-list-item__push-btn {
         display: block;
       }

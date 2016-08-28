@@ -29,7 +29,7 @@ class StreamContainer extends Component {
   }
 
   render() {
-    const {artworkList, auth, actions, isFetching, isFirstLoad, location, currentArtwork } = this.props;
+    const {artworkList, auth, actions, isFirstLoad, location, currentArtwork } = this.props;
     return (
       <div className="container">
         <BrowseSubMenuComponent />
@@ -49,7 +49,8 @@ class StreamContainer extends Component {
                         currentArtwork={currentArtwork}
                         location={location}
                         pushArtwork={actions.pushArtwork}
-                        openArtworkDetail={actions.openArtworkDetail} />
+                        likeArtwork={actions.likeArtwork}
+                        unlikeArtwork={actions.unlikeArtwork} />
                     )
                   })
                 }
@@ -80,7 +81,8 @@ function mapDispatchToProps(dispatch) {
   const actions = {
     fetchStreamRequest: require('../actions/artwork/fetchStreamRequest.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
-    openArtworkDetail: require('../actions/artwork/openArtworkDetail.js')
+    likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
+    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

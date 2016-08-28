@@ -10,7 +10,7 @@ module.exports = function(userId) {
     });
 
     return users.fetchUserLikedArtwork(userId).then(
-      response => dispatch(fetchUserLikesSuccess(response)),
+      response => dispatch(fetchUserLikesSuccess(userId, response)),
       error => dispatch(fetchUserLikesFailure(error))
     );
   }

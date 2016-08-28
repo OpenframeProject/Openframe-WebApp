@@ -10,6 +10,7 @@ $footerber-height: 45px;
   position: fixed;
   bottom: 0px;
   left: 0px;
+  z-index: 100;
 
   &__tab {
     @include flex(1);

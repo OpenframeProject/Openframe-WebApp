@@ -137,11 +137,11 @@ const users = {
   },
 
   likeArtwork: function(artworkId, userId = 'current') {
-    return fetchJSON(`${modelPrefix}/${userId}/artwork/like/${artworkId}`, { method: 'PUT'});
+    return fetchJSON(`${modelPrefix}/${userId}/liked_artwork/rel/${artworkId}`, { method: 'PUT'});
   },
 
   unlikeArtwork: function(artworkId, userId = 'current') {
-    return fetchJSON(`${modelPrefix}/${userId}/artwork/unlike/${artworkId}`, { method: 'PUT'});
+    return fetchJSON(`${modelPrefix}/${userId}/liked_artwork/rel/${artworkId}`, { method: 'DELETE'});
   }
 };
 
