@@ -16,7 +16,7 @@
   .list-item {
     //@include transition(all 0.05s ease-in-out);
     @include scale(1, 1);
-    margin-bottom: 20px;
+    margin: 0px 0px 20px 0px;
     box-shadow: 0px 1.5px 0px $of-light-grey;
 
     &:hover {
