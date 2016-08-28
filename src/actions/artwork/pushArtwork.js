@@ -3,6 +3,9 @@ import updateFrameRequest from '../frame/updateFrameRequest';
 
 module.exports = function(artworkId) {
   return (dispatch, getState) => {
+    dispatch({
+      type: PUSH_ARTWORK
+    });
     const state = getState();
     const selectedFrameId = state.frames.selectedFrameId;
     if (selectedFrameId) {

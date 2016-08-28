@@ -9,13 +9,14 @@ import { getById } from '../index';
 import byId from './byId';
 import ids from './ids';
 import selectedFrameId from './selectedFrameId';
-import { isFetching, lastUpdated } from './meta';
+import { isFetching, isPushing, lastUpdated } from './meta';
 
 export default combineReducers({
   byId,
   ids,
   selectedFrameId,
   isFetching,
+  isPushing,
   lastUpdated
 });
 
@@ -42,4 +43,9 @@ export const getSelectedFrame = function(framesById, selectedFrameId, artworkByI
     selectedFrame.current_artwork_ref = currentArtwork;
   }
   return selectedFrame;
+}
+
+export const getCurrentArtwork = function(framesState) {
+  let selectedFrame = getById(framesState.byId, framesState.selectedFrameId);
+  return selectedFrame ? selectedFrame.current_artwork : null;
 }

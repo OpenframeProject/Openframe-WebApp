@@ -47,6 +47,7 @@ $topbar-height: 45px;
         }
 
         &--logo {
+            display: none;
             padding: 0 10px;
 
             img {
@@ -72,6 +73,7 @@ $topbar-height: 45px;
         &--selected-frame {
             text-transform: none;
             cursor: default;
+            float: left;
         }
 
         .sidebar-btn {
@@ -101,11 +103,15 @@ $topbar-height: 45px;
             font-size: 13px;
             &--logo {
                 padding: 0 20px;
+                display: inline-flex;
 
                 img {
                     padding: 0;
                     width: 28px;
                 }
+            }
+            &--selected-frame {
+                float: right;
             }
         }
     }

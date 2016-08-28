@@ -12,6 +12,7 @@ import BrowseSubMenuComponent from '../components/common/BrowseSubMenuComponent'
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 
 import { getArtworkList } from '../reducers/artwork/index';
+import { getCurrentArtwork } from '../reducers/frame/index';
 
 const masonryOptions = {
     transitionDuration: '0.2s'
@@ -28,7 +29,7 @@ class StreamContainer extends Component {
   }
 
   render() {
-    const {artworkList, auth, actions, isFetching, isFirstLoad, location } = this.props;
+    const {artworkList, auth, actions, isFetching, isFirstLoad, location, currentArtwork } = this.props;
     return (
       <div className="container">
         <BrowseSubMenuComponent />
@@ -45,6 +46,7 @@ class StreamContainer extends Component {
                         isAuthenticated={auth.isAuthenticated}
                         key={artwork.id}
                         artwork={artwork}
+                        currentArtwork={currentArtwork}
                         location={location}
                         pushArtwork={actions.pushArtwork}
                         openArtworkDetail={actions.openArtworkDetail} />
@@ -68,6 +70,7 @@ function mapStateToProps(state) {
     artworkList: getArtworkList(state.artwork.streamIds, state.artwork.byId),
     auth: state.auth,
     isFetching: state.artwork.isFetching,
+    currentArtwork: getCurrentArtwork(state.frames),
     isFirstLoad: state.artwork.isFirstLoad
   };
   return props;

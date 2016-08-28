@@ -5,7 +5,7 @@ import React, {
   PropTypes
 } from 'react';
 
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 
 import PushButtonComponent from '../common/PushButtonComponent';
 import LikeButtonComponent from '../common/LikeButtonComponent';
@@ -60,7 +60,10 @@ class ArtworkListItemComponent extends Component {
   }
 
   render() {
-    let { artwork } = this.props;
+    let { artwork, currentArtwork } = this.props;
+
+    let isCurrentClass = 'selected-frame-indicator';
+    isCurrentClass += artwork.id === currentArtwork ? ' selected-frame-indicator--connected' : '';
 
     return (
         <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -77,16 +80,22 @@ class ArtworkListItemComponent extends Component {
                 <div className="artwork-list-item__title">{artwork.title}</div>
                 <div className="artwork-list-item__format">{this._formatDisplayName(artwork.format)}</div>
               </div>
-                <div className="artwork-list-item__actions">
-                  <div className="artwork-list-item__action" title="Like artwork">
-                    <LikeButtonComponent handleClick={::this._handleLikeClick} show={this.state.hover} />
-                  </div>
-                  <div className="artwork-list-item__action" title="Push to frame">
-                    <PushButtonComponent handleClick={::this._handlePushClick} show={this.state.hover} />
-                  </div>
-                  <div className="artwork-list-item__like">
-                  </div>
+              <div className="artwork-list-item__actions">
+                <div className="artwork-list-item__action" title="Push to frame">
+                  <PushButtonComponent handleClick={::this._handlePushClick} show={this.state.hover} />
                 </div>
+                <div className="artwork-list-item__action" title="Like artwork">
+                  <LikeButtonComponent handleClick={::this._handleLikeClick} show={this.state.hover} />
+                </div>
+                <div className="artwork-list-item__like">
+                </div>
+              </div>
+              { artwork.id === currentArtwork
+                ? <div className="artwork-list-item__current-indicator">
+                    <span className='selected-frame-indicator--connected'>&bull;</span>
+                  </div>
+                : null
+              }
             </div>
           </Link>
         </div>

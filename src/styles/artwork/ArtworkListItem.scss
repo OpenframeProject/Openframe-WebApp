@@ -55,6 +55,7 @@
     right: 0px;
     bottom: 10px;
     padding: 0px 10px;
+    z-index: 2;
   }
 
   &__action {
@@ -62,6 +63,13 @@
     margin-left: 5px;
   }
 
+  &__current-indicator {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    font-size: 24px;
+    z-index: 1;
+  }
 }
 
 // overridden styles for sm screen / tablet
@@ -74,6 +82,13 @@
 
     &__actions {
       display: none;
+    }
+
+    &__current-indicator {
+      position: absolute;
+      right: 20px;
+      bottom: 12px;
+      font-size: 24px;
     }
 
     &:hover {
