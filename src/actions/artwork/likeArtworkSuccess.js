@@ -9,6 +9,6 @@ module.exports = function(response) {
       likedArtworkId: response.artworkId
     });
 
-    dispatch(fetchUserLikesRequest(state.user.current));
+    dispatch(fetchUserLikesRequest(state.users.current));
   };
 };

@@ -4,9 +4,12 @@ import unlikeArtworkFailure from './unlikeArtworkFailure';
 import { users } from '../../sources/api';
 
 module.exports = function(artworkId) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const state = getState();
     dispatch({
-      type: UNLIKE_ARTWORK_REQUEST
+      type: UNLIKE_ARTWORK_REQUEST,
+      artworkId,
+      userId: state.user.current
     });
 
     users.unlikeArtwork(artworkId).then(

@@ -59,7 +59,9 @@ function checkStatus(response) {
  * @return {Object} JSON body as JS object
  */
 function parseJSON(response) {
-  return response.json()
+  return response.text().then(function(text) {
+    return text ? JSON.parse(text) : {}
+  });
 }
 
 /**

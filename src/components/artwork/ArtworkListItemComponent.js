@@ -51,9 +51,13 @@ class ArtworkListItemComponent extends Component {
 
   _handleLikeClick(e) {
     e.preventDefault();
-    let {artwork, likeArtwork, isAuthenticated} = this.props;
+    let {artwork, likeArtwork, unlikeArtwork, isAuthenticated, isLiked } = this.props;
     if (isAuthenticated) {
-      likeArtwork(artwork.id);
+      if (isLiked) {
+        unlikeArtwork(artwork.id);
+      } else {
+        likeArtwork(artwork.id);
+      }
     } else {
       // TODO: user-facing notice about what liking an artwork means.
     }
@@ -62,12 +66,9 @@ class ArtworkListItemComponent extends Component {
   _generateThumbUrl(url) {
     let parser = document.createElement('a');
     parser.href = url;
-    // console.log('ORIGINAL', url);
     let newHost = parser.hostname + '.rsz.io';
     let newSearch = parser.search ? parser.search + '&width=300' : '?width=300';
     let newUrl = 'http://' + newHost + parser.port + parser.pathname + newSearch;
-
-    // console.log('NEW', newUrl);
 
     return newUrl;
     // parser.protocol; // => "http:"
@@ -80,7 +81,9 @@ class ArtworkListItemComponent extends Component {
   }
 
   render() {
-    let { artwork, currentArtwork } = this.props;
+    let { artwork, currentArtwork, isLiked } = this.props;
+
+    // console.log(artwork.id, isLiked);
 
     let isCurrentClass = 'selected-frame-indicator';
     isCurrentClass += artwork.id === currentArtwork ? ' selected-frame-indicator--connected' : '';
@@ -105,7 +108,7 @@ class ArtworkListItemComponent extends Component {
                   <PushButtonComponent handleClick={::this._handlePushClick} show={this.state.hover} />
                 </div>
                 <div className="artwork-list-item__action" title="Like artwork">
-                  <LikeButtonComponent handleClick={::this._handleLikeClick} show={this.state.hover} />
+                  <LikeButtonComponent handleClick={::this._handleLikeClick} show={this.state.hover} initialLikedState={isLiked}/>
                 </div>
                 <div className="artwork-list-item__like">
                 </div>

@@ -4,9 +4,12 @@ import likeArtworkFailure from './likeArtworkFailure';
 import { users } from '../../sources/api';
 
 module.exports = function(artworkId) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const state = getState();
     dispatch({
-      type: LIKE_ARTWORK_REQUEST
+      type: LIKE_ARTWORK_REQUEST,
+      artworkId,
+      userId: state.user.current
     });
 
     users.likeArtwork(artworkId).then(
