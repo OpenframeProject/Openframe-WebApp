@@ -25,8 +25,8 @@ class StreamContainer extends Component {
     actions.fetchStreamRequest();
   }
 
-  componentWillUpdate(newProps, oldPropos) {
-    console.log('UPDATING STREAM CONTAINER', newProps, oldPropos);
+  componentWillUpdate(newProps) {
+    console.log('UPDATING STREAM CONTAINER', this.props, newProps, this.props.userLikesById === newProps.userLikesById);
   }
 
   componentWillUnmount() {
@@ -46,6 +46,7 @@ class StreamContainer extends Component {
                   options={masonryOptions}>
                 {
                   artworkList.map(artwork => {
+                    // console.log('artwork', artwork.id, isLiked(userState, artwork.id));
                     return (
                       <ArtworkListItemComponent
                         isAuthenticated={auth.isAuthenticated}
@@ -77,6 +78,7 @@ function mapStateToProps(state) {
     artworkList: getArtworkList(state.artwork.streamIds, state.artwork.byId),
     auth: state.auth,
     userState: state.user,
+    userLikesById: state.user.userLikedArtworksById,
     isFetching: state.artwork.isFetching,
     currentArtwork: getCurrentArtwork(state.frames),
     isFirstLoad: state.artwork.isFirstLoad

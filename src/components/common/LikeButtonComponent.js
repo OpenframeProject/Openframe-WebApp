@@ -15,6 +15,12 @@ class LikeButtonComponent extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isLiked: nextProps.initialLikedState
+    });
+  }
+
   handleClick(e) {
     this.setState({
       isLiked: !this.state.isLiked
@@ -26,7 +32,6 @@ class LikeButtonComponent extends React.Component {
 
     let classes = 'like-button';
     classes += this.props.show ? ' like-button--hover' : '';
-
     return (
       <div className={classes} onClick={::this.handleClick} >
         <img className="like-button__img" src={this.state.isLiked ? unlikeBtn : likeBtn}  />
