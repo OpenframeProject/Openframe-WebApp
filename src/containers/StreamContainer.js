@@ -26,7 +26,7 @@ class StreamContainer extends Component {
   }
 
   componentWillUpdate(newProps) {
-    console.log('UPDATING STREAM CONTAINER', this.props, newProps, this.props.userLikesById === newProps.userLikesById);
+    // console.log('UPDATING STREAM CONTAINER', this.props, newProps, this.props.userLikesById === newProps.userLikesById);
   }
 
   componentWillUnmount() {

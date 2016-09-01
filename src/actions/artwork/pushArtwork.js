@@ -1,5 +1,5 @@
 import {PUSH_ARTWORK} from './../const';
-import updateFrameRequest from '../frame/updateFrameRequest';
+import updateCurrentArtworkRequest from '../frame/updateCurrentArtworkRequest';
 
 module.exports = function(artworkId) {
   return (dispatch, getState) => {
@@ -9,9 +9,7 @@ module.exports = function(artworkId) {
     const state = getState();
     const selectedFrameId = state.frames.selectedFrameId;
     if (selectedFrameId) {
-      dispatch(updateFrameRequest(selectedFrameId, {
-        currentArtworkId: artworkId
-      }));
+      dispatch(updateCurrentArtworkRequest(selectedFrameId, artworkId));
     }
   };
 };

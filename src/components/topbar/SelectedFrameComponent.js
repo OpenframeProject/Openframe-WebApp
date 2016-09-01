@@ -6,8 +6,13 @@ import { Link } from 'react-router';
 import Spinner from 'react-spin';
 
 require('styles//topbar/SelectedFrame.scss');
+let settingsImg = require('../../images/settings_white.svg');
 
 class SelectedFrameComponent extends React.Component {
+  openSettings() {
+    console.log('openSettings', this.props.selectedFrame);
+  }
+
   render() {
     let {connected, name, current_artwork_ref } = this.props.selectedFrame;
     let { isPushing } = this.props;
@@ -66,6 +71,7 @@ class SelectedFrameComponent extends React.Component {
         <div className="selected-frame__info">
           <div className="selected-frame__name">
               { name }
+              <img className="selected-frame__settings" src={settingsImg} onClick={::this.openSettings} />
           </div>
           <div className="selected-frame__status displaying hidden-xs">
               { current_artwork_ref

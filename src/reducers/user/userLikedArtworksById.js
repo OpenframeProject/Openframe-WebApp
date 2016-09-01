@@ -1,4 +1,4 @@
-import { uniq, remove } from 'lodash';
+import { uniq, filter } from 'lodash';
 
 import {
   FETCH_USER_LIKES_SUCCESS,
@@ -16,25 +16,25 @@ export default function(state = initialState, action) {
         ...state,
         [action.userId]: action.response.result
       };
-    // case LIKE_ARTWORK_REQUEST: {
-    //   let ids = [
-    //     ...state[action.userId],
-    //     ...action.artworkId
-    //   ];
-    //   return {
-    //     ...state,
-    //     [action.userId]: uniq(ids)
-    //   }
-    // }
-    // case UNLIKE_ARTWORK_REQUEST: {
-    //   let ids = remove(state[action.userId], (n) => {
-    //     return n === action.artworkId
-    //   });
-    //   return {
-    //     ...state,
-    //     [action.userId]: uniq(ids)
-    //   }
-    // }
+    case LIKE_ARTWORK_REQUEST: {
+      let ids = [
+        ...state[action.userId],
+        action.artworkId
+      ];
+      return {
+        ...state,
+        [action.userId]: uniq(ids)
+      }
+    }
+    case UNLIKE_ARTWORK_REQUEST: {
+      let ids = filter(state[action.userId], (n) => {
+        return n !== action.artworkId
+      });
+      return {
+        ...state,
+        [action.userId]: uniq(ids)
+      }
+    }
     case LOGOUT_SUCCESS:
       return {};
     default: {

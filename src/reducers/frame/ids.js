@@ -7,7 +7,8 @@ import { uniq } from 'lodash';
 
 import {
   FETCH_FRAMES_SUCCESS,
-  FRAME_UPDATED
+  FRAME_UPDATED,
+  LOGOUT_REQUEST
 } from '../../actions/const'
 
 const initialState = [];
@@ -31,6 +32,10 @@ export default function(state = initialState, action) {
         action.response.result
       ];
       return uniq(ids);
+    }
+
+    case LOGOUT_REQUEST: {
+      return [];
     }
 
     default: {

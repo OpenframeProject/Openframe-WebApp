@@ -44,8 +44,8 @@ const frames = {
    * @param  {Object} artworkData An artwork description object
    * @return {Promise}
    */
-  updateCurrentArtwork: function(frameId, artworkData) {
-    return fetchJSON(`${modelPrefix}/${frameId}/current_artwork`, { method: 'PUT', data: artworkData });
+  updateCurrentArtwork: function(frameId, artworkId) {
+    return fetchJSON(`${modelPrefix}/${frameId}/current_artwork/${artworkId}`, { method: 'PUT' });
   },
 
   /**
