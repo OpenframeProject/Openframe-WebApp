@@ -19,14 +19,19 @@ require('styles/artwork/ArtworkDetail.scss');
 class ArtworkDetailContainer extends Component {
   componentWillMount() {
     const {actions, params} = this.props;
+    console.log('params', params);
     actions.fetchSingleArtworkRequest(params.artworkId);
   }
 
   render() {
-    const {artwork, user, params} = this.props;
+    const {artwork, user, params, location, route } = this.props;
+    console.log('ArtworkDetailContainer', location, params, route);
+
     let singleArtwork = getById(artwork.byId, params.artworkId);
     let owner = singleArtwork && singleArtwork.owner ? getById(user.byId, singleArtwork.owner) : null;
     let ownerUrl = owner ? `/${owner.username}` : null;
+
+
 
     if (artwork.isFetching && !singleArtwork) {
       return (<LoadingIndicatorComponent />);
@@ -83,11 +88,13 @@ ArtworkDetailContainer.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  console.log('mapStateToProps', ownProps);
   const props = {
     ui: state.ui,
     artwork: state.artwork,
-    user: state.user
+    user: state.user,
+    params: ownProps.params
   };
   return props;
 }

@@ -13,6 +13,8 @@ import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComp
 
 import { getById } from '../reducers/index';
 import { getArtworkForCollection } from '../reducers/collections/index';
+import { getCurrentArtwork } from '../reducers/frame/index';
+import { isLiked } from '../reducers/user/index';
 
 const masonryOptions = {
     transitionDuration: '0.2s'
@@ -25,7 +27,7 @@ class CollectionDetailContainer extends Component {
   }
 
   render() {
-    const {collection, artwork, user, actions, isFetching, location} = this.props;
+    const {collection, artwork, user, auth, actions, isFetching, location, currentArtwork} = this.props;
     return (
       <div className="container">
         {
@@ -40,11 +42,15 @@ class CollectionDetailContainer extends Component {
                   {
                     artwork.map(artwork => (
                         <ArtworkListItemComponent
-                          user={user}
+                          isAuthenticated={auth.isAuthenticated}
                           key={artwork.id}
                           artwork={artwork}
+                          currentArtwork={currentArtwork}
                           location={location}
-                          pushArtwork={actions.pushArtwork} />
+                          pushArtwork={actions.pushArtwork}
+                          likeArtwork={actions.likeArtwork}
+                          unlikeArtwork={actions.unlikeArtwork}
+                          isLiked={isLiked(user, artwork.id)} />
                     ))
                   }
                   </Masonry>
@@ -66,16 +72,20 @@ function mapStateToProps(state, { params }) {
     collection: getById(state.collections.byId, params.collectionId),
     artwork: getArtworkForCollection(state,params.collectionId),
     isFetching: state.collections.isFetching,
-    user: state.user
+    user: state.user,
+    auth: state.auth,
+    userLikesById: state.user.userLikedArtworksById,
+    currentArtwork: getCurrentArtwork(state.frames)
   };
   return props;
 }
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchSingleCollectionRequest: require('../actions/collections/fetchSingleCollectionRequest.js')
-    // pushArtwork: require('../actions/artwork/pushArtwork.js'),
-    // openArtworkDetail: require('../actions/artwork/openArtworkDetail.js')
+    fetchSingleCollectionRequest: require('../actions/collections/fetchSingleCollectionRequest.js'),
+    pushArtwork: require('../actions/artwork/pushArtwork.js'),
+    likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
+    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

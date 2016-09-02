@@ -2,8 +2,7 @@ import 'babel-polyfill'
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRedirect, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router'
-import useScroll from 'react-router-scroll';
+import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router'
 import configureStore from './stores';
 import App from './containers/App';
 import BrowseSectionComponent from './components/sections/BrowseSectionComponent';
@@ -40,7 +39,6 @@ render(
           <Route path="/collections" component={CollectionsContainer} />
           <Route path="/channels" component={ChannelsContainer} />
 
-          <Route path="artwork/:artworkId" component={ArtworkDetailContainer} />
           <Route path="collections/:collectionId" component={CollectionDetailContainer} />
         </Route>
 
@@ -50,6 +48,8 @@ render(
           <Route path="/:username/likes" component={LikesContainer} />
           <Route path="/:username/added" component={AddedContainer} />
         </Route>
+
+        <Route path="/:username/artwork/:artworkId" component={AddedContainer} />
       </Route>
     </Router>
   </Provider>,

@@ -20,7 +20,11 @@ const artwork = {
    * @return {Promise}
    */
   fetchStream: function(filter = {}) {
-    return this.fetch(filter);
+    let defaultFilter = {
+      include: ['owner']
+    };
+    let finalFilter = Object.assign({}, defaultFilter, filter);
+    return this.fetch(finalFilter);
   },
 
   /**

@@ -22,6 +22,7 @@ const masonryOptions = {
 class AddedContainer extends Component {
   render() {
     const { actions, userState, user, currentUser, isFetching, auth, artworkList, location } = this.props;
+
     return (
       <div>
         <ProfileHeaderComponent user={user} currentUser={currentUser} />

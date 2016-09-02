@@ -11,9 +11,10 @@ import ArtworkListItemComponent from '../components/artwork/ArtworkListItemCompo
 import BrowseSubMenuComponent from '../components/common/BrowseSubMenuComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 
+import { getById } from '../reducers/index';
 import { getArtworkList } from '../reducers/artwork/index';
 import { getCurrentArtwork } from '../reducers/frame/index';
-import { isLiked } from '../reducers/user/index';
+import { isLiked, getCurrentUser } from '../reducers/user/index';
 
 const masonryOptions = {
     transitionDuration: '0.2s'
@@ -46,13 +47,14 @@ class StreamContainer extends Component {
                   options={masonryOptions}>
                 {
                   artworkList.map(artwork => {
-                    // console.log('artwork', artwork.id, isLiked(userState, artwork.id));
+                    // console.log('artwork owner', artwork.id, getById(userState.byId, artwork.ownerId));
                     return (
                       <ArtworkListItemComponent
                         isAuthenticated={auth.isAuthenticated}
                         key={artwork.id}
                         artwork={artwork}
                         currentArtwork={currentArtwork}
+                        owner={getById(userState.byId, artwork.ownerId)}
                         location={location}
                         pushArtwork={actions.pushArtwork}
                         likeArtwork={actions.likeArtwork}

@@ -64,13 +64,14 @@ class ArtworkListItemComponent extends Component {
   }
 
   _generateThumbUrl(url) {
-    let parser = document.createElement('a');
-    parser.href = url;
-    let newHost = parser.hostname + '.rsz.io';
-    let newSearch = parser.search ? parser.search + '&width=300' : '?width=300';
-    let newUrl = 'http://' + newHost + parser.port + parser.pathname + newSearch;
+    return url;
+    // let parser = document.createElement('a');
+    // parser.href = url;
+    // let newHost = parser.hostname + '.rsz.io';
+    // let newSearch = parser.search ? parser.search + '&width=300' : '?width=300';
+    // let newUrl = 'http://' + newHost + parser.port + parser.pathname + newSearch;
 
-    return newUrl;
+    // return newUrl;
     // parser.protocol; // => "http:"
     // parser.hostname; // => "example.com"
     // parser.port;     // => "3000"
@@ -81,7 +82,7 @@ class ArtworkListItemComponent extends Component {
   }
 
   render() {
-    let { artwork, currentArtwork, isLiked } = this.props;
+    let { artwork, currentArtwork, isLiked, owner } = this.props;
 
     // console.log(artwork.id, isLiked);
 
@@ -91,7 +92,7 @@ class ArtworkListItemComponent extends Component {
     return (
         <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <Link to={{
-              pathname: '/artwork/'+artwork.id,
+              pathname: `${owner.username}/artwork/${artwork.id}`,
               state: { modal: true, returnTo: this.props.location.pathname }
             }}>
             <div className="list-item artwork-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
@@ -131,7 +132,7 @@ ArtworkListItemComponent.displayName = 'ArtworkListItemComponent';
 // Uncomment properties you need
 ArtworkListItemComponent.propTypes = {
   artwork: PropTypes.object.isRequired,
-  user: PropTypes.object,
+  owner: PropTypes.object,
   isAuthenticated: PropTypes.bool,
   pushArtwork: PropTypes.func.isRequired,
   likeArtwork: PropTypes.func.isRequired
