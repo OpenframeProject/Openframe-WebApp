@@ -89,6 +89,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   const actions = {
     fetchStreamRequest: require('../actions/artwork/fetchStreamRequest.js'),
+    openArtworkDetail: require('../actions/artwork/openArtworkDetail.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
     likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
     unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')

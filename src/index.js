@@ -17,6 +17,9 @@ import AddedContainer from './containers/AddedContainer';
 import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
 import CollectionDetailContainer from './containers/CollectionDetailContainer';
 
+const fixBody = require('./actions/ui/fixBody.js');
+const unfixBody = require('./actions/ui/unfixBody.js');
+
 import PubSub from './services/pubsub';
 
 // test data
@@ -27,6 +30,14 @@ const store = configureStore(initialState);
 // this should be a middleware, but for now PubSub gets initialized with the store
 // so that we can call dispatch() direcly from the pubsub service.
 PubSub.init(store);
+
+function doFixBody() {
+  store.dispatch(fixBody());
+}
+
+function doUnfixBody() {
+  store.dispatch(unfixBody());
+}
 
 render(
   <Provider store={store}>
@@ -40,7 +51,7 @@ render(
           <Route path="/collections" component={CollectionsContainer} />
           <Route path="/channels" component={ChannelsContainer} />
 
-          <Route path="artwork/:artworkId" component={ArtworkDetailContainer} />
+          <Route path="artwork/:artworkId" component={ArtworkDetailContainer} onEnter={doFixBody} onLeave={doUnfixBody} />
           <Route path="collections/:collectionId" component={CollectionDetailContainer} />
         </Route>
 

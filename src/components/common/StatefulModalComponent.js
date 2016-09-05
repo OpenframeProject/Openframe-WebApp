@@ -18,18 +18,12 @@ class StatefulModalComponent extends React.Component {
   componentDidUpdate() {
     let modal = this.refs['modal-instance'].node;
     console.log('componentDidUpdate', modal);
-    // let overlay = modal.getElementsByClassName('ReactModal__Overlay')[0];
-    // overlay.scrollTop = 0;
   }
 
   closeModal() {
   }
 
   onRequestClose() {
-    document.body.style.maxWidth = 'none'
-    document.body.style.height   = '100%'
-    document.body.style.overflow = 'auto'
-
     if (this.props.onRequestClose) {
       this.props.onRequestClose()
     }
@@ -41,17 +35,13 @@ class StatefulModalComponent extends React.Component {
   }
 
   onAfterOpen() {
-    document.body.style.maxWidth = document.body.clientWidth + 'px'
-    document.body.style.height   = '100%'
-    document.body.style.overflow = 'hidden'
-
     if (this.props.onAfterOpen) {
       this.props.onAfterOpen()
     }
   }
 
   render() {
-    let { showHeader, allowClose, title } = this.props;
+    let { showHeader, allowClose, title, extraClasses} = this.props;
     let { isOpen } = this.state;
     // true unless explicitly false
     showHeader = showHeader === false ? false : true;
@@ -62,7 +52,7 @@ class StatefulModalComponent extends React.Component {
         shouldCloseOnOverlayClick={true}
         onRequestClose={::this.onRequestClose}
         onAfterOpen={::this.onAfterOpen}
-        className="of-modal modal-dialog"
+        className={`of-modal modal-dialog ${extraClasses}`}
         overlayClassName="modal-backdrop"
         closeTimeoutMS={500}
         ref="modal-instance"

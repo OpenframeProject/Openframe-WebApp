@@ -15,6 +15,8 @@ import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
 import { getProfileUser, getCurrentUser, isLiked } from '../reducers/user/index';
 import { getArtworkList } from '../reducers/artwork/index';
 
+require('styles/user/AddedContainer.scss');
+
 const masonryOptions = {
     transitionDuration: '0.2s'
 };
@@ -32,8 +34,10 @@ class AddedContainer extends Component {
             ? <YouSubMenuComponent location={location} user={user} />
             : null
           }
+          <div className="added-container__title visible-xs">Artworks</div>
           {
-            isFetching
+            // isFetching
+            false
             ? <LoadingIndicatorComponent />
             : (<div>
 

@@ -111,8 +111,6 @@ class ArtworkListItemComponent extends Component {
                 <div className="artwork-list-item__action" title="Like artwork">
                   <LikeButtonComponent handleClick={::this._handleLikeClick} show={this.state.hover} initialLikedState={isLiked}/>
                 </div>
-                <div className="artwork-list-item__like">
-                </div>
               </div>
               { artwork.id === currentArtwork
                 ? <div className="artwork-list-item__current-indicator">
