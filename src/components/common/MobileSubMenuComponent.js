@@ -23,19 +23,25 @@ class MobileSubMenuComponent extends React.Component {
     return (
       <nav className="footerbar">
         <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/stream">
-          <img className="footerbar__tab-icon" src={streamImg} />
+          <div className="footerbar__tab-icon-wrap">
+            <img className="footerbar__tab-icon" src={streamImg} />
+          </div>
           <div className="footerbar__tab-text">
             Stream
           </div>
         </Link>
         <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/channels">
-          <img className="footerbar__tab-icon" src={channelsImg} />
+          <div className="footerbar__tab-icon-wrap">
+            <img className="footerbar__tab-icon" src={channelsImg} />
+          </div>
           <div className="footerbar__tab-text">
             Channels
           </div>
         </Link>
         <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/collections">
-          <img className="footerbar__tab-icon" src={collectionsImg} />
+          <div className="footerbar__tab-icon-wrap">
+            <img className="footerbar__tab-icon" src={collectionsImg} />
+          </div>
           <div className="footerbar__tab-text">
             Collect.
           </div>
@@ -43,7 +49,9 @@ class MobileSubMenuComponent extends React.Component {
         { user
           ? (
             <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to={likes}>
-              <img className="footerbar__tab-icon" src={likesImg} />
+              <div className="footerbar__tab-icon-wrap">
+                <img className="footerbar__tab-icon" src={likesImg} />
+              </div>
               <div className="footerbar__tab-text">
                 Likes
               </div>
@@ -54,7 +62,9 @@ class MobileSubMenuComponent extends React.Component {
         { user
           ? (
             <Link className={active} to={added}>
-              <img className="footerbar__tab-icon" src={youImg} />
+              <div className="footerbar__tab-icon-wrap">
+                <img className="footerbar__tab-icon" src={youImg} />
+              </div>
               <div className="footerbar__tab-text">
                 You
               </div>

@@ -3,11 +3,11 @@
 @import "bootstrap/variables";
 @import "../common/colors";
 
-$topbar-height: 45px;
+$topbar-height: 50px;
 
 .topbar {
     height: $topbar-height;
-    background-color: $of-dark-background;
+    background-color: $of-darkest-grey;
     color: $of-light-text;
     position: fixed;
     top: 0;
@@ -95,6 +95,7 @@ $topbar-height: 45px;
 @media(min-width: $screen-sm-min) {
     $topbar-height-sm: 60px;
     .topbar {
+        background-color: $of-dark-grey;
         height: $topbar-height-sm;
 
         &__tab {
