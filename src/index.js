@@ -31,6 +31,9 @@ const store = configureStore(initialState);
 // so that we can call dispatch() direcly from the pubsub service.
 PubSub.init(store);
 
+// TODO: These don't really belong here, but we do want these actions dispatched
+// when the artwork is presented in a modal. Should figure out a better place to handle
+// this.
 function doFixBody() {
   store.dispatch(fixBody());
 }
