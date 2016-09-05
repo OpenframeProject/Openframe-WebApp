@@ -14,6 +14,7 @@
 
   &--after-open {
     opacity: 1;
+    overflow: auto;
   }
 
   &--before-close {
@@ -25,14 +26,10 @@
   @include transition(all 0.2s ease-in-out);
   // @include transform(translate3d(0, 700px, 0));
   opacity: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0px;
+  position: relative;
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
   outline: none;
   overflow: auto;
 
@@ -47,29 +44,36 @@
   }
 
   .modal-content {
+    position: relative;
     margin: 0px;
     border: none;
     border-radius: 0;
     min-height: 100%;
+    border-radius: 6px;
+    border: 1px solid rgba($of-dark-grey, 0.4);
+    box-shadow: none;
   }
 
   .modal-header {
     height: 45px;
-    padding: 11px;
+    padding: 15px;
+    padding-bottom: 60px;
     position: relative;
-    letter-spacing: 1px;
+    border: none;
+  }
 
-    .close {
-      height: 45px;
-      width: 45px;
-      position: absolute;
-      right: 0px;
-      top: 0px;
-    }
+  .close {
+    height: 45px;
+    width: 45px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
   }
 
   .modal-title {
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: 300;
+    padding-top: 10px;
   }
 
   .modal-body {
@@ -87,7 +91,7 @@
   .ReactModal__Overlay {
     @include transition(all 0.2s ease-in-out);
     opacity: 0;
-    background-color: rgba(100,100,100,.8);
+    background-color: rgba(0,0,0,.3);
     overflow: auto;
 
     &--after-open {
@@ -103,7 +107,7 @@
     @include transform(scale(.9,.9));
     opacity: 0;
     position: relative;
-    width: 600px;
+    width: 500px;
     height: auto;
     margin: 0px auto;
 
@@ -121,13 +125,16 @@
       height: auto;
       min-height: auto;
       margin: 100px 0;
+      width: 100%;
+      height: 100%;
     }
 
     .modal-header {
       height: 45px;
-      padding: 11px;
-      text-transform: uppercase;
+      padding: 15px;
+      padding-bottom: 60px;
       position: relative;
+      border: none;
 
       .close {
         height: 45px;
@@ -141,10 +148,15 @@
     .modal-body {
       overflow: scroll;
       height: auto;
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .modal-title {
-      font-size: 16px;
+      font-size: 20px;
+      font-weight: 300;
+      padding-top: 10px;
     }
   }
 }

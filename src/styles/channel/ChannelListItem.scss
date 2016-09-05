@@ -2,25 +2,11 @@
 @import "compass/css3/transform";
 @import "compass/css3/flexbox";
 @import "bootstrap/variables";
+@import "../common/colors";
 
 .channel-list-item {
-  @include transition(all 0.1s ease-in-out);
-  @include scale(1, 1);
-  background: #fff;
-  box-shadow: 0px 1px 2px #999;
-  margin: 6px 0 0;
-  padding: 10px;
 
-
-  &:hover {
-    @include scale(1.02, 1.02);
-    cursor: pointer;
-    box-shadow: 0px 0px 6px #999;
-
-    .channel-list-item__push-btn {
-      display: block;
-    }
-  }
+  border: 0.5px solid $of-light-grey;
 
   &__flex-wrap {
     @include display-flex;
@@ -30,6 +16,7 @@
   &__thumb-wrap {
     flex-grow: 0;
     width: 20%;
+    padding: 5px;
   }
 
   &__thumb {
@@ -38,6 +25,8 @@
     width: 100%;
     padding-bottom: 100%;
     background-position: center center;
+    @include scale(1);
+    @include transition(all 0.05s ease-in-out);
   }
 
   &__info {
@@ -47,13 +36,18 @@
   }
 
   &__name {
-    font-weight: 600;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  &__author {
+    font-weight: 100;
+    font-size: 14px;
   }
 
   &__description, &__author {
-    color: #999;
-    font-size: 12px;
-    height: 1.5em;
+    color: black;
+    font-size: 13px;
   }
 
   &__actions {
@@ -70,6 +64,25 @@
     margin: 0 0 30px 0;
     padding: 10px;
     border-radius: 4px;
+
+    &__actions {
+      display: none;
+    }
+
+    &:hover {
+
+      .channel-list-item__thumb {
+        @include scale(1.02);
+      }
+
+      .channel-list-item__push-btn {
+        display: block;
+      }
+
+      .channel-list-item__actions {
+        display: block;
+      }
+    }
 
 
     &__flex-wrap {

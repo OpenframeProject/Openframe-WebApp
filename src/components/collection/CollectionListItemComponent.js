@@ -38,7 +38,7 @@ class CollectionListItemComponent extends React.Component {
     return (
       <div className="col-xs-12 col-sm-4 col-md-3">
         <Link to={'/collections/'+collection.id}>
-          <div className="collection-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
+          <div className="list-item collection-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
             <div className="collection-list-item__flex-wrap">
               <div className="collection-list-item__thumb" style={divStyle}>
               </div>
