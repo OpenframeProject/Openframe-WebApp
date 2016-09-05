@@ -73,7 +73,10 @@ class App extends Component {
   }
 
   render() {
-    let {actions, frames, user, currentUser, ui, selectedFrame, route, location} = this.props;
+    let {actions, frames, user, currentUser, ui, route, location, artwork} = this.props;
+
+    let selectedFrameId = frames.selectedFrameId || frames.ids[0];
+    let selectedFrame = getSelectedFrame(frames.byId, selectedFrameId, artwork.byId);
 
     let isStatefulModal = (
       location.state &&
@@ -186,7 +189,6 @@ function mapStateToProps(state) {
   const props = {
     artwork: state.artwork,
     frames: state.frames,
-    selectedFrame: getSelectedFrame(state.frames.byId, state.frames.selectedFrameId, state.artwork.byId),
     user: state.user,
     currentUser: getCurrentUser(state.user),
     auth: state.auth,

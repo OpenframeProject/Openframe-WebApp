@@ -8,8 +8,23 @@ let likeBtn = require('../../images/icon_heart.svg');
 let unlikeBtn = require('../../images/icon_heart_filled.svg');
 
 class LikeButtonComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLiked: props.initialLikedState
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isLiked: nextProps.initialLikedState
+    });
+  }
 
   handleClick(e) {
+    this.setState({
+      isLiked: !this.state.isLiked
+    });
     this.props.handleClick(e);
   }
 
@@ -17,10 +32,9 @@ class LikeButtonComponent extends React.Component {
 
     let classes = 'like-button';
     classes += this.props.show ? ' like-button--hover' : '';
-
     return (
       <div className={classes} onClick={::this.handleClick} >
-        <img className="like-button__img" src={this.props.isLiked ? unlikeBtn : likeBtn}  />
+        <img className="like-button__img" src={this.state.isLiked ? unlikeBtn : likeBtn}  />
       </div>
     );
   }
@@ -31,10 +45,10 @@ LikeButtonComponent.displayName = 'LikeButtonComponent';
 // Uncomment properties you need
 LikeButtonComponent.propTypes = {
   show: PropTypes.bool,
-  isLiked: PropTypes.bool
+  initialLikedState: PropTypes.bool
 };
 LikeButtonComponent.defaultProps = {
-  isLiked: false
+  initialLikedState: false
 };
 
 export default LikeButtonComponent;

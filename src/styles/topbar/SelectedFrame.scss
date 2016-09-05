@@ -1,37 +1,44 @@
 @import "compass/css3/flexbox";
 @import "bootstrap/variables";
-
 .selected-frame {
-    @include display-flex();
-    @include align-items(center);
-
-    &__thumb {
-        float: left;
-        margin: 10px 10px 10px 0;
-        height: 30px;
-        width: 30px;
-        border-radius: 2px;
-        border: 1px solid #fff;
-        background-color: #000;
-        background-position: center center;
-        background-size: cover;
-        position: relative;
+  @include display-flex();
+  @include align-items(center);
+  &__thumb {
+    float: left;
+    margin: 10px 10px 10px 0;
+    height: 30px;
+    width: 30px;
+    border-radius: 2px;
+    border: 1px solid #fff;
+    background-color: #000;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+  }
+  &__name {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    &:hover {
+      .selected-frame__settings {
+        display: inline;
+      }
     }
-
-    &__name {
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    &__status {
-        font-size: 12px;
-        font-style: italic;
-        color: #999;
-        font-weight: 300;
-    }
-
+  }
+  &__settings {
+    height: 16px;
+    margin-left: 10px;
+    margin-top: -4px;
+    display: none;
+    cursor: pointer;
+  }
+  &__status {
+    font-size: 12px;
+    font-style: italic;
+    color: #999;
+    font-weight: 300;
+  }
   .selected-frame-indicator {
     position: relative;
     top: -1px;
@@ -39,37 +46,26 @@
     color: #ccc;
     font-size: 18px;
     padding: 0 5px 0 0;
-
     &--connected {
-        color: #37CFAD;
+      color: #37CFAD;
     }
   }
 }
-
-
 
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
   .selected-frame {
     &__thumb {
-        float: left;
-        height: 40px;
-        width: 40px;
+      float: left;
+      height: 40px;
+      width: 40px;
     }
-
-    .selected-frame-indicator {
-
-    }
+    .selected-frame-indicator {}
   }
-
 }
 
 // overridden styles for md screen / desktop
-@media(min-width: $screen-md-min) {
-
-}
+@media(min-width: $screen-md-min) {}
 
 // overridden styles for lg screen / wide desktop
-@media(min-width: $screen-lg-min) {
-
-}
+@media(min-width: $screen-lg-min) {}

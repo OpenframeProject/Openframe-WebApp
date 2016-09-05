@@ -85,7 +85,7 @@ const users = {
    * @param  {String} userId
    * @return {Promise}
    */
-  fetchUserLikedArtwork: function(userId, filter = {}) {
+  fetchUserLikedArtwork: function(userId = 'current', filter = {}) {
     let defaultFilter = {
       limit: 100
     };

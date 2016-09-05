@@ -2,6 +2,7 @@ import {FETCH_CURRENT_USER_SUCCESS} from './../const';
 import { normalize } from 'normalizr';
 import * as schema from '../schema';
 import fetchFramesRequest from '../frame/fetchFramesRequest';
+import fetchUserLikesRequest from './fetchUserLikesRequest';
 
 module.exports = function(response) {
 
@@ -10,8 +11,8 @@ module.exports = function(response) {
       type: FETCH_CURRENT_USER_SUCCESS,
       response: normalize(response, schema.user)
     });
-    console.log('FETCH FRAME REQUEST', fetchFramesRequest);
     dispatch(fetchFramesRequest());
+    dispatch(fetchUserLikesRequest(response.id));
   }
 };
 

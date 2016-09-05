@@ -12,7 +12,7 @@ import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComp
 import ArtworkListItemComponent from '../components/artwork/ArtworkListItemComponent';
 import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
 
-import { getProfileUser, getCurrentUser } from '../reducers/user/index';
+import { getProfileUser, getCurrentUser, isLiked } from '../reducers/user/index';
 import { getArtworkList } from '../reducers/artwork/index';
 
 const masonryOptions = {
@@ -21,7 +21,7 @@ const masonryOptions = {
 
 class AddedContainer extends Component {
   render() {
-    const { actions, user, currentUser, isFetching, auth, artworkList, location } = this.props;
+    const { actions, userState, user, currentUser, isFetching, auth, artworkList, location } = this.props;
     return (
       <div>
         <ProfileHeaderComponent user={user} currentUser={currentUser} />
@@ -49,7 +49,9 @@ class AddedContainer extends Component {
                           artwork={artwork}
                           location={location}
                           pushArtwork={actions.pushArtwork}
-                          likeArtwork={actions.likeArtwork} />
+                          likeArtwork={actions.likeArtwork}
+                          unlikeArtwork={actions.unlikeArtwork}
+                          isLiked={isLiked(userState, artwork.id)} />
                       )
                     })
                   }
@@ -71,6 +73,7 @@ AddedContainer.propTypes = {
 function mapStateToProps(state) {
   const props = {
     user: getProfileUser(state.user),
+    userState: state.user,
     currentUser: getCurrentUser(state.user),
     isFetching: state.artwork.isFetching,
     artworkList: getArtworkList(state.user.profileArtworkIds, state.artwork.byId),

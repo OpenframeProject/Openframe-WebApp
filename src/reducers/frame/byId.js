@@ -5,7 +5,8 @@
  */
 import {
   FETCH_FRAMES_SUCCESS,
-  FRAME_UPDATED
+  FRAME_UPDATED,
+  LOGOUT_REQUEST
 } from '../../actions/const'
 
 const initialState = {};
@@ -18,6 +19,9 @@ export default function(state = initialState, action) {
         ...state,
         ...action.response.entities.frames
       };
+    }
+    case LOGOUT_REQUEST: {
+      return {};
     }
     default: {
       /* Return original state if no actions were consumed. */

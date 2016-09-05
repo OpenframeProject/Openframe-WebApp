@@ -22,7 +22,7 @@ const masonryOptions = {
 class LikesContainer extends Component {
 
   render() {
-    const { actions, user, currentUser, isFetching, auth, artworkList, location } = this.props;
+    const { actions, userState, user, currentUser, isFetching, auth, artworkList, location } = this.props;
     return (
       <div>
         <ProfileHeaderComponent user={user} currentUser={currentUser} />
@@ -51,7 +51,8 @@ class LikesContainer extends Component {
                           location={location}
                           pushArtwork={actions.pushArtwork}
                           likeArtwork={actions.likeArtwork}
-                          isLiked={isLiked(currentUser, artwork.id)} />
+                          unlikeArtwork={actions.unlikeArtwork}
+                          isLiked={isLiked(userState, artwork.id)} />
                       )
                     })
                   }
@@ -74,6 +75,7 @@ function mapStateToProps(state) {
   const currentUser = getCurrentUser(state.user);
   const currentUserId = currentUser ? currentUser.id : null;
   const props = {
+    userState: state.user,
     user: getProfileUser(state.user),
     currentUser: currentUser,
     artworkList: getArtworkList(getUserLikes(state.user, currentUserId), state.artwork.byId),
