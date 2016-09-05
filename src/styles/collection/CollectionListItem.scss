@@ -2,28 +2,15 @@
 @import "compass/css3/transform";
 @import "compass/css3/flexbox";
 @import "bootstrap/variables";
+@import "../common/colors";
 
 .collection-list-item {
-  @include transition(all 0.1s ease-in-out);
-  @include scale(1, 1);
-  background: #fff;
-  box-shadow: 0px 1px 2px #999;
-  overflow: hidden;
-  margin: 6px 0 0;
 
-
-  &:hover {
-    @include scale(1.02, 1.02);
-    cursor: pointer;
-    box-shadow: 0px 0px 6px #999;
-    .collection-list-item__push-btn {
-      display: block;
-    }
-  }
+  border: 0.5px solid $of-light-grey;
 
   &__flex-wrap {
     @include display-flex;
-    @include align-items(center);
+    //@include align-items(center);
   }
 
   &__thumb {
@@ -43,13 +30,15 @@
   }
 
   &__name {
-    // text-align: center;
-    font-weight: 600;
+    font-weight: 400;
+    font-size: 14px;
   }
 
   &__count {
     // text-align: center;
     color: #aaa;
+    font-weight: 100;
+    font-size: 13px;
   }
 
   &__open-btn {
@@ -81,11 +70,11 @@
     }
 
     &__info {
-      text-align: center;
+      //text-align: center;
     }
 
     &__open-btn {
-      display: none;
+      //display: none;
     }
   }
 }

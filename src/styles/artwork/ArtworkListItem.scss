@@ -11,10 +11,25 @@
     width: 100%;
     background-position: center center;
     background-size: cover;
+    overflow: hidden;
   }
+
+  // &__thumb::after {
+  //   // padding: 10px;
+  //   content: " ";
+  //   background: rgb(0,0,0);
+  //   opacity: 0;
+  //   position: absolute;
+  //   left: 0px;
+  //   width: 100%;
+  //   height: 100%;
+  //   //display: none;
+  // }
 
   &__thumb-img {
     width: 100%;
+    @include scale(1);
+    @include transition(all 0.05s ease-in-out);
   }
 
   &__info {
@@ -51,7 +66,7 @@
     bottom: 10px;
     padding: 0px 10px;
     z-index: 2;
-    @include background-image(linear-gradient(to left,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 80%,rgba(255,255,255,0) 100%));
+    @include background-image(linear-gradient(to left,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) 90%,rgba(255,255,255,0) 100%));
   }
 
   &__action {
@@ -84,6 +99,14 @@
     }
 
     &:hover {
+      // .artwork-list-item__thumb::after {
+      //   opacity: 0.1;
+      // }
+
+      .artwork-list-item__thumb-img {
+        @include scale(1.02);
+      }
+
       .artwork-list-item__push-btn {
         display: block;
       }

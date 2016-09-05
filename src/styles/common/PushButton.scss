@@ -1,16 +1,19 @@
-@import "../common/colors";
+@import "compass/css3/transition";
 @import "compass/css3/transform";
+@import "../common/colors";
 
 .push-button {
+  @include transition(all 0.07s ease-in-out);
+  @include scale(1);
   width: 34px;
   height: 34px;
   border-radius: 34px;
-  padding: 5px 9px;
+  padding: 6px 9px;
 
   // Hovering over this button
   &:hover {
     // background-color: darken($of-lightest-grey, 5%);
-    background-color: $of-lightest-grey;
+    background-color: #F6F6F6;
     @include scale(1.1);
   }
 

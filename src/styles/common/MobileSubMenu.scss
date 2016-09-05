@@ -1,7 +1,8 @@
 @import "compass/css3/flexbox";
 @import "bootstrap/variables";
+@import "../common/colors";
 
-$footerber-height: 45px;
+$footerber-height: 50px;
 
 .footerbar {
   @include display-flex;
@@ -15,22 +16,30 @@ $footerber-height: 45px;
   &__tab {
     @include flex(1);
     position: relative;
-    background: #444;
-    color: #ccc;
+    background: $of-dark-grey;
+    color: white;
     text-align: center;
     &:hover {
       background: #333;
       color: #fff;
     }
     &--active {
-      background: #333;
+      background: $of-darkest-grey;
     }
   }
 
+  &__tab-icon-wrap {
+    width: 22px;
+    height: 22px;
+    margin: auto;
+    margin-top: 7px;
+    margin-bottom: 6px;
+    @include display-flex;
+    @include justify-content(center);
+    @include align-items(center);
+  }
+
   &__tab-icon {
-    width: 20px;
-    height: 20px;
-    margin: 5px;
   }
 
   &__tab-text {
