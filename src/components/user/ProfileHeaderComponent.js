@@ -22,11 +22,22 @@ class ProfileHeaderComponent extends React.Component {
     return (
       <div className="profile-header">
         <div className="profile-header__name">{user.full_name}</div>
-        <div className="profile-header__social">{user.website} &bull; {user.twitter}</div>
+        { user.website || user.twitter
+          ? <div className="profile-header__social">
+            { user.website }
+            { user.twitter
+              ? <span> <span className="profile-header__bullet">&bull;</span>
+                  <a href={`http://twitter.com/${user.twitter}`} target="_blank">@{user.twitter}</a>
+                </span> : null
+            }
+            </div>
+          : null
+        }
+
         <div className="profile-header__bio">{user.bio}</div>
 
         <div className="profile-header__actions">
-          { user.id === currentUser.id
+          { currentUser && user.id === currentUser.id
             ? <EditButtonComponent handleClick={::this._handleEditClick} />
             : null
           }

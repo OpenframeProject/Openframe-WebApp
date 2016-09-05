@@ -47,6 +47,16 @@ class App extends Component {
       // save the old children (just like animation)
       this.previousChildren = this.props.children
     }
+
+    if (nextProps.ui.fixBody) {
+      document.body.style.maxWidth = document.body.clientWidth + 'px';
+      document.body.style.height   = '100%';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.maxWidth = 'none';
+      document.body.style.height   = '100%';
+      document.body.style.overflow = 'auto';
+    }
   }
 
   handleSubmitLogin(fields) {
@@ -114,6 +124,9 @@ class App extends Component {
             <StatefulModalComponent
               initialOpenState={true}
               returnTo={location.state.returnTo}
+              openStatefulModal={actions.openStatefulModal}
+              closeStatefulModal={actions.closeStatefulModal}
+              extraClasses="artwork-detail-modal"
               showHeader={false}>
               {this.props.children}
             </StatefulModalComponent>
@@ -221,7 +234,9 @@ function mapDispatchToProps(dispatch) {
     updateUserFailure: require('../actions/user/updateUserFailure'),
     openEditProfileModal: require('../actions/ui/openEditProfileModal.js'),
     closeEditProfileModal: require('../actions/ui/closeEditProfileModal.js'),
-    hideConfirmDialog: require('../actions/common/hideConfirmDialog.js')
+    hideConfirmDialog: require('../actions/common/hideConfirmDialog.js'),
+    openStatefulModal: require('../actions/ui/openStatefulModal.js'),
+    closeStatefulModal: require('../actions/ui/closeStatefulModal.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
