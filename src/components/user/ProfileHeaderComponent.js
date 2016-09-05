@@ -10,7 +10,9 @@ class ProfileHeaderComponent extends React.Component {
 
   _handleEditClick(e) {
     e.preventDefault();
-    let { currentUser } = this.props;
+    let { openEditProfileModal } = this.props;
+    console.log(openEditProfileModal);
+    openEditProfileModal();
   }
 
 
@@ -24,7 +26,10 @@ class ProfileHeaderComponent extends React.Component {
         <div className="profile-header__name">{user.full_name}</div>
         { user.website || user.twitter
           ? <div className="profile-header__social">
-            { user.website }
+            { user.website
+              ? <a href={user.website} target="_blank">{user.website}</a>
+              : null
+            }
             { user.twitter
               ? <span> <span className="profile-header__bullet">&bull;</span>
                   <a href={`http://twitter.com/${user.twitter}`} target="_blank">@{user.twitter}</a>
