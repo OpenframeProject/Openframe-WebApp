@@ -64,13 +64,14 @@ class ArtworkListItemComponent extends Component {
   }
 
   _generateThumbUrl(url) {
-    let parser = document.createElement('a');
-    parser.href = url;
-    let newHost = parser.hostname + '.rsz.io';
-    let newSearch = parser.search ? parser.search + '&width=300' : '?width=300';
-    let newUrl = 'http://' + newHost + parser.port + parser.pathname + newSearch;
+    return url;
+    // let parser = document.createElement('a');
+    // parser.href = url;
+    // let newHost = parser.hostname + '.rsz.io';
+    // let newSearch = parser.search ? parser.search + '&width=300' : '?width=300';
+    // let newUrl = 'http://' + newHost + parser.port + parser.pathname + newSearch;
 
-    return newUrl;
+    // return newUrl;
     // parser.protocol; // => "http:"
     // parser.hostname; // => "example.com"
     // parser.port;     // => "3000"
