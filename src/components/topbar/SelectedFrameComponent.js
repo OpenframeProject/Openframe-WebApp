@@ -73,7 +73,7 @@ class SelectedFrameComponent extends React.Component {
               { name }
               <img className="selected-frame__settings" src={settingsImg} onClick={::this.openSettings} />
           </div>
-          <div className="selected-frame__status displaying hidden-xs">
+          <div className="selected-frame__status displaying">
               { current_artwork_ref
                   ? <span>{ current_artwork_ref.author_name } - { current_artwork_ref.title }</span>
                   : <span>No Artwork Displayed</span>
