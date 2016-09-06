@@ -1,4 +1,4 @@
-/* Sidebar */
+@import "./common/colors";
 
 .sidebar {
     position: fixed;
@@ -6,7 +6,7 @@
     top: 0px;
     width: 300px;
     height: 100%;
-    background-color: #F6F6F6;
+    background-color: $of-dark-grey;
     z-index: 1040;
     box-shadow: -2px 0px 6px rgba(0,0,0,0.15);
     -webkit-transition: right .2s ease;
@@ -21,15 +21,18 @@
 }
 
 .sidebar-header {
-    height: 40px;
+    height: 50px;
+    position: relative;
 }
 
 .cross {
-    float: right;
+    position: absolute;
     background-repeat: no-repeat;
-    padding-right: 25px;
-    padding-top: 25px;
-    opacity: 0.3;
+    right: 0px;
+    top: 0px;
+    padding: 17px;
+    //width: 100%;
+    opacity: 0.5;
     transition: opacity 0.1s;
 }
 
@@ -48,21 +51,25 @@
 
 .sidebar__row {
     height: 70px;
-    border-bottom: 1px solid #DEDEDE;
+    border-bottom: 1px solid rgba($of-darkest-grey, 0.5);
 }
 
 .sidebar__row {
-    font-size: 12px;
-    color: #9B9B9B;
+    font-size: 14px;
+    color: $of-darkest-grey;
     text-align: center;
     padding: 10px;
 }
 
 .sidebar__row--title {
     font-weight: 400;
+    color: $of-normal-grey;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding-top: 40px;
+    border-bottom: 1px solid rgba($of-darkest-grey, 0.5);
 }
 
 .sidebar__row--frame {
@@ -73,10 +80,11 @@
 }
 
 .sidebar__row--frame:hover, .sidebar_row--frame-active {
-    background: white;
+    background: $of-darkest-grey;
 }
 
 .sidebar__row--logout {
+    color: $of-normal-grey;
     border: 0;
 }
 
@@ -88,13 +96,20 @@
     color: black;
 }
 
+.sidebar {
+    .anchor {
+      color: $of-normal-grey;
+      text-decoration: none;
+    }
+}
+
 .frame-name {
     float: left;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: normal;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: black;
+    color: white;
 }
 
 .mark-frame-active {
@@ -120,9 +135,9 @@
 
 .frame-status {
     clear: both;
-    font-size: 14px;
+    font-size: 13px;
     margin-right: 20px;
-    font-weight: 400;
+    font-weight: normal;
     font-style: italic;
     letter-spacing: 0.2px;
 }

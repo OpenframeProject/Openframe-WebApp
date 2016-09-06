@@ -7,7 +7,7 @@ import FrameItemComponent from '../frame/FrameItemComponent'
 
 require('styles//Sidebar.scss');
 
-let closeIcon = require('../../images/cross.svg');
+let closeIcon = require('../../images/icon_cross_mobile.svg');
 
 class SidebarComponent extends Component {
 
@@ -29,10 +29,11 @@ class SidebarComponent extends Component {
     return (
       <div className={className}>
 		    <div className="sidebar-header">
+		    	<div className="sidebar__row--title">Frames</div>
 		        <img className="btn-menu-close cross" src={closeIcon} onClick={closeSidebar}/>
 		    </div>
 
-		    <div className="sidebar__row sidebar__row--title">Frames</div>
+		    
 
 		    <ul className="sidebar__frames-list" id="MenuFrameList">
 

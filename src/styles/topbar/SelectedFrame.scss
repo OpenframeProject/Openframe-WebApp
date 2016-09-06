@@ -6,8 +6,8 @@
   &__thumb {
     float: left;
     margin: 10px 10px 10px 0;
-    height: 30px;
-    width: 30px;
+    height: 36px;
+    width: 36px;
     border-radius: 2px;
     border: 1px solid #fff;
     background-color: #000;
@@ -20,6 +20,7 @@
     font-weight: 400;
     letter-spacing: 1px;
     text-transform: uppercase;
+    margin-bottom: -3px;
     &:hover {
       .selected-frame__settings {
         display: inline;
@@ -34,17 +35,18 @@
     cursor: pointer;
   }
   &__status {
-    font-size: 12px;
+    font-size: 13px;
     font-style: italic;
     color: #999;
     font-weight: 300;
+    letter-spacing: 0px;
   }
   .selected-frame-indicator {
     position: relative;
     top: -1px;
     left: -5px;
     color: #ccc;
-    font-size: 18px;
+    font-size: 16px;
     padding: 0 5px 0 0;
     &--connected {
       color: #37CFAD;
@@ -60,6 +62,12 @@
       height: 40px;
       width: 40px;
     }
+    &__status {
+    font-size: 14px;
+    font-style: italic;
+    color: #999;
+    font-weight: 300;
+  }
     .selected-frame-indicator {}
   }
 }
