@@ -74,6 +74,8 @@ $topbar-height: 50px;
             text-transform: none;
             cursor: default;
             float: left;
+            position: absolute;
+            width: 90%;
         }
 
         .sidebar-btn {
@@ -113,6 +115,8 @@ $topbar-height: 50px;
             }
             &--selected-frame {
                 float: right;
+                position: relative;
+                width: auto;
             }
         }
     }

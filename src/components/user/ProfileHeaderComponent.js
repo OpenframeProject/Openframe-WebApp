@@ -30,10 +30,13 @@ class ProfileHeaderComponent extends React.Component {
               ? <a href={user.website} target="_blank">{user.website}</a>
               : null
             }
+            { user.website && user.twitter
+              ? <span className="profile-header__bullet">&bull;</span>
+              : null
+            }
             { user.twitter
-              ? <span> <span className="profile-header__bullet">&bull;</span>
-                  <a href={`http://twitter.com/${user.twitter}`} target="_blank">@{user.twitter}</a>
-                </span> : null
+              ? <a href={`http://twitter.com/${user.twitter}`} target="_blank">@{user.twitter}</a>
+              : null
             }
             </div>
           : null
