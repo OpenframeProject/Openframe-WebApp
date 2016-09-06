@@ -1,7 +1,19 @@
 @import "bootstrap/variables";
 
+.artwork-detail-modal {
+  .modal-content {
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    .modal-body {
+      width: auto;
+      padding: 15px 20px;
+    }
+  }
+}
+
 .artwork-detail-bg {
-    background: #eee;
+    // background: #eee;
     z-index: 100;
     overflow: auto;
 }
@@ -12,7 +24,7 @@
   &__wrap {
     width: 100%;
     background: #fff;
-    // padding: 20px;
+    padding: 15px 20px
   }
 
   &__img {
@@ -26,7 +38,7 @@
   }
 
   &__info {
-    padding: 10px;
+    // padding: 10px;
     position: relative;
   }
 
@@ -48,13 +60,15 @@
 
   &__format {
     color: #aaa;
-    font-size: 12px;
+    font-size: 10px;
     text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: .5px;
   }
 
   &__resolution {
     color: #aaa;
-    font-size: 12px;
+    font-size: 10px;
   }
 
   &__description {
@@ -65,6 +79,32 @@
   &__added-by {
     font-size: 12px;
     color: #aaa;
+  }
+
+  &__actions {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &__action {
+    float: right;
+  }
+
+  &__artist-profile {
+    margin-top: 30px;
+    background: #fff;
+    border-radius: 4px;
+
+    .link {
+      padding: 20px;
+      display: block;
+      font-size: 16px;
+      font-weight: 600;
+      background-image: url('../../images/right_caret.svg');
+      background-position: right 20px center;
+      background-repeat: no-repeat;
+    }
   }
 }
 

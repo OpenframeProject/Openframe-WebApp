@@ -10,6 +10,7 @@ import { getProfileNotFound, getCurrentUser } from '../reducers/user/index';
 
 class ProfileContainer extends Component {
   fetchUser(username) {
+    // console.log('ProfileContainer.fetchUser', username);
     const {actions} = this.props;
     actions.fetchUserRequest(username);
   }

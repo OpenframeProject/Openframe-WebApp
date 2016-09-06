@@ -1,0 +1,10 @@
+.added-container {
+  &__title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    padding: 5px;
+  }
+}

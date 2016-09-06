@@ -6,11 +6,12 @@
 import {
   OPEN_SIDEBAR,
   CLOSE_SIDEBAR,
-  OPEN_ARTWORK_DETAIL,
   OPEN_LOGIN_MODAL,
   CLOSE_LOGIN_MODAL,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
+  OPEN_STATEFUL_MODAL,
+  CLOSE_STATEFUL_MODAL,
   OPEN_CREATE_ACCOUNT_MODAL,
   CLOSE_CREATE_ACCOUNT_MODAL,
   OPEN_EDIT_PROFILE_MODAL,
@@ -21,7 +22,9 @@ import {
   SHOW_CONFIRM_DIALOG,
   HIDE_CONFIRM_DIALOG,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_FAILURE
+  UPDATE_USER_FAILURE,
+  FIX_BODY,
+  UNFIX_BODY
 } from '../actions/const';
 
 const initialState = {
@@ -31,7 +34,8 @@ const initialState = {
   editProfileModalOpen: false,
   createError: null,
   updateUserError: null,
-  confirmDialogOpen: false
+  confirmDialogOpen: false,
+  fixBody: false
   // , notice: '<div class="alert alert-info"><h3>Hello!</h3><p>Welcome to Openframe!</p></div>'
 };
 
@@ -50,29 +54,25 @@ module.exports = function(state = initialState, action) {
         ...state,
         sidebarOpen: false
       };
-    case OPEN_ARTWORK_DETAIL: {
-      return {
-        ...state,
-        showArtworkDetail: true,
-        artworkDetailId: action.artworkId
-      }
-    }
     case OPEN_LOGIN_MODAL: {
       return {
         ...state,
-        loginModalOpen: true
+        loginModalOpen: true,
+        fixBody: true
       }
     }
     case CLOSE_LOGIN_MODAL: {
       return {
         ...state,
-        loginModalOpen: false
+        loginModalOpen: false,
+        fixBody: false
       }
     }
     case OPEN_CREATE_ACCOUNT_MODAL: {
       return {
         ...state,
         createAccountModalOpen: true,
+        fixBody: true,
         createError: null
       }
     }
@@ -80,6 +80,7 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         createAccountModalOpen: false,
+        fixBody: false,
         createError: null
       }
     }
@@ -87,6 +88,7 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         editProfileModalOpen: true,
+        fixBody: true,
         updateUserError: null
       }
     }
@@ -95,6 +97,7 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         editProfileModalOpen: false,
+        fixBody: false,
         updateUserError: null
       }
     }
@@ -107,12 +110,14 @@ module.exports = function(state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        loginModalOpen: false
+        loginModalOpen: false,
+        fixBody: false
       }
     case CREATE_ACCOUNT_SUCCESS:
       return {
         ...state,
         createAccountModalOpen: false,
+        fixBody: false,
         createError: null
       }
     case CREATE_ACCOUNT_FAILURE:
@@ -123,12 +128,24 @@ module.exports = function(state = initialState, action) {
     case SHOW_CONFIRM_DIALOG:
       return {
         ...state,
-        confirmDialogOpen: true
+        confirmDialogOpen: true,
+        fixBody: true
       }
     case HIDE_CONFIRM_DIALOG:
       return {
         ...state,
-        confirmDialogOpen: false
+        confirmDialogOpen: false,
+        fixBody: false
+      }
+    case FIX_BODY:
+      return {
+        ...state,
+        fixBody: true
+      }
+    case UNFIX_BODY:
+      return {
+        ...state,
+        fixBody: false
       }
     default: {
       /* Return original state if no actions were consumed. */

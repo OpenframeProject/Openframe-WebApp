@@ -25,7 +25,7 @@ class LikesContainer extends Component {
     const { actions, userState, user, currentUser, isFetching, auth, artworkList, location } = this.props;
     return (
       <div>
-        <ProfileHeaderComponent user={user} currentUser={currentUser} />
+        <ProfileHeaderComponent user={user} currentUser={currentUser} openEditProfileModal={actions.openEditProfileModal} />
 
         <div className="container">
           {
@@ -87,6 +87,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
+    openEditProfileModal: require('../actions/ui/openEditProfileModal.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
     likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
     unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')

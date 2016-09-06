@@ -1,4 +1,5 @@
 @import "../common/colors";
+@import "bootstrap/variables";
 
 .profile-header {
   position: relative;
@@ -20,6 +21,9 @@
     margin-bottom: 5px;
   }
 
+  &__bullet {
+    padding: 0 10px;
+  }
   &__bio {
   }
 
@@ -28,4 +32,20 @@
     top: 10px;
     right: 10px;
   }
+}
+
+@media(min-width: $screen-sm-min) {
+  .profile-header {
+    margin-bottom: 40px;
+  }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {
+
+}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {
+
 }
