@@ -15,6 +15,10 @@
     background-size: cover;
     position: relative;
   }
+  &__info {
+    position: relative;
+    top: -2px;
+  }
   &__name {
     font-size: 14px;
     font-weight: 400;
@@ -41,6 +45,7 @@
     font-weight: 300;
     letter-spacing: 0px;
     line-height: 1em;
+    margin-top: 2px;
   }
   .selected-frame-indicator {
     position: relative;

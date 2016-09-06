@@ -73,7 +73,7 @@ $topbar-height: 50px;
         &--selected-frame {
             text-transform: none;
             cursor: default;
-            float: left;
+            justify-content: flex-start;
             position: absolute;
             width: 90%;
         }
