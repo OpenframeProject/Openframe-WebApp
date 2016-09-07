@@ -13,6 +13,7 @@ import ChannelsContainer from './containers/ChannelsContainer';
 import ProfileContainer from './containers/ProfileContainer';
 import LikesContainer from './containers/LikesContainer';
 import AddedContainer from './containers/AddedContainer';
+import FeatureFlagsContainer from './containers/FeatureFlagsContainer';
 
 import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
 import CollectionDetailContainer from './containers/CollectionDetailContainer';
@@ -47,6 +48,8 @@ render(
     <Router history={browserHistory} >
       <Route path="/" component={App}>
         <IndexRedirect to="/stream" />
+
+        <Route path="/ff-conf" component={FeatureFlagsContainer} />
 
         <Route component={BrowseSectionComponent}>
           <IndexRoute component={StreamContainer} />
