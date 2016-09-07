@@ -1,0 +1,60 @@
+import React, {
+  Component,
+  PropTypes
+} from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+class FeatureFlagsContainer extends Component {
+    constructor(props) {
+      super(props);
+      this.state = props.featureFlags;
+    }
+
+  onChange(e) {
+    let { actions } = this.props;
+    this.setState({
+      [e.target.name]: e.target.checked
+    });
+    console.log('onChange', e.target.name, e.target.checked);
+    actions.setFeatureFlag(e.target.name, e.target.checked);
+
+  }
+
+  render() {
+    const featureFlags = this.state;
+    console.log('render', featureFlags);
+    return (
+      <div class="feature-flags">
+        {
+          Object.keys(featureFlags).map(key => {
+            let value = featureFlags[key];
+            console.log(key, value);
+            return <li key={key}><input name={key} type="checkbox" checked={value} onChange={::this.onChange} /> { key }</li>;
+          })
+        }
+      </div>
+    );
+  }
+}
+
+FeatureFlagsContainer.propTypes = {
+  actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+  const props = {
+    featureFlags: state.featureFlags
+  };
+  return props;
+}
+
+function mapDispatchToProps(dispatch) {
+  const actions = {
+    setFeatureFlag: require('../actions/common/setFeatureFlag.js')
+  };
+  const actionMap = { actions: bindActionCreators(actions, dispatch) };
+  return actionMap;
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeatureFlagsContainer);

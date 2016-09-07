@@ -34,10 +34,10 @@ class StreamContainer extends Component {
   }
 
   render() {
-    const {artworkList, userState, auth, actions, isFirstLoad, location, currentArtwork } = this.props;
+    const { artworkList, userState, auth, actions, isFirstLoad, location, currentArtwork, featureFlags } = this.props;
     return (
       <div className="container">
-        <BrowseSubMenuComponent />
+        <BrowseSubMenuComponent featureFlags={featureFlags} />
         {
           isFirstLoad
           ? <LoadingIndicatorComponent />
@@ -81,7 +81,8 @@ function mapStateToProps(state) {
     userLikesById: state.user.userLikedArtworksById,
     isFetching: state.artwork.isFetching,
     currentArtwork: getCurrentArtwork(state.frames),
-    isFirstLoad: state.artwork.isFirstLoad
+    isFirstLoad: state.artwork.isFirstLoad,
+    featureFlags: state.featureFlags
   };
   return props;
 }
