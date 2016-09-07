@@ -1,0 +1,33 @@
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+@import "compass/css3/images";
+@import "bootstrap/variables";
+@import "../common/colors";
+
+.feature-flags {
+  // margin-top: 100px;
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 40px;
+  }
+
+  &__list-item {
+    list-style: none;
+  }
+}
+
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {
+
+}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {
+
+}
