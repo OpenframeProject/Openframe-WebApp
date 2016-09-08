@@ -3,9 +3,9 @@
 import React, { Component, PropTypes } from 'react';
 import onClickOutside from 'react-onclickoutside';
 
-import FrameItemComponent from '../frame/FrameItemComponent'
+import SidebarFrameItemComponent from './SidebarFrameItemComponent'
 
-require('styles//Sidebar.scss');
+require('styles//sidebar/Sidebar.scss');
 
 let closeIcon = require('../../images/icon_cross_mobile.svg');
 
@@ -20,7 +20,9 @@ class SidebarComponent extends Component {
 
   render() {
   	let className = 'sidebar';
-  	let {isOpen, closeSidebar, frames, selectedFrame, user, selectFrame, logoutRequest, openEditProfileModal} = this.props;
+  	let {isOpen, closeSidebar, frames, selectedFrame, user, selectFrame, logoutRequest, openEditProfileModal, openFrameSettingsModal} = this.props;
+
+    console.log('SidebarComponent.frames:', frames);
 
   	if (isOpen) {
   		className += ' sidebar--open';
@@ -30,19 +32,20 @@ class SidebarComponent extends Component {
       <div className={className}>
 		    <div className="sidebar-header">
 		    	<div className="sidebar__row--title">Frames</div>
-		        <img className="btn-menu-close cross" src={closeIcon} onClick={closeSidebar}/>
+	        <img className="btn-menu-close cross" src={closeIcon} onClick={closeSidebar}/>
 		    </div>
 
-		    
+
 
 		    <ul className="sidebar__frames-list" id="MenuFrameList">
 
 		    	{frames.map(frame =>
-		    		<FrameItemComponent
+		    		<SidebarFrameItemComponent
 		    			key={frame.id}
 		    			frame={frame}
-		    			isCurrent={frame.id === selectedFrame}
-		    			isOwner={frame.owner && (frame.owner.id === user.id)}
+		    			isSelected={frame.id === selectedFrame}
+		    			isOwner={frame.ownerId === user.id}
+              openFrameSettingsModal={openFrameSettingsModal}
               selectFrame={selectFrame} />
 		    	)}
 		    </ul>

@@ -1,0 +1,16 @@
+@import "compass/css3/flexbox";
+@import "compass/css3/transition";
+@import "bootstrap/variables";
+@import "../common/colors";
+
+.sidebar-frame-item {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(space-between);
+
+  &__settings {
+    img {
+      display: block;
+    }
+  }
+}

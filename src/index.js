@@ -36,10 +36,12 @@ PubSub.init(store);
 // when the artwork is presented in a modal. Should figure out a better place to handle
 // this.
 function doFixBody() {
+  console.log('doFixBody', arguments);
   store.dispatch(fixBody());
 }
 
 function doUnfixBody() {
+  console.log('doUnfixBody', arguments);
   store.dispatch(unfixBody());
 }
 

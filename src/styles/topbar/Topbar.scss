@@ -2,132 +2,129 @@
 @import "compass/css3/transition";
 @import "bootstrap/variables";
 @import "../common/colors";
-
 $topbar-height: 50px;
-
 .topbar {
-    height: $topbar-height;
-    background-color: $of-darkest-grey;
+  height: $topbar-height;
+  background-color: $of-darkest-grey;
+  color: $of-light-text;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  &__tab {
+    @include display-flex(inline-flex);
+    @include justify-content(center);
+    @include align-items(center);
+    @include transition(all 0.1s);
+    float: left;
+    height: 100%;
+    padding: 0 15px;
     color: $of-light-text;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-
-    &__tab {
-        @include display-flex(inline-flex);
-        @include justify-content(center);
-        @include align-items(center);
-        @include transition(all 0.1s);
-        float: left;
-        height: 100%;
-        padding: 0 15px;
-        color: $of-light-text;;
-        background-color: transparent;
-        text-transform: uppercase;
-        cursor: pointer;
-
-        &.active {
-            background-color: $of-selected-background;
-            color: $of-light-text;
-        }
-
-        &:hover {
-            background-color: $of-selected-background;
-            color: $of-light-text;
-
-            .sidebar-btn {
-                opacity: 1;
-            }
-        }
-
-        &:focus {
-            color: $of-light-text;
-        }
-
-        &--logo {
-            display: none;
-            padding: 0 10px;
-
-            img {
-                padding: 0;
-                width: 22px;
-            }
-        }
-
-        &--menu {
-            width: 120px;
-        }
-
-        &--link {
-            text-transform: none;
-        }
-
-        &--transparent {
-            &:hover {
-                background-color: transparent;
-            }
-        }
-
-        &--selected-frame {
-            text-transform: none;
-            cursor: default;
-            justify-content: flex-start;
-            position: absolute;
-            width: 90%;
-        }
-
-        .sidebar-btn {
-            @include transition(opacity 0.1s);
-            border: 1px solid #fff;
-            height: 18px;
-            width: 30px;
-            border-radius: 2px;
-            opacity: 0.5;
-            background: url('../../images/threedots.svg');
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-
+    ;
+    background-color: transparent;
+    text-transform: uppercase;
+    cursor: pointer;
+    &.active {
+      background-color: $of-selected-background;
+      color: $of-light-text;
     }
+    &:hover {
+      background-color: $of-selected-background;
+      color: $of-light-text;
+      .sidebar-btn {
+        opacity: 1;
+      }
+    }
+    &:focus {
+      color: $of-light-text;
+    }
+    &--logo {
+      display: none;
+      padding: 0 10px;
+      img {
+        padding: 0;
+        width: 22px;
+      }
+    }
+    &--menu {
+      width: 120px;
+    }
+    &--link {
+      text-transform: none;
+    }
+    &--transparent {
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    &--selected-frame {
+      text-transform: none;
+      cursor: default;
+      justify-content: flex-start;
+      position: absolute;
+      width: 90%;
+    }
+    .sidebar-btn {
+      @include transition(opacity 0.1s);
+      border: 1px solid #fff;
+      height: 18px;
+      width: 30px;
+      border-radius: 2px;
+      opacity: 0.5;
+      background: url('../../images/threedots.svg');
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+  }
 }
 
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
-    $topbar-height-sm: 60px;
-    .topbar {
-        background-color: $of-dark-grey;
-        height: $topbar-height-sm;
-
-        &__tab {
-            padding: 0 30px;
-            letter-spacing: 1.2px;
-            font-size: 13px;
-            &--logo {
-                padding: 0 20px;
-                display: inline-flex;
-
-                img {
-                    padding: 0;
-                    width: 28px;
-                }
-            }
-            &--selected-frame {
-                float: right;
-                position: relative;
-                width: auto;
-            }
+  $topbar-height-sm: 60px;
+  .topbar {
+    background-color: $of-dark-grey;
+    height: $topbar-height-sm;
+    &__tab {
+      padding: 0 30px;
+      letter-spacing: 1.2px;
+      font-size: 13px;
+      &--logo {
+        padding: 0 20px;
+        display: inline-flex;
+        img {
+          padding: 0;
+          width: 28px;
         }
+      }
+      &--selected-frame {
+        float: right;
+        position: relative;
+        width: 255px;
+        padding: 0;
+      }
     }
+  }
 }
 
 // overridden styles for md screen / desktop
 @media(min-width: $screen-md-min) {
-
+  .topbar {
+    &__tab {
+      &--selected-frame {
+        width: 335px;
+      }
+    }
+  }
 }
 
 // overridden styles for lg screen / wide desktop
 @media(min-width: $screen-lg-min) {
-
+  .topbar {
+    &__tab {
+      &--selected-frame {
+        width: 395px;
+      }
+    }
+  }
 }

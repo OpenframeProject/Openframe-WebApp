@@ -9,7 +9,7 @@ artwork.define({
   owner: user
 });
 
-export const frame = new Schema('frames');
+export const frame = new Schema('frame');
 export const arrayOfFrames = arrayOf(frame);
 frame.define({
   owner: user,
@@ -19,7 +19,7 @@ frame.define({
 export const channel = new Schema('channel');
 export const arrayOfChannels = arrayOf(channel);
 channel.define({
-  _current_artwork: artwork,
+  current_artwork: artwork,
   // not currently implemented
   artworkHistory: artwork
 });

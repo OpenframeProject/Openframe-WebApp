@@ -1,9 +1,88 @@
-.selected-frame-indicator {
-    float: left;
-    left: 0;
-    padding: 0 5px;
+@import "compass/css3/flexbox";
+@import "bootstrap/variables";
+
+.connected-indicator {
+    position: relative;
+    top: -1px;
+    left: -5px;
+    color: #ccc;
+    font-size: 16px;
+    padding: 0 5px 0 0;
 
     &--connected {
-        color: #37CFAD;
+      color: #37CFAD;
     }
 }
+
+.frame-item {
+  @include display-flex();
+  @include align-items(center);
+  &__thumb {
+    float: left;
+    margin: 10px 10px 10px 0;
+    height: 36px;
+    width: 36px;
+    border-radius: 2px;
+    border: 1px solid #fff;
+    background-color: #000;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+  }
+  &__info {
+    position: relative;
+    top: -2px;
+  }
+  &__name {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: -3px;
+    &:hover {
+      .frame-item__settings {
+        display: inline;
+      }
+    }
+  }
+  &__settings {
+    height: 16px;
+    margin-left: 10px;
+    margin-top: -4px;
+    display: none;
+    cursor: pointer;
+  }
+  &__status {
+    font-size: 11px;
+    font-style: italic;
+    color: #999;
+    font-weight: 300;
+    letter-spacing: 0px;
+    line-height: 1em;
+    margin-top: 2px;
+  }
+}
+
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+  .frame-item {
+    &__thumb {
+      float: left;
+      height: 40px;
+      width: 40px;
+    }
+    &__status {
+      font-size: 14px;
+      font-style: italic;
+      color: #999;
+      font-weight: 300;
+      margin-top: 4px;
+    }
+  }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {}
