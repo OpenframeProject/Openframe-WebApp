@@ -1,4 +1,5 @@
 @import "../common/colors";
+@import "bootstrap/variables";
 
 .profile-header {
   position: relative;
@@ -16,10 +17,22 @@
   }
 
   &__social {
-    color: #999;
+    color: $of-normal-grey;
     margin-bottom: 5px;
   }
 
+  &__social a {
+      color: $of-normal-grey;
+  }
+
+  &__social a:hover {
+      color: $of-dark-grey;
+  }
+
+  &__bullet {
+    padding: 0 10px;
+    font-size: 12px;
+  }
   &__bio {
     color: $of-dark-grey;
   }
@@ -29,8 +42,20 @@
     top: 10px;
     right: 10px;
   }
+}
 
-  .bullet {
-    font-size: 12px;
+@media(min-width: $screen-sm-min) {
+  .profile-header {
+    margin-bottom: 40px;
   }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {
+
+}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {
+
 }

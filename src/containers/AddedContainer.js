@@ -15,6 +15,8 @@ import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
 import { getProfileUser, getCurrentUser, isLiked } from '../reducers/user/index';
 import { getArtworkList } from '../reducers/artwork/index';
 
+require('styles/user/AddedContainer.scss');
+
 const masonryOptions = {
     transitionDuration: '0.2s'
 };
@@ -24,7 +26,7 @@ class AddedContainer extends Component {
     const { actions, userState, user, currentUser, isFetching, auth, artworkList, location } = this.props;
     return (
       <div>
-        <ProfileHeaderComponent user={user} currentUser={currentUser} />
+        <ProfileHeaderComponent user={user} currentUser={currentUser} openEditProfileModal={actions.openEditProfileModal} />
 
         <div className="container">
           {
@@ -32,8 +34,10 @@ class AddedContainer extends Component {
             ? <YouSubMenuComponent location={location} user={user} />
             : null
           }
+          <div className="added-container__title visible-xs">Artworks</div>
           {
-            isFetching
+            // isFetching
+            false
             ? <LoadingIndicatorComponent />
             : (<div>
 
@@ -85,6 +89,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   const actions = {
     fetchUserArtworkRequest: require('../actions/user/fetchUserArtworkRequest.js'),
+    openEditProfileModal: require('../actions/ui/openEditProfileModal.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
     likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
     unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')

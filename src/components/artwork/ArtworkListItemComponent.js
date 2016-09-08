@@ -64,13 +64,14 @@ class ArtworkListItemComponent extends Component {
   }
 
   _generateThumbUrl(url) {
-    let parser = document.createElement('a');
-    parser.href = url;
-    let newHost = parser.hostname + '.rsz.io';
-    let newSearch = parser.search ? parser.search + '&width=300' : '?width=300';
-    let newUrl = 'http://' + newHost + parser.port + parser.pathname + newSearch;
+    return url;
+    // let parser = document.createElement('a');
+    // parser.href = url;
+    // let newHost = parser.hostname + '.rsz.io';
+    // let newSearch = parser.search ? parser.search + '&width=300' : '?width=300';
+    // let newUrl = 'http://' + newHost + parser.port + parser.pathname + newSearch;
 
-    return newUrl;
+    // return newUrl;
     // parser.protocol; // => "http:"
     // parser.hostname; // => "example.com"
     // parser.port;     // => "3000"
@@ -109,8 +110,6 @@ class ArtworkListItemComponent extends Component {
                 </div>
                 <div className="artwork-list-item__action" title="Like artwork">
                   <LikeButtonComponent handleClick={::this._handleLikeClick} show={this.state.hover} initialLikedState={isLiked}/>
-                </div>
-                <div className="artwork-list-item__like">
                 </div>
               </div>
               { artwork.id === currentArtwork
