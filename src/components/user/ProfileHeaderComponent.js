@@ -22,7 +22,7 @@ class ProfileHeaderComponent extends React.Component {
     return (
       <div className="profile-header">
         <div className="profile-header__name">{user.full_name}</div>
-        <div className="profile-header__social">{user.website} &bull; {user.twitter}</div>
+        <div className="profile-header__social">{user.website} <span className="bullet">&nbsp; &bull; &nbsp;</span> {user.twitter}</div>
         <div className="profile-header__bio">{user.bio}</div>
 
         <div className="profile-header__actions">

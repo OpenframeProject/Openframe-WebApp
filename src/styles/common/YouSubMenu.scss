@@ -27,6 +27,8 @@
 
   .tabs a:hover {
       color: black;
+      padding-bottom: 3px;
+      border-bottom: 3px solid black;
   }
 
   .tabs a.active {
