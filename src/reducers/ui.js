@@ -10,10 +10,10 @@ import {
   CLOSE_LOGIN_MODAL,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
-  OPEN_STATEFUL_MODAL,
-  CLOSE_STATEFUL_MODAL,
   OPEN_CREATE_ACCOUNT_MODAL,
   CLOSE_CREATE_ACCOUNT_MODAL,
+  OPEN_FRAME_SETTINGS_MODAL,
+  CLOSE_FRAME_SETTINGS_MODAL,
   OPEN_EDIT_PROFILE_MODAL,
   CLOSE_EDIT_PROFILE_MODAL,
   CREATE_ACCOUNT_SUCCESS,
@@ -23,6 +23,8 @@ import {
   HIDE_CONFIRM_DIALOG,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
+  UPDATE_FRAME_SUCCESS,
+  UPDATE_FRAME_FAILURE,
   FIX_BODY,
   UNFIX_BODY
 } from '../actions/const';
@@ -32,9 +34,13 @@ const initialState = {
   loginModalOpen: false,
   createAccountModalOpen: false,
   editProfileModalOpen: false,
+  frameSettingsModalOpen: false,
+  confirmDialogOpen: false,
+
   createError: null,
   updateUserError: null,
-  confirmDialogOpen: false,
+  frameSettingsError: null,
+
   fixBody: false
   // , notice: '<div class="alert alert-info"><h3>Hello!</h3><p>Welcome to Openframe!</p></div>'
 };
@@ -146,6 +152,27 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         fixBody: false
+      }
+    case OPEN_FRAME_SETTINGS_MODAL:
+      return {
+        ...state,
+        frameSettingsModalOpen: true
+      }
+    case CLOSE_FRAME_SETTINGS_MODAL:
+      return {
+        ...state,
+        frameSettingsModalOpen: false
+      }
+    case UPDATE_FRAME_FAILURE:
+      return {
+        ...state,
+        frameSettingsError: action.error
+      }
+    case UPDATE_FRAME_SUCCESS:
+      return {
+        ...state,
+        frameSettingsError: null,
+        frameSettingsModalOpen: false
       }
     default: {
       /* Return original state if no actions were consumed. */

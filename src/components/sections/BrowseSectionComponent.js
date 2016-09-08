@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+require('styles//sections/BrowseSection.scss');
+
 class BrowseSectionComponent extends React.Component {
   render() {
     return (

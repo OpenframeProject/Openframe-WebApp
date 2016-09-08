@@ -3,26 +3,17 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
+
 import {
-  FETCH_FRAMES_SUCCESS,
-  FRAME_UPDATED,
-  LOGOUT_REQUEST
+  OPEN_FRAME_SETTINGS_MODAL
 } from '../../actions/const'
 
-const initialState = {};
+const initialState = null;
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case FETCH_FRAMES_SUCCESS:
-    case FRAME_UPDATED: {
-      return {
-        ...state,
-        ...action.response.entities.frame
-      };
-    }
-    case LOGOUT_REQUEST: {
-      return {};
-    }
+    case OPEN_FRAME_SETTINGS_MODAL:
+      return action.frameId;
     default: {
       /* Return original state if no actions were consumed. */
       return state;

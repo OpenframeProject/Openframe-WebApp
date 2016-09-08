@@ -10,8 +10,10 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
+import SidebarContainer from './sidebar/SidebarContainer';
+
 import TopbarComponent from '../components/topbar/TopbarComponent';
-import SidebarComponent from '../components/sidebar/SidebarComponent';
 import LoginModalComponent from '../components/user/LoginModalComponent';
 import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
@@ -19,8 +21,9 @@ import ConfirmDialogComponent from '../components/common/ConfirmDialogComponent'
 import StatefulModalComponent from '../components/common/StatefulModalComponent';
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
 import EditProfileModalComponent from '../components/user/EditProfileModalComponent';
+import FrameSettingsModalComponent from '../components/frame/FrameSettingsModalComponent';
 
-import { getSelectedFrame, getFramesList } from '../reducers/frame';
+import { getSelectedFrame } from '../reducers/frame';
 import { getCurrentUser } from '../reducers/user/index';
 
 require('normalize.css/normalize.css');
@@ -82,6 +85,15 @@ class App extends Component {
     actions.updateUserRequest(fields);
   }
 
+  handleSubmitFrameSettings(fields) {
+    let { actions, frames } = this.props;
+    if (!fields.name) {
+      actions.updateFrameFailure('Frame name is required.');
+      return;
+    }
+    actions.updateFrameRequest(frames.settingsFrameId, fields);
+  }
+
   render() {
     let {actions, frames, user, currentUser, ui, route, location, artwork} = this.props;
 
@@ -135,17 +147,7 @@ class App extends Component {
 
 
 
-        <div className='sidebar-wrap'>
-          <SidebarComponent
-            user={currentUser}
-            frames={getFramesList(frames.ids, frames.byId)}
-            selectedFrame={selectedFrame}
-            isOpen={ui.sidebarOpen}
-            closeSidebar={actions.closeSidebar}
-            selectFrame={actions.selectFrame}
-            openEditProfileModal={actions.openEditProfileModal}
-            logoutRequest={actions.logoutRequest} />
-        </div>
+       <SidebarContainer />
 
         <LoginModalComponent
           isOpen={ui.loginModalOpen}
@@ -165,6 +167,12 @@ class App extends Component {
           closeEditProfileModal={actions.closeEditProfileModal}
           onSubmit={::this.handleSubmitEditProfile}
           updateUserError={ui.updateUserError} />
+
+        <FrameSettingsModalComponent
+          isOpen={ui.frameSettingsModalOpen}
+          close={actions.closeFrameSettingsModal}
+          onSubmit={::this.handleSubmitFrameSettings}
+          error={ui.frameSettingsError} />
 
         <MobileSubMenuComponent
           user={currentUser}
@@ -220,6 +228,8 @@ function mapDispatchToProps(dispatch) {
     logoutSuccess: require('../actions/auth/logoutSuccess.js'),
     logoutFailure: require('../actions/auth/logoutFailure.js'),
     selectFrame: require('../actions/frame/selectFrame.js'),
+    updateFrameRequest: require('../actions/frame/updateFrameRequest.js'),
+    updateFrameFailure: require('../actions/frame/updateFrameFailure.js'),
     fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js'),
     fetchConfigRequest: require('../actions/config/fetchConfigRequest.js'),
     openSidebar: require('../actions/ui/openSidebar.js'),
@@ -236,7 +246,9 @@ function mapDispatchToProps(dispatch) {
     closeEditProfileModal: require('../actions/ui/closeEditProfileModal.js'),
     hideConfirmDialog: require('../actions/common/hideConfirmDialog.js'),
     openStatefulModal: require('../actions/ui/openStatefulModal.js'),
-    closeStatefulModal: require('../actions/ui/closeStatefulModal.js')
+    closeStatefulModal: require('../actions/ui/closeStatefulModal.js'),
+    openFrameSettingsModal: require('../actions/ui/openFrameSettingsModal.js'),
+    closeFrameSettingsModal: require('../actions/ui/closeFrameSettingsModal.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

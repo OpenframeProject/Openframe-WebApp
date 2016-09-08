@@ -74,7 +74,7 @@ const users = {
       limit: 100
     };
     let finalFilter = Object.assign({}, defaultFilter, filter);
-    return fetchJSON(`${modelPrefix}/${userId}/owned_artwork`, { data: finalFilter });
+    return fetchJSON(`${modelPrefix}/${userId}/created_artwork`, { data: finalFilter });
   },
 
   /**
