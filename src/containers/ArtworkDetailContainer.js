@@ -66,7 +66,7 @@ class ArtworkDetailContainer extends Component {
   render() {
     const {artwork, user, params} = this.props;
     let singleArtwork = getById(artwork.byId, params.artworkId);
-    let owner = getById(user.byId, singleArtwork.ownerId);
+    let owner = singleArtwork && getById(user.byId, singleArtwork.ownerId);
     owner = owner || (singleArtwork && singleArtwork.owner ? getById(user.byId, singleArtwork.owner) : null);
     let ownerUrl = owner ? `/${owner.username}` : null;
 

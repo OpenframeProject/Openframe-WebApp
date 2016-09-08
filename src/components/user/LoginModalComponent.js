@@ -24,7 +24,9 @@ class LoginModalComponent extends React.Component {
   }
 
   render() {
-    const {fields: {username, password}, handleSubmit, isOpen} = this.props;
+    const {fields: {username, password}, handleSubmit, loginError, isOpen} = this.props;
+    let errorClasses = 'row row-errors ';
+    errorClasses += loginError ? 'show' : 'hide';
     return (
       <Modal
         isOpen={isOpen}
@@ -43,10 +45,10 @@ class LoginModalComponent extends React.Component {
             <h3 className="modal-title">Log In</h3>
           </div>
           <div className="modal-body">
-            <div className="row row-errors hide">
+            <div className={errorClasses}>
               <div className="col-md-12">
                 <div className="alert alert-danger" role="alert">
-
+                  {loginError}
                 </div>
               </div>
             </div>
@@ -62,7 +64,7 @@ class LoginModalComponent extends React.Component {
                       <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
                   </div>
                   <div className="form-group">
-                      <button id="LoginButton" href="#" className="btn btn-default btn-fw">Log In</button>
+                      <button type="submit" className="btn btn-default btn-fw">Log In</button>
                   </div>
                   <div className="switch-text">
                       <p>Don't have an account? <span className="anchor" onClick={::this.goToCreate}>Create one here</span></p>
