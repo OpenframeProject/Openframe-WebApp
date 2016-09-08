@@ -86,7 +86,7 @@ $topbar-height: 50px;
     background-color: $of-dark-grey;
     height: $topbar-height-sm;
     &__tab {
-      padding: 0 30px;
+      padding: 0 25px;
       letter-spacing: 1.2px;
       font-size: 13px;
       &--logo {
@@ -123,7 +123,7 @@ $topbar-height: 50px;
   .topbar {
     &__tab {
       &--selected-frame {
-        width: 395px;
+        //width: 395px;
       }
     }
   }
