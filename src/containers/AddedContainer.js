@@ -29,11 +29,7 @@ class AddedContainer extends Component {
         <ProfileHeaderComponent user={user} currentUser={currentUser} openEditProfileModal={actions.openEditProfileModal} />
 
         <div className="container">
-          {
-            currentUser && user && user.id === currentUser.id
-            ? <YouSubMenuComponent location={location} user={user} />
-            : null
-          }
+          <YouSubMenuComponent location={location} user={user} currentUser={currentUser} />
           <div className="added-container__title visible-xs">Artworks</div>
           {
             // isFetching

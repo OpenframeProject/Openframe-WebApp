@@ -7,7 +7,7 @@ require('styles/common/YouSubMenu.scss');
 
 class YouSubMenuComponent extends React.Component {
   render() {
-    let { user, location } = this.props;
+    let { user, currentUser, location } = this.props;
     let username = user ? user.username : '';
     let [likes, added] = [`/${username}/likes`,`/${username}/added`];
 
@@ -19,8 +19,11 @@ class YouSubMenuComponent extends React.Component {
         <div className="col-md-12">
           <div className="you-sub-menu__wrap">
             <ul className="tabs">
-              <li><Link to={likes} activeClassName="active" className="you-sub-menu__link" >Likes</Link></li>
-              <li><Link to={added} className={active} >Added</Link></li>
+              { user && currentUser && user.id === currentUser.id
+                ? <li><Link to={likes} activeClassName="active" className="you-sub-menu__link" >Likes</Link></li>
+                : null
+              }
+              <li><Link to={added} className={active} >Artworks</Link></li>
             </ul>
           </div>
         </div>

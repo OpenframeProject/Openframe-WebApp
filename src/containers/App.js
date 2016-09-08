@@ -85,7 +85,7 @@ class App extends Component {
   render() {
     let {actions, frames, user, currentUser, ui, route, location, artwork} = this.props;
 
-    let selectedFrameId = frames.selectedFrameId || frames.ids[0];
+    let selectedFrameId = frames.selectedFrameId;
     let selectedFrame = getSelectedFrame(frames.byId, selectedFrameId, artwork.byId);
 
     let isStatefulModal = (

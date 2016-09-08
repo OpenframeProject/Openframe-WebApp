@@ -4,9 +4,8 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import moment from 'moment';
-import Modal from 'react-modal';
 
 import NotFoundComponent from '../components/common/NotFoundComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';

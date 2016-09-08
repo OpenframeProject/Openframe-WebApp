@@ -18,6 +18,7 @@ const reducers = {
   auth: require('./auth.js'),
   ui: require('./ui.js'),
   channels: require('./channels.js'),
+  featureFlags: require('./feature-flags.js'),
   form: formReducer
 };
 

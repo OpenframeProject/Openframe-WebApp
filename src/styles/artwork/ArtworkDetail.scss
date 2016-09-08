@@ -1,3 +1,5 @@
+@import "compass/css3/transition";
+@import "compass/css3/transform";
 @import "bootstrap/variables";
 
 .artwork-detail-modal {
@@ -97,6 +99,7 @@
     border-radius: 4px;
 
     .link {
+      @include transition(all .05s ease-in-out);
       padding: 20px;
       display: block;
       font-size: 16px;
@@ -104,6 +107,12 @@
       background-image: url('../../images/right_caret.svg');
       background-position: right 20px center;
       background-repeat: no-repeat;
+    }
+
+    &:hover {
+      .link {
+        background-position: right 18px center;
+      }
     }
   }
 }
