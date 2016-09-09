@@ -1,5 +1,6 @@
 @import "compass/css3/flexbox";
 @import "bootstrap/variables";
+@import "../common/colors";
 
 .connected-indicator {
     position: relative;
@@ -23,11 +24,16 @@
     height: 36px;
     width: 36px;
     border-radius: 2px;
-    border: 1px solid #fff;
+    border: 1px solid $of-white;
     background-color: #000;
     background-position: center center;
     background-size: cover;
     position: relative;
+
+    &--empty {
+      border: 1px solid $of-normal-grey;
+      background-color: $of-darkest-grey;
+    }
   }
   &__info {
     position: relative;

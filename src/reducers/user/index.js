@@ -26,9 +26,8 @@ export default combineReducers({
   isFetching
 });
 
-export const getUserList = function(state, filter) {
-  const ids = state.user.ids;
-  return ids.map(id => getById(state.user.byId, id));
+export const getUserList = function(usersById, userIds) {
+  return userIds.map(id => getById(usersById, id));
 }
 
 export const getCurrentUser = function(userState) {

@@ -16,18 +16,24 @@ class YouSubMenuComponent extends React.Component {
 
     return (
       <div className="you-sub-menu row hidden-xs">
-        <div className="col-md-12">
-          <div className="you-sub-menu__wrap">
-            <ul className="tabs">
-              { user && currentUser && user.id === currentUser.id
-                ? <li><Link to={likes} activeClassName="active" className="you-sub-menu__link" >Likes</Link></li>
-                : null
-              }
-              <li><Link to={added} className={active} >Artworks</Link></li>
-            </ul>
-          </div>
-        </div>
+      { user
+        ? (
+            <div className="col-md-12">
+              <div className="you-sub-menu__wrap">
+                <ul className="tabs">
+                  { user && currentUser && user.id === currentUser.id
+                    ? <li><Link to={likes} activeClassName="active" className="you-sub-menu__link" >Likes</Link></li>
+                    : null
+                  }
+                  <li><Link to={added} className={active} >Artworks</Link></li>
+                </ul>
+              </div>
+            </div>
+        )
+        : null
+      }
       </div>
+
     );
   }
 }

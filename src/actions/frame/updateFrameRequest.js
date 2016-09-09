@@ -3,12 +3,11 @@ import updateFrameSuccess from './updateFrameSuccess';
 import updateFrameFailure from './updateFrameFailure';
 import {frames} from '../../sources/api';
 
-export default function(frameId, frameData) {
+module.exports = function(frameId, frameData) {
   return dispatch => {
 		dispatch({
 			type: UPDATE_FRAME_REQUEST
 		});
-		// fetchById defaults to 'current' user
 		return frames.update(frameId, frameData).then(
 			response => dispatch(updateFrameSuccess(response)),
 			error => dispatch(updateFrameFailure(error))
