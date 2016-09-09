@@ -41,6 +41,7 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps', nextProps);
     // if we changed routes...
     if ((
       nextProps.location.key !== this.props.location.key &&
@@ -87,6 +88,8 @@ class App extends Component {
 
   handleSubmitFrameSettings(fields) {
     let { actions, frames } = this.props;
+    delete fields.extensions;
+    console.log('handleSubmitFrameSettings', actions, actions.updateFrameRequest, frames);
     if (!fields.name) {
       actions.updateFrameFailure('Frame name is required.');
       return;

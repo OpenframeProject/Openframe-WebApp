@@ -28,7 +28,7 @@ export default combineReducers({
  * @param  {String} framesById
  * @return {Array}
  */
-export const getFramesList = function(frameIds, framesById) {
+export const getFramesList = function(framesById, frameIds) {
   return frameIds.map(id => getById(framesById, id));
 }
 

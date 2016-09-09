@@ -20,7 +20,7 @@ class SidebarContainer extends Component {
       <div className='sidebar-wrap'>
         <SidebarComponent
           user={currentUser}
-          frames={getFramesList(frames.ids, frames.byId)}
+          frames={getFramesList(frames.byId, frames.ids)}
           selectedFrame={selectedFrame}
           isOpen={ui.sidebarOpen}
           closeSidebar={actions.closeSidebar}

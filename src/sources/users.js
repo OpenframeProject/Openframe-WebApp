@@ -61,6 +61,18 @@ const users = {
     return this.fetch(finalFilter);
   },
 
+  searchByUsername: function(input) {
+    let filter = {
+      where: {
+        username: {
+          like: input
+        }
+      },
+      limit: 10
+    };
+    return this.fetch(filter);
+  },
+
   /**
    * Fetch a single user's owned artwork by user id
    *
