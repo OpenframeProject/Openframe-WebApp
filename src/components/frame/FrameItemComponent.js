@@ -61,7 +61,7 @@ class FrameItemComponent extends React.Component {
         { currentArtworkObj
             ? <Link to={{
                 pathname: '/artwork/'+currentArtworkObj.id,
-                state: { modal: true, returnTo: location ? location.pathname : '/browse' }
+                state: { modal: true }
               }}>
                 <div className="frame-item__thumb" style={thumbStyles}>
                   { isPushing && isSelected
@@ -70,7 +70,12 @@ class FrameItemComponent extends React.Component {
                   }
                 </div>
               </Link>
-            : null
+            : <div className="frame-item__thumb frame-item__thumb--empty">
+                { isPushing && isSelected
+                  ? <Spinner config={this.spinnerConfig} />
+                  : null
+                }
+              </div>
         }
 
         <div className="frame-item__info">
