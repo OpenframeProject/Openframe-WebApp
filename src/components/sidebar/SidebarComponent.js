@@ -20,7 +20,7 @@ class SidebarComponent extends Component {
 
   render() {
   	let className = 'sidebar';
-  	let {isOpen, closeSidebar, frames, selectedFrame, user, selectFrame, logoutRequest, openEditProfileModal, openFrameSettingsModal} = this.props;
+  	let {isOpen, closeSidebar, frames, selectedFrame, user, selectFrame, logoutRequest, openEditProfileModal, openFrameSettingsModal, location } = this.props;
 
     console.log('SidebarComponent.frames:', frames);
 
@@ -46,7 +46,8 @@ class SidebarComponent extends Component {
 		    			isSelected={frame.id === selectedFrame}
 		    			isOwner={frame.ownerId === user.id}
               openFrameSettingsModal={openFrameSettingsModal}
-              selectFrame={selectFrame} />
+              selectFrame={selectFrame}
+              pathname={location.pathname} />
 		    	)}
 		    </ul>
 

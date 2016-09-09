@@ -39,29 +39,33 @@ class FrameItemComponent extends React.Component {
 
   openSettings() {
     console.log('openSettings', this.props.frame);
+    const {frame, actions} = this.props;
+    actions.openFrameSettingsModal(frame.id);
   }
 
   render() {
-    let {connected, name, currentArtworkObj, location } = this.props.frame;
-    let { isPushing, isSelected } = this.props;
+    let { isPushing, isSelected, currentArtwork, showSettingsButton, pathname } = this.props;
+
+    let { connected, name } = this.props.frame; // props.frame, NOT PROPS!!
 
     let connectedClass = 'connected-indicator';
     connectedClass += connected ? ' connected-indicator--connected' : '';
 
     let thumbStyles = {};
-    if (currentArtworkObj && !isPushing) {
-      thumbStyles.backgroundImage = 'url(' + currentArtworkObj.thumb_url + ')'
+    if (currentArtwork && !isPushing) {
+      thumbStyles.backgroundImage = 'url(' + currentArtwork.thumb_url + ')'
     } else {
+      // TODO: default bg image
       thumbStyles.backgroundImage = 'none';
     }
 
     return (
       <div className="frame-item">
         <span className={ connectedClass }>&bull;</span>
-        { currentArtworkObj
+        { currentArtwork
             ? <Link to={{
-                pathname: '/artwork/'+currentArtworkObj.id,
-                state: { modal: true }
+                pathname: '/artwork/'+currentArtwork.id,
+                state: { modal: true, returnTo: pathname }
               }}>
                 <div className="frame-item__thumb" style={thumbStyles}>
                   { isPushing && isSelected
@@ -81,11 +85,14 @@ class FrameItemComponent extends React.Component {
         <div className="frame-item__info">
           <div className="frame-item__name">
               { name }
-              <img className="frame-item__settings" src={settingsImg} onClick={::this.openSettings} />
+              { showSettingsButton
+                ? <img className="frame-item__settings" src={settingsImg} onClick={::this.openSettings} />
+                : null
+              }
           </div>
           <div className="frame-item__status displaying">
-              { currentArtworkObj
-                  ? <span>{ currentArtworkObj.author_name } - { currentArtworkObj.title }</span>
+              { currentArtwork
+                  ? <span>{ currentArtwork.author_name } - { currentArtwork.title }</span>
                   : <span>No Artwork Displayed</span>
               }
           </div>
@@ -101,11 +108,17 @@ FrameItemComponent.displayName = 'FrameItemComponent';
 FrameItemComponent.propTypes = {
   frame: PropTypes.object.isRequired,
   isPushing: PropTypes.bool.isRequired,
-  isSelected: PropTypes.bool.isRequired
+  isSelected: PropTypes.bool.isRequired,
+  showSettingsButton: PropTypes.bool.isRequired,
+  currentArtwork: PropTypes.object,
+  pathname: PropTypes.string
 };
+
 FrameItemComponent.defaultProps = {
   isPushing: false,
-  isSelected: false
+  isSelected: false,
+  showSettingsButton: false,
+  currentArtwork: null
 };
 
 export default FrameItemComponent;

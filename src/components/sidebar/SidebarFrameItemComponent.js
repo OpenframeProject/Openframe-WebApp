@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 
 require('styles/sidebar/SidebarFrameItem.scss');
 
-import FrameItemComponent from '../frame/FrameItemComponent'
+import FrameItemContainer from '../../containers/frame/FrameItemContainer'
 
 let checkmarkIcon = require('../../images/frame-checkmark.svg');
 let settingsIcon = require('../../images/settings_white.svg');
@@ -23,7 +23,7 @@ class SidebarFrameItemComponent extends React.Component {
   }
 
   render() {
-    let {isSelected, isPushing, isOwner, frame} = this.props;
+    let {isSelected, isOwner, frame} = this.props;
 
     let className = 'sidebar-frame-item sidebar__row sidebar__row--frame';
     className += isSelected ? ' sidebar_row--frame-active' : '';
@@ -35,7 +35,8 @@ class SidebarFrameItemComponent extends React.Component {
           : ''
         }
 
-        <FrameItemComponent frame={frame} isPushing={isPushing} />
+        <FrameItemContainer
+          frame={frame} />
 
         { isOwner
           ? <span className="sidebar-frame-item__settings" href="#" onClick={::this.openFrameSettings}>
@@ -53,12 +54,10 @@ SidebarFrameItemComponent.displayName = 'SidebarSidebarFrameItemComponent';
 // Uncomment properties you need
 SidebarFrameItemComponent.propTypes = {
   frame: PropTypes.object.isRequired,
-  isPushing: PropTypes.bool.isRequired,
   selectFrame: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired
 };
 SidebarFrameItemComponent.defaultProps = {
-  isPushing: false,
   isSelected: false
 };
 

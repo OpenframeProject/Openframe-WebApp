@@ -3,15 +3,18 @@
 import React from 'react';
 
 require('styles//topbar/SelectedFrame.scss');
-import FrameItemComponent from '../frame/FrameItemComponent';
+import FrameItemContainer from '../../containers/frame/FrameItemContainer';
 
 class SelectedFrameComponent extends React.Component {
   render() {
-    let { selectedFrame, isPushing } = this.props;
+    let { selectedFrame, pathname } = this.props;
 
     return (
       <div className="selected-frame">
-        <FrameItemComponent frame={selectedFrame} isPushing={isPushing} isSelected={true} />
+        <FrameItemContainer
+          frame={selectedFrame}
+          showSettingsButton={true}
+          pathname={pathname} />
       </div>
     );
   }

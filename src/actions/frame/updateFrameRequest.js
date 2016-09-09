@@ -10,7 +10,9 @@ module.exports = function(frameId, frameData) {
 		});
 		return frames.update(frameId, frameData).then(
 			response => dispatch(updateFrameSuccess(response)),
-			error => dispatch(updateFrameFailure(error))
+			error => {
+				dispatch(updateFrameFailure(error));
+			}
 		);
 	}
 }
