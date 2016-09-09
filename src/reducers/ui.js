@@ -25,6 +25,8 @@ import {
   UPDATE_USER_FAILURE,
   UPDATE_FRAME_SUCCESS,
   UPDATE_FRAME_FAILURE,
+  UPDATE_FRAME_MANAGERS_SUCCESS,
+  UPDATE_FRAME_MANAGERS_FAILURE,
   FIX_BODY,
   UNFIX_BODY
 } from '../actions/const';
@@ -164,11 +166,13 @@ module.exports = function(state = initialState, action) {
         frameSettingsModalOpen: false
       }
     case UPDATE_FRAME_FAILURE:
+    case UPDATE_FRAME_MANAGERS_FAILURE:
       return {
         ...state,
         frameSettingsError: action.error
       }
     case UPDATE_FRAME_SUCCESS:
+    case UPDATE_FRAME_MANAGERS_SUCCESS:
       return {
         ...state,
         frameSettingsError: null,

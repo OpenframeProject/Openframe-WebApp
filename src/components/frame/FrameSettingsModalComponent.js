@@ -40,6 +40,7 @@ class FrameSettingsModalComponent extends React.Component {
   }
 
   closeModal() {
+    this.props.resetForm();
     this.props.close();
   }
 
@@ -48,31 +49,16 @@ class FrameSettingsModalComponent extends React.Component {
     console.log('Delete me!');
   }
 
-
-
-  // fetchOptions(input) {
-  //   return users.searchByUsername(input)
-  //     .then(response => {
-  //       return {
-  //         options: response.map(user => {
-  //           let option = {
-  //             value: user.id,
-  //             label: user.username
-  //           };
-  //           return option;
-  //         })
-  //       };
-  //     });
-  // }
-
   render() {
-    let {fields: {name, managers, extensions}, handleSubmit, error, isOpen} = this.props;
-    // console.log('extensions', extensions.value);
+    let {fields: {name, managers}, frame, handleSubmit, errorMessage, isOpen} = this.props;
+    console.log('Settings Form props', this.props);
     // extensions.value = Object.keys(extensions.value).map(key => key).join(', ');
     // console.log(extensionNames);
 
+    let extensions = frame ? Object.keys(frame.extensions).map(key => key) : null;
+
     let errorClasses = 'row row-errors ';
-    errorClasses += error ? 'show' : 'hide';
+    errorClasses += errorMessage ? 'show' : 'hide';
 
     return (
       <Modal
@@ -94,7 +80,7 @@ class FrameSettingsModalComponent extends React.Component {
                 <div className={errorClasses}>
                   <div className="col-md-12">
                     <div className="alert alert-danger" role="alert">
-                      {error}
+                      {errorMessage}
                     </div>
                   </div>
                 </div>
@@ -107,21 +93,25 @@ class FrameSettingsModalComponent extends React.Component {
                             </div>
                             <div className="form-group">
                                 <label className="with-fine-copy" for="Managers">Frame managers</label>
-                                <p className="fine-copy">Managers will be able to push artwork to this frame</p>
-                                {
-                                  //<input type="text" className="form-control" name="managers" id="Managers" placeholder="add usernames separated by comma" autoCapitalize="off" {...managers}/>
-                                }
                                 <CustomSelectComponent
                                     {...managers}
                                     loadOptions={::this.fetchOptions}
                                 />
+                                <p className="fine-copy">Managers can push artwork to this frame, but not update its settings.</p>
                             </div>
                             <div className="form-group">
                                 <label for="Extensions">Extensions installed in this frame</label>
-                                <input type="text" className="form-control" name="extensions" id="Extensions" placeholder="no extensions" autoCapitalize="off" readOnly {...extensions}/>
+                                {
+                                  //<input type="text" className="form-control" name="extensions" id="Extensions" placeholder="no extensions" autoCapitalize="off" readOnly {...extensions}/>
+                                }
+                                <ul className="frame-settings-modal__extensions">
+                                {
+                                  extensions && extensions.map(name => <li key={name} className="frame-settings-modal__extension">{name}</li>)
+                                }
+                                </ul>
                             </div>
                             <div className="form-group">
-                                <button type="submit" className="btn btn-default">Save Changes</button>
+                                <button type="submit" className="btn btn-default btn-fw">Save Changes</button>
                             </div>
                             <div className="switch-text">
                                 <p><a href="#" className="red" onClick={::this.deleteFrame}>Click here</a> to delete this frame</p>
@@ -138,7 +128,7 @@ class FrameSettingsModalComponent extends React.Component {
 
 FrameSettingsModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
     form: 'frameSettings',                           // a unique name for this form
-    fields: ['name', 'managers', 'extensions'] // all the fields in your form
+    fields: ['name', 'managers'] // all the fields in your form
   },
   state => {
     let frame = getById(state.frames.byId, state.frames.settingsFrameId);
@@ -147,13 +137,13 @@ FrameSettingsModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
       label: user.username,
       value: user.id
     }));
-    let extensions = frame ? Object.keys(frame.extensions).map(key => key).join(', ') : null;
-    // console.log('managers', managers);
+    // let extensions = frame ? Object.keys(frame.extensions).map(key => key).join(', ') : null;
     return { // mapStateToProps
+      frame: frame,
+      errorMessage: state.ui.frameSettingsError,
       initialValues: {
         ...frame,
-        managers,
-        extensions
+        managers
       }  // will pull state into form's initialValues
     }
   })(FrameSettingsModalComponent);

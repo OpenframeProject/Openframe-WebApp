@@ -34,12 +34,14 @@ function getDefaultModules() {
         loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
           + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/compass-mixins/lib')
           + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/bootstrap-sass/assets/stylesheets')
+          + '&includePaths[]=' + path.resolve(__dirname, '../node_modules')
       },
       {
         test: /\.scss/,
         loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
           + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/compass-mixins/lib')
           + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/bootstrap-sass/assets/stylesheets')
+          + '&includePaths[]=' + path.resolve(__dirname, '../node_modules')
       },
       {
         test: /\.less/,

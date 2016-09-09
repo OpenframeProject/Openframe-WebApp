@@ -10,7 +10,7 @@
 .ReactModal__Overlay {
   @include transition(all 0.2s ease-in-out);
   opacity: 0;
-  background-color: rgba(0,0,0,.3);
+  background-color: rgba(0,0,0,.5);
 
   &--after-open {
     opacity: 1;
@@ -91,7 +91,7 @@
   .ReactModal__Overlay {
     @include transition(all 0.2s ease-in-out);
     opacity: 0;
-    background-color: rgba(0,0,0,.3);
+    background-color: rgba(0,0,0,.5);
     overflow: auto;
 
     &--after-open {

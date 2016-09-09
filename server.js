@@ -9,7 +9,7 @@ const path = require('path');
 
 let server = new WebpackDevServer(webpack(config), config.devServer);
 
-server.listen(config.port, 'localhost', (err) => {
+server.listen(config.port, '0.0.0.0', (err) => {
   if (err) {
     console.log(err);
   }

@@ -2,9 +2,11 @@
 
 import React from 'react';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 
-// require('styles/form/CustomSelect.scss');
+// import 'react-select/dist/react-select.css';
+// import 'react-select/scss/components.scss';
+
+require('styles/form/CustomSelect.scss');
 
 class CustomSelectComponent extends React.Component {
   render() {
@@ -14,7 +16,7 @@ class CustomSelectComponent extends React.Component {
       multi={true}
       value={value || ''}          // because react-select doesn't like the initial value of undefined
       onBlur={() => onBlur(value)} // just pass the current value (updated on change) on blur
-      onChange={(val, items) => onChange(items)}
+      // onChange={(val, items) => onChange(items)}
       {...props} />;                // options are part of other props
   }
 }
