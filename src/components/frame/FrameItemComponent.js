@@ -4,6 +4,7 @@ import React, { PropTypes } from 'react';
 
 import { Link } from 'react-router';
 import Spinner from 'react-spin';
+import config from 'config';
 
 require('styles//frame/FrameItem.scss');
 let settingsImg = require('../../images/settings_white.svg');
@@ -11,30 +12,11 @@ let settingsImg = require('../../images/settings_white.svg');
 class FrameItemComponent extends React.Component {
   constructor() {
     super();
-    // Configuration for loading spinner
-    this.spinnerConfig = {
-        lines: 11 // The number of lines to draw
-      , length: 0 // The length of each line
-      , width: 8 // The line thickness
-      , radius: 28 // The radius of the inner circle
-      , scale: 0.25 // Scales overall size of the spinner
-      , corners: 1 // Corner roundness (0..1)
-      , color: '#fff' // #rgb or #rrggbb or array of colors
-      , opacity: 0.25 // Opacity of the lines
-      , rotate: 0 // The rotation offset
-      , direction: 1 // 1: clockwise, -1: counterclockwise
-      , speed: 1 // Rounds per second
-      , trail: 91 // Afterglow percentage
-      , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
-      , zIndex: 2e9 // The z-index (defaults to 2000000000)
-      , className: 'spinner' // The CSS class to assign to the spinner
-      , top: '50%' // Top position relative to parent
-      , left: '50%' // Left position relative to parent
-      , shadow: false // Whether to render a shadow
-      , hwaccel: false // Whether to use hardware acceleration
-      , position: 'absolute' // Element positioning
-    };
 
+    this.spinnerConfig = Object.assign({}, config.spinnerConfig, {
+      color: '#fff',
+      radius: 28 // The radius of the inner circle
+    });
   }
 
   openSettings() {
@@ -43,7 +25,10 @@ class FrameItemComponent extends React.Component {
   }
 
   render() {
+
     let { isPushing, isSelected, currentArtwork, showSettingsButton, pathname } = this.props;
+
+    console.log('spinnerConfig', this.spinnerConfig, isPushing, isSelected);
 
     let { connected, name } = this.props.frame; // props.frame, NOT PROPS!!
 
