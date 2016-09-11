@@ -1,6 +1,7 @@
 @import "compass/css3/transition";
 @import "compass/css3/transform";
 @import "bootstrap/variables";
+@import "../common/colors";
 
 .artwork-detail-modal {
   .modal-content {
@@ -61,16 +62,16 @@
   }
 
   &__format {
-    color: #aaa;
-    font-size: 10px;
+    color: $of-normal-grey;
+    font-size: 11px;
     text-transform: uppercase;
-    font-weight: 400;
-    letter-spacing: .5px;
+    font-weight: 600;
+    letter-spacing: 1px;
   }
 
   &__resolution {
-    color: #aaa;
-    font-size: 10px;
+    color: $of-normal-grey;
+    font-size: 11px;
   }
 
   &__description {
@@ -80,7 +81,7 @@
 
   &__added-by {
     font-size: 12px;
-    color: #aaa;
+    color: $of-normal-grey;
   }
 
   &__actions {

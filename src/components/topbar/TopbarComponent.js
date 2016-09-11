@@ -18,8 +18,9 @@ class TopbarComponent extends React.Component {
     let active = browseActiveRoutes.indexOf(location.pathname) !== -1 ? 'active' : '';
 
     return (
+      
       <nav className="topbar">
-
+          <div className="top-shadow"></div>
           <Link className="topbar__tab topbar__tab--logo" to="/">
             <img alt="Openframe" src={logo} />
           </Link>
@@ -75,6 +76,16 @@ class TopbarComponent extends React.Component {
     );
   }
 }
+
+$(window).scroll(function() {     
+    var scroll = $(window).scrollTop();
+    if (scroll > 0) {
+        $(".topbar").addClass("active");
+    }
+    else {
+        $(".topBar").removeClass("active");
+    }
+});
 
 TopbarComponent.displayName = 'TopbarComponent';
 
