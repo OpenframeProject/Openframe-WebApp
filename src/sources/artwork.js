@@ -1,6 +1,7 @@
 import fetchJSON from './fetchJSON';
 
 const modelPrefix = 'artwork';
+import config from 'config';
 
 const artwork = {
   /**
@@ -9,8 +10,11 @@ const artwork = {
    * @return {Promise}
    */
   fetch: function(filter = {}) {
-    let defaultFilter = {};
+    let defaultFilter = {
+      limit: config.perPage
+    };
     let finalFilter = Object.assign({}, defaultFilter, filter);
+    console.log('finalFilter', finalFilter);
     return fetchJSON(`${modelPrefix}`, { data: finalFilter });
   },
 

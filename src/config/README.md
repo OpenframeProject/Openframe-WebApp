@@ -7,7 +7,7 @@ You can include the configuration into your code like this:
 
 ```javascript
 let react = require('react/addons');
-let config = require('config');
+import config from 'config';
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);

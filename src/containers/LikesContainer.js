@@ -5,24 +5,23 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Masonry from 'react-masonry-component';
-
 import ArtworkListItemComponent from '../components/artwork/ArtworkListItemComponent';
 import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
-import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 import ProfileHeaderComponent from '../components/user/ProfileHeaderComponent';
+import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
+import InfiniteMasonryComponent from '../components/common/InfiniteMasonryComponent';
 
 import { getProfileUser, getCurrentUser, getUserLikes, isLiked } from '../reducers/user/index';
 import { getArtworkList } from '../reducers/artwork/index';
 
-const masonryOptions = {
-    transitionDuration: '0.2s'
-};
-
 class LikesContainer extends Component {
+  _loadArtworks(page) {
+    const { actions } = this.props;
+    actions.fetchUserLikesRequest('current', page);
+  }
 
   render() {
-    const { actions, userState, user, currentUser, isFetching, auth, artworkList, location } = this.props;
+    const { actions, userState, user, currentUser, isFetching, auth, artworkList, location, likesHasMore } = this.props;
     return (
       <div>
         <ProfileHeaderComponent user={user} currentUser={currentUser} openEditProfileModal={actions.openEditProfileModal} />
@@ -36,8 +35,9 @@ class LikesContainer extends Component {
             : (<div>
 
                 <div className="row">
-                  <Masonry
-                    options={masonryOptions}>
+                  <InfiniteMasonryComponent
+                    loadMore={::this._loadArtworks}
+                    hasMore={likesHasMore} >
                   {
                     artworkList.map(artwork => {
                       return (
@@ -53,7 +53,7 @@ class LikesContainer extends Component {
                       )
                     })
                   }
-                  </Masonry>
+                  </InfiniteMasonryComponent>
                 </div>
 
               </div>)
@@ -87,7 +87,8 @@ function mapDispatchToProps(dispatch) {
     openEditProfileModal: require('../actions/ui/openEditProfileModal.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
     likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
-    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')
+    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js'),
+    fetchUserLikesRequest: require('../actions/user/fetchUserLikesRequest.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
