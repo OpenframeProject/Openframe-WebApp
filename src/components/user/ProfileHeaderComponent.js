@@ -41,7 +41,6 @@ class ProfileHeaderComponent extends React.Component {
             </div>
           : null
         }
-
         <div className="profile-header__bio">{user.bio}</div>
 
         <div className="profile-header__actions">

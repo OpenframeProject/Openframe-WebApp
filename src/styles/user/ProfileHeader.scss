@@ -3,28 +3,38 @@
 
 .profile-header {
   position: relative;
-  background-color: $of-light-grey;
-  padding: 30px 15px;
+  //background-color: $of-light-grey;
+  padding: 40px 15px 20px 15px;
   text-align: center;
   margin-bottom: 10px;
   //box-shadow: 0px 0px 2px #999;
   font-size: 16px;
 
   &__name {
-    font-size: 30px;
+    font-size: 36px;
     font-weight: 600;
     margin-bottom: 10px;
   }
 
   &__social {
-    color: #999;
+    color: $of-normal-grey;
     margin-bottom: 5px;
+  }
+
+  &__social a {
+      color: $of-normal-grey;
+  }
+
+  &__social a:hover {
+      color: $of-dark-grey;
   }
 
   &__bullet {
     padding: 0 10px;
+    font-size: 12px;
   }
   &__bio {
+    color: $of-dark-grey;
   }
 
   &__actions {

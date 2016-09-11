@@ -11,7 +11,13 @@ $topbar-height: 50px;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 10
+  box-shadow: none;
+
+  &.active {
+    box-shadow: 0 0 8px rgba(0,0,0,1); 
+  }
+
   &__tab {
     @include display-flex(inline-flex);
     @include justify-content(center);
@@ -86,7 +92,7 @@ $topbar-height: 50px;
     background-color: $of-dark-grey;
     height: $topbar-height-sm;
     &__tab {
-      padding: 0 30px;
+      padding: 0 25px;
       letter-spacing: 1.2px;
       font-size: 13px;
       &--logo {
@@ -123,7 +129,7 @@ $topbar-height: 50px;
   .topbar {
     &__tab {
       &--selected-frame {
-        width: 395px;
+        //width: 395px;
       }
     }
   }

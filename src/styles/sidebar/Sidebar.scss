@@ -11,7 +11,7 @@
   height: 100%;
   background-color: $of-dark-grey;
   z-index: 1040;
-  box-shadow: -2px 0px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: -2px 0px 6px rgba(0, 0, 0, 0.35);
   &--open {
     right: 0;
   }
@@ -63,10 +63,11 @@
     border-bottom: none;
   }
   &--frame {
-    padding: 15px 15px;
+    padding: 15px 20px;
     // padding-left: 15px;
     text-align: left;
     cursor: pointer;
+    height: 60px;
   }
 }
 
@@ -80,18 +81,14 @@
   border: 0;
 }
 
-.sidebar__row--logout a {
-  color: #B2B2B2;
-}
-
-.sidebar__row--logout a:hover {
-  color: black;
-}
-
 .sidebar {
   .anchor {
+    font-weight: 300;
     color: $of-normal-grey;
     text-decoration: none;
+  }
+  .anchor:hover {
+    color: white;
   }
 }
 
@@ -166,6 +163,14 @@
   text-align: center;
 }
 
+.icon-settings {
+  opacity: 0.5;
+}
+
+.icon-settings:hover {
+  opacity: 1;
+}
+
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
   .sidebar {
@@ -191,8 +196,8 @@
 // overridden styles for lg screen / wide desktop
 @media(min-width: $screen-lg-min) {
   .sidebar {
-    right: -510px;
-    width: 500px;
+    //right: -510px;
+    //width: 500px;
     &--open {
       right: 0;
     }

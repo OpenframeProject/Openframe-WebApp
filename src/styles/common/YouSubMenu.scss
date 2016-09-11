@@ -1,7 +1,9 @@
+@import "../common/colors";
+
 .you-sub-menu {
   margin-bottom: 40px;
   &__wrap {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid $of-light-grey;
   }
 
   .tabs {
@@ -27,6 +29,8 @@
 
   .tabs a:hover {
       color: black;
+      padding-bottom: 3px;
+      border-bottom: 3px solid black;
   }
 
   .tabs a.active {
