@@ -5,7 +5,11 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRedirect, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router'
 import useScroll from 'react-router-scroll';
 import configureStore from './stores';
+
 import App from './containers/App';
+import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
+import CollectionDetailContainer from './containers/CollectionDetailContainer';
+
 import BrowseSectionComponent from './components/sections/BrowseSectionComponent';
 import StreamContainer from './containers/StreamContainer';
 import CollectionsContainer from './containers/CollectionsContainer';
@@ -15,8 +19,6 @@ import LikesContainer from './containers/LikesContainer';
 import AddedContainer from './containers/AddedContainer';
 import FeatureFlagsContainer from './containers/FeatureFlagsContainer';
 
-import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
-import CollectionDetailContainer from './containers/CollectionDetailContainer';
 
 const fixBody = require('./actions/ui/fixBody.js');
 const unfixBody = require('./actions/ui/unfixBody.js');
