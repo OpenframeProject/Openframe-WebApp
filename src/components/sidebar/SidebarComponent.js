@@ -22,8 +22,6 @@ class SidebarComponent extends Component {
   	let className = 'sidebar';
   	let {isOpen, closeSidebar, frames, selectedFrame, user, selectFrame, logoutRequest, openEditProfileModal, openFrameSettingsModal, location } = this.props;
 
-    console.log('SidebarComponent.frames:', frames);
-
   	if (isOpen) {
   		className += ' sidebar--open';
   	}

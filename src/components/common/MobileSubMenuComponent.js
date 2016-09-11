@@ -14,7 +14,7 @@ let youImg = require('../../images/icon_you.svg');
 
 class MobileSubMenuComponent extends React.Component {
   render() {
-    let { user, location } = this.props;
+    let { user, location, featureFlags } = this.props;
     let username = user ? user.username : '';
     let [likes, added] = [`/${username}/likes`,`/${username}/added`];
 
@@ -30,22 +30,28 @@ class MobileSubMenuComponent extends React.Component {
             Stream
           </div>
         </Link>
-        <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/channels">
-          <div className="footerbar__tab-icon-wrap">
-            <img className="footerbar__tab-icon" src={channelsImg} />
-          </div>
-          <div className="footerbar__tab-text">
-            Channels
-          </div>
-        </Link>
-        <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/collections">
-          <div className="footerbar__tab-icon-wrap">
-            <img className="footerbar__tab-icon" src={collectionsImg} />
-          </div>
-          <div className="footerbar__tab-text">
-            Collect.
-          </div>
-        </Link>
+        { featureFlags.channels
+          ? <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/channels">
+              <div className="footerbar__tab-icon-wrap">
+                <img className="footerbar__tab-icon" src={channelsImg} />
+              </div>
+              <div className="footerbar__tab-text">
+                Channels
+              </div>
+            </Link>
+          : null
+        }
+        { featureFlags.collections
+          ? <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/collections">
+              <div className="footerbar__tab-icon-wrap">
+                <img className="footerbar__tab-icon" src={collectionsImg} />
+              </div>
+              <div className="footerbar__tab-text">
+                Collect.
+              </div>
+            </Link>
+          : null
+        }
         { user
           ? (
             <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to={likes}>

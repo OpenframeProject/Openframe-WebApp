@@ -106,7 +106,7 @@ class App extends Component {
   }
 
   render() {
-    let {actions, frames, user, currentUser, ui, route, location, artwork} = this.props;
+    let {actions, frames, user, currentUser, ui, route, location, artwork, featureFlags} = this.props;
 
     let selectedFrameId = frames.selectedFrameId;
     let selectedFrame = getSelectedFrame(frames.byId, selectedFrameId, artwork.byId);
@@ -186,7 +186,8 @@ class App extends Component {
 
         <MobileSubMenuComponent
           user={currentUser}
-          location={location} />
+          location={location}
+          featureFlags={featureFlags} />
 
         <ConfirmDialogComponent
           isOpen={ui.confirmDialogOpen}
@@ -229,6 +230,7 @@ function mapStateToProps(state) {
     currentUser: getCurrentUser(state.user),
     auth: state.auth,
     ui: state.ui,
+    featureFlags: state.featureFlags,
     collections: state.collections
   };
   return props;
