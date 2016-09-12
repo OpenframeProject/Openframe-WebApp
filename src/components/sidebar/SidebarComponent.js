@@ -20,8 +20,7 @@ class SidebarComponent extends Component {
 
   render() {
   	let className = 'sidebar';
-  	let {isOpen, closeSidebar, frames, selectedFrame, user, selectFrame, logoutRequest, openEditProfileModal, openFrameSettingsModal, location } = this.props;
-
+  	let {isOpen, closeSidebar, frames, selectedFrameId, user, selectFrame, logoutRequest, openEditProfileModal, openFrameSettingsModal, location } = this.props;
   	if (isOpen) {
   		className += ' sidebar--open';
   	}
@@ -33,15 +32,13 @@ class SidebarComponent extends Component {
 	        <img className="btn-menu-close cross" src={closeIcon} onClick={closeSidebar}/>
 		    </div>
 
-
-
 		    <ul className="sidebar__frames-list" id="MenuFrameList">
 
 		    	{frames.map(frame =>
 		    		<SidebarFrameItemComponent
 		    			key={frame.id}
 		    			frame={frame}
-		    			isSelected={frame.id === selectedFrame}
+		    			isSelected={frame.id == selectedFrameId} // TODO: === once we can ensure string ids
 		    			isOwner={frame.ownerId === user.id}
               openFrameSettingsModal={openFrameSettingsModal}
               selectFrame={selectFrame}

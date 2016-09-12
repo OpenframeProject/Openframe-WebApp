@@ -2,7 +2,7 @@
 
 // Settings configured here will be merged into the final config object.
 export default {
-  perPage: 30,
+  perPage: 15,
   spinnerConfig: {
       lines: 11 // The number of lines to draw
     , length: 0 // The length of each line

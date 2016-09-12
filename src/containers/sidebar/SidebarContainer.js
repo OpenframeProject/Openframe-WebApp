@@ -15,13 +15,12 @@ class SidebarContainer extends Component {
   render() {
     const { actions, currentUser, frames, ui, artwork, location } = this.props;
     let selectedFrameId = frames.selectedFrameId;
-    let selectedFrame = getSelectedFrame(frames.byId, selectedFrameId, artwork.byId);
     return (
       <div className='sidebar-wrap'>
         <SidebarComponent
           user={currentUser}
           frames={getFramesList(frames.byId, frames.ids)}
-          selectedFrame={selectedFrame}
+          selectedFrameId={selectedFrameId}
           isOpen={ui.sidebarOpen}
           closeSidebar={actions.closeSidebar}
           selectFrame={actions.selectFrame}

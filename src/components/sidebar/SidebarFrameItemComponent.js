@@ -6,7 +6,7 @@ require('styles/sidebar/SidebarFrameItem.scss');
 
 import FrameItemContainer from '../../containers/frame/FrameItemContainer'
 
-let checkmarkIcon = require('../../images/frame-checkmark.svg');
+let checkmarkIcon = require('../../images/checkmark_white.svg');
 let settingsIcon = require('../../images/settings_white.svg');
 
 class SidebarFrameItemComponent extends React.Component {
@@ -30,20 +30,24 @@ class SidebarFrameItemComponent extends React.Component {
 
     return (
       <li className={className} onClick={this.handleClick.bind(this)}>
-        { isSelected
-          ? <img className="mark-frame-active" src={checkmarkIcon} />
-          : ''
-        }
 
         <FrameItemContainer
           frame={frame} />
 
-        { isOwner
-          ? <span className="sidebar-frame-item__settings" href="#" onClick={::this.openFrameSettings}>
-              <img className="icon-settings" src={settingsIcon} />
-            </span>
-          : ''
-        }
+        <div className="sidebar-frame-item__actions">
+          { isSelected
+            ? <span className="sidebar-frame-item__selected">
+                <img className="mark-frame-active" src={checkmarkIcon} />
+              </span>
+            : ''
+          }
+          { isOwner
+            ? <span className="sidebar-frame-item__settings" onClick={::this.openFrameSettings}>
+                <img className="icon-settings" src={settingsIcon} />
+              </span>
+            : ''
+          }
+        </div>
       </li>
     );
   }
