@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Waypoint from 'react-waypoint';
 
 import SidebarContainer from './sidebar/SidebarContainer';
 
@@ -105,6 +106,14 @@ class App extends Component {
     }
   }
 
+  _handleWaypointEnter() {
+    this.refs.topbar._hideShadow();
+  }
+
+  _handleWaypointLeave() {
+    this.refs.topbar._showShadow();
+  }
+
   render() {
     let {actions, frames, user, currentUser, ui, route, location, artwork, featureFlags} = this.props;
 
@@ -120,6 +129,7 @@ class App extends Component {
     return (
       <div>
         <TopbarComponent
+          ref="topbar"
           user={currentUser}
           isFetching={user.isFetching}
           isPushing={frames.isPushing}
@@ -129,6 +139,12 @@ class App extends Component {
           openSidebar={actions.openSidebar}
           openCreateAccountModal={actions.openCreateAccountModal}
           openLoginModal={actions.openLoginModal} />
+
+        <Waypoint
+          onEnter={::this._handleWaypointEnter}
+          onLeave={::this._handleWaypointLeave}
+          scrollableAncestor={window}
+        />
 
         { ui.notice
           ? <NoticeBannerComponent notice={ ui.notice } />

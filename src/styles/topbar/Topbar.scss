@@ -13,8 +13,9 @@ $topbar-height: 50px;
   width: 100%;
   z-index: 10;
   box-shadow: none;
+  @include transition(box-shadow 2s ease);
 
-  &.active {
+  &--shadow {
     box-shadow: 0 0 8px rgba(0,0,0,1);
   }
 
