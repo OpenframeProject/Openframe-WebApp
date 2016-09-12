@@ -41,6 +41,7 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log('componentWillReceiveProps', nextProps);
     // if we changed routes...
     if ((
       nextProps.location.key !== this.props.location.key &&
@@ -59,6 +60,12 @@ class App extends Component {
       document.body.style.maxWidth = 'none';
       document.body.style.height   = '100%';
       document.body.style.overflow = 'auto';
+    }
+  }
+
+  getChildContext() {
+    return {
+      location: this.props.location
     }
   }
 
@@ -87,11 +94,15 @@ class App extends Component {
 
   handleSubmitFrameSettings(fields) {
     let { actions, frames } = this.props;
+    console.log('handleSubmitFrameSettings', fields);
     if (!fields.name) {
       actions.updateFrameFailure('Frame name is required.');
       return;
     }
     actions.updateFrameRequest(frames.settingsFrameId, fields);
+    if (fields.managers) {
+      actions.updateFrameManagersRequest(frames.settingsFrameId, fields.managers.map(manager => manager.label))
+    }
   }
 
   render() {
@@ -147,7 +158,7 @@ class App extends Component {
 
 
 
-       <SidebarContainer />
+       <SidebarContainer location={location} />
 
         <LoginModalComponent
           isOpen={ui.loginModalOpen}
@@ -171,8 +182,7 @@ class App extends Component {
         <FrameSettingsModalComponent
           isOpen={ui.frameSettingsModalOpen}
           close={actions.closeFrameSettingsModal}
-          onSubmit={::this.handleSubmitFrameSettings}
-          error={ui.frameSettingsError} />
+          onSubmit={::this.handleSubmitFrameSettings} />
 
         <MobileSubMenuComponent
           user={currentUser}
@@ -205,6 +215,11 @@ App.propTypes = {
   auth: PropTypes.object.isRequired,
   collections: PropTypes.object.isRequired
 };
+
+App.childContextTypes = {
+  location: PropTypes.object
+};
+
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
   const props = {
@@ -229,6 +244,7 @@ function mapDispatchToProps(dispatch) {
     logoutFailure: require('../actions/auth/logoutFailure.js'),
     selectFrame: require('../actions/frame/selectFrame.js'),
     updateFrameRequest: require('../actions/frame/updateFrameRequest.js'),
+    updateFrameManagersRequest: require('../actions/frame/updateFrameManagersRequest.js'),
     updateFrameFailure: require('../actions/frame/updateFrameFailure.js'),
     fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js'),
     fetchConfigRequest: require('../actions/config/fetchConfigRequest.js'),

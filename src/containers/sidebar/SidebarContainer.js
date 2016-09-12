@@ -13,21 +13,22 @@ import { getCurrentUser } from '../../reducers/user/index';
 
 class SidebarContainer extends Component {
   render() {
-    const { actions, currentUser, frames, ui, artwork } = this.props;
+    const { actions, currentUser, frames, ui, artwork, location } = this.props;
     let selectedFrameId = frames.selectedFrameId;
     let selectedFrame = getSelectedFrame(frames.byId, selectedFrameId, artwork.byId);
     return (
       <div className='sidebar-wrap'>
         <SidebarComponent
           user={currentUser}
-          frames={getFramesList(frames.ids, frames.byId)}
+          frames={getFramesList(frames.byId, frames.ids)}
           selectedFrame={selectedFrame}
           isOpen={ui.sidebarOpen}
           closeSidebar={actions.closeSidebar}
           selectFrame={actions.selectFrame}
           openEditProfileModal={actions.openEditProfileModal}
           openFrameSettingsModal={actions.openFrameSettingsModal}
-          logoutRequest={actions.logoutRequest} />
+          logoutRequest={actions.logoutRequest}
+          location={location} />
       </div>
     );
   }

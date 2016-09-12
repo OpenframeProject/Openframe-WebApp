@@ -6,6 +6,7 @@
 import {
   FETCH_FRAMES_SUCCESS,
   FRAME_UPDATED,
+  UPDATE_FRAME_MANAGERS_SUCCESS,
   LOGOUT_REQUEST
 } from '../../actions/const'
 
@@ -14,6 +15,7 @@ const initialState = {};
 export default function(state = initialState, action) {
   switch(action.type) {
     case FETCH_FRAMES_SUCCESS:
+    case UPDATE_FRAME_MANAGERS_SUCCESS:
     case FRAME_UPDATED: {
       return {
         ...state,

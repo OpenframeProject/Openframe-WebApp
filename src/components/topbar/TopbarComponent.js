@@ -10,7 +10,7 @@ let logo = require('../../images/of-logo.svg');
 
 class TopbarComponent extends React.Component {
   render() {
-    let {openSidebar, openLoginModal, openCreateAccountModal, selectedFrame, user, isFetching, isPushing, location} = this.props;
+    let {openSidebar, openLoginModal, openCreateAccountModal, selectedFrame, user, isFetching, location} = this.props;
     let username = user ? `/${user.username}` : null;
 
     let browseActiveRoutes = ['/stream', '/channels', '/collections', '/artwork'];
@@ -66,7 +66,9 @@ class TopbarComponent extends React.Component {
             selectedFrame && user
             ? (
                 <div className="topbar__tab topbar__tab--transparent topbar__tab--selected-frame">
-                  <SelectedFrameComponent selectedFrame={selectedFrame} isPushing={isPushing} location={location}/>
+                  <SelectedFrameComponent
+                    selectedFrame={selectedFrame}
+                    pathname={location.pathname} />
                 </div>
               )
             : null
