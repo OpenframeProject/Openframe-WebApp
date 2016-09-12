@@ -38,6 +38,7 @@ class StreamContainer extends Component {
     return (
       <div className="container">
         <BrowseSubMenuComponent featureFlags={featureFlags} />
+        <div className="added-container__title visible-xs">Stream</div>
         {
           isFirstLoad
           ? <LoadingIndicatorComponent options={{ radius: 60, scale: .25 }}/>
