@@ -77,8 +77,6 @@ const users = {
   /**
    * Fetch a single user's owned artwork by user id
    *
-   * // TODO - pagination
-   *
    * @param  {String} userId
    * @return {Promise}
    */
@@ -93,14 +91,12 @@ const users = {
   /**
    * Fetch a single user's liked artwork by user id
    *
-   * // TODO - pagination
-   *
    * @param  {String} userId
    * @return {Promise}
    */
   fetchUserLikedArtwork: function(userId = 'current', filter = {}) {
     let defaultFilter = {
-      limit: config.perPage
+      // limit: config.perPage
     };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}/${userId}/liked_artwork`, { data: finalFilter });
