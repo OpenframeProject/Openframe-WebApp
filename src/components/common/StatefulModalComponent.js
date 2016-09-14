@@ -21,6 +21,7 @@ class StatefulModalComponent extends React.Component {
   }
 
   closeModal() {
+    this.onRequestClose();
   }
 
   onRequestClose() {
@@ -43,9 +44,11 @@ class StatefulModalComponent extends React.Component {
   render() {
     let { showHeader, allowClose, title, extraClasses} = this.props;
     let { isOpen } = this.state;
+
     // true unless explicitly false
     showHeader = showHeader === false ? false : true;
     allowClose = allowClose === false ? false : true;
+
     return (
       <Modal
         isOpen={isOpen}
@@ -69,6 +72,10 @@ class StatefulModalComponent extends React.Component {
             : null
           }
           <div className="modal-body">
+            { allowClose
+              ? <button className="close" onClick={::this.closeModal} type="button">&times;</button>
+              : null
+            }
             {this.props.children}
           </div>
         </div>
