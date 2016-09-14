@@ -22,6 +22,7 @@ function prependApiBase(url) {
 function appendAccessToken(conf) {
   let token = getToken();
   conf.headers.Authorization = token;
+  conf.headers.access_token = token;
   return conf;
 }
 

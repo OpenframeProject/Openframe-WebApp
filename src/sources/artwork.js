@@ -14,7 +14,6 @@ const artwork = {
       limit: config.perPage
     };
     let finalFilter = Object.assign({}, defaultFilter, filter);
-    console.log('finalFilter', finalFilter);
     return fetchJSON(`${modelPrefix}`, { data: finalFilter });
   },
 
@@ -24,7 +23,13 @@ const artwork = {
    * @return {Promise}
    */
   fetchStream: function(filter = {}) {
-    return this.fetch(filter);
+    let defaultFilter = {
+      where: {
+        is_public: true
+      }
+    };
+    let finalFilter = Object.assign({}, defaultFilter, filter);
+    return this.fetch(finalFilter);
   },
 
   /**

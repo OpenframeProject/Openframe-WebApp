@@ -7,8 +7,9 @@ export const getToken = function() {
 };
 
 export const setToken = function(token) {
+	console.log('setToken', token);
 	try {
-		localStorage.setItem('accessToken', token) || null;
+		localStorage.setItem('accessToken', token);
 	} catch(e) {
 		return null;
 	}

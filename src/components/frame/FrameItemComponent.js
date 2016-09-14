@@ -28,8 +28,6 @@ class FrameItemComponent extends React.Component {
 
     let { isPushing, isSelected, currentArtwork, showSettingsButton, pathname } = this.props;
 
-    console.log('spinnerConfig', this.spinnerConfig, isPushing, isSelected);
-
     let { connected, name } = this.props.frame; // props.frame, NOT PROPS!!
 
     let connectedClass = 'connected-indicator';
