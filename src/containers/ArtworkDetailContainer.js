@@ -16,6 +16,8 @@ import EditButtonComponent from '../components/common/EditButtonComponent';
 import { getById } from '../reducers/index';
 import { isLiked } from '../reducers/user/index';
 
+let noThumbImg = require('./../images/preview-missing.png');
+
 require('styles/artwork/ArtworkDetail.scss');
 
 class ArtworkDetailContainer extends Component {
@@ -89,7 +91,7 @@ class ArtworkDetailContainer extends Component {
                 <div className="artwork-detail__author">by {singleArtwork.author_name}</div>
               </div>
 
-              <img className="artwork-detail__img" src={singleArtwork.thumb_url} />
+              <img className="artwork-detail__img" src={singleArtwork.thumb_url || noThumbImg} />
 
               <div className="artwork-detail__info">
 

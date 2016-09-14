@@ -84,8 +84,8 @@ function mapStateToProps(state) {
     userState: state.user,
     userLikesById: state.user.userLikedArtworksById,
     isFetching: state.artwork.isFetching,
-    currentArtwork: getCurrentArtwork(state.frames),
     isFirstLoad: state.artwork.isFirstLoad,
+    currentArtwork: getCurrentArtwork(state.frames),
     featureFlags: state.featureFlags
   };
   return props;

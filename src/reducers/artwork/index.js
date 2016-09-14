@@ -9,7 +9,7 @@ import { getById } from '../index';
 import byId from './byId';
 import streamIds from './streamIds';
 import streamHasMore from './streamHasMore';
-import { isFetching, lastUpdated, isFirstLoad } from './meta';
+import { isFetching, lastUpdated, isFirstLoad, isLoadingImages } from './meta';
 
 export default combineReducers({
   byId,
@@ -17,6 +17,7 @@ export default combineReducers({
   streamHasMore,
   isFetching,
   isFirstLoad,
+  isLoadingImages,
   lastUpdated
 });
 

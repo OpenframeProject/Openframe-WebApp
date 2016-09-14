@@ -10,7 +10,8 @@ import {
   FETCH_STREAM_FAILURE,
   FETCH_SINGLE_ARTWORK_REQUEST,
   FETCH_SINGLE_ARTWORK_SUCCESS,
-  FETCH_SINGLE_ARTWORK_FAILURE
+  FETCH_SINGLE_ARTWORK_FAILURE,
+  LOADING_IMAGES
 } from '../../actions/const'
 
 export const lastUpdated = function(state = null, action) {
@@ -67,6 +68,18 @@ export const isFirstLoad = function(state = true, action) {
     case FETCH_STREAM_SUCCESS:
     case FETCH_SINGLE_ARTWORK_SUCCESS: {
       return false;
+    }
+    default: {
+      /* Return original state if no actions were consumed. */
+      return state;
+    }
+  }
+}
+
+export const isLoadingImages = function(state = true, action) {
+  switch(action.type) {
+    case LOADING_IMAGES: {
+      return action.isLoading
     }
     default: {
       /* Return original state if no actions were consumed. */

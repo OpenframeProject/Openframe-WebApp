@@ -1,11 +1,13 @@
 import React, {
   Component,
-  PropTypes
+  PropTypes,
+  cloneElement
 } from 'react';
 
 import Masonry from 'react-masonry-component';
 import Waypoint from 'react-waypoint';
 import Spinner from 'react-spin';
+import { throttle } from 'lodash';
 
 import config from 'config';
 
@@ -41,12 +43,18 @@ class InfiniteMasonryComponent extends Component {
   }
 
   _handleLayoutComplete() {
-    console.log('_handleLayoutComplete');
     this.isLayoutComplete = true;
   }
 
+  _handleImagesLoaded() {
+    this.masonry.layout();
+    if (this.props.onImagesLoaded) {
+      this.props.onImagesLoaded();
+    }
+  }
+
   _handleWaypointEnter(e) {
-    console.log('_handleWaypointEnter', e, this.isLayoutComplete);
+    // console.log('_handleWaypointEnter', e, this.isLayoutComplete);
     if (!this.isLayoutComplete || !this.props.hasMore) {
       return;
     }
@@ -59,7 +67,7 @@ class InfiniteMasonryComponent extends Component {
   }
 
   _handleWaypointLeave(e) {
-    console.log('_handleWaypointLeave', e);
+    // console.log('_handleWaypointLeave', e);
     this.setState({
       isLoadingMore: false
     });
@@ -72,14 +80,22 @@ class InfiniteMasonryComponent extends Component {
       <div className="infinite-masonry">
         <Masonry
           options={masonryOptions}
+          updateOnEachImageLoad={true}
+          onImagesLoaded={::this._handleImagesLoaded}
           ref={(c) => {
             if (c) this.masonry = c.masonry;
           }} >
-            {this.props.children}
+            {
+              this.props.children
+            }
+            {
+              // this.props.children ? cloneElement(this.props.children, {imagesLoaded: this.state.imagesLoaded}) : null
+            }
         </Masonry>
         <Waypoint
           onEnter={::this._handleWaypointEnter}
           onLeave={::this._handleWaypointLeave}
+          throttleHandler={(scrollHandler) => throttle(scrollHandler, 500)}
           scrollableAncestor={window}
         />
         <div className="infinite-masonry__loading">
