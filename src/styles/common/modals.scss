@@ -84,6 +84,10 @@
   .modal-footer .btn+.btn {
     margin: 10px 0px;
   }
+
+  .modal-footer .btn:first-of-type {
+    margin-top: 0px;
+  }
 }
 
 // overridden styles for sm screen / tablet

@@ -6,18 +6,24 @@ import Modal from 'react-modal';
 require('styles/common/ConfirmDialog.scss');
 
 class ConfirmDialogComponent extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isOpen: true
+    }
+  }
   doAccept() {
-    console.log('Accepted');
-    const { acceptAction, hideConfirmDialog } = this.props;
-    if (acceptAction) {
-      hideConfirmDialog(acceptAction);
+    const { acceptHandler } = this.props;
+    if (acceptHandler) {
+      acceptHandler();
     }
   }
 
   doCancel() {
-    console.log('Cancel');
-    const { cancelAction, hideConfirmDialog } = this.props;
-    hideConfirmDialog(cancelAction || null);
+    const { cancelHandler } = this.props;
+    if (cancelHandler) {
+      cancelHandler();
+    }
   }
 
   afterOpenModal() {
@@ -29,11 +35,11 @@ class ConfirmDialogComponent extends React.Component {
   }
 
   render() {
-    const { isOpen, title, body, acceptText, cancelText } = this.props;
+    const { title, body, acceptText, cancelText } = this.props;
     return (
       <Modal
-        isOpen={isOpen}
-        shouldCloseOnOverlayClick={true}
+        isOpen={this.props.isOpen}
+        shouldCloseOnOverlayClick={false}
         onAfterOpen={::this.afterOpenModal}
         onRequestClose={::this.closeModal}
         className="of-confirm-dialog modal-dialog"
@@ -72,8 +78,8 @@ ConfirmDialogComponent.propTypes = {
   body: PropTypes.string,
   acceptText: PropTypes.string,
   cancelText: PropTypes.string,
-  acceptAction: PropTypes.object.isRequired,
-  cancelAction: PropTypes.object
+  acceptHandler: PropTypes.func.isRequired,
+  cancelHandler: PropTypes.func
 };
 // ConfirmDialogComponent.defaultProps = {};
 

@@ -14,6 +14,8 @@ class CustomSelectComponent extends React.Component {
     console.log('CustomSelectComponent', value);
     return <Select.Async
       multi={true}
+      clearable={false}
+      placeholder="Add by username..."
       value={value || ''}          // because react-select doesn't like the initial value of undefined
       onBlur={() => onBlur(value)} // just pass the current value (updated on change) on blur
       // onChange={(val, items) => onChange(items)}
