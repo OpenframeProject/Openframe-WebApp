@@ -8,6 +8,7 @@ import { uniq } from 'lodash';
 import {
   FETCH_FRAMES_SUCCESS,
   FRAME_UPDATED,
+  DELETE_FRAME_SUCCESS,
   LOGOUT_REQUEST
 } from '../../actions/const'
 
@@ -36,6 +37,17 @@ export default function(state = initialState, action) {
 
     case LOGOUT_REQUEST: {
       return [];
+    }
+
+    case DELETE_FRAME_SUCCESS: {
+      let ids = [
+        ...state
+      ];
+      let index = ids.indexOf(action.frameId);
+      if (index > -1) {
+          ids.splice(index, 1);
+      }
+      return ids;
     }
 
     default: {

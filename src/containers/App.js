@@ -18,7 +18,6 @@ import TopbarComponent from '../components/topbar/TopbarComponent';
 import LoginModalComponent from '../components/user/LoginModalComponent';
 import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
-import ConfirmDialogComponent from '../components/common/ConfirmDialogComponent';
 import StatefulModalComponent from '../components/common/StatefulModalComponent';
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
 import EditProfileModalComponent from '../components/user/EditProfileModalComponent';
@@ -198,22 +197,13 @@ class App extends Component {
         <FrameSettingsModalComponent
           isOpen={ui.frameSettingsModalOpen}
           close={actions.closeFrameSettingsModal}
+          deleteFrameRequest={actions.deleteFrameRequest}
           onSubmit={::this.handleSubmitFrameSettings} />
 
         <MobileSubMenuComponent
           user={currentUser}
           location={location}
           featureFlags={featureFlags} />
-
-        <ConfirmDialogComponent
-          isOpen={ui.confirmDialogOpen}
-          body="Are you sure you want to do that?"
-          title="Hmmm..."
-          acceptText="Do it."
-          cancelText="Stop!"
-          acceptAction={{ type: 'TEST_ACTION' }}
-          hideConfirmDialog={actions.hideConfirmDialog}
-           />
       </div>
     );
   }
@@ -262,6 +252,8 @@ function mapDispatchToProps(dispatch) {
     logoutFailure: require('../actions/auth/logoutFailure.js'),
     selectFrame: require('../actions/frame/selectFrame.js'),
     updateFrameRequest: require('../actions/frame/updateFrameRequest.js'),
+    deleteFrameRequest: require('../actions/frame/deleteFrameRequest.js'),
+    deleteFrameFailure: require('../actions/frame/deleteFrameFailure.js'),
     updateFrameManagersRequest: require('../actions/frame/updateFrameManagersRequest.js'),
     updateFrameFailure: require('../actions/frame/updateFrameFailure.js'),
     fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js'),

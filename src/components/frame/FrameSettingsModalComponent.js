@@ -9,6 +9,7 @@ import { debounce } from 'lodash';
 // import 'react-select/dist/react-select.css';
 
 import CustomSelectComponent from '../form/CustomSelectComponent';
+import ConfirmDialogComponent from '../common/ConfirmDialogComponent';
 import { getById } from '../../reducers/index';
 import { getUserList } from '../../reducers/user/index';
 
@@ -17,8 +18,12 @@ import { users } from '../../sources/api';
 require('styles//frame/FrameSettingsModal.scss');
 
 class FrameSettingsModalComponent extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      confirmDelete: false,
+      isOpen: props.isOpen
+    };
     this.fetchOptions = debounce((input, callback) => {
       users.searchByUsername(input)
         .then(response => {
@@ -35,6 +40,14 @@ class FrameSettingsModalComponent extends React.Component {
         });
     }, 250);
   }
+
+  // Allow opening from parent component
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isOpen: nextProps.isOpen
+    });
+  }
+
   afterOpenModal() {
     this.refs.name.focus();
   }
@@ -42,17 +55,49 @@ class FrameSettingsModalComponent extends React.Component {
   closeModal() {
     this.props.resetForm();
     this.props.close();
+    this.setState({
+      isOpen: false,
+      confirmDelete: false
+    });
   }
 
-  deleteFrame() {
-    // TODO: Launch confirm modal for delete...
-    console.log('Delete me!');
+  _handleDeleteClicked(e) {
+    e.preventDefault();
+    this.setState({
+      confirmDelete: true,
+      isOpen: false
+    });
+  }
+
+  _doDelete() {
+    let { deleteFrameRequest, frame } = this.props;
+    deleteFrameRequest(frame.id);
+    this.closeModal();
+  }
+
+  _cancelDelete() {
+    this.setState({
+      confirmDelete: false,
+      isOpen: true
+    });
+  }
+
+  _renderConfirmDelete() {
+    return (
+      <ConfirmDialogComponent
+          isOpen={this.state.confirmDelete}
+          body="Deleting a frame cannot be undone."
+          title={"Are you sure?"}
+          acceptText={"Delete Frame"}
+          cancelText={"Cancel"}
+          acceptHandler={::this._doDelete}
+          cancelHandler={::this._cancelDelete}
+           />
+    );
   }
 
   render() {
     let {fields: {name, managers}, frame, handleSubmit, errorMessage, isOpen} = this.props;
-    // extensions.value = Object.keys(extensions.value).map(key => key).join(', ');
-    // console.log(extensionNames);
 
     let extensions = frame ? Object.keys(frame.extensions).map(key => key) : null;
 
@@ -60,67 +105,68 @@ class FrameSettingsModalComponent extends React.Component {
     errorClasses += errorMessage ? 'show' : 'hide';
 
     return (
-      <Modal
-        isOpen={isOpen}
-        shouldCloseOnOverlayClick={true}
-        onAfterOpen={::this.afterOpenModal}
-        onRequestClose={::this.closeModal}
-        className="of-modal modal-dialog"
-        overlayClassName="modal-backdrop"
-        closeTimeoutMS={500}
-        >
-        <div className="modal-content">
-            <div className="modal-header">
-                <button className="close" onClick={::this.closeModal} type=
-                  "button">&times;</button>
-                <h3 className="modal-title">Frame settings</h3>
-            </div>
-            <div className="modal-body container container-centered-form">
-                <div className={errorClasses}>
-                  <div className="col-md-12">
-                    <div className="alert alert-danger" role="alert">
-                      {errorMessage}
-                    </div>
-                  </div>
+      <div>
+        <Modal
+          isOpen={this.state.isOpen}
+          shouldCloseOnOverlayClick={true}
+          onAfterOpen={::this.afterOpenModal}
+          onRequestClose={::this.closeModal}
+          className="of-modal modal-dialog"
+          overlayClassName="modal-backdrop"
+          closeTimeoutMS={500}
+          >
+          <div className="modal-content">
+              <form onSubmit={handleSubmit}>
+                <div className="modal-header">
+                    <button className="close" onClick={::this.closeModal} type=
+                      "button">&times;</button>
+                    <h3 className="modal-title">Frame settings</h3>
                 </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-group">
-                                <label for="name">Frame name</label>
-                                <input ref={name.name} type="text" className="form-control" name="name" id="Framename" placeholder="name" autoFocus={true} autoCapitalize="off" {...name} />
-                            </div>
-                            <div className="form-group">
-                                <label className="with-fine-copy" for="Managers">Frame managers</label>
-                                <CustomSelectComponent
-                                    {...managers}
-                                    loadOptions={::this.fetchOptions}
-                                />
-                                <p className="fine-copy">Managers can push artwork to this frame, but not update its settings.</p>
-                            </div>
-                            <div className="form-group">
-                                <label for="Extensions">Extensions installed in this frame</label>
-                                {
-                                  //<input type="text" className="form-control" name="extensions" id="Extensions" placeholder="no extensions" autoCapitalize="off" readOnly {...extensions}/>
-                                }
-                                <ul className="frame-settings-modal__extensions">
-                                {
-                                  extensions && extensions.map(name => <li key={name} className="frame-settings-modal__extension">{name}</li>)
-                                }
-                                </ul>
-                            </div>
-                            <div className="form-group">
-                                <button type="submit" className="btn btn-default btn-fw">Save Changes</button>
-                            </div>
-                            <div className="switch-text">
-                                <p><a href="#" className="red" onClick={::this.deleteFrame}>Click here</a> to delete this frame</p>
-                            </div>
-                        </form>
+                <div className="modal-body container container-centered-form">
+                    <div className={errorClasses}>
+                      <div className="col-md-12">
+                        <div className="alert alert-danger" role="alert">
+                          {errorMessage}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                                <div className="form-group">
+                                    <label htmlFor="name">Frame name</label>
+                                    <input ref={name.name} type="text" className="form-control" name="name" id="Framename" placeholder="name" autoFocus={true} autoCapitalize="off" {...name} />
+                                </div>
+                                <div className="form-group">
+                                    <label className="with-fFne-copy" htmlFor="Managers">Additional curators</label>
+                                    <CustomSelectComponent
+                                        {...managers}
+                                        loadOptions={::this.fetchOptions}
+                                    />
+                                    <p className="fine-copy">Curators can push artwork to this frame, but not update its settings.</p>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="Extensions">Extensions installed in this frame</label>
+                                    {
+                                      //<input type="text" className="form-control" name="extensions" id="Extensions" placeholder="no extensions" autoCapitalize="off" readOnly {...extensions}/>
+                                    }
+                                    <ul className="frame-settings-modal__extensions">
+                                    {
+                                      extensions && extensions.map(name => <li key={name} className="frame-settings-modal__extension">{name}</li>)
+                                    }
+                                    </ul>
+                                </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-      </Modal>
+                <div className="modal-footer">
+                  <button type="submit" className="btn btn-default btn-fw">Save Changes</button>
+                  <button className="btn btn-destructive btn-fw" onClick={::this._handleDeleteClicked}>Delete Frame</button>
+                </div>
+              </form>
+          </div>
+        </Modal>
+        { ::this._renderConfirmDelete() }
+      </div>
     );
   }
 }
