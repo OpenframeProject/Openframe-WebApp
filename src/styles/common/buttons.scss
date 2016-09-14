@@ -4,6 +4,7 @@ button {
 .btn {
   text-transform: uppercase;
   letter-spacing: 1px;
+  padding: 10px;
 }
 
 .btn-fw {
@@ -13,7 +14,6 @@ button {
 .btn-default {
   background-color: #000;
   color: #fff;
-  padding: 10px;
   border: 1px solid #000;
   margin-top: 20px;
 
@@ -21,5 +21,28 @@ button {
     background-color: #222;
     border: 1px solid #000;
     color: #fff;
+  }
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: none;
+  color: #000;
+
+  &:hover {
+    color: #000;
+    background-color: #eee;
+  }
+}
+
+
+.btn-destructive {
+  background-color: transparent;
+  border: none;
+  color: #900;
+
+  &:hover {
+    color: #900;
+    background-color: #eee;
   }
 }

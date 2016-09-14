@@ -57,12 +57,27 @@ function subscribe() {
   this.client.subscribe.apply(this.client, arguments);
 }
 
+/**
+ * Pass through to the Faye client's unsubscribe method
+ */
+function unsubscribe() {
+  if (!this.client) {
+    throw new Error('PubSub client hasn\'t been initialized.');
+  }
+  this.client.unsubscribe.apply(this.client, arguments);
+}
+
 export const bindEventToAction = (event, action) => {
   if (typeof action !== 'function') {
     throw new Error('action must be an action creator function')
   }
   PubSub.subscribe(event, function(data) {
-    // action(data);
     PubSub.dispatch(action(data));
   });
+}
+
+// TODO: Implement me! Maybe we keep a list of frame events somewhere? Unclear from the Faye docs how
+// we'd unsubscribe from all channels containing some string, e.g. frame.id
+export const unbindFrameEvents = (frame) => {
+  // PubSub.unsubscribe(...)
 }
