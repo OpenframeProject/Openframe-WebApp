@@ -5,24 +5,19 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Masonry from 'react-masonry-component';
 
 import ArtworkListItemComponent from '../components/artwork/ArtworkListItemComponent';
 import BrowseSubMenuComponent from '../components/common/BrowseSubMenuComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
+import InfiniteMasonryComponent from '../components/common/InfiniteMasonryComponent';
 
 import { getArtworkList } from '../reducers/artwork/index';
 import { getCurrentArtwork } from '../reducers/frame/index';
 import { isLiked } from '../reducers/user/index';
 
-const masonryOptions = {
-    transitionDuration: '0.2s'
-};
-
 class StreamContainer extends Component {
   componentWillMount() {
-    const {actions} = this.props;
-    actions.fetchStreamRequest();
+    this._loadArtworks(0);
   }
 
   componentWillUpdate(newProps) {
@@ -33,17 +28,25 @@ class StreamContainer extends Component {
       // this.masonry.off('layoutComplete', () => console.log('masonry'));
   }
 
+  _loadArtworks(page) {
+    const { actions } = this.props;
+    actions.fetchStreamRequest(page);
+  }
+
   render() {
-    const { artworkList, userState, auth, actions, isFirstLoad, location, currentArtwork, featureFlags } = this.props;
+    const { artworkList, userState, auth, actions, isFirstLoad, location, currentArtwork, streamHasMore, featureFlags } = this.props;
     return (
       <div className="container">
         <BrowseSubMenuComponent featureFlags={featureFlags} />
+        <div className="added-container__title visible-xs">Stream</div>
         {
           isFirstLoad
-          ? <LoadingIndicatorComponent />
+          ? <LoadingIndicatorComponent options={{ radius: 60, scale: .25 }}/>
           : (<div className="row">
-                <Masonry
-                  options={masonryOptions}>
+                <InfiniteMasonryComponent
+                  loadMore={::this._loadArtworks}
+                  hasMore={streamHasMore}
+                  endComponent={<div>That's all, folks.</div>} >
                 {
                   artworkList.map(artwork => {
                     // console.log('artwork', artwork.id, isLiked(userState, artwork.id));
@@ -61,7 +64,7 @@ class StreamContainer extends Component {
                     )
                   })
                 }
-                </Masonry>
+                </InfiniteMasonryComponent>
               </div>)
         }
       </div>
@@ -76,12 +79,13 @@ StreamContainer.propTypes = {
 function mapStateToProps(state) {
   const props = {
     artworkList: getArtworkList(state.artwork.streamIds, state.artwork.byId),
+    streamHasMore: state.artwork.streamHasMore,
     auth: state.auth,
     userState: state.user,
     userLikesById: state.user.userLikedArtworksById,
     isFetching: state.artwork.isFetching,
-    currentArtwork: getCurrentArtwork(state.frames),
     isFirstLoad: state.artwork.isFirstLoad,
+    currentArtwork: getCurrentArtwork(state.frames),
     featureFlags: state.featureFlags
   };
   return props;

@@ -62,7 +62,7 @@
 
   &__actions {
     position: absolute;
-    right: 0px;
+    right: 10px;
     bottom: 10px;
     padding: 0px 10px;
     z-index: 2;
@@ -90,6 +90,7 @@
 
     &__actions {
       display: none;
+      right: 0px;
     }
 
     &__current-indicator {

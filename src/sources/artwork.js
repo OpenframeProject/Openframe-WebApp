@@ -1,6 +1,7 @@
 import fetchJSON from './fetchJSON';
 
 const modelPrefix = 'artwork';
+import config from 'config';
 
 const artwork = {
   /**
@@ -9,7 +10,9 @@ const artwork = {
    * @return {Promise}
    */
   fetch: function(filter = {}) {
-    let defaultFilter = {};
+    let defaultFilter = {
+      limit: config.perPage
+    };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}`, { data: finalFilter });
   },
@@ -20,7 +23,13 @@ const artwork = {
    * @return {Promise}
    */
   fetchStream: function(filter = {}) {
-    return this.fetch(filter);
+    let defaultFilter = {
+      where: {
+        is_public: true
+      }
+    };
+    let finalFilter = Object.assign({}, defaultFilter, filter);
+    return this.fetch(finalFilter);
   },
 
   /**

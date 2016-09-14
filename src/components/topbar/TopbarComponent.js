@@ -9,6 +9,25 @@ require('styles//topbar/Topbar.scss');
 let logo = require('../../images/of-logo.svg');
 
 class TopbarComponent extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      shadow: false
+    };
+  }
+
+  _showShadow() {
+    this.setState({
+      shadow: true
+    });
+  }
+
+  _hideShadow() {
+    this.setState({
+      shadow: false
+    });
+  }
+
   render() {
     let {openSidebar, openLoginModal, openCreateAccountModal, selectedFrame, user, isFetching, location} = this.props;
     let username = user ? `/${user.username}` : null;
@@ -17,9 +36,11 @@ class TopbarComponent extends React.Component {
 
     let active = browseActiveRoutes.indexOf(location.pathname) !== -1 ? 'active' : '';
 
+    let classes = 'topbar' + (this.state.shadow ? ' topbar--shadow' : '');
+
     return (
-      
-      <nav className="topbar">
+
+      <nav className={classes}>
           <div className="top-shadow"></div>
           <Link className="topbar__tab topbar__tab--logo" to="/">
             <img alt="Openframe" src={logo} />
@@ -78,16 +99,6 @@ class TopbarComponent extends React.Component {
     );
   }
 }
-
-$(window).scroll(function() {     
-    var scroll = $(window).scrollTop();
-    if (scroll > 0) {
-        $(".topbar").addClass("active");
-    }
-    else {
-        $(".topBar").removeClass("active");
-    }
-});
 
 TopbarComponent.displayName = 'TopbarComponent';
 

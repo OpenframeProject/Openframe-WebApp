@@ -2,7 +2,7 @@ import {FETCH_USER_SUCCESS} from './../const';
 import { normalize } from 'normalizr';
 import * as schema from '../schema';
 import fetchUserArtworkRequest from './fetchUserArtworkRequest';
-import fetchUserLikesRequest from './fetchUserLikesRequest';
+// import fetchUserLikesRequest from './fetchUserLikesRequest';
 
 
 module.exports = function(response) {
@@ -15,6 +15,6 @@ module.exports = function(response) {
 
     // Fetch user returns an array of users due to RESTful query by username
     dispatch(fetchUserArtworkRequest(normalized.result[0]));
-    dispatch(fetchUserLikesRequest(normalized.result[0]));
+    // dispatch(fetchUserLikesRequest(normalized.result[0]));
   }
 };

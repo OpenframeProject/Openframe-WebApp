@@ -8,10 +8,17 @@
   @include align-items(center);
   @include justify-content(space-between);
 
-  &__settings {
+  &__settings, &__selected {
     padding: 10px;
     img {
       display: block;
     }
+  }
+
+  &__actions {
+    flex-basis: 70px;
+    @include display-flex();
+    @include align-items(center);
+    @include justify-content(flex-end);
   }
 }

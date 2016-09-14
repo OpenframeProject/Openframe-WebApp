@@ -2,6 +2,7 @@
 @import "compass/css3/transition";
 @import "bootstrap/variables";
 @import "../common/colors";
+
 .sidebar {
   @include transition(right .2s ease);
   position: fixed;
@@ -14,6 +15,11 @@
   box-shadow: -2px 0px 6px rgba(0, 0, 0, 0.35);
   &--open {
     right: 0;
+  }
+
+  &__body {
+    max-height: calc(100% - 60px);
+    overflow-y: auto;
   }
 }
 
@@ -44,6 +50,7 @@
 .sidebar__frames-list {
   list-style: none;
   padding-left: 0px;
+  margin: 0;
 }
 
 .sidebar__row {
@@ -99,12 +106,6 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   color: white;
-}
-
-.mark-frame-active {
-  float: left;
-  width: 13px;
-  margin-top: 3px;
 }
 
 .icon-settings {

@@ -10,6 +10,8 @@ import { Link } from 'react-router';
 import PushButtonComponent from '../common/PushButtonComponent';
 import LikeButtonComponent from '../common/LikeButtonComponent';
 
+let noThumbImg = require('../../images/preview-missing.png');
+
 require('styles/artwork/ArtworkListItem.scss');
 // let settingsBtnImage = require('../../images/artwork-settings.svg');
 
@@ -20,7 +22,11 @@ class ArtworkListItemComponent extends Component {
   constructor() {
     super();
     this.state = {
-      hover: false
+      hover: false,
+      style: {
+        visibility: 'hidden',
+        height: '400px'
+      }
     };
   }
 
@@ -64,6 +70,9 @@ class ArtworkListItemComponent extends Component {
   }
 
   _generateThumbUrl(url) {
+    if (!url) {
+      return noThumbImg;
+    }
     return url;
     // let parser = document.createElement('a');
     // parser.href = url;
@@ -81,23 +90,31 @@ class ArtworkListItemComponent extends Component {
     // parser.host;     // => "example.com:3000"
   }
 
+  _imageLoaded() {
+    this.setState({
+      style: {
+        visibility: 'visible',
+        'height': 'auto'
+      }
+    });
+  }
+
   render() {
     let { artwork, currentArtwork, isLiked } = this.props;
 
-    // console.log(artwork.id, isLiked);
 
     let isCurrentClass = 'selected-frame-indicator';
     isCurrentClass += artwork.id === currentArtwork ? ' selected-frame-indicator--connected' : '';
 
     return (
-        <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3" style={this.state.style}>
           <Link to={{
               pathname: '/artwork/'+artwork.id,
               state: { modal: true, returnTo: this.props.location.pathname }
             }}>
             <div className="list-item artwork-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
               <div className="artwork-list-item__thumb">
-                <img className="artwork-list-item__thumb-img" src={this._generateThumbUrl(artwork.thumb_url)} />
+                <img className="artwork-list-item__thumb-img" src={this._generateThumbUrl(artwork.thumb_url)} onLoad={::this._imageLoaded} />
               </div>
               <div className="artwork-list-item__info">
                 <div className="artwork-list-item__author">{artwork.author_name}</div>
@@ -131,9 +148,10 @@ ArtworkListItemComponent.displayName = 'ArtworkListItemComponent';
 ArtworkListItemComponent.propTypes = {
   artwork: PropTypes.object.isRequired,
   user: PropTypes.object,
-  isAuthenticated: PropTypes.bool,
   pushArtwork: PropTypes.func.isRequired,
-  likeArtwork: PropTypes.func.isRequired
+  likeArtwork: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+  isLoadingImages: PropTypes.bool
 };
 
 ArtworkListItemComponent.defaultProps = {

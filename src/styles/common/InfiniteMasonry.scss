@@ -1,0 +1,10 @@
+.infinite-masonry {
+  &__loading {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    margin-top: 25px;
+    text-align: center;
+    font-weight: 500;
+  }
+}

@@ -51,7 +51,6 @@ class FrameSettingsModalComponent extends React.Component {
 
   render() {
     let {fields: {name, managers}, frame, handleSubmit, errorMessage, isOpen} = this.props;
-    console.log('Settings Form props', this.props);
     // extensions.value = Object.keys(extensions.value).map(key => key).join(', ');
     // console.log(extensionNames);
 

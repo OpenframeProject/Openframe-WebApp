@@ -7,16 +7,17 @@ import { combineReducers } from 'redux';
 
 import { getById } from '../index';
 import byId from './byId';
-// import ids from './ids';
 import streamIds from './streamIds';
-import { isFetching, lastUpdated, isFirstLoad } from './meta';
+import streamHasMore from './streamHasMore';
+import { isFetching, lastUpdated, isFirstLoad, isLoadingImages } from './meta';
 
 export default combineReducers({
   byId,
-  // ids,
   streamIds,
+  streamHasMore,
   isFetching,
   isFirstLoad,
+  isLoadingImages,
   lastUpdated
 });
 
