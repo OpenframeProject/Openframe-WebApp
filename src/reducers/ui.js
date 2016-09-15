@@ -9,6 +9,7 @@ import {
   OPEN_LOGIN_MODAL,
   CLOSE_LOGIN_MODAL,
   LOGIN_SUCCESS,
+  LOGIN_FAILURE,
   LOGOUT_SUCCESS,
   OPEN_CREATE_ACCOUNT_MODAL,
   CLOSE_CREATE_ACCOUNT_MODAL,
@@ -122,6 +123,11 @@ module.exports = function(state = initialState, action) {
         ...state,
         loginModalOpen: false,
         fixBody: false
+      }
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        loginError: action.error
       }
     case CREATE_ACCOUNT_SUCCESS:
       return {

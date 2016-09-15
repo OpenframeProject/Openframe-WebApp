@@ -45,16 +45,16 @@ class ArtworkEditModalComponent extends React.Component {
                     <div className="col-md-12">
                         <form id="EditForm">
                             <div className="form-group">
-                                <label for="Author">Author</label>
+                                <label htmlFor="Author">Author</label>
                                 <input type="text" className="form-control" name="author_name" id="Author" placeholder="Author" autocapitalize="off" autofocus />
                             </div>
                             <div className="form-group">
-                                <label for="Title">Artwork title</label>
+                                <label htmlFor="Title">Artwork title</label>
                                 <input type="text" className="form-control" name="title" id="Title" placeholder="Title" autocapitalize="off" />
                             </div>
 
                             <div className="form-group">
-                                <label for="Format">Artwork format</label>
+                                <label htmlFor="Format">Artwork format</label>
                                 <select className="form-control" name="format" id="FormatSelect">
                                     <option value="openframe-image">Image (jpeg, png)</option>
                                     <option value="openframe-website">Website</option>
@@ -65,12 +65,12 @@ class ArtworkEditModalComponent extends React.Component {
                             </div>
 
                             <div className="form-group format-other-wrap hide">
-                                <label for="FormatOther">Specify format (name of the extension's NPM package)</label>
+                                <label htmlFor="FormatOther">Specify format (name of the extension's NPM package)</label>
                                 <input type="text" className="form-control" name="format_other" id="FormatOther" placeholder="Other format..." autocapitalize="off" />
                             </div>
 
                             <div className="form-group aspect-mode-wrap hide">
-                                <label for="AspectMode">Select artwork display mode</label>
+                                <label htmlFor="AspectMode">Select artwork display mode</label>
                                 <select className="form-control" name="aspect_mode" id="AspectMode">
                                     <option value="fill">fill (default)</option>
                                     <option value="fit">fit</option>
@@ -78,12 +78,12 @@ class ArtworkEditModalComponent extends React.Component {
                             </div>
 
                             <div className="form-group">
-                                <label for="url">URL where the artwork is hosted</label>
+                                <label htmlFor="url">URL where the artwork is hosted</label>
                                 <input type="text" className="form-control" name="url" id="URL" autocapitalize="off" placeholder="http://server.com/here.jpg" />
                             </div>
 
                             <div className="form-group">
-                                <label for="thumb_url">URL of a preview image</label>
+                                <label htmlFor="thumb_url">URL of a preview image</label>
                                 <input type="text" className="form-control" name="thumb_url" id="ThumbURL" autocapitalize="off" placeholder="http://server.com/thumbnail.jpg" />
                             </div>
                             <div className="form-group">
