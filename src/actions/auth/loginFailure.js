@@ -1,5 +1,8 @@
 import {LOGIN_FAILURE} from './../const';
 
-module.exports = function(parameter) {
-  return { type: LOGIN_FAILURE, parameter };
+module.exports = function(error) {
+  return {
+    type: LOGIN_FAILURE,
+    error: error.message || error
+  };
 };

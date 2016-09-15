@@ -180,7 +180,8 @@ class App extends Component {
           isOpen={ui.loginModalOpen}
           closeLoginModal={actions.closeLoginModal}
           openCreateAccountModal={actions.openCreateAccountModal}
-          onSubmit={::this.handleSubmitLogin} />
+          onSubmit={::this.handleSubmitLogin}
+          loginError={ui.loginError} />
 
         <CreateAccountModalComponent
           isOpen={ui.createAccountModalOpen}
@@ -201,7 +202,10 @@ class App extends Component {
           deleteFrameRequest={actions.deleteFrameRequest}
           onSubmit={::this.handleSubmitFrameSettings} />
 
-        <CreateAccountNoticeComponent isOpen={ui.createAccountNoticeOpen} />
+        <CreateAccountNoticeComponent
+          isOpen={ui.createAccountNoticeOpen}
+          onRequestClose={actions.hideCreateAccountNotice}
+          openCreateAccountModal={actions.openCreateAccountModal} />
 
         <MobileSubMenuComponent
           user={currentUser}
@@ -277,7 +281,8 @@ function mapDispatchToProps(dispatch) {
     openStatefulModal: require('../actions/ui/openStatefulModal.js'),
     closeStatefulModal: require('../actions/ui/closeStatefulModal.js'),
     openFrameSettingsModal: require('../actions/ui/openFrameSettingsModal.js'),
-    closeFrameSettingsModal: require('../actions/ui/closeFrameSettingsModal.js')
+    closeFrameSettingsModal: require('../actions/ui/closeFrameSettingsModal.js'),
+    hideCreateAccountNotice: require('../actions/common/hideCreateAccountNotice.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

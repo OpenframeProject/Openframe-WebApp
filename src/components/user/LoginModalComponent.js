@@ -56,11 +56,11 @@ class LoginModalComponent extends React.Component {
               <div className="col-md-12">
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
-                      <label for="Username">Username</label>
+                      <label htmlFor="Username">Username</label>
                       <input type="text" ref={username.name} className="form-control" placeholder="username" autoFocus={true} autoCapitalize="off" {...username}/>
                   </div>
                   <div className="form-group">
-                      <label for="Password">Password</label>
+                      <label htmlFor="Password">Password</label>
                       <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
                   </div>
                   <div className="form-group">

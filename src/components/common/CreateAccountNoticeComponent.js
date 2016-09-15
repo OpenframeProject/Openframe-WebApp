@@ -24,6 +24,15 @@ class CreateAccountNoticeComponent extends React.Component {
     this.setState({
       isOpen: false
     });
+    if (this.props.onRequestClose) {
+      this.props.onRequestClose();
+    }
+  }
+
+  _openCreateAccountModal(e) {
+    e.preventDefault();
+    this.props.openCreateAccountModal();
+    this._close();
   }
 
   render() {
@@ -34,7 +43,7 @@ class CreateAccountNoticeComponent extends React.Component {
         onRequestClose={::this._close}
         className="of-modal modal-dialog create-account-notice"
         overlayClassName="modal-backdrop"
-        closeTimeoutMS={500}
+        closeTimeoutMS={300}
         >
 
         <div className="modal-content">
@@ -47,8 +56,8 @@ class CreateAccountNoticeComponent extends React.Component {
             <p className="create-account-notice__copy">Create an account to collect artwork, add artwork to the public stream, and push artwork to a frame.</p>
 
             <ul className="create-account-notice__links">
-              <li> Create an account </li>
-              <li> Learn how to set up a frame </li>
+              <li><a href="#" onClick={::this._openCreateAccountModal}> Create an account </a></li>
+              <li><a href="https://github.com/OpenframeProject/Openframe/wiki/Openframe-User-Guide" target="_blank">Learn how to set up a frame</a></li>
             </ul>
           </div>
         </div>

@@ -47,31 +47,31 @@ class EditProfileFormComponent extends React.Component {
     return (
       <form onSubmit={handleSubmit}>
           <div className="form-group">
-              <label for="Name">Full Name</label>
+              <label htmlFor="Name">Full Name</label>
               <input type="text" ref={full_name.name} className="form-control" placeholder="First Last" autoCapitalize="on" {...full_name} />
           </div>
           <div className="form-group">
-              <label for="Username">Username</label>
+              <label htmlFor="Username">Username</label>
               <input type="text" className="form-control" placeholder="username" autoCapitalize="off" {...username}/>
           </div>
           <div className="form-group">
-              <label for="Email">Email</label>
+              <label htmlFor="Email">Email</label>
               <input type="email" className="form-control" placeholder="email" autoCapitalize="off" {...email}/>
           </div>
           <div className="form-group">
-              <label for="Password">Password</label>
+              <label htmlFor="Password">Password</label>
               <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
           </div>
           <div className="form-group">
-              <label for="AdminPassConfirm">Confirm Password</label>
+              <label htmlFor="AdminPassConfirm">Confirm Password</label>
               <input type="password" className="form-control" autoCapitalize="off" placeholder="confirm password" {...passwordConfirm}/>
           </div>
           <div className="form-group">
-              <label for="Website">Website (optional)</label>
+              <label htmlFor="Website">Website (optional)</label>
               <input type="text" className="form-control" placeholder="http://..." autoCapitalize="off" {...website}/>
           </div>
           <div className="form-group">
-              <label for="Twitter">Twitter (optional)</label>
+              <label htmlFor="Twitter">Twitter (optional)</label>
               <input type="text" className="form-control" placeholder="handle" autoCapitalize="off" {...twitter}/>
           </div>
           <div className="form-group">
