@@ -47,24 +47,26 @@ class ArtworkListItemComponent extends Component {
 
   _handlePushClick(e) {
     e.preventDefault();
-    let {artwork, pushArtwork, isAuthenticated} = this.props;
+    let {artwork, actions, isAuthenticated} = this.props;
     if (isAuthenticated) {
-      pushArtwork(artwork.id);
+      actions.pushArtwork(artwork.id);
     } else {
       // TODO: user-facing notice about what pushing an artwork means.
+      actions.showCreateAccountNotice();
     }
   }
 
   _handleLikeClick(e) {
     e.preventDefault();
-    let {artwork, likeArtwork, unlikeArtwork, isAuthenticated, isLiked } = this.props;
+    let {artwork, actions, isAuthenticated, isLiked } = this.props;
     if (isAuthenticated) {
       if (isLiked) {
-        unlikeArtwork(artwork.id);
+        actions.unlikeArtwork(artwork.id);
       } else {
-        likeArtwork(artwork.id);
+        actions.likeArtwork(artwork.id);
       }
     } else {
+      actions.showCreateAccountNotice();
       // TODO: user-facing notice about what liking an artwork means.
     }
   }
@@ -148,8 +150,7 @@ ArtworkListItemComponent.displayName = 'ArtworkListItemComponent';
 ArtworkListItemComponent.propTypes = {
   artwork: PropTypes.object.isRequired,
   user: PropTypes.object,
-  pushArtwork: PropTypes.func.isRequired,
-  likeArtwork: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool,
   isLoadingImages: PropTypes.bool
 };

@@ -21,6 +21,8 @@ import {
   SELECT_FRAME,
   SHOW_CONFIRM_DIALOG,
   HIDE_CONFIRM_DIALOG,
+  SHOW_CREATE_ACCOUNT_NOTICE,
+  HIDE_CREATE_ACCOUNT_NOTICE,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
   UPDATE_FRAME_SUCCESS,
@@ -143,6 +145,18 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         confirmDialogOpen: false,
+        fixBody: false
+      }
+    case SHOW_CREATE_ACCOUNT_NOTICE:
+      return {
+        ...state,
+        createAccountNoticeOpen: true,
+        fixBody: true
+      }
+    case HIDE_CREATE_ACCOUNT_NOTICE:
+      return {
+        ...state,
+        createAccountNoticeOpen: false,
         fixBody: false
       }
     case FIX_BODY:
