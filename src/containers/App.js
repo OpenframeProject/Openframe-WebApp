@@ -22,6 +22,7 @@ import StatefulModalComponent from '../components/common/StatefulModalComponent'
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
 import EditProfileModalComponent from '../components/user/EditProfileModalComponent';
 import FrameSettingsModalComponent from '../components/frame/FrameSettingsModalComponent';
+import CreateAccountNoticeComponent from '../components/common/CreateAccountNoticeComponent';
 
 import { getSelectedFrame } from '../reducers/frame';
 import { getCurrentUser } from '../reducers/user/index';
@@ -199,6 +200,8 @@ class App extends Component {
           close={actions.closeFrameSettingsModal}
           deleteFrameRequest={actions.deleteFrameRequest}
           onSubmit={::this.handleSubmitFrameSettings} />
+
+        <CreateAccountNoticeComponent isOpen={ui.createAccountNoticeOpen} />
 
         <MobileSubMenuComponent
           user={currentUser}
