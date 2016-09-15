@@ -18,7 +18,7 @@
     "release:major": "npm version major && npm publish && git push --follow-tags",
     "release:minor": "npm version minor && npm publish && git push --follow-tags",
     "release:patch": "npm version patch && npm publish && git push --follow-tags",
-    "deploy:dev": "npm run dist && scp -r ./dist of-dev:/var/www"
+    "deploy:dev": "npm run dist && git add . && git tag dev-build.`date +%Y%m%d%H%m%S` && git push --follow-tags && scp -r ./dist of-dev:/var/www"
   },
   "repository": "",
   "keywords": [],
