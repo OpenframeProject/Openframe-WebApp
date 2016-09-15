@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 
-import ArtworkListItemComponent from '../components/artwork/ArtworkListItemComponent';
+import ArtworkListItemContainer from './artwork/ArtworkListItemContainer';
 import BrowseSubMenuComponent from '../components/common/BrowseSubMenuComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 import InfiniteMasonryComponent from '../components/common/InfiniteMasonryComponent';
@@ -21,11 +21,11 @@ class StreamContainer extends Component {
   }
 
   componentWillUpdate(newProps) {
-    // console.log('UPDATING STREAM CONTAINER', this.props, newProps, this.props.userLikesById === newProps.userLikesById);
+
   }
 
   componentWillUnmount() {
-      // this.masonry.off('layoutComplete', () => console.log('masonry'));
+
   }
 
   _loadArtworks(page) {
@@ -34,7 +34,7 @@ class StreamContainer extends Component {
   }
 
   render() {
-    const { artworkList, userState, auth, actions, isFirstLoad, location, currentArtwork, streamHasMore, featureFlags } = this.props;
+    const { artworkList, isFirstLoad, location, streamHasMore, featureFlags } = this.props;
     return (
       <div className="container">
         <BrowseSubMenuComponent featureFlags={featureFlags} />
@@ -49,18 +49,11 @@ class StreamContainer extends Component {
                   endComponent={<div>That's all, folks.</div>} >
                 {
                   artworkList.map(artwork => {
-                    // console.log('artwork', artwork.id, isLiked(userState, artwork.id));
                     return (
-                      <ArtworkListItemComponent
-                        isAuthenticated={auth.isAuthenticated}
+                      <ArtworkListItemContainer
                         key={artwork.id}
-                        artwork={artwork}
-                        currentArtwork={currentArtwork}
                         location={location}
-                        pushArtwork={actions.pushArtwork}
-                        likeArtwork={actions.likeArtwork}
-                        unlikeArtwork={actions.unlikeArtwork}
-                        isLiked={isLiked(userState, artwork.id)} />
+                        artwork={artwork} />
                     )
                   })
                 }
@@ -80,12 +73,7 @@ function mapStateToProps(state) {
   const props = {
     artworkList: getArtworkList(state.artwork.streamIds, state.artwork.byId),
     streamHasMore: state.artwork.streamHasMore,
-    auth: state.auth,
-    userState: state.user,
-    userLikesById: state.user.userLikedArtworksById,
-    isFetching: state.artwork.isFetching,
     isFirstLoad: state.artwork.isFirstLoad,
-    currentArtwork: getCurrentArtwork(state.frames),
     featureFlags: state.featureFlags
   };
   return props;
@@ -93,11 +81,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchStreamRequest: require('../actions/artwork/fetchStreamRequest.js'),
-    openArtworkDetail: require('../actions/artwork/openArtworkDetail.js'),
-    pushArtwork: require('../actions/artwork/pushArtwork.js'),
-    likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
-    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')
+    fetchStreamRequest: require('../actions/artwork/fetchStreamRequest.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
