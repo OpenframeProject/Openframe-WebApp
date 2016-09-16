@@ -21,7 +21,14 @@ class FrameSettingsModalComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      confirmDelete: false,
+      confirmAction: false,
+      body: props.isOwner
+        ? 'Deleting a frame cannot be undone.'
+        : 'Leaving this frame will remove it from your Frames list, and you will no longer be able to push artwork to it.',
+      title: 'Are you sure?',
+      acceptText: props.isOwner ? 'Delete Frame' : 'Leave Frame',
+      cancelText: 'Cancel',
+      acceptHandler: props.isOwner ? ::this._doDelete : ::this._doLeave,
       isOpen: props.isOpen
     };
     this.fetchOptions = debounce((input, callback) => {
@@ -57,14 +64,14 @@ class FrameSettingsModalComponent extends React.Component {
     this.props.close();
     this.setState({
       isOpen: false,
-      confirmDelete: false
+      confirmAction: false
     });
   }
 
-  _handleDeleteClicked(e) {
+  _handleConfirmableClick(e) {
     e.preventDefault();
     this.setState({
-      confirmDelete: true,
+      confirmAction: true,
       isOpen: false
     });
   }
@@ -75,29 +82,35 @@ class FrameSettingsModalComponent extends React.Component {
     this.closeModal();
   }
 
-  _cancelDelete() {
+  _doLeave() {
+    let { removeFromFrameRequest, frame } = this.props;
+    removeFromFrameRequest(frame.id);
+    this.closeModal();
+  }
+
+  _cancelAction() {
     this.setState({
-      confirmDelete: false,
+      confirmAction: false,
       isOpen: true
     });
   }
 
-  _renderConfirmDelete() {
+  _renderConfirmAction() {
     return (
       <ConfirmDialogComponent
-          isOpen={this.state.confirmDelete}
-          body="Deleting a frame cannot be undone."
-          title={"Are you sure?"}
-          acceptText={"Delete Frame"}
-          cancelText={"Cancel"}
-          acceptHandler={::this._doDelete}
-          cancelHandler={::this._cancelDelete}
+          isOpen={this.state.confirmAction}
+          body={this.state.body}
+          title={this.state.title}
+          acceptText={this.state.acceptText}
+          cancelText={this.state.cancelText}
+          acceptHandler={this.state.acceptHandler}
+          cancelHandler={::this._cancelAction}
            />
     );
   }
 
   render() {
-    let {fields: {name, managers}, frame, handleSubmit, errorMessage, isOpen} = this.props;
+    let {fields: {name, managers}, frame, handleSubmit, errorMessage, isOwner, owner} = this.props;
 
     let extensions = frame ? Object.keys(frame.extensions).map(key => key) : null;
 
@@ -134,12 +147,35 @@ class FrameSettingsModalComponent extends React.Component {
                         <div className="col-md-12">
                                 <div className="form-group">
                                     <label htmlFor="name">Frame name</label>
-                                    <input ref={name.name} type="text" className="form-control" name="name" id="Framename" placeholder="name" autoFocus={true} autoCapitalize="off" {...name} />
+                                    <input
+                                      ref={name.name}
+                                      type="text"
+                                      className="form-control"
+                                      name="name" id="Framename"
+                                      placeholder="name"
+                                      autoFocus={true}
+                                      autoCapitalize="off"
+                                      disabled={!isOwner}
+                                      {...name} />
                                 </div>
+                                { !isOwner
+                                  ? <div className="form-group">
+                                      <label htmlFor="owner">Owner</label>
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                        name="owner"
+                                        disabled={true}
+                                        value={owner.username} />
+                                    </div>
+                                  : null
+                                }
                                 <div className="form-group">
                                     <label className="with-fFne-copy" htmlFor="Managers">Additional curators</label>
                                     <CustomSelectComponent
                                         {...managers}
+                                        disabled={!isOwner}
+                                        placeholder={isOwner ? 'Add by username...' : 'No additional curators'}
                                         loadOptions={::this.fetchOptions}
                                     />
                                     <p className="fine-copy">Curators can push artwork to this frame, but not update its settings.</p>
@@ -159,13 +195,18 @@ class FrameSettingsModalComponent extends React.Component {
                     </div>
                 </div>
                 <div className="modal-footer">
-                  <button type="submit" className="btn btn-default btn-fw">Save Changes</button>
-                  <button className="btn btn-destructive btn-fw" onClick={::this._handleDeleteClicked}>Delete Frame</button>
+                  { isOwner
+                    ? <div>
+                        <button type="submit" className="btn btn-default btn-fw">Save Changes</button>
+                        <button className="btn btn-destructive btn-fw" onClick={::this._handleConfirmableClick}>Delete Frame</button>
+                      </div>
+                    : <button className="btn btn-destructive btn-fw" onClick={::this._handleConfirmableClick}>Leave this Frame</button>
+                  }
                 </div>
               </form>
           </div>
         </Modal>
-        { ::this._renderConfirmDelete() }
+        { ::this._renderConfirmAction() }
       </div>
     );
   }
@@ -177,14 +218,15 @@ FrameSettingsModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   },
   state => {
     let frame = getById(state.frames.byId, state.frames.settingsFrameId);
-    let managerUsers = getUserList(state.user.byId, frame ? frame.managers : []);
+    let managerUsers = getUserList(state.user.byId, frame && frame.managers ? frame.managers : []);
     let managers = managerUsers.map(user => ({
       label: user.username,
       value: user.id
     }));
-    // let extensions = frame ? Object.keys(frame.extensions).map(key => key).join(', ') : null;
     return { // mapStateToProps
       frame: frame,
+      owner: frame && frame.ownerId ? getById(state.user.byId, frame.ownerId) : {},
+      isOwner: frame && frame.ownerId === state.user.current,
       errorMessage: state.ui.frameSettingsError,
       initialValues: {
         ...frame,

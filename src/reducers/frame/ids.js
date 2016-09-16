@@ -9,6 +9,7 @@ import {
   FETCH_FRAMES_SUCCESS,
   FRAME_UPDATED,
   DELETE_FRAME_SUCCESS,
+  REMOVE_FROM_FRAME_SUCCESS,
   LOGOUT_REQUEST
 } from '../../actions/const'
 
@@ -39,7 +40,8 @@ export default function(state = initialState, action) {
       return [];
     }
 
-    case DELETE_FRAME_SUCCESS: {
+    case DELETE_FRAME_SUCCESS:
+    case REMOVE_FROM_FRAME_SUCCESS: {
       let ids = [
         ...state
       ];
