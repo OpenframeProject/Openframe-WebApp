@@ -8,6 +8,7 @@ import FrameItemContainer from '../../containers/frame/FrameItemContainer'
 
 let checkmarkIcon = require('../../images/checkmark_white.svg');
 let settingsIcon = require('../../images/settings_white.svg');
+let infoIcon = require('../../images/threedots.svg');
 
 class SidebarFrameItemComponent extends React.Component {
 
@@ -45,7 +46,9 @@ class SidebarFrameItemComponent extends React.Component {
             ? <span className="sidebar-frame-item__settings" onClick={::this.openFrameSettings}>
                 <img className="icon-settings" src={settingsIcon} />
               </span>
-            : ''
+            : <span className="sidebar-frame-item__settings" onClick={::this.openFrameSettings}>
+                <img className="icon-settings" src={infoIcon} />
+              </span>
           }
         </div>
       </li>
