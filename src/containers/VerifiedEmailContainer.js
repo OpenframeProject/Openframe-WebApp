@@ -11,7 +11,7 @@ require('styles/common/VerifiedEmailContainer.scss');
 class VerifiedEmailContainer extends Component {
   _gotoLogin() {
     const {actions} = this.props;
-    actions.openLoginModal();
+    actions.updateVisibleModal('login');
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser) {
@@ -43,7 +43,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    openLoginModal: require('../actions/ui/openLoginModal.js')
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

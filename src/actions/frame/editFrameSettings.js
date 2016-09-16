@@ -7,6 +7,6 @@ module.exports = function(frameId) {
       type: EDIT_FRAME_SETTINGS, frameId
     });
 
-    updateVisibleModal('frame-settings');
+    dispatch(updateVisibleModal('frame-settings'));
   };
 };

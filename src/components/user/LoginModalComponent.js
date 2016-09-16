@@ -7,37 +7,32 @@ import {reduxForm} from 'redux-form';
 require('styles/user/LoginModal.scss');
 
 class LoginModalComponent extends React.Component {
-  componentDidMount() {
-  }
-
   afterOpenModal() {
     this.refs.username.focus();
   }
 
-  closeModal() {
-    this.props.closeLoginModal();
+  _close() {
+    this.props.updateVisibleModal(null);
   }
 
   _gotoCreate() {
-    this.props.closeLoginModal();
-    this.props.openCreateAccountModal();
+    this.props.updateVisibleModal('create-account');
   }
 
   _gotoPasswordReset() {
-    this.props.closeLoginModal();
-    this.props.openInitiatePasswordResetModal();
+    this.props.updateVisibleModal('request-password-reset');
   }
 
   render() {
-    const {fields: {username, password}, handleSubmit, loginError, isOpen} = this.props;
+    const {fields: {username, password}, handleSubmit, modalError, isOpen} = this.props;
     let errorClasses = 'row row-errors ';
-    errorClasses += loginError ? 'show' : 'hide';
+    errorClasses += modalError ? 'show' : 'hide';
     return (
       <Modal
         isOpen={isOpen}
         shouldCloseOnOverlayClick={true}
         onAfterOpen={::this.afterOpenModal}
-        onRequestClose={::this.closeModal}
+        onRequestClose={::this._close}
         className="of-modal modal-dialog"
         overlayClassName="modal-backdrop"
         closeTimeoutMS={500}
@@ -46,7 +41,7 @@ class LoginModalComponent extends React.Component {
         <form onSubmit={handleSubmit}>
           <div className="modal-content">
             <div className="modal-header">
-              <button className="close" onClick={::this.closeModal} type=
+              <button className="close" onClick={::this._close} type=
               "button">&times;</button>
               <h3 className="modal-title">Log In</h3>
             </div>
@@ -54,7 +49,7 @@ class LoginModalComponent extends React.Component {
               <div className={errorClasses}>
                 <div className="col-md-12">
                   <div className="alert alert-danger" role="alert">
-                    {loginError}
+                    {modalError}
                   </div>
                 </div>
               </div>

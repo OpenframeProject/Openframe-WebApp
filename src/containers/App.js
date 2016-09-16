@@ -13,16 +13,13 @@ import { connect } from 'react-redux';
 import Waypoint from 'react-waypoint';
 
 import SidebarContainer from './sidebar/SidebarContainer';
+import ModalManagerContainer from './ModalManagerContainer';
 
 import TopbarComponent from '../components/topbar/TopbarComponent';
-import LoginModalComponent from '../components/user/LoginModalComponent';
 import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
+
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import StatefulModalComponent from '../components/common/StatefulModalComponent';
-import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
-import EditProfileModalComponent from '../components/user/EditProfileModalComponent';
-import FrameSettingsModalComponent from '../components/frame/FrameSettingsModalComponent';
-import CreateAccountNoticeComponent from '../components/common/CreateAccountNoticeComponent';
 
 import { getSelectedFrame } from '../reducers/frame';
 import { getCurrentUser } from '../reducers/user/index';
@@ -70,42 +67,6 @@ class App extends Component {
     }
   }
 
-  handleSubmitLogin(fields) {
-    let { actions } = this.props;
-    actions.loginRequest(fields);
-  }
-
-  handleSubmitCreateAccount(fields) {
-    let { actions } = this.props;
-    if (fields.password && fields.password !== fields.passwordConfirm) {
-      actions.createAccountFailure('Passwords do not match');
-      return;
-    }
-    actions.createAccountRequest(fields);
-  }
-
-  handleSubmitEditProfile(fields) {
-    let { actions } = this.props;
-    if (fields.password && fields.password !== fields.passwordConfirm) {
-      actions.updateUserFailure('Passwords do not match');
-      return;
-    }
-    actions.updateUserRequest(fields);
-  }
-
-  handleSubmitFrameSettings(fields) {
-    let { actions, frames } = this.props;
-    console.log('handleSubmitFrameSettings', fields);
-    if (!fields.name) {
-      actions.updateFrameFailure('Frame name is required.');
-      return;
-    }
-    actions.updateFrameRequest(frames.settingsFrameId, fields);
-    if (fields.managers) {
-      actions.updateFrameManagersRequest(frames.settingsFrameId, fields.managers.map(manager => manager.label))
-    }
-  }
-
   _handleWaypointEnter() {
     this.refs.topbar._hideShadow();
   }
@@ -136,10 +97,11 @@ class App extends Component {
           route={route}
           location={location}
           selectedFrame={selectedFrame}
-          openSidebar={actions.openSidebar}
-          openCreateAccountModal={actions.openCreateAccountModal}
-          openLoginModal={actions.openLoginModal} />
+          updateVisibleModal={actions.updateVisibleModal}
+          updateSidebarState={actions.updateSidebarState} />
 
+        { // Manages top bar shadow
+        }
         <Waypoint
           onEnter={::this._handleWaypointEnter}
           onLeave={::this._handleWaypointLeave}
@@ -150,7 +112,6 @@ class App extends Component {
           ? <NoticeBannerComponent notice={ ui.notice } closeNoticeBanner={actions.closeNoticeBanner}/>
           : null
         }
-
 
 
         <div className='app-content-wrap'>
@@ -173,50 +134,16 @@ class App extends Component {
         </div>
 
 
+        <SidebarContainer location={location} />
 
-       <SidebarContainer location={location} />
-
-        <LoginModalComponent
-          isOpen={ui.loginModalOpen}
-          closeLoginModal={actions.closeLoginModal}
-          openCreateAccountModal={actions.openCreateAccountModal}
-          onSubmit={::this.handleSubmitLogin}
-          loginError={ui.loginError} />
-
-        <CreateAccountModalComponent
-          isOpen={ui.createAccountModalOpen}
-          closeCreateAccountModal={actions.closeCreateAccountModal}
-          openLoginModal={actions.openLoginModal}
-          onSubmit={::this.handleSubmitCreateAccount}
-          createError={ui.createError} />
-
-        <InitiateResetPasswordModal
-          isOpen={ui.createAccountModalOpen}
-          closeCreateAccountModal={actions.closeCreateAccountModal}
-          openLoginModal={actions.openLoginModal} />
-
-        <EditProfileModalComponent
-          isOpen={ui.editProfileModalOpen}
-          closeEditProfileModal={actions.closeEditProfileModal}
-          onSubmit={::this.handleSubmitEditProfile}
-          updateUserError={ui.updateUserError} />
-
-        <FrameSettingsModalComponent
-          isOpen={ui.frameSettingsModalOpen}
-          close={actions.closeFrameSettingsModal}
-          deleteFrameRequest={actions.deleteFrameRequest}
-          removeFromFrameRequest={actions.removeFromFrameRequest}
-          onSubmit={::this.handleSubmitFrameSettings} />
-
-        <CreateAccountNoticeComponent
-          isOpen={ui.createAccountNoticeOpen}
-          onRequestClose={actions.hideCreateAccountNotice}
-          openCreateAccountModal={actions.openCreateAccountModal} />
 
         <MobileSubMenuComponent
           user={currentUser}
           location={location}
           featureFlags={featureFlags} />
+
+
+        <ModalManagerContainer />
       </div>
     );
   }
@@ -265,15 +192,13 @@ function mapDispatchToProps(dispatch) {
     logoutFailure: require('../actions/auth/logoutFailure.js'),
 
     selectFrame: require('../actions/frame/selectFrame.js'),
-    updateFrameRequest: require('../actions/frame/updateFrameRequest.js'),
-    deleteFrameRequest: require('../actions/frame/deleteFrameRequest.js'),
-    deleteFrameFailure: require('../actions/frame/deleteFrameFailure.js'),
-    removeFromFrameRequest: require('../actions/user/removeFromFrameRequest.js'),
-    removeFromFrameFailure: require('../actions/user/removeFromFrameFailure.js'),
-    updateFrameManagersRequest: require('../actions/frame/updateFrameManagersRequest.js'),
-    updateFrameFailure: require('../actions/frame/updateFrameFailure.js'),
+
     fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js'),
     fetchConfigRequest: require('../actions/config/fetchConfigRequest.js'),
+
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js'),
+    updateSidebarState: require('../actions/ui/updateSidebarState.js'),
+    updateNoticeBanner: require('../actions/ui/updateNoticeBanner.js'),
 
     closeNoticeBanner: require('../actions/ui/closeNoticeBanner.js'),
     openSidebar: require('../actions/ui/openSidebar.js'),
@@ -282,12 +207,6 @@ function mapDispatchToProps(dispatch) {
     closeLoginModal: require('../actions/ui/closeLoginModal.js'),
     openCreateAccountModal: require('../actions/ui/openCreateAccountModal.js'),
     closeCreateAccountModal: require('../actions/ui/closeCreateAccountModal.js'),
-    openInitiatePasswordResetModal: require('../actions/ui/openInitiatePasswordResetModal.js'),
-    closeInitiatePasswordResetModal: require('../actions/ui/closeInitiatePasswordResetModal.js'),
-    createAccountRequest: require('../actions/user/createAccountRequest.js'),
-    createAccountFailure: require('../actions/user/createAccountFailure.js'),
-    updateUserRequest: require('../actions/user/updateUserRequest'),
-    updateUserFailure: require('../actions/user/updateUserFailure'),
     openEditProfileModal: require('../actions/ui/openEditProfileModal.js'),
     closeEditProfileModal: require('../actions/ui/closeEditProfileModal.js'),
     hideConfirmDialog: require('../actions/common/hideConfirmDialog.js'),

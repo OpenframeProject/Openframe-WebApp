@@ -59,13 +59,12 @@ class FrameSettingsModalComponent extends React.Component {
     this.refs.name.focus();
   }
 
-  closeModal() {
+  _close() {
     this.props.resetForm();
-    this.props.close();
     this.setState({
-      isOpen: false,
       confirmAction: false
     });
+    this.props.updateVisibleModal(null);
   }
 
   _handleConfirmableClick(e) {
@@ -79,13 +78,13 @@ class FrameSettingsModalComponent extends React.Component {
   _doDelete() {
     let { deleteFrameRequest, frame } = this.props;
     deleteFrameRequest(frame.id);
-    this.closeModal();
+    this._close();
   }
 
   _doLeave() {
     let { removeFromFrameRequest, frame } = this.props;
     removeFromFrameRequest(frame.id);
-    this.closeModal();
+    this._close();
   }
 
   _cancelAction() {
@@ -123,7 +122,7 @@ class FrameSettingsModalComponent extends React.Component {
           isOpen={this.state.isOpen}
           shouldCloseOnOverlayClick={true}
           onAfterOpen={::this.afterOpenModal}
-          onRequestClose={::this.closeModal}
+          onRequestClose={::this._close}
           className="of-modal modal-dialog"
           overlayClassName="modal-backdrop"
           closeTimeoutMS={500}
@@ -131,7 +130,7 @@ class FrameSettingsModalComponent extends React.Component {
           <div className="modal-content">
               <form onSubmit={handleSubmit}>
                 <div className="modal-header">
-                    <button className="close" onClick={::this.closeModal} type=
+                    <button className="close" onClick={::this._close} type=
                       "button">&times;</button>
                     <h3 className="modal-title">Frame settings</h3>
                 </div>

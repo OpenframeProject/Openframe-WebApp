@@ -8,21 +8,21 @@ import EditProfileFormComponent from './EditProfileFormComponent';
 require('styles/user/EditProfileModal.scss');
 
 class EditProfileModalComponent extends React.Component {
-  closeModal() {
-    this.props.closeEditProfileModal();
+  _close() {
+    this.props.updateVisibleModal(null);
   }
 
   render() {
-    const { isOpen, updateUserError, onSubmit } = this.props;
+    const { isOpen, modalError, onSubmit } = this.props;
 
     let errorClasses = 'row row-errors ';
-    errorClasses += updateUserError ? 'show' : 'hide';
+    errorClasses += modalError ? 'show' : 'hide';
 
     return (
       <Modal
         isOpen={isOpen}
         shouldCloseOnOverlayClick={true}
-        onRequestClose={::this.closeModal}
+        onRequestClose={::this._close}
         className="of-modal modal-dialog"
         overlayClassName="modal-backdrop"
         closeTimeoutMS={100}
@@ -30,7 +30,7 @@ class EditProfileModalComponent extends React.Component {
 
         <div className="modal-content">
           <div className="modal-header">
-            <button className="close" onClick={::this.closeModal} type=
+            <button className="close" onClick={::this._close} type=
             "button">&times;</button>
             <h3 className="modal-title">Edit Profile</h3>
           </div>
@@ -38,7 +38,7 @@ class EditProfileModalComponent extends React.Component {
             <div className={errorClasses}>
               <div className="col-md-12">
                 <div className="alert alert-danger" role="alert">
-                  {updateUserError}
+                  {modalError}
                 </div>
               </div>
             </div>

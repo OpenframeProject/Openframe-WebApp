@@ -14,13 +14,13 @@ class SidebarComponent extends Component {
 	// when clicking outside the sidebar, close it.
 	handleClickOutside() {
 		if (this.props.isOpen) {
-   		this.props.closeSidebar();
+   		this.props.updateSidebarState(false);
 		}
   }
 
   render() {
   	let className = 'sidebar';
-  	let {isOpen, closeSidebar, frames, selectedFrameId, user, selectFrame, logoutRequest, openEditProfileModal, openFrameSettingsModal, location } = this.props;
+  	let {isOpen, frames, selectedFrameId, user, selectFrame, logoutRequest, location, updateSidebarState, updateVisibleModal, editFrameSettings} = this.props;
   	if (isOpen) {
   		className += ' sidebar--open';
   	}
@@ -28,7 +28,7 @@ class SidebarComponent extends Component {
     return (
       <div className={className}>
 		    <div className="sidebar-header">
-          <img className="btn-menu-close cross" src={closeIcon} onClick={closeSidebar}/>
+          <img className="btn-menu-close cross" src={closeIcon} onClick={() => updateSidebarState(false)}/>
         </div>
         <div className="sidebar__body">
           <div className="sidebar-header">
@@ -43,7 +43,7 @@ class SidebarComponent extends Component {
     		    			frame={frame}
     		    			isSelected={frame.id == selectedFrameId} // TODO: === once we can ensure string ids
     		    			isOwner={frame.ownerId === user.id}
-                  openFrameSettingsModal={openFrameSettingsModal}
+                  editFrameSettings={() => editFrameSettings(frame.id)}
                   selectFrame={selectFrame}
                   pathname={location.pathname} />
     		    	)}
@@ -53,7 +53,7 @@ class SidebarComponent extends Component {
             <div className="sidebar__row--title">Your Profile</div>
           </div>
   		    <div className="sidebar__row sidebar__row--logout">
-  		        <span className="anchor" onClick={openEditProfileModal}>Edit profile</span>
+  		        <span className="anchor" onClick={() => updateVisibleModal('edit-profile')}>Edit profile</span>
               &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
               <span className="anchor" onClick={logoutRequest}>Log out</span>
   		    </div>
@@ -68,8 +68,7 @@ SidebarComponent.displayName = 'SidebarComponent';
 // Uncomment properties you need
 SidebarComponent.propTypes = {
 	frames: PropTypes.array.isRequired,
-	isOpen: PropTypes.bool.isRequired,
-	closeSidebar: PropTypes.func.isRequired
+	isOpen: PropTypes.bool.isRequired
 };
 SidebarComponent.defaultProps = {
 	frames: [],
