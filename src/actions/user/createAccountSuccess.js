@@ -1,5 +1,5 @@
 import {CREATE_ACCOUNT_SUCCESS} from './../const';
-import loginRequest from '../auth/loginRequest';
+// import loginRequest from '../auth/loginRequest';
 
 module.exports = function(user, password) {
   return dispatch => {
@@ -10,9 +10,9 @@ module.exports = function(user, password) {
 
     let username = user.username;
     // user successfully created, login
-    dispatch(loginRequest({
-      username,
-      password
-    }));
+    // dispatch(loginRequest({
+    //   username,
+    //   password
+    // }));
   };
 };

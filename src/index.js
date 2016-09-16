@@ -18,6 +18,8 @@ import ProfileContainer from './containers/ProfileContainer';
 import LikesContainer from './containers/LikesContainer';
 import AddedContainer from './containers/AddedContainer';
 import FeatureFlagsContainer from './containers/FeatureFlagsContainer';
+import VerifiedEmailContainer from './containers/VerifiedEmailContainer';
+import ResetPasswordContainer from './containers/ResetPasswordContainer';
 
 
 const fixBody = require('./actions/ui/fixBody.js');
@@ -54,6 +56,10 @@ render(
         <IndexRedirect to="/stream" />
 
         <Route path="/ff-conf" component={FeatureFlagsContainer} />
+
+        <Route path="/verified" component={VerifiedEmailContainer} />
+
+        <Route path="/reset-password/:accessToken" component={ResetPasswordContainer} />
 
         <Route component={BrowseSectionComponent}>
           <IndexRoute component={StreamContainer} />

@@ -3,12 +3,12 @@ import updateUserSuccess from './updateUserSuccess';
 import updateUserFailure from './updateUserFailure';
 import {users} from '../../sources/api';
 
-module.exports = function(data) {
+module.exports = function(data, accessToken) {
   return dispatch => {
     dispatch({
       type: UPDATE_USER_REQUEST
     });
-    return users.update('current', data).then(
+    return users.update('current', data, accessToken).then(
       response => {
         dispatch(updateUserSuccess(response));
       },

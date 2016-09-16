@@ -1,0 +1,21 @@
+@import "bootstrap/variables";
+
+.verified-email-container {
+  margin-top: 100px;
+  text-align: center;
+}
+
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {
+
+}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {
+
+}

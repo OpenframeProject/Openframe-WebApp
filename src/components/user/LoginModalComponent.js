@@ -18,9 +18,14 @@ class LoginModalComponent extends React.Component {
     this.props.closeLoginModal();
   }
 
-  goToCreate() {
+  _gotoCreate() {
     this.props.closeLoginModal();
     this.props.openCreateAccountModal();
+  }
+
+  _gotoPasswordReset() {
+    this.props.closeLoginModal();
+    this.props.openInitiatePasswordResetModal();
   }
 
   render() {
@@ -38,43 +43,47 @@ class LoginModalComponent extends React.Component {
         closeTimeoutMS={500}
         >
 
-        <div className="modal-content">
-          <div className="modal-header">
-            <button className="close" onClick={::this.closeModal} type=
-            "button">&times;</button>
-            <h3 className="modal-title">Log In</h3>
-          </div>
-          <div className="modal-body">
-            <div className={errorClasses}>
-              <div className="col-md-12">
-                <div className="alert alert-danger" role="alert">
-                  {loginError}
+        <form onSubmit={handleSubmit}>
+          <div className="modal-content">
+            <div className="modal-header">
+              <button className="close" onClick={::this.closeModal} type=
+              "button">&times;</button>
+              <h3 className="modal-title">Log In</h3>
+            </div>
+            <div className="modal-body">
+              <div className={errorClasses}>
+                <div className="col-md-12">
+                  <div className="alert alert-danger" role="alert">
+                    {loginError}
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-12">
+                    <div className="form-group">
+                        <label htmlFor="Username">Username</label>
+                        <input type="text" ref={username.name} className="form-control" placeholder="username" autoFocus={true} autoCapitalize="off" {...username}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="Password">Password</label>
+                        <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
+                    </div>
                 </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-12">
-                <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                      <label htmlFor="Username">Username</label>
-                      <input type="text" ref={username.name} className="form-control" placeholder="username" autoFocus={true} autoCapitalize="off" {...username}/>
-                  </div>
-                  <div className="form-group">
-                      <label htmlFor="Password">Password</label>
-                      <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
-                  </div>
-                  <div className="form-group">
-                      <button type="submit" className="btn btn-default btn-fw">Log In</button>
-                  </div>
-                  <div className="switch-text">
-                      <p>Don't have an account? <span className="anchor" onClick={::this.goToCreate}>Create one here</span></p>
-                  </div>
-                </form>
+            <div className="modal-footer">
+              <div className="form-group">
+                  <button type="submit" className="btn btn-default btn-fw">Log In</button>
+              </div>
+              <div className="switch-text">
+                  <p>Don't have an account? <span className="anchor" onClick={::this._gotoCreate}>Create one here</span></p>
+              </div>
+              <div className="switch-text">
+                  <p><span className="anchor" onClick={::this._gotoPasswordReset}>Reset Password</span></p>
               </div>
             </div>
           </div>
-        </div>
-
+        </form>
       </Modal>
     );
   }

@@ -147,7 +147,7 @@ class App extends Component {
         />
 
         { ui.notice
-          ? <NoticeBannerComponent notice={ ui.notice } />
+          ? <NoticeBannerComponent notice={ ui.notice } closeNoticeBanner={actions.closeNoticeBanner}/>
           : null
         }
 
@@ -189,6 +189,11 @@ class App extends Component {
           openLoginModal={actions.openLoginModal}
           onSubmit={::this.handleSubmitCreateAccount}
           createError={ui.createError} />
+
+        <InitiateResetPasswordModal
+          isOpen={ui.createAccountModalOpen}
+          closeCreateAccountModal={actions.closeCreateAccountModal}
+          openLoginModal={actions.openLoginModal} />
 
         <EditProfileModalComponent
           isOpen={ui.editProfileModalOpen}
@@ -258,6 +263,7 @@ function mapDispatchToProps(dispatch) {
     logoutRequest: require('../actions/auth/logoutRequest.js'),
     logoutSuccess: require('../actions/auth/logoutSuccess.js'),
     logoutFailure: require('../actions/auth/logoutFailure.js'),
+
     selectFrame: require('../actions/frame/selectFrame.js'),
     updateFrameRequest: require('../actions/frame/updateFrameRequest.js'),
     deleteFrameRequest: require('../actions/frame/deleteFrameRequest.js'),
@@ -268,12 +274,16 @@ function mapDispatchToProps(dispatch) {
     updateFrameFailure: require('../actions/frame/updateFrameFailure.js'),
     fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js'),
     fetchConfigRequest: require('../actions/config/fetchConfigRequest.js'),
+
+    closeNoticeBanner: require('../actions/ui/closeNoticeBanner.js'),
     openSidebar: require('../actions/ui/openSidebar.js'),
     closeSidebar: require('../actions/ui/closeSidebar.js'),
     openLoginModal: require('../actions/ui/openLoginModal.js'),
     closeLoginModal: require('../actions/ui/closeLoginModal.js'),
     openCreateAccountModal: require('../actions/ui/openCreateAccountModal.js'),
     closeCreateAccountModal: require('../actions/ui/closeCreateAccountModal.js'),
+    openInitiatePasswordResetModal: require('../actions/ui/openInitiatePasswordResetModal.js'),
+    closeInitiatePasswordResetModal: require('../actions/ui/closeInitiatePasswordResetModal.js'),
     createAccountRequest: require('../actions/user/createAccountRequest.js'),
     createAccountFailure: require('../actions/user/createAccountFailure.js'),
     updateUserRequest: require('../actions/user/updateUserRequest'),

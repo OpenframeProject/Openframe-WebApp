@@ -22,6 +22,7 @@ import {
   SELECT_FRAME,
   SHOW_CONFIRM_DIALOG,
   HIDE_CONFIRM_DIALOG,
+  CLOSE_NOTICE_BANNER,
   SHOW_CREATE_ACCOUNT_NOTICE,
   HIDE_CREATE_ACCOUNT_NOTICE,
   UPDATE_USER_SUCCESS,
@@ -47,7 +48,7 @@ const initialState = {
   frameSettingsError: null,
 
   fixBody: false
-  // , notice: '<div class="alert alert-info"><h3>Hello!</h3><p>Welcome to Openframe!</p></div>'
+  // notice: 'Thanks! You should receive a verification email shortly.'
 };
 
 module.exports = function(state = initialState, action) {
@@ -122,7 +123,13 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         loginModalOpen: false,
+        loginError: null,
         fixBody: false
+      }
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loginError: null
       }
     case LOGIN_FAILURE:
       return {
@@ -133,7 +140,7 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         createAccountModalOpen: false,
-        fixBody: false,
+        notice: 'Thanks! You should receive a verification email shortly.',
         createError: null
       }
     case CREATE_ACCOUNT_FAILURE:
@@ -197,6 +204,11 @@ module.exports = function(state = initialState, action) {
         ...state,
         frameSettingsError: null,
         frameSettingsModalOpen: false
+      }
+    case CLOSE_NOTICE_BANNER:
+      return {
+        ...state,
+        notice: null
       }
     default: {
       /* Return original state if no actions were consumed. */
