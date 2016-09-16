@@ -151,6 +151,10 @@ const users = {
 
   unlikeArtwork: function(artworkId, userId = 'current') {
     return fetchJSON(`${modelPrefix}/${userId}/liked_artwork/rel/${artworkId}`, { method: 'DELETE'});
+  },
+
+  removeFromFrame: function(frameId, userId = 'current') {
+    return fetchJSON(`${modelPrefix}/${userId}/managed_frames/rel/${frameId}`, { method: 'DELETE'});
   }
 };
 

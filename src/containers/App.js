@@ -200,6 +200,7 @@ class App extends Component {
           isOpen={ui.frameSettingsModalOpen}
           close={actions.closeFrameSettingsModal}
           deleteFrameRequest={actions.deleteFrameRequest}
+          removeFromFrameRequest={actions.removeFromFrameRequest}
           onSubmit={::this.handleSubmitFrameSettings} />
 
         <CreateAccountNoticeComponent
@@ -261,6 +262,8 @@ function mapDispatchToProps(dispatch) {
     updateFrameRequest: require('../actions/frame/updateFrameRequest.js'),
     deleteFrameRequest: require('../actions/frame/deleteFrameRequest.js'),
     deleteFrameFailure: require('../actions/frame/deleteFrameFailure.js'),
+    removeFromFrameRequest: require('../actions/user/removeFromFrameRequest.js'),
+    removeFromFrameFailure: require('../actions/user/removeFromFrameFailure.js'),
     updateFrameManagersRequest: require('../actions/frame/updateFrameManagersRequest.js'),
     updateFrameFailure: require('../actions/frame/updateFrameFailure.js'),
     fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js'),
