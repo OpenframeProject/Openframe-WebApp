@@ -29,13 +29,8 @@ class CreateAccountNoticeComponent extends React.Component {
     }
   }
 
-  _openCreateAccountModal(e) {
-    e.preventDefault();
-    this.props.openCreateAccountModal();
-    this._close();
-  }
-
   render() {
+    const { updateVisibleModal } = this.props;
     return (
       <Modal
         isOpen={this.state.isOpen}
@@ -56,7 +51,7 @@ class CreateAccountNoticeComponent extends React.Component {
             <p className="create-account-notice__copy">Create an account to collect artwork, add artwork to the public stream, and push artwork to a frame.</p>
 
             <ul className="create-account-notice__links">
-              <li><a href="#" onClick={::this._openCreateAccountModal}> Create an account </a></li>
+              <li><a href="" onClick={(e) => { e.preventDefault(); updateVisibleModal('create-account'); } }> Create an account </a></li>
               <li><a href="https://github.com/OpenframeProject/Openframe/wiki/Openframe-User-Guide" target="_blank">Learn how to set up a frame</a></li>
             </ul>
           </div>

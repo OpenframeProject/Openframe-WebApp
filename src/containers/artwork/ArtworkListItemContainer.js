@@ -36,7 +36,7 @@ function mapDispatchToProps(dispatch) {
     pushArtwork: require('../../actions/artwork/pushArtwork.js'),
     likeArtwork: require('../../actions/artwork/likeArtworkRequest.js'),
     unlikeArtwork: require('../../actions/artwork/unlikeArtworkRequest.js'),
-    showCreateAccountNotice: require('../../actions/common/showCreateAccountNotice.js')
+    updateVisibleModal: require('../../actions/ui/updateVisibleModal.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

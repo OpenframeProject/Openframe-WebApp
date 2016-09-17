@@ -51,8 +51,7 @@ class ArtworkListItemComponent extends Component {
     if (isAuthenticated) {
       actions.pushArtwork(artwork.id);
     } else {
-      // TODO: user-facing notice about what pushing an artwork means.
-      actions.showCreateAccountNotice();
+      actions.updateVisibleModal('create-account-notice');
     }
   }
 
@@ -66,8 +65,7 @@ class ArtworkListItemComponent extends Component {
         actions.likeArtwork(artwork.id);
       }
     } else {
-      actions.showCreateAccountNotice();
-      // TODO: user-facing notice about what liking an artwork means.
+      actions.updateVisibleModal('create-account-notice');
     }
   }
 
