@@ -59,13 +59,12 @@ class FrameSettingsModalComponent extends React.Component {
     this.refs.name.focus();
   }
 
-  closeModal() {
+  _close() {
     this.props.resetForm();
-    this.props.close();
     this.setState({
-      isOpen: false,
       confirmAction: false
     });
+    this.props.updateVisibleModal(null);
   }
 
   _handleConfirmableClick(e) {
@@ -79,13 +78,13 @@ class FrameSettingsModalComponent extends React.Component {
   _doDelete() {
     let { deleteFrameRequest, frame } = this.props;
     deleteFrameRequest(frame.id);
-    this.closeModal();
+    this._close();
   }
 
   _doLeave() {
     let { removeFromFrameRequest, frame } = this.props;
     removeFromFrameRequest(frame.id);
-    this.closeModal();
+    this._close();
   }
 
   _cancelAction() {
@@ -114,7 +113,7 @@ class FrameSettingsModalComponent extends React.Component {
 
     let extensions = frame ? Object.keys(frame.extensions).map(key => key) : null;
 
-    let errorClasses = 'row row-errors ';
+    let errorClasses = 'row-errors ';
     errorClasses += errorMessage ? 'show' : 'hide';
 
     return (
@@ -123,7 +122,7 @@ class FrameSettingsModalComponent extends React.Component {
           isOpen={this.state.isOpen}
           shouldCloseOnOverlayClick={true}
           onAfterOpen={::this.afterOpenModal}
-          onRequestClose={::this.closeModal}
+          onRequestClose={::this._close}
           className="of-modal modal-dialog"
           overlayClassName="modal-backdrop"
           closeTimeoutMS={500}
@@ -131,69 +130,63 @@ class FrameSettingsModalComponent extends React.Component {
           <div className="modal-content">
               <form onSubmit={handleSubmit}>
                 <div className="modal-header">
-                    <button className="close" onClick={::this.closeModal} type=
+                    <button className="close" onClick={::this._close} type=
                       "button">&times;</button>
                     <h3 className="modal-title">Frame settings</h3>
                 </div>
-                <div className="modal-body container container-centered-form">
+                <div className="modal-body">
                     <div className={errorClasses}>
-                      <div className="col-md-12">
-                        <div className="alert alert-danger" role="alert">
-                          {errorMessage}
-                        </div>
+                      <div className="alert alert-danger" role="alert">
+                        {errorMessage}
                       </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                                <div className="form-group">
-                                    <label htmlFor="name">Frame name</label>
-                                    <input
-                                      ref={name.name}
-                                      type="text"
-                                      className="form-control"
-                                      name="name" id="Framename"
-                                      placeholder="name"
-                                      autoFocus={true}
-                                      autoCapitalize="off"
-                                      disabled={!isOwner}
-                                      {...name} />
-                                </div>
-                                { !isOwner
-                                  ? <div className="form-group">
-                                      <label htmlFor="owner">Owner</label>
-                                      <input
-                                        type="text"
-                                        className="form-control"
-                                        name="owner"
-                                        disabled={true}
-                                        value={owner.username} />
-                                    </div>
-                                  : null
-                                }
-                                <div className="form-group">
-                                    <label className="with-fFne-copy" htmlFor="Managers">Additional curators</label>
-                                    <CustomSelectComponent
-                                        {...managers}
-                                        disabled={!isOwner}
-                                        placeholder={isOwner ? 'Add by username...' : 'No additional curators'}
-                                        loadOptions={::this.fetchOptions}
-                                    />
-                                    <p className="fine-copy">Curators can push artwork to this frame, but not update its settings.</p>
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="Extensions">Extensions installed in this frame</label>
-                                    {
-                                      //<input type="text" className="form-control" name="extensions" id="Extensions" placeholder="no extensions" autoCapitalize="off" readOnly {...extensions}/>
-                                    }
-                                    <ul className="frame-settings-modal__extensions">
-                                    {
-                                      extensions && extensions.map(name => <li key={name} className="frame-settings-modal__extension">{name}</li>)
-                                    }
-                                    </ul>
-                                </div>
-                        </div>
+                    <div className="form-group">
+                        <label htmlFor="name">Frame name</label>
+                        <input
+                          ref={name.name}
+                          type="text"
+                          className="form-control"
+                          name="name" id="Framename"
+                          placeholder="name"
+                          autoFocus={true}
+                          autoCapitalize="off"
+                          disabled={!isOwner}
+                          {...name} />
                     </div>
-                </div>
+                    { !isOwner
+                      ? <div className="form-group">
+                          <label htmlFor="owner">Owner</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="owner"
+                            disabled={true}
+                            value={owner.username} />
+                        </div>
+                      : null
+                    }
+                    <div className="form-group">
+                        <label className="with-fFne-copy" htmlFor="Managers">Additional curators</label>
+                        <CustomSelectComponent
+                            {...managers}
+                            disabled={!isOwner}
+                            placeholder={isOwner ? 'Add by username...' : 'No additional curators'}
+                            loadOptions={::this.fetchOptions}
+                        />
+                        <p className="fine-copy">Curators can push artwork to this frame, but not update its settings.</p>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="Extensions">Extensions installed in this frame</label>
+                        {
+                          //<input type="text" className="form-control" name="extensions" id="Extensions" placeholder="no extensions" autoCapitalize="off" readOnly {...extensions}/>
+                        }
+                        <ul className="frame-settings-modal__extensions">
+                        {
+                          extensions && extensions.map(name => <li key={name} className="frame-settings-modal__extension">{name}</li>)
+                        }
+                        </ul>
+                    </div>
+                  </div>
                 <div className="modal-footer">
                   { isOwner
                     ? <div>

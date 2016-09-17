@@ -21,7 +21,7 @@ class FrameItemComponent extends React.Component {
 
   openSettings() {
     const {frame, actions} = this.props;
-    actions.openFrameSettingsModal(frame.id);
+    actions.editFrameSettings(frame.id);
   }
 
   render() {

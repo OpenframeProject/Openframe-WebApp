@@ -6,25 +6,17 @@ import {reduxForm} from 'redux-form';
 
 require('styles/user/LoginModal.scss');
 
-class LoginModalComponent extends React.Component {
+class RequestPasswordResetModalComponent extends React.Component {
   afterOpenModal() {
-    this.refs.username.focus();
+    this.refs.email.focus();
   }
 
   _close() {
     this.props.updateVisibleModal(null);
   }
 
-  _gotoCreate() {
-    this.props.updateVisibleModal('create-account');
-  }
-
-  _gotoPasswordReset() {
-    this.props.updateVisibleModal('request-password-reset');
-  }
-
   render() {
-    const {fields: {username, password}, handleSubmit, updateVisibleModal, modalError, isOpen} = this.props;
+    const {fields: {email}, handleSubmit, updateVisibleModal, modalError, isOpen} = this.props;
     let errorClasses = 'row-errors ';
     errorClasses += modalError ? 'show' : 'hide';
     return (
@@ -43,7 +35,7 @@ class LoginModalComponent extends React.Component {
             <div className="modal-header">
               <button className="close" onClick={::this._close} type=
               "button">&times;</button>
-              <h3 className="modal-title">Log In</h3>
+              <h3 className="modal-title">Request password reset</h3>
             </div>
             <div className="modal-body">
               <div className={errorClasses}>
@@ -52,23 +44,19 @@ class LoginModalComponent extends React.Component {
                 </div>
               </div>
               <div className="form-group">
-                  <label htmlFor="Username">Username</label>
-                  <input type="text" ref={username.name} className="form-control" placeholder="username" autoFocus={true} autoCapitalize="off" {...username}/>
-              </div>
-              <div className="form-group">
-                  <label htmlFor="Password">Password</label>
-                  <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
+                  <label htmlFor="Email">Email Address</label>
+                  <input type="text" ref={email.name} className="form-control" placeholder="email..." autoFocus={true} autoCapitalize="off" {...email}/>
               </div>
             </div>
             <div className="modal-footer">
               <div className="form-group">
-                  <button type="submit" className="btn btn-default btn-fw">Log In</button>
+                <button type="submit" className="btn btn-default btn-fw">Send Reset Link</button>
               </div>
               <div className="switch-text">
                   <p>
-                    <span className="anchor" onClick={() => updateVisibleModal('create-account')}>Create an account</span>
+                    <span className="anchor" onClick={() => updateVisibleModal('login')}>Login</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span className="anchor" onClick={() => updateVisibleModal('request-password-reset')}>Reset password</span>
+                    <span className="anchor" onClick={() => updateVisibleModal('create-account')}>Create an account</span>
                   </p>
               </div>
             </div>
@@ -79,17 +67,17 @@ class LoginModalComponent extends React.Component {
   }
 }
 
-LoginModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-  form: 'login',                           // a unique name for this form
-  fields: ['username', 'password'] // all the fields in your form
-})(LoginModalComponent);
+RequestPasswordResetModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
+  form: 'requestPasswordReset',                           // a unique name for this form
+  fields: ['email'] // all the fields in your form
+})(RequestPasswordResetModalComponent);
 
-LoginModalComponent.displayName = 'CommonLoginModalComponent';
+RequestPasswordResetModalComponent.displayName = 'CommonRequestPasswordResetModalComponent';
 
 // Uncomment properties you need
-LoginModalComponent.propTypes = {
+RequestPasswordResetModalComponent.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
-// LoginModalComponent.defaultProps = {};
+// RequestPasswordResetModalComponent.defaultProps = {};
 
-export default LoginModalComponent;
+export default RequestPasswordResetModalComponent;

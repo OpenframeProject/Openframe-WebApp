@@ -31,7 +31,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    openFrameSettingsModal: require('../../actions/ui/openFrameSettingsModal.js')
+    editFrameSettings: require('../../actions/frame/editFrameSettings.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

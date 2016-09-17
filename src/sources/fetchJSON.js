@@ -19,8 +19,8 @@ function prependApiBase(url) {
  * @param  {String} conf
  * @return {String}
  */
-function appendAccessToken(conf) {
-  let token = getToken();
+function appendAccessToken(conf, access_token) {
+  let token = access_token || getToken();
   conf.headers.Authorization = token;
   conf.headers.access_token = token;
   return conf;
@@ -72,7 +72,7 @@ function parseJSON(response) {
  * @param  {Object} options.data
  * @return {Promise}
  */
-export default function(url, { method = 'GET', data = {} } = {}) {
+export default function(url, { method = 'GET', data = {}, access_token = null } = {}) {
   return new Promise((resolve, reject) => {
     url = prependApiBase(url);
     let conf = {
@@ -82,7 +82,7 @@ export default function(url, { method = 'GET', data = {} } = {}) {
         'Content-Type': 'application/json'
       }
     };
-    conf = appendAccessToken(conf);
+    conf = appendAccessToken(conf, access_token);
     if (method !== 'GET' && method !== 'OPTIONS') {
       conf.body = JSON.stringify(data);
     } else {
@@ -90,11 +90,11 @@ export default function(url, { method = 'GET', data = {} } = {}) {
     }
 
     // on dev, add 1000ms delay to simulate loading
-    if (config.appEnv === 'dev') {
-      _.delay(doFetch, 1000, url, conf);
-    } else {
-      doFetch(url, conf);
-    }
+    // if (config.appEnv === 'dev') {
+    //   _.delay(doFetch, 1000, url, conf);
+    // } else {
+    // }
+    doFetch(url, conf);
 
     function doFetch(url, conf) {
       fetch(url, conf)
