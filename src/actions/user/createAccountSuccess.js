@@ -5,7 +5,7 @@ module.exports = function(user, password) {
   return dispatch => {
     dispatch({
       type: CREATE_ACCOUNT_SUCCESS,
-      notice: 'Thanks! You should receive a verification email shortly.',
+      notice: 'On it! A verification email has been sent to the address you provided. Please follow the link in the email to complete setting up your account.',
       user
     });
 
