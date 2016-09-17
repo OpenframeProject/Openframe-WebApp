@@ -15,7 +15,7 @@ class EditProfileModalComponent extends React.Component {
   render() {
     const { isOpen, modalError, onSubmit } = this.props;
 
-    let errorClasses = 'row row-errors ';
+    let errorClasses = 'row-errors ';
     errorClasses += modalError ? 'show' : 'hide';
 
     return (
@@ -36,20 +36,16 @@ class EditProfileModalComponent extends React.Component {
           </div>
           <div className="modal-body">
             <div className={errorClasses}>
-              <div className="col-md-12">
-                <div className="alert alert-danger" role="alert">
-                  {modalError}
-                </div>
+              <div className="alert alert-danger" role="alert">
+                {modalError}
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-12">
-                <EditProfileFormComponent
-                  onSubmit={onSubmit}
-                  submitText="Save Profile"
-                  ref="form" />
-              </div>
-            </div>
+
+              <EditProfileFormComponent
+                onSubmit={onSubmit}
+                submitText="Save Profile"
+                ref="form" />
+
           </div>
         </div>
 

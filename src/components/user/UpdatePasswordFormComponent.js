@@ -12,14 +12,6 @@ class UpdatePasswordFormComponent extends React.Component {
     }.bind(this), 0);
   }
 
-  onSubmit(fields) {
-    if (fields.password !== fields.confirmPassword) {
-      return false;
-    }
-    delete fields.confirmPassword;
-    this.handleSubmit(fields);
-  }
-
   render() {
     const {
       fields: {

@@ -155,6 +155,10 @@ const users = {
 
   removeFromFrame: function(frameId, userId = 'current') {
     return fetchJSON(`${modelPrefix}/${userId}/managed_frames/rel/${frameId}`, { method: 'DELETE'});
+  },
+
+  passwordReset: function(email) {
+    return fetchJSON(`${modelPrefix}/reset`, { method: 'POST', data: { email }});
   }
 };
 

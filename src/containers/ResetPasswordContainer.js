@@ -22,19 +22,14 @@ class ResetPasswordContainer extends Component {
   }
 
   componentWillMount() {
-    console.log('componentWillMount');
-
     const { actions, params } = this.props;
     let self = this;
     if (params.accessToken) {
-      console.log('fetching user...');
       users.fetchById('current', {}, params.accessToken)
         .then(user => {
-          console.log('user', user);
-          self._setValid();
+          self._setValid(user.id);
         })
         .catch(error => {
-          console.log('error', error);
           self._setInvalid();
         })
     } else {
@@ -42,16 +37,15 @@ class ResetPasswordContainer extends Component {
     }
   }
 
-  _setValid() {
-    console.log('_setValid');
+  _setValid(userId) {
     this.setState({
       tokenIsValid: true,
-      isLoading: false
+      isLoading: false,
+      userId: userId
     });
   }
 
   _setInvalid() {
-    console.log('_setInvalid');
     this.setState({
       tokenIsValid: false,
       isLoading: false
@@ -63,7 +57,7 @@ class ResetPasswordContainer extends Component {
   }
 
   render() {
-    const { actions, passwordResetToken, params } = this.props;
+    const { params } = this.props;
     return (
       <div className="container reset-password-container">
         { this.state.isLoading
@@ -71,13 +65,13 @@ class ResetPasswordContainer extends Component {
           : null
         }
         { !this.state.isLoading && this.state.tokenIsValid
-          ? <ResetPasswordModalContainer onRequestClose={::this._onRequestClose} isOpen={true} accessToken={params.accessToken} />
+          ? <ResetPasswordModalContainer onRequestClose={::this._onRequestClose} isOpen={true} userId={this.state.userId} accessToken={params.accessToken} />
           : null
         }
         { !this.state.isLoading && !this.state.tokenIsValid
           ? <div>
               <h3>Invalid password reset link</h3>
-              <p>Sorry, but something doesn't seem right.</p>
+              <p>Sorry, something doesn't seem right.</p>
             </div>
           : null
         }

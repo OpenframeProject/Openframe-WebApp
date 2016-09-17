@@ -5,8 +5,8 @@ import React from 'react';
 require('styles/common/NoticeBanner.scss');
 
 class NoticeBannerComponent extends React.Component {
-  _closeNotice() {
-    this.props.closeNoticeBanner();
+  _close() {
+    this.props.updateNoticeBanner(null);
   }
 
   render() {
@@ -16,7 +16,7 @@ class NoticeBannerComponent extends React.Component {
       <div className="notice-banner">
         <div className="container">
           <div className="alert alert-info">
-            <button type="button" className="close" aria-label="Close" onClick={::this._closeNotice}><span aria-hidden="true">&times;</span></button>
+            <button type="button" className="close" aria-label="Close" onClick={::this._close}><span aria-hidden="true">&times;</span></button>
             <span dangerouslySetInnerHTML={{__html: notice}}></span>
           </div>
         </div>

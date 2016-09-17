@@ -7,17 +7,8 @@ import EditButtonComponent from '../common/EditButtonComponent';
 require('styles/user/ProfileHeader.scss');
 
 class ProfileHeaderComponent extends React.Component {
-
-  _handleEditClick(e) {
-    e.preventDefault();
-    let { openEditProfileModal } = this.props;
-    console.log(openEditProfileModal);
-    openEditProfileModal();
-  }
-
-
   render() {
-    const { user, currentUser } = this.props;
+    const { user, currentUser, updateVisibleModal } = this.props;
 
     if (!user) return null;
 
@@ -45,7 +36,7 @@ class ProfileHeaderComponent extends React.Component {
 
         <div className="profile-header__actions">
           { currentUser && user.id === currentUser.id
-            ? <EditButtonComponent handleClick={::this._handleEditClick} />
+            ? <EditButtonComponent handleClick={() => updateVisibleModal('edit-profile')} />
             : null
           }
         </div>

@@ -14,19 +14,21 @@ class ResetPasswordModalContainer extends Component {
   }
 
   _onSubmit(fields) {
-    let { actions, accessToken } = this.props;
+    console.log('---fields', fields);
+    let { actions, accessToken, userId } = this.props;
     if (fields.password && fields.password !== fields.passwordConfirm) {
       actions.updateUserFailure('Passwords do not match');
       return;
     }
-    actions.updateUserRequest(fields, accessToken);
+    delete fields.passwordConfirm;
+    actions.updateUserRequest(fields, userId, accessToken);
   }
 
   render() {
-    const { isOpen, updateUserError } = this.props;
+    const { isOpen, modalError } = this.props;
 
     let errorClasses = 'row row-errors ';
-    errorClasses += updateUserError ? 'show' : 'hide';
+    errorClasses += modalError ? 'show' : 'hide';
 
     return (
       <Modal
@@ -42,13 +44,13 @@ class ResetPasswordModalContainer extends Component {
           <div className="modal-header">
             <button className="close" onClick={::this._close} type=
             "button">&times;</button>
-            <h3 className="modal-title">New Password</h3>
+            <h3 className="modal-title">Update Password</h3>
           </div>
           <div className="modal-body">
             <div className={errorClasses}>
               <div className="col-md-12">
                 <div className="alert alert-danger" role="alert">
-                  {updateUserError}
+                  {modalError}
                 </div>
               </div>
             </div>
@@ -75,7 +77,7 @@ ResetPasswordModalContainer.propTypes = {
 function mapStateToProps(state, ownProps) {
   const props = {
     isOpen: ownProps.isOpen,
-    updateUserError: state.ui.updateUserError
+    modalError: state.ui.modalError
   };
   return props;
 }

@@ -8,16 +8,17 @@ import { connect } from 'react-redux';
 import LoginModalComponent from '../components/user/LoginModalComponent';
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
 import EditProfileModalComponent from '../components/user/EditProfileModalComponent';
+import RequestPasswordResetModalComponent from '../components/user/RequestPasswordResetModalComponent';
 import FrameSettingsModalComponent from '../components/frame/FrameSettingsModalComponent';
 import CreateAccountNoticeComponent from '../components/common/CreateAccountNoticeComponent';
 
 class ModalManagerContainer extends Component {
-  handleSubmitLogin(fields) {
+  _handleSubmitLogin(fields) {
     let { actions } = this.props;
     actions.loginRequest(fields);
   }
 
-  handleSubmitCreateAccount(fields) {
+  _handleSubmitCreateAccount(fields) {
     let { actions } = this.props;
     if (fields.password && fields.password !== fields.passwordConfirm) {
       actions.createAccountFailure('Passwords do not match');
@@ -26,7 +27,7 @@ class ModalManagerContainer extends Component {
     actions.createAccountRequest(fields);
   }
 
-  handleSubmitEditProfile(fields) {
+  _handleSubmitEditProfile(fields) {
     let { actions } = this.props;
     if (fields.password && fields.password !== fields.passwordConfirm) {
       actions.updateUserFailure('Passwords do not match');
@@ -35,7 +36,7 @@ class ModalManagerContainer extends Component {
     actions.updateUserRequest(fields);
   }
 
-  handleSubmitFrameSettings(fields) {
+  _handleSubmitFrameSettings(fields) {
     let { actions, settingsFrameId } = this.props;
     if (!fields.name) {
       actions.updateFrameFailure('Frame name is required.');
@@ -47,6 +48,14 @@ class ModalManagerContainer extends Component {
     }
   }
 
+  _handleRequestPasswordReset(fields) {
+    let { actions } = this.props;
+    if (!fields.email) {
+      actions.passwordResetFailure('Please enter your email address.');
+    }
+    actions.passwordResetRequest(fields.email);
+  }
+
   render() {
     const {actions, visibleModal, modalError} = this.props;
     return (
@@ -54,19 +63,19 @@ class ModalManagerContainer extends Component {
         <LoginModalComponent
           isOpen={visibleModal === 'login'}
           updateVisibleModal={actions.updateVisibleModal}
-          onSubmit={::this.handleSubmitLogin}
+          onSubmit={::this._handleSubmitLogin}
           modalError={modalError} />
 
         <CreateAccountModalComponent
           isOpen={visibleModal === 'create-account'}
           updateVisibleModal={actions.updateVisibleModal}
-          onSubmit={::this.handleSubmitCreateAccount}
+          onSubmit={::this._handleSubmitCreateAccount}
           modalError={modalError} />
 
         <EditProfileModalComponent
           isOpen={visibleModal === 'edit-profile'}
           updateVisibleModal={actions.updateVisibleModal}
-          onSubmit={::this.handleSubmitEditProfile}
+          onSubmit={::this._handleSubmitEditProfile}
           modalError={modalError} />
 
         <FrameSettingsModalComponent
@@ -75,11 +84,17 @@ class ModalManagerContainer extends Component {
           modalError={modalError}
           deleteFrameRequest={actions.deleteFrameRequest}
           removeFromFrameRequest={actions.removeFromFrameRequest}
-          onSubmit={::this.handleSubmitFrameSettings} />
+          onSubmit={::this._handleSubmitFrameSettings} />
 
         <CreateAccountNoticeComponent
           isOpen={visibleModal === 'create-account-notice'}
           updateVisibleModal={actions.updateVisibleModal} />
+
+        <RequestPasswordResetModalComponent
+          isOpen={visibleModal === 'request-password-reset'}
+          updateVisibleModal={actions.updateVisibleModal}
+          modalError={modalError}
+          onSubmit={::this._handleRequestPasswordReset} />
       </div>
     );
   }
@@ -116,6 +131,8 @@ function mapDispatchToProps(dispatch) {
     removeFromFrameFailure: require('../actions/user/removeFromFrameFailure.js'),
     updateFrameManagersRequest: require('../actions/frame/updateFrameManagersRequest.js'),
     updateFrameFailure: require('../actions/frame/updateFrameFailure.js'),
+    passwordResetRequest: require('../actions/auth/passwordResetRequest.js'),
+    passwordResetFailure: require('../actions/auth/passwordResetFailure.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

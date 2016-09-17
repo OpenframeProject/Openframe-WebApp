@@ -109,7 +109,7 @@ class App extends Component {
         />
 
         { ui.notice
-          ? <NoticeBannerComponent notice={ ui.notice } closeNoticeBanner={actions.closeNoticeBanner}/>
+          ? <NoticeBannerComponent notice={ ui.notice } updateNoticeBanner={actions.updateNoticeBanner}/>
           : null
         }
 
@@ -200,7 +200,7 @@ function mapDispatchToProps(dispatch) {
     updateSidebarState: require('../actions/ui/updateSidebarState.js'),
     updateNoticeBanner: require('../actions/ui/updateNoticeBanner.js'),
 
-    closeNoticeBanner: require('../actions/ui/closeNoticeBanner.js'),
+    updateNoticeBanner: require('../actions/ui/updateNoticeBanner.js'),
     openSidebar: require('../actions/ui/openSidebar.js'),
     closeSidebar: require('../actions/ui/closeSidebar.js'),
     openLoginModal: require('../actions/ui/openLoginModal.js'),

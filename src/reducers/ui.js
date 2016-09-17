@@ -16,6 +16,8 @@ import {
   UPDATE_FRAME_FAILURE,
   UPDATE_FRAME_MANAGERS_SUCCESS,
   UPDATE_FRAME_MANAGERS_FAILURE,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAILURE,
 
   UPDATE_NOTICE_BANNER,
   UPDATE_VISIBLE_MODAL,
@@ -60,6 +62,7 @@ module.exports = function(state = initialState, action) {
     case LOGIN_SUCCESS:
     case CREATE_ACCOUNT_SUCCESS:
     case LOGOUT_SUCCESS:
+    case PASSWORD_RESET_SUCCESS:
     case UPDATE_USER_SUCCESS:
     case UPDATE_FRAME_SUCCESS:
     case UPDATE_FRAME_MANAGERS_SUCCESS: {
@@ -78,7 +81,8 @@ module.exports = function(state = initialState, action) {
     case CREATE_ACCOUNT_FAILURE:
     case UPDATE_USER_FAILURE:
     case UPDATE_FRAME_FAILURE:
-    case UPDATE_FRAME_MANAGERS_FAILURE:{
+    case UPDATE_FRAME_MANAGERS_FAILURE:
+    case PASSWORD_RESET_FAILURE: {
       return {
         ...state,
         modalError: action.error
@@ -97,7 +101,10 @@ module.exports = function(state = initialState, action) {
       }
 
     case UPDATE_NOTICE_BANNER: {
-      notice: action.notice
+      return {
+        ...state,
+        notice: action.notice
+      }
     }
 
     default: {
