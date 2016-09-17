@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 require('styles/common/FeatureFlagsContainer.scss');
 
 class FeatureFlagsContainer extends Component {
-    constructor(props) {
-      super(props);
-      this.state = props.featureFlags;
-    }
+  constructor(props) {
+    super(props);
+    this.state = props.featureFlags;
+  }
 
   onChange(e) {
     let { actions } = this.props;

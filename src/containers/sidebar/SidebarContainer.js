@@ -22,10 +22,10 @@ class SidebarContainer extends Component {
           frames={getFramesList(frames.byId, frames.ids)}
           selectedFrameId={selectedFrameId}
           isOpen={ui.sidebarOpen}
-          closeSidebar={actions.closeSidebar}
           selectFrame={actions.selectFrame}
-          openEditProfileModal={actions.openEditProfileModal}
-          openFrameSettingsModal={actions.openFrameSettingsModal}
+          editFrameSettings={actions.editFrameSettings}
+          updateSidebarState={actions.updateSidebarState}
+          updateVisibleModal={actions.updateVisibleModal}
           logoutRequest={actions.logoutRequest}
           location={location} />
       </div>
@@ -49,10 +49,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    closeSidebar: require('../../actions/ui/closeSidebar.js'),
+    updateVisibleModal: require('../../actions/ui/updateVisibleModal.js'),
+    updateSidebarState: require('../../actions/ui/updateSidebarState.js'),
     selectFrame: require('../../actions/frame/selectFrame.js'),
-    openEditProfileModal: require('../../actions/ui/openEditProfileModal.js'),
-    openFrameSettingsModal: require('../../actions/ui/openFrameSettingsModal.js'),
+    editFrameSettings: require('../../actions/frame/editFrameSettings.js'),
+
     logoutRequest: require('../../actions/auth/logoutRequest.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };

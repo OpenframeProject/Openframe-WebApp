@@ -5,14 +5,14 @@
  */
 
 import {
-  OPEN_FRAME_SETTINGS_MODAL
+  EDIT_FRAME_SETTINGS
 } from '../../actions/const'
 
 const initialState = null;
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case OPEN_FRAME_SETTINGS_MODAL:
+    case EDIT_FRAME_SETTINGS:
       return action.frameId;
     default: {
       /* Return original state if no actions were consumed. */

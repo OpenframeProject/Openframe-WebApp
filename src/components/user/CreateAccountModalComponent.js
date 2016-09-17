@@ -8,26 +8,25 @@ import EditProfileFormComponent from './EditProfileFormComponent';
 require('styles/user/CreateAccountModal.scss');
 
 class CreateAccountModalComponent extends React.Component {
-  closeModal() {
-    this.props.closeCreateAccountModal();
+  _close() {
+    this.props.updateVisibleModal(null);
   }
 
-  goToLogin() {
-    this.props.closeCreateAccountModal();
-    this.props.openLoginModal();
+  _goToLogin() {
+    this.props.updateVisibleModal('login');
   }
 
   render() {
-    const { isOpen, createError, onSubmit } = this.props;
+    const { isOpen, modalError, onSubmit } = this.props;
 
     let errorClasses = 'row row-errors ';
-    errorClasses += createError ? 'show' : 'hide';
+    errorClasses += modalError ? 'show' : 'hide';
 
     return (
       <Modal
         isOpen={isOpen}
         shouldCloseOnOverlayClick={true}
-        onRequestClose={::this.closeModal}
+        onRequestClose={::this._close}
         className="of-modal modal-dialog"
         overlayClassName="modal-backdrop"
         closeTimeoutMS={500}
@@ -35,7 +34,7 @@ class CreateAccountModalComponent extends React.Component {
 
         <div className="modal-content">
           <div className="modal-header">
-            <button className="close" onClick={::this.closeModal} type=
+            <button className="close" onClick={::this._close} type=
             "button">&times;</button>
             <h3 className="modal-title">Create Account</h3>
           </div>
@@ -43,7 +42,7 @@ class CreateAccountModalComponent extends React.Component {
             <div className={errorClasses}>
               <div className="col-md-12">
                 <div className="alert alert-danger" role="alert">
-                  {createError}
+                  {modalError}
                 </div>
               </div>
             </div>
@@ -56,7 +55,7 @@ class CreateAccountModalComponent extends React.Component {
                   ref="form" />
 
                 <div className="switch-text">
-                  <p>Already have an account? <span className="anchor" onClick={::this.goToLogin} >Log in here</span></p>
+                  <p>Already have an account? <span className="anchor" onClick={::this._goToLogin} >Log in here</span></p>
                 </div>
 
               </div>

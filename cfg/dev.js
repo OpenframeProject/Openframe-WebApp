@@ -10,7 +10,7 @@ let BowerWebpackPlugin = require('bower-webpack-plugin');
 
 let config = Object.assign({}, baseConfig, {
   entry: [
-    'webpack/hot/only-dev-server',
+    'webpack/hot/only-dev-server?client=http://localhost:8000',
     './src/index'
   ],
   cache: true,

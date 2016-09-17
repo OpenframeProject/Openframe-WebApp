@@ -83,7 +83,7 @@ class EditProfileFormComponent extends React.Component {
 }
 
 EditProfileFormComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-    form: 'login',                           // a unique name for this form
+    form: 'profile',                           // a unique name for this form
     fields: [
       'full_name',
       'username',
