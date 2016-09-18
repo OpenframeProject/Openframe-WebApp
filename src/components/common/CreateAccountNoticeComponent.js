@@ -6,34 +6,15 @@ import Modal from 'react-modal';
 require('styles/common/CreateAccountNotice.scss');
 
 class CreateAccountNoticeComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: props.isOpen
-    }
-  }
-
-  // Allow opening from parent component
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      isOpen: nextProps.isOpen
-    });
-  }
-
   _close() {
-    this.setState({
-      isOpen: false
-    });
-    if (this.props.onRequestClose) {
-      this.props.onRequestClose();
-    }
+    this.props.updateVisibleModal(null);
   }
 
   render() {
     const { updateVisibleModal } = this.props;
     return (
       <Modal
-        isOpen={this.state.isOpen}
+        isOpen={this.props.isOpen}
         shouldCloseOnOverlayClick={true}
         onRequestClose={::this._close}
         className="of-modal modal-dialog create-account-notice"

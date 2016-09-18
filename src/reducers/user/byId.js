@@ -24,9 +24,16 @@ export default function(state = initialState, action) {
     case UPDATE_USER_SUCCESS:
     case FETCH_FRAMES_SUCCESS:
     case UPDATE_FRAME_MANAGERS_SUCCESS:
+      // if we already have some data for incoming user, merge the properties rather than replacing
+      // entire object
+      let incomingUsers = action.response.entities.user;
+      let updatedUsers = {};
+      Object.keys(incomingUsers).map(id => {
+        updatedUsers[id] = state[id] ? {...state[id], ...incomingUsers[id] } : incomingUsers[id];
+      });
       return {
         ...state,
-        ...action.response.entities.user
+        ...updatedUsers
       };
     default: {
       /* Return original state if no actions were consumed. */

@@ -24,7 +24,7 @@ class LikesContainer extends Component {
     const { actions, user, currentUser, isFetching, artworkList, location, likesHasMore } = this.props;
     return (
       <div>
-        <ProfileHeaderComponent user={user} currentUser={currentUser} openEditProfileModal={actions.openEditProfileModal} />
+        <ProfileHeaderComponent user={user} currentUser={currentUser} updateVisibleModal={actions.updateVisibleModal} />
 
         <div className="container">
           <YouSubMenuComponent location={location} user={user} currentUser={currentUser} />
@@ -77,8 +77,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    openEditProfileModal: require('../actions/ui/openEditProfileModal.js'),
-    fetchUserLikesRequest: require('../actions/user/fetchUserLikesRequest.js')
+    fetchUserLikesRequest: require('../actions/user/fetchUserLikesRequest.js'),
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

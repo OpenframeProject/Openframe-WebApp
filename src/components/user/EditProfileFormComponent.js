@@ -30,6 +30,11 @@ class EditProfileFormComponent extends React.Component {
     this.handleSubmit(fields);
   }
 
+  _handleChangePassword(e) {
+    e.preventDefault();
+    this.props.updateVisibleModal('reset-password');
+  }
+
   render() {
     const {
       fields: {
@@ -40,7 +45,7 @@ class EditProfileFormComponent extends React.Component {
         passwordConfirm,
         website,
         twitter
-      }, handleSubmit, submitText } = this.props;
+      }, handleSubmit, submitText, currentUser } = this.props;
 
     let _submitText = submitText || 'Submit';
 
@@ -58,14 +63,20 @@ class EditProfileFormComponent extends React.Component {
               <label htmlFor="Email">Email</label>
               <input type="email" className="form-control" placeholder="email" autoCapitalize="off" {...email}/>
           </div>
-          <div className="form-group">
-              <label htmlFor="Password">Password</label>
-              <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
-          </div>
-          <div className="form-group">
-              <label htmlFor="AdminPassConfirm">Confirm Password</label>
-              <input type="password" className="form-control" autoCapitalize="off" placeholder="confirm password" {...passwordConfirm}/>
-          </div>
+          { !currentUser
+            ? <div>
+                <div className="form-group">
+                  <label htmlFor="Password">Password</label>
+                  <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="AdminPassConfirm">Confirm Password</label>
+                    <input type="password" className="form-control" autoCapitalize="off" placeholder="confirm password" {...passwordConfirm}/>
+                </div>
+              </div>
+            :null
+          }
+
           <div className="form-group">
               <label htmlFor="Website">Website (optional)</label>
               <input type="text" className="form-control" placeholder="http://..." autoCapitalize="off" {...website}/>
@@ -74,6 +85,13 @@ class EditProfileFormComponent extends React.Component {
               <label htmlFor="Twitter">Twitter (optional)</label>
               <input type="text" className="form-control" placeholder="handle" autoCapitalize="off" {...twitter}/>
           </div>
+
+          { currentUser
+            ? <div className="form-group">
+                  <a href="#" onClick={::this._handleChangePassword}>Change password</a>
+              </div>
+            : null
+          }
           <div className="form-group">
               <button href="#" className="btn btn-default btn-fw">{ _submitText }</button>
           </div>
@@ -98,7 +116,8 @@ EditProfileFormComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
     initialValues: {
       ...getCurrentUser(state.user),
       passwordConfirm: ''
-    }  // will pull state into form's initialValues
+    },
+    currentUser: getCurrentUser(state.user)
   }))(EditProfileFormComponent);
 
 

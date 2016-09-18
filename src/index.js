@@ -21,6 +21,10 @@ import FeatureFlagsContainer from './containers/FeatureFlagsContainer';
 import VerifiedEmailContainer from './containers/VerifiedEmailContainer';
 import ResetPasswordContainer from './containers/ResetPasswordContainer';
 
+require('./images/touch-icon-iphone.png');
+require('./images/touch-icon-ipad.png');
+require('./images/touch-icon-iphone-retina.png');
+require('./images/touch-icon-ipad-retina.png');
 
 const fixBody = require('./actions/ui/fixBody.js');
 const unfixBody = require('./actions/ui/unfixBody.js');

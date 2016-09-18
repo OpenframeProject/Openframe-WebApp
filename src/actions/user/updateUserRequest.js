@@ -11,10 +11,11 @@ module.exports = function(data, userId = 'current', accessToken) {
     });
     return users.update(userId, data, accessToken).then(
       response => {
-        dispatch(updateUserSuccess(response));
-        if (data.password) {
+        let notice = !accessToken ? 'Your password has been updated.' : null;
+        if (accessToken) {
           dispatch(updateVisibleModal('login'));
         }
+        dispatch(updateUserSuccess(response, notice));
       },
       error => dispatch(updateUserFailure(error))
     );
