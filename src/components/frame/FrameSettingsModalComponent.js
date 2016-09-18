@@ -20,6 +20,9 @@ require('styles//frame/FrameSettingsModal.scss');
 class FrameSettingsModalComponent extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log('props ----->', props);
+
     this.state = {
       confirmAction: false,
       body: props.isOwner
@@ -48,9 +51,17 @@ class FrameSettingsModalComponent extends React.Component {
     }, 250);
   }
 
-  // Allow opening from parent component
+  // Allow opening from parent, reset context-specific confirm dialog
   componentWillReceiveProps(nextProps) {
     this.setState({
+      confirmAction: false,
+      body: nextProps.isOwner
+        ? 'Deleting a frame cannot be undone.'
+        : 'Leaving this frame will remove it from your Frames list, and you will no longer be able to push artwork to it.',
+      title: 'Are you sure?',
+      acceptText: nextProps.isOwner ? 'Delete Frame' : 'Leave Frame',
+      cancelText: 'Cancel',
+      acceptHandler: nextProps.isOwner ? ::this._doDelete : ::this._doLeave,
       isOpen: nextProps.isOpen
     });
   }
@@ -216,6 +227,9 @@ FrameSettingsModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
       label: user.username,
       value: user.id
     }));
+
+    console.log('----->', frame && frame.ownerId, state.user.current);
+
     return { // mapStateToProps
       frame: frame,
       owner: frame && frame.ownerId ? getById(state.user.byId, frame.ownerId) : {},
