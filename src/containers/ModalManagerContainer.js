@@ -12,6 +12,8 @@ import RequestPasswordResetModalComponent from '../components/user/RequestPasswo
 import FrameSettingsModalComponent from '../components/frame/FrameSettingsModalComponent';
 import CreateAccountNoticeComponent from '../components/common/CreateAccountNoticeComponent';
 
+import ResetPasswordModalContainer from './ResetPasswordModalContainer';
+
 class ModalManagerContainer extends Component {
   _handleSubmitLogin(fields) {
     let { actions } = this.props;
@@ -52,6 +54,7 @@ class ModalManagerContainer extends Component {
     let { actions } = this.props;
     if (!fields.email) {
       actions.passwordResetFailure('Please enter your email address.');
+      return;
     }
     actions.passwordResetRequest(fields.email);
   }
@@ -95,6 +98,10 @@ class ModalManagerContainer extends Component {
           updateVisibleModal={actions.updateVisibleModal}
           modalError={modalError}
           onSubmit={::this._handleRequestPasswordReset} />
+
+        <ResetPasswordModalContainer
+          isOpen={visibleModal === 'reset-password'}
+          updateVisibleModal={actions.updateVisibleModal} />
       </div>
     );
   }

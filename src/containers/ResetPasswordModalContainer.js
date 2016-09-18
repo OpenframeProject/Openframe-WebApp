@@ -14,7 +14,6 @@ class ResetPasswordModalContainer extends Component {
   }
 
   _onSubmit(fields) {
-    console.log('---fields', fields);
     let { actions, accessToken, userId } = this.props;
     if (fields.password && fields.password !== fields.passwordConfirm) {
       actions.updateUserFailure('Passwords do not match');
@@ -77,6 +76,7 @@ ResetPasswordModalContainer.propTypes = {
 function mapStateToProps(state, ownProps) {
   const props = {
     isOpen: ownProps.isOpen,
+    forceLogin: ownProps.forceLogin || false,
     modalError: state.ui.modalError
   };
   return props;

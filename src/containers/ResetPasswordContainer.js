@@ -65,7 +65,11 @@ class ResetPasswordContainer extends Component {
           : null
         }
         { !this.state.isLoading && this.state.tokenIsValid
-          ? <ResetPasswordModalContainer onRequestClose={::this._onRequestClose} isOpen={true} userId={this.state.userId} accessToken={params.accessToken} />
+          ? <ResetPasswordModalContainer
+              onRequestClose={::this._onRequestClose}
+              isOpen={true}
+              userId={this.state.userId}
+              accessToken={params.accessToken} />
           : null
         }
         { !this.state.isLoading && !this.state.tokenIsValid

@@ -13,7 +13,7 @@ class EditProfileModalComponent extends React.Component {
   }
 
   render() {
-    const { isOpen, modalError, onSubmit } = this.props;
+    const { isOpen, modalError, onSubmit, updateVisibleModal } = this.props;
 
     let errorClasses = 'row-errors ';
     errorClasses += modalError ? 'show' : 'hide';
@@ -43,6 +43,7 @@ class EditProfileModalComponent extends React.Component {
 
               <EditProfileFormComponent
                 onSubmit={onSubmit}
+                updateVisibleModal={updateVisibleModal}
                 submitText="Save Profile"
                 ref="form" />
 

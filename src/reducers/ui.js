@@ -50,7 +50,6 @@ module.exports = function(state = initialState, action) {
 
     // Sidebar-related
     case SELECT_FRAME:
-    case LOGOUT_SUCCESS:
     case UPDATE_SIDEBAR_STATE: {
       return {
         ...state,
@@ -61,7 +60,6 @@ module.exports = function(state = initialState, action) {
 
     case LOGIN_SUCCESS:
     case CREATE_ACCOUNT_SUCCESS:
-    case LOGOUT_SUCCESS:
     case PASSWORD_RESET_SUCCESS:
     case UPDATE_USER_SUCCESS:
     case UPDATE_FRAME_SUCCESS:
@@ -86,6 +84,13 @@ module.exports = function(state = initialState, action) {
       return {
         ...state,
         modalError: action.error
+      }
+    }
+
+    // on logout, set to initial UI state
+    case LOGOUT_SUCCESS: {
+      return {
+        ...initialState
       }
     }
 
