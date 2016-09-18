@@ -3,14 +3,14 @@ import deleteFrameSuccess from './deleteFrameSuccess';
 import deleteFrameFailure from './deleteFrameFailure';
 import {frames} from '../../sources/api';
 
-module.exports = function(frameId) {
+module.exports = function(frame) {
   return dispatch => {
 		dispatch({
 			type: DELETE_FRAME_REQUEST
 		});
 		// fetchById defaults to 'current' user
-		return frames.delete(frameId).then(
-			response => dispatch(deleteFrameSuccess(frameId)),
+		return frames.delete(frame.id).then(
+			response => dispatch(deleteFrameSuccess(frame)),
 			error => dispatch(deleteFrameFailure(error))
 		);
 	}

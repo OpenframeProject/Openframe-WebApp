@@ -3,14 +3,14 @@ import removeFromFrameSuccess from './removeFromFrameSuccess';
 import removeFromFrameFailure from './removeFromFrameFailure';
 import {users} from '../../sources/api';
 
-module.exports = function(frameId) {
+module.exports = function(frame) {
   return dispatch => {
 		dispatch({
 			type: REMOVE_FROM_FRAME_REQUEST
 		});
 		// fetchById defaults to 'current' user
-		return users.removeFromFrame(frameId).then(
-			response => dispatch(removeFromFrameSuccess(frameId)),
+		return users.removeFromFrame(frame.id).then(
+			response => dispatch(removeFromFrameSuccess(frame)),
 			error => dispatch(removeFromFrameFailure(error))
 		);
 	}
