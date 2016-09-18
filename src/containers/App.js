@@ -108,11 +108,7 @@ class App extends Component {
           scrollableAncestor={window}
         />
 
-        { ui.notice
-          ? <NoticeBannerComponent notice={ ui.notice } updateNoticeBanner={actions.updateNoticeBanner}/>
-          : null
-        }
-
+        <NoticeBannerComponent notice={ ui.notice } updateNoticeBanner={actions.updateNoticeBanner}/>
 
         <div className='app-content-wrap'>
           {isStatefulModal ?

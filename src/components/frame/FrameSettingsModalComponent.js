@@ -88,13 +88,13 @@ class FrameSettingsModalComponent extends React.Component {
 
   _doDelete() {
     let { deleteFrameRequest, frame } = this.props;
-    deleteFrameRequest(frame.id);
+    deleteFrameRequest(frame);
     this._close();
   }
 
   _doLeave() {
     let { removeFromFrameRequest, frame } = this.props;
-    removeFromFrameRequest(frame.id);
+    removeFromFrameRequest(frame);
     this._close();
   }
 

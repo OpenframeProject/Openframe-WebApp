@@ -1,8 +1,31 @@
+@import "bootstrap/variables";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+
 .notice-banner {
   background: #fff;
-  padding: 20px;
+  overflow-y: hidden;
 
-  .alert {
-    margin: 0;
+  .container {
+    padding: 20px;
+  }
+}
+
+.notice-banner-enter {
+  @include transition(all .5s ease-in-out);
+  max-height: 0;
+  opacity: .5;
+  &-active {
+    opacity: 1;
+    max-height: 200px;
+  }
+}
+
+.notice-banner-leave {
+  @include transition(all .2s ease-in-out);
+  max-height: 200px;
+  &-active {
+    max-height: 0;
+    opacity: .5;
   }
 }
