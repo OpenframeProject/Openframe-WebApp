@@ -6,6 +6,6 @@ module.exports = function(notice) {
     notice
   };
   return dispatch => {
-    dispatch(noticeAction);
+    setTimeout(() => dispatch(noticeAction), 500);
   };
 };
