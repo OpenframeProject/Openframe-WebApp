@@ -5,17 +5,34 @@
 .notice-banner {
   background: #fff;
   overflow-y: hidden;
-  // max-height: 0;
+
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  z-index: 1;
 
   .container {
     padding: 20px;
+  }
+
+  &--info {
+    color: #006;
+  }
+
+  &--success {
+    color: #060;
+  }
+
+  &--warning {
+    color: #600;
   }
 }
 
 .notice-banner-enter {
   @include transition(all .25s ease-out);
   max-height: 0;
-  opacity: .5;
+  opacity: .8;
   &-active {
     opacity: 1;
     max-height: 200px;
@@ -23,10 +40,10 @@
 }
 
 .notice-banner-leave {
-  @include transition(all .25s ease-out);
+  @include transition(all .25s ease-in-out);
   max-height: 200px;
   &-active {
     max-height: 0;
-    opacity: .5;
+    opacity: .8;
   }
 }

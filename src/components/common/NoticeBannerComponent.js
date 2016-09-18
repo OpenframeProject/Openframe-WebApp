@@ -24,6 +24,9 @@ class NoticeBannerComponent extends React.Component {
         notice: nextProps.notice,
         isOpen: true
       });
+      setTimeout(() => {
+        this._close();
+      }, 5000, this);
     } else {
       this.setState({
         isOpen: false
@@ -32,6 +35,8 @@ class NoticeBannerComponent extends React.Component {
   }
 
   render() {
+    let noticeType = this.props.noticeType || 'info';
+    let noticeClass = 'notice-banner--' + noticeType;
     return (
       <ReactCSSTransitionGroup
         transitionName="notice-banner"
@@ -40,7 +45,7 @@ class NoticeBannerComponent extends React.Component {
 
         {
           this.state.isOpen
-          ? <div className="notice-banner">
+          ? <div className={'notice-banner ' + noticeClass}>
               <div className="container">
                 <button type="button" className="close" aria-label="Close" onClick={::this._close}><span aria-hidden="true">&times;</span></button>
                 <span dangerouslySetInnerHTML={{__html: this.state.notice }}></span>
