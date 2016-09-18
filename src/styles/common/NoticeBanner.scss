@@ -5,6 +5,7 @@
 .notice-banner {
   background: #fff;
   overflow-y: hidden;
+  // max-height: 0;
 
   .container {
     padding: 20px;
@@ -12,7 +13,7 @@
 }
 
 .notice-banner-enter {
-  @include transition(all .5s ease-in-out);
+  @include transition(all .25s ease-out);
   max-height: 0;
   opacity: .5;
   &-active {
@@ -22,7 +23,7 @@
 }
 
 .notice-banner-leave {
-  @include transition(all .2s ease-in-out);
+  @include transition(all .25s ease-out);
   max-height: 200px;
   &-active {
     max-height: 0;
