@@ -204,7 +204,7 @@ class FrameSettingsModalComponent extends React.Component {
                         <button type="submit" className="btn btn-default btn-fw">Save Changes</button>
                         <button className="btn btn-destructive btn-fw" onClick={::this._handleConfirmableClick}>Delete Frame</button>
                       </div>
-                    : <button className="btn btn-destructive btn-fw" onClick={::this._handleConfirmableClick}>Leave this Frame</button>
+                    : <button className="btn btn-destructive btn-fw" onClick={::this._handleConfirmableClick}>Leave Frame</button>
                   }
                 </div>
               </form>
