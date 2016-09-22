@@ -59,6 +59,17 @@ class ModalManagerContainer extends Component {
     actions.passwordResetRequest(fields.email);
   }
 
+  _renderFrameSettings() {
+    const {actions, modalError} = this.props;
+    return  <FrameSettingsModalComponent
+          isOpen={true}
+          updateVisibleModal={actions.updateVisibleModal}
+          modalError={modalError}
+          deleteFrameRequest={actions.deleteFrameRequest}
+          removeFromFrameRequest={actions.removeFromFrameRequest}
+          onSubmit={::this._handleSubmitFrameSettings} />;
+  }
+
   render() {
     const {actions, visibleModal, modalError} = this.props;
     return (
@@ -81,13 +92,7 @@ class ModalManagerContainer extends Component {
           onSubmit={::this._handleSubmitEditProfile}
           modalError={modalError} />
 
-        <FrameSettingsModalComponent
-          isOpen={visibleModal === 'frame-settings'}
-          updateVisibleModal={actions.updateVisibleModal}
-          modalError={modalError}
-          deleteFrameRequest={actions.deleteFrameRequest}
-          removeFromFrameRequest={actions.removeFromFrameRequest}
-          onSubmit={::this._handleSubmitFrameSettings} />
+        { visibleModal === 'frame-settings' && ::this._renderFrameSettings() }
 
         <CreateAccountNoticeComponent
           isOpen={visibleModal === 'create-account-notice'}

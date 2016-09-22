@@ -1,14 +1,16 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import {reduxForm} from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import { debounce } from 'lodash';
 
 // import Select from 'react-select';
 // import 'react-select/dist/react-select.css';
 
 import CustomSelectComponent from '../form/CustomSelectComponent';
+import CustomInputComponent from '../form/CustomInputComponent';
 import ConfirmDialogComponent from '../common/ConfirmDialogComponent';
 import { getById } from '../../reducers/index';
 import { getUserList } from '../../reducers/user/index';
@@ -20,8 +22,6 @@ require('styles//frame/FrameSettingsModal.scss');
 class FrameSettingsModalComponent extends React.Component {
   constructor(props) {
     super(props);
-
-    console.log('props ----->', props);
 
     this.state = {
       confirmAction: false,
@@ -67,11 +67,11 @@ class FrameSettingsModalComponent extends React.Component {
   }
 
   afterOpenModal() {
-    this.refs.name.focus();
+    this.refs.frameName.getRenderedComponent().focus();
   }
 
   _close() {
-    this.props.resetForm();
+    this.props.reset();
     this.setState({
       confirmAction: false
     });
@@ -120,7 +120,7 @@ class FrameSettingsModalComponent extends React.Component {
   }
 
   render() {
-    let {fields: {name, managers}, frame, handleSubmit, errorMessage, isOwner, owner} = this.props;
+    let {frame, handleSubmit, errorMessage, isOwner, owner} = this.props;
 
     let extensions = frame ? Object.keys(frame.extensions).map(key => key) : null;
 
@@ -144,6 +144,7 @@ class FrameSettingsModalComponent extends React.Component {
                     <button className="close" onClick={::this._close} type=
                       "button">&times;</button>
                     <h3 className="modal-title">Frame settings</h3>
+                    {!isOwner && <p>You are a curator for this frame.</p>}
                 </div>
                 <div className="modal-body">
                     <div className={errorClasses}>
@@ -151,22 +152,21 @@ class FrameSettingsModalComponent extends React.Component {
                         {errorMessage}
                       </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Frame name</label>
-                        <input
-                          ref={name.name}
-                          type="text"
-                          className="form-control"
-                          name="name" id="Framename"
-                          placeholder="name"
-                          autoFocus={true}
-                          autoCapitalize="off"
-                          disabled={!isOwner}
-                          {...name} />
-                    </div>
+
+                    <Field
+                      withRef
+                      ref="frameName"
+                      name="name"
+                      component={CustomInputComponent}
+                      type="text"
+                      placeholder="name"
+                      label="Name"
+                      disabled={!isOwner} />
+
+                    { /* Sitting outside redux-form */ }
                     { !isOwner
                       ? <div className="form-group">
-                          <label htmlFor="owner">Owner</label>
+                          <label>Owner</label>
                           <input
                             type="text"
                             className="form-control"
@@ -176,21 +176,17 @@ class FrameSettingsModalComponent extends React.Component {
                         </div>
                       : null
                     }
+
+                    <Field
+                      name="managers"
+                      component={CustomSelectComponent}
+                      label="Additional curators"
+                      placeholder={isOwner ? 'Add by username...' : 'No additional curators'}
+                      disabled={!isOwner}
+                      loadOptions={::this.fetchOptions} />
+
                     <div className="form-group">
-                        <label className="with-fFne-copy" htmlFor="Managers">Additional curators</label>
-                        <CustomSelectComponent
-                            {...managers}
-                            disabled={!isOwner}
-                            placeholder={isOwner ? 'Add by username...' : 'No additional curators'}
-                            loadOptions={::this.fetchOptions}
-                        />
-                        <p className="fine-copy">Curators can push artwork to this frame, but not update its settings.</p>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="Extensions">Extensions installed in this frame</label>
-                        {
-                          //<input type="text" className="form-control" name="extensions" id="Extensions" placeholder="no extensions" autoCapitalize="off" readOnly {...extensions}/>
-                        }
+                        <label>Extensions installed in this frame</label>
                         <ul className="frame-settings-modal__extensions">
                         {
                           extensions && extensions.map(name => <li key={name} className="frame-settings-modal__extension">{name}</li>)
@@ -216,10 +212,11 @@ class FrameSettingsModalComponent extends React.Component {
   }
 }
 
-FrameSettingsModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-    form: 'frameSettings',                           // a unique name for this form
-    fields: ['name', 'managers'] // all the fields in your form
-  },
+FrameSettingsModalComponent = reduxForm({
+    form: 'frameSettings'
+  })(FrameSettingsModalComponent);
+
+FrameSettingsModalComponent = connect(
   state => {
     let frame = getById(state.frames.byId, state.frames.settingsFrameId);
     let managerUsers = getUserList(state.user.byId, frame && frame.managers ? frame.managers : []);
@@ -227,8 +224,6 @@ FrameSettingsModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
       label: user.username,
       value: user.id
     }));
-
-    console.log('----->', frame && frame.ownerId, state.user.current);
 
     return { // mapStateToProps
       frame: frame,
@@ -240,7 +235,8 @@ FrameSettingsModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
         managers
       }  // will pull state into form's initialValues
     }
-  })(FrameSettingsModalComponent);
+  }
+)(FrameSettingsModalComponent);
 
 FrameSettingsModalComponent.displayName = 'FrameSettingsModalComponent';
 
