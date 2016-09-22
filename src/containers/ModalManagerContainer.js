@@ -64,6 +64,27 @@ class ModalManagerContainer extends Component {
     console.log('_handleSubmitAddArtwork', fields);
   }
 
+  _renderFrameSettings() {
+    const {actions, modalError} = this.props;
+    return  <FrameSettingsModalComponent
+          isOpen={true}
+          updateVisibleModal={actions.updateVisibleModal}
+          modalError={modalError}
+          deleteFrameRequest={actions.deleteFrameRequest}
+          removeFromFrameRequest={actions.removeFromFrameRequest}
+          onSubmit={::this._handleSubmitFrameSettings} />;
+  }
+
+  _renderAddArtwork() {
+    const {actions, modalError} = this.props;
+    return  <AddArtworkModalComponent
+          isOpen={true}
+          updateVisibleModal={actions.updateVisibleModal}
+          onSubmit={::this._handleSubmitAddArtwork}
+          modalError={modalError} />;
+  }
+
+
   render() {
     const {actions, visibleModal, modalError} = this.props;
     return (
@@ -96,13 +117,9 @@ class ModalManagerContainer extends Component {
           onSubmit={::this._handleSubmitAddArtwork}
           modalError={modalError} />
 
-        <FrameSettingsModalComponent
-          isOpen={visibleModal === 'frame-settings'}
-          updateVisibleModal={actions.updateVisibleModal}
-          modalError={modalError}
-          deleteFrameRequest={actions.deleteFrameRequest}
-          removeFromFrameRequest={actions.removeFromFrameRequest}
-          onSubmit={::this._handleSubmitFrameSettings} />
+        { visibleModal === 'frame-settings' && ::this._renderFrameSettings() }
+
+        { visibleModal === 'add-artwork' && ::this._renderAddArtwork() }
 
         <RequestPasswordResetModalComponent
           isOpen={visibleModal === 'request-password-reset'}

@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-modal';
-import {reduxForm} from 'redux-form';
+import {reduxForm, Field} from 'redux-form';
 
 require('styles/user/LoginModal.scss');
 
@@ -16,7 +16,7 @@ class RequestPasswordResetModalComponent extends React.Component {
   }
 
   render() {
-    const {fields: {email}, handleSubmit, updateVisibleModal, modalError, isOpen} = this.props;
+    const { handleSubmit, updateVisibleModal, modalError, isOpen} = this.props;
     let errorClasses = 'row-errors ';
     errorClasses += modalError ? 'show' : 'hide';
     return (
@@ -45,7 +45,7 @@ class RequestPasswordResetModalComponent extends React.Component {
               </div>
               <div className="form-group">
                   <label htmlFor="Email">Email Address</label>
-                  <input type="text" ref={email.name} className="form-control" placeholder="email..." autoFocus={true} autoCapitalize="off" {...email}/>
+                  <Field ref="email" name="email" component="input" type="text" placeholder="email"/>
               </div>
             </div>
             <div className="modal-footer">
@@ -67,9 +67,8 @@ class RequestPasswordResetModalComponent extends React.Component {
   }
 }
 
-RequestPasswordResetModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-  form: 'requestPasswordReset',                           // a unique name for this form
-  fields: ['email'] // all the fields in your form
+RequestPasswordResetModalComponent = reduxForm({
+  form: 'requestPasswordReset'
 })(RequestPasswordResetModalComponent);
 
 RequestPasswordResetModalComponent.displayName = 'CommonRequestPasswordResetModalComponent';
