@@ -31,6 +31,7 @@ import {
 const initialState = {
   sidebarOpen: false,
   visibleModal: null,
+  visibleModal: 'add-artwork',
   modalError: null,
   fixBody: false,
   // notice: 'This is a test of the emergency alert system.'

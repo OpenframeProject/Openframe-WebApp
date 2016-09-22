@@ -11,6 +11,7 @@ import EditProfileModalComponent from '../components/user/EditProfileModalCompon
 import RequestPasswordResetModalComponent from '../components/user/RequestPasswordResetModalComponent';
 import FrameSettingsModalComponent from '../components/frame/FrameSettingsModalComponent';
 import CreateAccountNoticeComponent from '../components/common/CreateAccountNoticeComponent';
+import AddArtworkModalComponent from '../components/artwork/AddArtworkModalComponent';
 
 import ResetPasswordModalContainer from './ResetPasswordModalContainer';
 
@@ -59,10 +60,18 @@ class ModalManagerContainer extends Component {
     actions.passwordResetRequest(fields.email);
   }
 
+  _handleSubmitAddArtwork(fields) {
+    console.log('_handleSubmitAddArtwork', fields);
+  }
+
   render() {
     const {actions, visibleModal, modalError} = this.props;
     return (
       <div className="modal-manager">
+        <CreateAccountNoticeComponent
+          isOpen={visibleModal === 'create-account-notice'}
+          updateVisibleModal={actions.updateVisibleModal} />
+
         <LoginModalComponent
           isOpen={visibleModal === 'login'}
           updateVisibleModal={actions.updateVisibleModal}
@@ -81,6 +90,12 @@ class ModalManagerContainer extends Component {
           onSubmit={::this._handleSubmitEditProfile}
           modalError={modalError} />
 
+        <AddArtworkModalComponent
+          isOpen={visibleModal === 'add-artwork'}
+          updateVisibleModal={actions.updateVisibleModal}
+          onSubmit={::this._handleSubmitAddArtwork}
+          modalError={modalError} />
+
         <FrameSettingsModalComponent
           isOpen={visibleModal === 'frame-settings'}
           updateVisibleModal={actions.updateVisibleModal}
@@ -88,10 +103,6 @@ class ModalManagerContainer extends Component {
           deleteFrameRequest={actions.deleteFrameRequest}
           removeFromFrameRequest={actions.removeFromFrameRequest}
           onSubmit={::this._handleSubmitFrameSettings} />
-
-        <CreateAccountNoticeComponent
-          isOpen={visibleModal === 'create-account-notice'}
-          updateVisibleModal={actions.updateVisibleModal} />
 
         <RequestPasswordResetModalComponent
           isOpen={visibleModal === 'request-password-reset'}

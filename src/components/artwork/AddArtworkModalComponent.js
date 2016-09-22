@@ -3,17 +3,13 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-import EditProfileFormComponent from './EditProfileFormComponent';
+import EditArtworkFormComponent from './EditArtworkFormComponent';
 
-require('styles/user/CreateAccountModal.scss');
+require('styles/artwork/AddArtworkModal.scss');
 
-class CreateAccountModalComponent extends React.Component {
+class AddArtworkModalComponent extends React.Component {
   _close() {
     this.props.updateVisibleModal(null);
-  }
-
-  _goToLogin() {
-    this.props.updateVisibleModal('login');
   }
 
   render() {
@@ -21,7 +17,6 @@ class CreateAccountModalComponent extends React.Component {
 
     let errorClasses = 'row-errors ';
     errorClasses += modalError ? 'show' : 'hide';
-
     return (
       <Modal
         isOpen={isOpen}
@@ -36,7 +31,7 @@ class CreateAccountModalComponent extends React.Component {
           <div className="modal-header">
             <button className="close" onClick={::this._close} type=
             "button">&times;</button>
-            <h3 className="modal-title">Create Account</h3>
+            <h3 className="modal-title">Add Artwork</h3>
           </div>
           <div className="modal-body">
             <div className={errorClasses}>
@@ -44,14 +39,11 @@ class CreateAccountModalComponent extends React.Component {
                 {modalError}
               </div>
             </div>
-            <EditProfileFormComponent
-              onSubmit={onSubmit}
-              submitText="Create Account"
-              ref="form" />
 
-            <div className="switch-text">
-              <p>Already have an account? <span className="anchor" onClick={::this._goToLogin} >Log in here</span></p>
-            </div>
+            <EditArtworkFormComponent
+              onSubmit={onSubmit}
+              submitText="Add Artwork"
+              ref="form" />
           </div>
         </div>
 
@@ -60,10 +52,10 @@ class CreateAccountModalComponent extends React.Component {
   }
 }
 
-CreateAccountModalComponent.displayName = 'UserCreateAccountModalComponent';
+AddArtworkModalComponent.displayName = 'ArtworkAddArtworkModalComponent';
 
 // Uncomment properties you need
-// CreateAccountModalComponent.propTypes = {};
-// CreateAccountModalComponent.defaultProps = {};
+// AddArtworkModalComponent.propTypes = {};
+// AddArtworkModalComponent.defaultProps = {};
 
-export default CreateAccountModalComponent;
+export default AddArtworkModalComponent;
