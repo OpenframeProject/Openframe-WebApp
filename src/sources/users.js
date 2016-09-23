@@ -80,7 +80,7 @@ const users = {
    * @param  {String} userId
    * @return {Promise}
    */
-  fetchUserArtwork: function(userId, filter = {}) {
+  fetchUserArtwork: function(userId = 'current', filter = {}) {
     let defaultFilter = {
       limit: config.perPage
     };

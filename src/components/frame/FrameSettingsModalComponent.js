@@ -182,7 +182,10 @@ class FrameSettingsModalComponent extends React.Component {
                       component={CustomSelectComponent}
                       label="Additional curators"
                       placeholder={isOwner ? 'Add by username...' : 'No additional curators'}
+                      help="Curators can push art to this frame, but can't modify settings."
                       disabled={!isOwner}
+                      multi={true}
+                      clearable={false}
                       loadOptions={::this.fetchOptions} />
 
                     <div className="form-group">

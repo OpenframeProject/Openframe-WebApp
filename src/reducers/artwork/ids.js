@@ -7,6 +7,7 @@ import { uniq } from 'lodash';
 
 import {
   FETCH_STREAM_SUCCESS,
+  CREATE_ARTWORK_SUCCESS,
   FETCH_SINGLE_ARTWORK_SUCCESS,
   FETCH_USER_ARTWORK_SUCCESS
 } from '../../actions/const'
@@ -27,7 +28,8 @@ export default function(state = initialState, action) {
     }
 
     // Single artwork... push onto state and make sure entries are unique
-    case FETCH_SINGLE_ARTWORK_SUCCESS: {
+    case FETCH_SINGLE_ARTWORK_SUCCESS:
+    case CREATE_ARTWORK_SUCCESS: {
       let ids = [
         ...state,
         action.response.result

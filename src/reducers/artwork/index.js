@@ -9,12 +9,14 @@ import { getById } from '../index';
 import byId from './byId';
 import streamIds from './streamIds';
 import streamHasMore from './streamHasMore';
+import editingArtworkId from './editingArtworkId';
 import { isFetching, lastUpdated, isFirstLoad, isLoadingImages } from './meta';
 
 export default combineReducers({
   byId,
   streamIds,
   streamHasMore,
+  editingArtworkId,
   isFetching,
   isFirstLoad,
   isLoadingImages,

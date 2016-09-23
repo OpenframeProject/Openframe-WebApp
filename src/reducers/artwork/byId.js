@@ -6,10 +6,12 @@
 import {
   FETCH_STREAM_SUCCESS,
   FETCH_SINGLE_ARTWORK_SUCCESS,
+  UPDATE_ARTWORK_SUCCESS,
   FETCH_SINGLE_COLLECTION_SUCCESS,
   FETCH_USER_ARTWORK_SUCCESS,
   FETCH_USER_LIKES_SUCCESS,
-  FETCH_FRAMES_SUCCESS
+  FETCH_FRAMES_SUCCESS,
+  CREATE_ARTWORK_SUCCESS,
 } from '../../actions/const'
 
 const initialState = {};
@@ -17,6 +19,8 @@ const initialState = {};
 export default function(state = initialState, action) {
   switch(action.type) {
     case FETCH_STREAM_SUCCESS:
+    case CREATE_ARTWORK_SUCCESS:
+    case UPDATE_ARTWORK_SUCCESS:
     case FETCH_SINGLE_COLLECTION_SUCCESS:
     case FETCH_USER_ARTWORK_SUCCESS:
     case FETCH_USER_LIKES_SUCCESS:

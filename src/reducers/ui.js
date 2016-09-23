@@ -9,6 +9,10 @@ import {
   LOGOUT_SUCCESS,
   CREATE_ACCOUNT_SUCCESS,
   CREATE_ACCOUNT_FAILURE,
+  CREATE_ARTWORK_SUCCESS,
+  CREATE_ARTWORK_FAILURE,
+  UPDATE_ARTWORK_FAILURE,
+  UPDATE_ARTWORK_SUCCESS,
   SELECT_FRAME,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
@@ -31,7 +35,7 @@ import {
 const initialState = {
   sidebarOpen: false,
   visibleModal: null,
-  visibleModal: 'add-artwork',
+  visibleModal: null,
   modalError: null,
   fixBody: false,
   // notice: 'This is a test of the emergency alert system.'
@@ -62,8 +66,10 @@ module.exports = function(state = initialState, action) {
 
     case LOGIN_SUCCESS:
     case CREATE_ACCOUNT_SUCCESS:
+    case CREATE_ARTWORK_SUCCESS:
     case PASSWORD_RESET_SUCCESS:
     case UPDATE_USER_SUCCESS:
+    case UPDATE_ARTWORK_SUCCESS:
     case UPDATE_FRAME_SUCCESS:
     case UPDATE_FRAME_MANAGERS_SUCCESS: {
       // TODO: should the action creator for this trigger an updateVisibleModal action
@@ -79,8 +85,10 @@ module.exports = function(state = initialState, action) {
 
     case LOGIN_FAILURE:
     case CREATE_ACCOUNT_FAILURE:
+    case CREATE_ARTWORK_FAILURE:
     case UPDATE_USER_FAILURE:
     case UPDATE_FRAME_FAILURE:
+    case UPDATE_ARTWORK_FAILURE:
     case UPDATE_FRAME_MANAGERS_FAILURE:
     case PASSWORD_RESET_FAILURE: {
       return {

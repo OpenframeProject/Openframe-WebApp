@@ -11,7 +11,8 @@ import EditProfileModalComponent from '../components/user/EditProfileModalCompon
 import RequestPasswordResetModalComponent from '../components/user/RequestPasswordResetModalComponent';
 import FrameSettingsModalComponent from '../components/frame/FrameSettingsModalComponent';
 import CreateAccountNoticeComponent from '../components/common/CreateAccountNoticeComponent';
-import AddArtworkModalComponent from '../components/artwork/AddArtworkModalComponent';
+// import AddArtworkModalComponent from '../components/artwork/AddArtworkModalComponent';
+import EditArtworkModalComponent from '../components/artwork/EditArtworkModalComponent';
 
 import ResetPasswordModalContainer from './ResetPasswordModalContainer';
 
@@ -61,7 +62,27 @@ class ModalManagerContainer extends Component {
   }
 
   _handleSubmitAddArtwork(fields) {
-    console.log('_handleSubmitAddArtwork', fields);
+    let { actions } = this.props;
+    fields.is_public = fields.is_public === "true";
+    fields.format = fields.format.value;
+    if (!fields.format) {
+      actions.createArtworkFailure('You must select a format.');
+      return;
+    }
+    actions.createArtworkRequest(fields);
+  }
+
+  // TODO: can we consolidate this and AddArtwork hanlers?
+  _handleSubmitSaveArtwork(fields) {
+    let { actions, editingArtworkId } = this.props;
+    fields.is_public = fields.is_public === "true";
+    console.log('fields', fields);
+    fields.format = fields.format.value;
+    if (!fields.format) {
+      actions.updateArtworkFailure('You must select a format.');
+      return;
+    }
+    actions.updateArtworkRequest(editingArtworkId, fields);
   }
 
   _renderFrameSettings() {
@@ -77,10 +98,24 @@ class ModalManagerContainer extends Component {
 
   _renderAddArtwork() {
     const {actions, modalError} = this.props;
-    return  <AddArtworkModalComponent
+    return  <EditArtworkModalComponent
           isOpen={true}
           updateVisibleModal={actions.updateVisibleModal}
+          title="Add Artwork"
+          submitText="Add Artwork"
+          clear={true}
           onSubmit={::this._handleSubmitAddArtwork}
+          modalError={modalError} />;
+  }
+
+  _renderEditArtwork() {
+    const {actions, modalError} = this.props;
+    return  <EditArtworkModalComponent
+          isOpen={true}
+          title="Edit Artwork"
+          submitText="Save Changes"
+          updateVisibleModal={actions.updateVisibleModal}
+          onSubmit={::this._handleSubmitSaveArtwork}
           modalError={modalError} />;
   }
 
@@ -111,15 +146,11 @@ class ModalManagerContainer extends Component {
           onSubmit={::this._handleSubmitEditProfile}
           modalError={modalError} />
 
-        <AddArtworkModalComponent
-          isOpen={visibleModal === 'add-artwork'}
-          updateVisibleModal={actions.updateVisibleModal}
-          onSubmit={::this._handleSubmitAddArtwork}
-          modalError={modalError} />
-
         { visibleModal === 'frame-settings' && ::this._renderFrameSettings() }
 
         { visibleModal === 'add-artwork' && ::this._renderAddArtwork() }
+
+        { visibleModal === 'edit-artwork' && ::this._renderEditArtwork() }
 
         <RequestPasswordResetModalComponent
           isOpen={visibleModal === 'request-password-reset'}
@@ -144,7 +175,8 @@ function mapStateToProps(state) {
     ui: state.ui,
     visibleModal: state.ui.visibleModal,
     modalError: state.ui.modalError,
-    settingsFrameId: state.frames.settingsFrameId
+    settingsFrameId: state.frames.settingsFrameId,
+    editingArtworkId: state.artwork.editingArtworkId
   };
   return props;
 }
@@ -157,6 +189,10 @@ function mapDispatchToProps(dispatch) {
     loginRequest: require('../actions/auth/loginRequest.js'),
     createAccountRequest: require('../actions/user/createAccountRequest.js'),
     createAccountFailure: require('../actions/user/createAccountFailure.js'),
+    createArtworkRequest: require('../actions/artwork/createArtworkRequest.js'),
+    createArtworkFailure: require('../actions/artwork/createArtworkFailure.js'),
+    updateArtworkRequest: require('../actions/artwork/updateArtworkRequest'),
+    updateArtworkFailure: require('../actions/artwork/updateArtworkFailure'),
     updateUserRequest: require('../actions/user/updateUserRequest'),
     updateUserFailure: require('../actions/user/updateUserFailure'),
     updateFrameRequest: require('../actions/frame/updateFrameRequest.js'),
