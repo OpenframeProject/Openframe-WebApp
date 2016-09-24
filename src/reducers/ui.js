@@ -35,7 +35,7 @@ import {
 const initialState = {
   sidebarOpen: false,
   visibleModal: null,
-  visibleModal: null,
+  // visibleModal: 'standard-modal',
   modalError: null,
   fixBody: false,
   // notice: 'This is a test of the emergency alert system.'

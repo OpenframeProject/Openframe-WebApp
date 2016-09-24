@@ -4,6 +4,7 @@ import React from 'react';
 import Modal from 'react-modal';
 
 import EditProfileFormComponent from './EditProfileFormComponent';
+import StandardModalComponent from '../common/StandardModalComponent';
 
 require('styles/user/EditProfileModal.scss');
 

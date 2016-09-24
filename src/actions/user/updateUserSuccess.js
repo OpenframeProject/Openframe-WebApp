@@ -6,7 +6,7 @@ import * as schema from '../schema';
 const updateNoticeBanner = require('../ui/updateNoticeBanner.js');
 
 module.exports = function(response, notice) {
-  browserHistory.push('/');
+  // browserHistory.push('/');
 
   return dispatch => {
     dispatch({

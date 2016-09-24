@@ -68,9 +68,6 @@ class EditProfileFormComponent extends React.Component {
               </div>
             : null
           }
-          <div className="form-group">
-              <button href="#" className="btn btn-default btn-fw">{ _submitText }</button>
-          </div>
       </form>
     );
   }
@@ -87,7 +84,10 @@ EditProfileFormComponent = connect(
       passwordConfirm: ''
     },
     currentUser: getCurrentUser(state.user)
-  })
+  }),
+  null,
+  null,
+  { withRef: true }
 )(EditProfileFormComponent);
 
 EditProfileFormComponent.displayName = 'EditProfileFormComponent';

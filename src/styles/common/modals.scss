@@ -1,6 +1,7 @@
 @import "bootstrap/variables";
 @import "compass/css3/transition";
 @import "compass/css3/transform";
+@import "../common/colors";
 
 .ReactModal__Body--open {
   height: 100%;
@@ -55,9 +56,7 @@
   }
 
   .modal-header {
-    height: 45px;
     padding: 15px;
-    padding-bottom: 60px;
     position: relative;
     border: none;
   }
@@ -76,9 +75,22 @@
     padding-top: 10px;
   }
 
+  .modal-subtitle {
+    text-align: center;
+    font-size: 16px;
+    margin: 10px 30px;
+    color: $of-normal-grey;
+  }
+
   .modal-body {
     // overflow: scroll;
     height: calc(100% - 45px);
+  }
+
+  .modal-footer {
+    margin: 0 auto;
+    text-align: center;
+    border: none;
   }
 
   .modal-footer .btn+.btn {
@@ -158,9 +170,6 @@
 
     .modal-footer {
       width: 400px;
-      margin: 0 auto;
-      text-align: center;
-      border: none;
     }
 
     .modal-title {

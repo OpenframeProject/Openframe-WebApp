@@ -5,6 +5,9 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import EditProfileModalContainer from './common/EditProfileModalContainer';
+
+import StandardModalComponent from '../components/common/StandardModalComponent';
 import LoginModalComponent from '../components/user/LoginModalComponent';
 import CreateAccountModalComponent from '../components/user/CreateAccountModalComponent';
 import EditProfileModalComponent from '../components/user/EditProfileModalComponent';
@@ -119,6 +122,44 @@ class ModalManagerContainer extends Component {
           modalError={modalError} />;
   }
 
+  _renderEditProfile() {
+    return <EditProfileModalContainer isOpen={true} />;
+  }
+
+  _renderStandardModal() {
+    let userActions = [
+      {
+        text: 'Do it',
+        className: 'btn-default',
+        onClick: ::this._handleStandardDoIt,
+        confirmConfig: {
+          body: 'Srsly tho?',
+          title: 'Are you sure?',
+          acceptText: 'Alright, do it.',
+          cancelText: 'No, no!'
+        }
+      }
+    ];
+    let body = (
+      <div>
+        <p className="create-account-notice__copy">Create an account to collect artwork, add artwork to the public stream, and push artwork to a frame.</p>
+        <ul className="create-account-notice__links">
+          <li><a href="" onClick={(e) => { e.preventDefault(); this.props.actions.updateVisibleModal('create-account'); } }> Create an account </a></li>
+          <li><a href="https://github.com/OpenframeProject/Openframe/wiki/Openframe-User-Guide" target="_blank">Learn how to set up a frame</a></li>
+        </ul>
+      </div>
+    );
+    return <StandardModalComponent
+      isOpen={true}
+      title="Standard Modal"
+      subTitle="Just a modal, you know?"
+      body={body} />
+  }
+
+  _handleStandardDoIt() {
+    console.log('Doing it!!');
+  }
+
 
   render() {
     const {actions, visibleModal, modalError} = this.props;
@@ -140,17 +181,15 @@ class ModalManagerContainer extends Component {
           onSubmit={::this._handleSubmitCreateAccount}
           modalError={modalError} />
 
-        <EditProfileModalComponent
-          isOpen={visibleModal === 'edit-profile'}
-          updateVisibleModal={actions.updateVisibleModal}
-          onSubmit={::this._handleSubmitEditProfile}
-          modalError={modalError} />
+        { visibleModal === 'edit-profile' && ::this._renderEditProfile() }
 
         { visibleModal === 'frame-settings' && ::this._renderFrameSettings() }
 
         { visibleModal === 'add-artwork' && ::this._renderAddArtwork() }
 
         { visibleModal === 'edit-artwork' && ::this._renderEditArtwork() }
+
+        { visibleModal === 'standard-modal' && ::this._renderStandardModal() }
 
         <RequestPasswordResetModalComponent
           isOpen={visibleModal === 'request-password-reset'}
