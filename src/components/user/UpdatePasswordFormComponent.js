@@ -10,7 +10,7 @@ import CustomInputComponent from '../form/CustomInputComponent';
 class UpdatePasswordFormComponent extends React.Component {
   componentDidMount() {
     setTimeout(function() {
-      this.refs.password.focus();
+      this.refs.password.getRenderedComponent().focus();
     }.bind(this), 0);
   }
 
@@ -21,7 +21,7 @@ class UpdatePasswordFormComponent extends React.Component {
 
     return (
       <form onSubmit={handleSubmit}>
-          <Field name="password" component={CustomInputComponent} type="password" placeholder="password" label="Password" />
+          <Field withRef ref="password" name="password" component={CustomInputComponent} type="password" placeholder="password" label="Password" />
 
           <Field name="passwordConfirm" component={CustomInputComponent} type="password" placeholder="password" label="Confirm Password" />
 
