@@ -68,6 +68,11 @@ class EditProfileFormComponent extends React.Component {
               </div>
             : null
           }
+
+          <label className="checkbox-inline">
+            <Field name="settings.enable_notifications" component={CustomInputComponent} type="checkbox" raw />
+            Receive email notifications
+          </label>
           <div className="form-group">
               <button href="#" className="btn btn-default btn-fw">{ _submitText }</button>
           </div>
@@ -83,6 +88,9 @@ EditProfileFormComponent = reduxForm({
 EditProfileFormComponent = connect(
   state => ({ // mapStateToProps
     initialValues: {
+      settings: {
+        enable_notifications: true
+      },
       ...getCurrentUser(state.user),
       passwordConfirm: ''
     },

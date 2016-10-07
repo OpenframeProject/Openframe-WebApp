@@ -72,6 +72,11 @@
   &__action {
     float: right;
     margin-left: 5px;
+    &--edit {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
   }
 
   &__current-indicator {
@@ -91,6 +96,15 @@
     &__actions {
       display: none;
       right: 0px;
+    }
+
+    &__action--edit {
+      display: none;
+      .edit-button {
+        &:hover {
+          background-color: rgba($of-lightest-grey, .4);
+        }
+      }
     }
 
     &__current-indicator {
@@ -114,6 +128,10 @@
       }
 
       .artwork-list-item__actions {
+        display: block;
+      }
+
+      .artwork-list-item__action--edit {
         display: block;
       }
     }

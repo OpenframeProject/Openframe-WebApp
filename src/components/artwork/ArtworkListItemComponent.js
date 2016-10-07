@@ -9,6 +9,7 @@ import { Link } from 'react-router';
 
 import PushButtonComponent from '../common/PushButtonComponent';
 import LikeButtonComponent from '../common/LikeButtonComponent';
+import EditButtonComponent from '../common/EditButtonComponent';
 
 let noThumbImg = require('../../images/preview-missing.png');
 let thumb404 = require('../../images/not-found.png');
@@ -55,6 +56,11 @@ class ArtworkListItemComponent extends Component {
     } else {
       actions.updateVisibleModal('create-account-notice');
     }
+  }
+
+  _handleEditClick(e) {
+    e.preventDefault();
+    this.props.actions.editArtwork(this.props.artwork.id);
   }
 
   _handleLikeClick(e) {
@@ -112,7 +118,7 @@ class ArtworkListItemComponent extends Component {
   }
 
   render() {
-    let { artwork, currentArtwork, isLiked } = this.props;
+    let { artwork, currentArtwork, isLiked, isOwner } = this.props;
 
 
     let isCurrentClass = 'selected-frame-indicator';
@@ -146,6 +152,13 @@ class ArtworkListItemComponent extends Component {
                     <span className='selected-frame-indicator--connected'>&bull;</span>
                   </div>
                 : null
+              }
+              { isOwner &&
+                <div className="artwork-list-item__action artwork-list-item__action--edit" title="Edit artwork">
+                  <EditButtonComponent
+                    handleClick={::this._handleEditClick}
+                    invert={true} />
+                </div>
               }
             </div>
           </Link>

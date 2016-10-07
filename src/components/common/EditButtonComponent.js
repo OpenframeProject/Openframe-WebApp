@@ -5,6 +5,7 @@ import React, { PropTypes } from 'react';
 require('styles/common/EditButton.scss');
 
 let editBtn = require('../../images/icon_edit.svg');
+let editBtnWhite = require('../../images/icon_edit_white.svg');
 
 class EditButtonComponent extends React.Component {
 
@@ -14,12 +15,11 @@ class EditButtonComponent extends React.Component {
 
   render() {
 
-    let classes = 'edit-button';
-    classes += this.props.show ? ' edit-button--hover' : '';
+    let img = this.props.invert ? editBtnWhite : editBtn;
 
     return (
-      <div className={classes} onClick={::this.handleClick} >
-        <img className="edit-button__img" src={editBtn}  />
+      <div className='edit-button' onClick={::this.handleClick} >
+        <img className="edit-button__img" src={img}  />
       </div>
     );
   }
