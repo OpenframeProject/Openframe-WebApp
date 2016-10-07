@@ -41,7 +41,7 @@ class SidebarFrameItemComponent extends React.Component {
                 <img className="icon-settings" src={settingsIcon} />
               </span>
             : <span className="sidebar-frame-item__settings" onClick={editFrameSettings}>
-                <img className="icon-settings" src={infoIcon} />
+                <img className="icon-settings" src={settingsIcon} />
               </span>
           }
         </div>

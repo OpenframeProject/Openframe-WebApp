@@ -32,8 +32,6 @@ class TopbarComponent extends React.Component {
     console.log('TODO: go to landing');
   }
 
-  _goto
-
   render() {
     let {updateSidebarState, updateVisibleModal, selectedFrame, user, isFetching, location} = this.props;
     let username = user ? `/${user.username}` : null;

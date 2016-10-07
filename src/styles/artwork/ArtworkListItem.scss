@@ -6,25 +6,12 @@
 
 .artwork-list-item {
   &__thumb {
-    // padding: 10px;
     position: relative;
     width: 100%;
     background-position: center center;
     background-size: cover;
     overflow: hidden;
   }
-
-  // &__thumb::after {
-  //   // padding: 10px;
-  //   content: " ";
-  //   background: rgb(0,0,0);
-  //   opacity: 0;
-  //   position: absolute;
-  //   left: 0px;
-  //   width: 100%;
-  //   height: 100%;
-  //   //display: none;
-  // }
 
   &__thumb-img {
     width: 100%;
@@ -72,6 +59,11 @@
   &__action {
     float: right;
     margin-left: 5px;
+    &--edit {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
   }
 
   &__current-indicator {
@@ -93,6 +85,15 @@
       right: 0px;
     }
 
+    &__action--edit {
+      display: none;
+      .edit-button {
+        &:hover {
+          background-color: rgba($of-lightest-grey, .4);
+        }
+      }
+    }
+
     &__current-indicator {
       position: absolute;
       right: 20px;
@@ -101,9 +102,6 @@
     }
 
     &:hover {
-      // .artwork-list-item__thumb::after {
-      //   opacity: 0.1;
-      // }
 
       .artwork-list-item__thumb-img {
         @include scale(1.02);
@@ -114,6 +112,10 @@
       }
 
       .artwork-list-item__actions {
+        display: block;
+      }
+
+      .artwork-list-item__action--edit {
         display: block;
       }
     }

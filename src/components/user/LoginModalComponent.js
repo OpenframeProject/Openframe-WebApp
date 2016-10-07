@@ -2,13 +2,15 @@
 
 import React, { PropTypes } from 'react';
 import Modal from 'react-modal';
-import {reduxForm} from 'redux-form';
+import { Field, reduxForm } from 'redux-form'
+
+import CustomInputComponent from '../form/CustomInputComponent';
 
 require('styles/user/LoginModal.scss');
 
 class LoginModalComponent extends React.Component {
   afterOpenModal() {
-    this.refs.username.focus();
+    this.refs.username.getRenderedComponent().focus();
   }
 
   _close() {
@@ -24,7 +26,7 @@ class LoginModalComponent extends React.Component {
   }
 
   render() {
-    const {fields: {username, password}, handleSubmit, updateVisibleModal, modalError, isOpen} = this.props;
+    const { handleSubmit, updateVisibleModal, modalError, isOpen } = this.props;
     let errorClasses = 'row-errors ';
     errorClasses += modalError ? 'show' : 'hide';
     return (
@@ -51,14 +53,11 @@ class LoginModalComponent extends React.Component {
                   {modalError}
                 </div>
               </div>
-              <div className="form-group">
-                  <label htmlFor="Username">Username</label>
-                  <input type="text" ref={username.name} className="form-control" placeholder="username" autoFocus={true} autoCapitalize="off" {...username}/>
-              </div>
-              <div className="form-group">
-                  <label htmlFor="Password">Password</label>
-                  <input type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password}/>
-              </div>
+
+              <Field withRef ref="username" name="username" component={CustomInputComponent} type="text" placeholder="username" label="Username" />
+
+              <Field name="password" component={CustomInputComponent} type="password" placeholder="password" label="Password" />
+
             </div>
             <div className="modal-footer">
               <div className="form-group">
@@ -79,9 +78,8 @@ class LoginModalComponent extends React.Component {
   }
 }
 
-LoginModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-  form: 'login',                           // a unique name for this form
-  fields: ['username', 'password'] // all the fields in your form
+LoginModalComponent = reduxForm({
+  form: 'login'
 })(LoginModalComponent);
 
 LoginModalComponent.displayName = 'CommonLoginModalComponent';

@@ -1,36 +1,30 @@
 'use strict';
 
 import React from 'react';
-import {reduxForm} from 'redux-form';
+import { connect } from 'react-redux';
+import {reduxForm, Field} from 'redux-form';
 
+import CustomInputComponent from '../form/CustomInputComponent';
 // require('styles/user/UpdatePasswordForm.scss');
 
 class UpdatePasswordFormComponent extends React.Component {
   componentDidMount() {
     setTimeout(function() {
-      this.refs.password.focus();
+      this.refs.password.getRenderedComponent().focus();
     }.bind(this), 0);
   }
 
   render() {
-    const {
-      fields: {
-        password,
-        passwordConfirm
-      }, handleSubmit, submitText } = this.props;
+    const { handleSubmit, submitText } = this.props;
 
     let _submitText = submitText || 'Submit';
 
     return (
       <form onSubmit={handleSubmit}>
-          <div className="form-group">
-              <label htmlFor="Password">Password</label>
-              <input ref={password.name} type="password" className="form-control" autoCapitalize="off" placeholder="password" {...password} />
-          </div>
-          <div className="form-group">
-              <label htmlFor="AdminPassConfirm">Confirm Password</label>
-              <input type="password" className="form-control" autoCapitalize="off" placeholder="confirm password" {...passwordConfirm} />
-          </div>
+          <Field withRef ref="password" name="password" component={CustomInputComponent} type="password" placeholder="password" label="Password" />
+
+          <Field name="passwordConfirm" component={CustomInputComponent} type="password" placeholder="password" label="Confirm Password" />
+
           <div className="form-group">
               <button href="#" className="btn btn-default btn-fw">{ _submitText }</button>
           </div>
@@ -39,21 +33,13 @@ class UpdatePasswordFormComponent extends React.Component {
   }
 }
 
-UpdatePasswordFormComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-    form: 'passwordReset',                           // a unique name for this form
-    fields: [
-      'password',
-      'passwordConfirm'
-    ] // all the fields in your form
-  },
-  state => ({ // mapStateToProps
-    initialValues: {
-      password: '',
-      passwordConfirm: ''
-    }  // will pull state into form's initialValues
-  }))(UpdatePasswordFormComponent);
+UpdatePasswordFormComponent = reduxForm({
+  form: 'passwordReset'
+})(UpdatePasswordFormComponent);
 
-
+// UpdatePasswordFormComponent = connect(
+//   state => {}
+// )(UpdatePasswordFormComponent);
 
 UpdatePasswordFormComponent.displayName = 'UpdatePasswordFormComponent';
 

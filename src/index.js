@@ -71,7 +71,7 @@ render(
           <Route path="/collections" component={CollectionsContainer} />
           <Route path="/channels" component={ChannelsContainer} />
 
-          <Route path="artwork/:artworkId" component={ArtworkDetailContainer} onEnter={doFixBody} onLeave={doUnfixBody} />
+          <Route path="artwork/:artworkId" component={ArtworkDetailContainer} />
           <Route path="collections/:collectionId" component={CollectionDetailContainer} />
         </Route>
 

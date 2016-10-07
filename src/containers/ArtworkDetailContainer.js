@@ -21,9 +21,24 @@ let noThumbImg = require('./../images/preview-missing.png');
 require('styles/artwork/ArtworkDetail.scss');
 
 class ArtworkDetailContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      thumb_url: props.singleArtwork && props.singleArtwork.thumb_url
+    };
+  }
+
   componentWillMount() {
     const {actions, params} = this.props;
     actions.fetchSingleArtworkRequest(params.artworkId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
+    this.setState({
+      thumb_url: nextProps.singleArtwork && nextProps.singleArtwork.thumb_url || noThumbImg
+    });
   }
 
   _formatDisplayName(format) {
@@ -62,12 +77,17 @@ class ArtworkDetailContainer extends Component {
 
   _handleEditClick(e) {
     e.preventDefault();
-    console.log('edit me');
+    this.props.actions.editArtwork(this.props.singleArtwork.id);
+  }
+
+  _imageError() {
+    this.setState({
+      thumb_url: noThumbImg
+    });
   }
 
   render() {
-    const {artwork, user, params} = this.props;
-    let singleArtwork = getById(artwork.byId, params.artworkId);
+    const {artwork, singleArtwork, user } = this.props;
     let owner = singleArtwork && getById(user.byId, singleArtwork.ownerId);
     owner = owner || (singleArtwork && singleArtwork.owner ? getById(user.byId, singleArtwork.owner) : null);
     let ownerUrl = owner ? `/${owner.username}` : null;
@@ -91,7 +111,7 @@ class ArtworkDetailContainer extends Component {
                 <div className="artwork-detail__author">by {singleArtwork.author_name}</div>
               </div>
 
-              <img className="artwork-detail__img" src={singleArtwork.thumb_url || noThumbImg} />
+              <img className="artwork-detail__img" src={this.state.thumb_url} onError={::this._imageError} />
 
               <div className="artwork-detail__info">
 
@@ -151,10 +171,11 @@ ArtworkDetailContainer.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   const props = {
     ui: state.ui,
     artwork: state.artwork,
+    singleArtwork: getById(state.artwork.byId, ownProps.params.artworkId),
     user: state.user,
     isAuthenticated: state.auth.isAuthenticated
   };
@@ -166,7 +187,8 @@ function mapDispatchToProps(dispatch) {
     fetchSingleArtworkRequest: require('../actions/artwork/fetchSingleArtworkRequest.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
     likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
-    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')
+    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js'),
+    editArtwork: require('../actions/artwork/editArtwork.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

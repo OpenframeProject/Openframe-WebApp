@@ -10,7 +10,8 @@ import UpdatePasswordFormComponent from '../components/user/UpdatePasswordFormCo
 
 class ResetPasswordModalContainer extends Component {
   _close() {
-    this.props.onRequestClose();
+    if (this.props.onRequestClose) this.props.onRequestClose();
+    this.props.actions.updateVisibleModal();
   }
 
   _onSubmit(fields) {
@@ -21,6 +22,7 @@ class ResetPasswordModalContainer extends Component {
     }
     delete fields.passwordConfirm;
     actions.updateUserRequest(fields, userId, accessToken);
+    this.props.actions.updateVisibleModal();
   }
 
   render() {
@@ -85,7 +87,8 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   const actions = {
     updateUserRequest: require('../actions/user/updateUserRequest'),
-    updateUserFailure: require('../actions/user/updateUserFailure')
+    updateUserFailure: require('../actions/user/updateUserFailure'),
+    updateVisibleModal: require('../actions/ui/updateVisibleModal')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

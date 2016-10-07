@@ -1,0 +1,15 @@
+@import "compass/css3/flexbox";
+
+.add-artwork-block {
+  @include display-flex;
+  @include justify-content(center);
+  @include align-items(center);
+  height: 80px;
+  border: 1px solid #999;
+  cursor: pointer;
+  background: none;
+
+  &:hover {
+    background: #fff;
+  }
+}

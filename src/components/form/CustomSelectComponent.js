@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import Select from 'react-select';
+import Select, { Creatable } from 'react-select';
 
 // import 'react-select/dist/react-select.css';
 // import 'react-select/scss/components.scss';
@@ -9,17 +9,46 @@ import Select from 'react-select';
 require('styles/form/CustomSelect.scss');
 
 class CustomSelectComponent extends React.Component {
+
+  _renderCreatable() {
+    const props = this.props; // onBlur and value was on this.props.fields.myField in MyForm
+    console.log('PROSP', props);
+    return (
+      <Creatable
+        {...props}
+        {...props.input}
+        onBlur={() => { props.input.onBlur(props.input.value) }}
+      />
+    );
+  }
+
+  _renderSelectAsync() {
+    const props = this.props; // onBlur and value was on this.props.fields.myField in MyForm
+    return (
+      <Select.Async
+        {...props}
+        {...props.input}
+        onBlur={() => { props.input.onBlur(props.input.value) }}
+         />
+    );
+  }
+
   render() {
-    const {value, onBlur, ...props} = this.props; // onBlur and value was on this.props.fields.myField in MyForm
-    console.log('CustomSelectComponent', value);
-    return <Select.Async
-      multi={true}
-      clearable={false}
-      placeholder="Add by username..."
-      value={value || ''}          // because react-select doesn't like the initial value of undefined
-      onBlur={() => onBlur(value)} // just pass the current value (updated on change) on blur
-      // onChange={(val, items) => onChange(items)}
-      {...props} />;                // options are part of other props
+    const props = this.props; // onBlur and value was on this.props.fields.myField in MyForm
+    // debugger;
+    return (
+      <div className="form-group">
+        <label>{props.label}</label>
+        {(() => {
+          switch (props.type) {
+            case 'selectAsync':   return this._renderSelectAsync();
+            case 'creatable': return this._renderCreatable();
+            default:   return this._renderSelectAsync();
+          }
+        })()}
+        {props.help && <p className="fine-copy">{props.help}</p>}
+      </div>
+    );                // options are part of other props
   }
 }
 

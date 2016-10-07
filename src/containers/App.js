@@ -196,21 +196,9 @@ function mapDispatchToProps(dispatch) {
     updateSidebarState: require('../actions/ui/updateSidebarState.js'),
     updateNoticeBanner: require('../actions/ui/updateNoticeBanner.js'),
 
-    updateNoticeBanner: require('../actions/ui/updateNoticeBanner.js'),
-    openSidebar: require('../actions/ui/openSidebar.js'),
-    closeSidebar: require('../actions/ui/closeSidebar.js'),
-    openLoginModal: require('../actions/ui/openLoginModal.js'),
-    closeLoginModal: require('../actions/ui/closeLoginModal.js'),
-    openCreateAccountModal: require('../actions/ui/openCreateAccountModal.js'),
-    closeCreateAccountModal: require('../actions/ui/closeCreateAccountModal.js'),
-    openEditProfileModal: require('../actions/ui/openEditProfileModal.js'),
-    closeEditProfileModal: require('../actions/ui/closeEditProfileModal.js'),
     hideConfirmDialog: require('../actions/common/hideConfirmDialog.js'),
     openStatefulModal: require('../actions/ui/openStatefulModal.js'),
-    closeStatefulModal: require('../actions/ui/closeStatefulModal.js'),
-    openFrameSettingsModal: require('../actions/ui/openFrameSettingsModal.js'),
-    closeFrameSettingsModal: require('../actions/ui/closeFrameSettingsModal.js'),
-    hideCreateAccountNotice: require('../actions/common/hideCreateAccountNotice.js')
+    closeStatefulModal: require('../actions/ui/closeStatefulModal.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

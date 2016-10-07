@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import Masonry from 'react-masonry-component';
 
 import ProfileHeaderComponent from '../components/user/ProfileHeaderComponent';
+import AddArtworkBlockComponent from '../components/artwork/AddArtworkBlockComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 import ArtworkListItemContainer from './artwork/ArtworkListItemContainer';
 import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
@@ -24,6 +25,14 @@ const masonryOptions = {
 class AddedContainer extends Component {
   render() {
     const { actions, user, currentUser, artworkList, location } = this.props;
+
+    // TODO: probably not best practice...
+    if (this.props.artworkList.length === 0 || this.props.artworkList[0].type !== 'add') {
+      this.props.artworkList.unshift({
+        type: 'add'
+      });
+    }
+
     return (
       <div>
         <ProfileHeaderComponent user={user} currentUser={currentUser} updateVisibleModal={actions.updateVisibleModal} />
@@ -42,12 +51,19 @@ class AddedContainer extends Component {
                     options={masonryOptions}>
                   {
                     artworkList.map(artwork => {
+                      if (artwork.type === 'add') {
+                        return (
+                          <AddArtworkBlockComponent
+                            key={artwork.type}
+                            updateVisibleModal={actions.updateVisibleModal} />
+                        );
+                      }
                       return (
                         <ArtworkListItemContainer
                           key={artwork.id}
                           artwork={artwork}
                           location={location} />
-                      )
+                      );
                     })
                   }
                   </Masonry>
