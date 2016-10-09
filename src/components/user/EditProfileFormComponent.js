@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
 import CustomInputComponent from '../form/CustomInputComponent';
+import ConfirmDialogComponent from '../common/ConfirmDialogComponent';
 
 import { getCurrentUser } from '../../reducers/user/index';
 
@@ -36,6 +37,26 @@ class EditProfileFormComponent extends React.Component {
   _handleChangePassword(e) {
     e.preventDefault();
     this.props.updateVisibleModal('reset-password');
+  }
+
+  _handleDeleteClick(e) {
+    e.preventDefault();
+    this.setState({
+      confirmAction: true
+    });
+  }
+
+  _renderConfirmAction() {
+    return (
+      <ConfirmDialogComponent
+        isOpen={this.state.confirmAction}
+        title="Are you sure?"
+        body="Deleting this artwork cannot be undone."
+        acceptText="Delete Artwork"
+        cancelText="Cancel"
+        acceptHandler={::this._doDelete}
+        cancelHandler={::this._cancelAction} />
+    );
   }
 
   render() {
@@ -74,8 +95,14 @@ class EditProfileFormComponent extends React.Component {
             Receive email notifications
           </label>
           <div className="form-group">
-              <button href="#" className="btn btn-default btn-fw">{ _submitText }</button>
+            <button href="#" className="btn btn-default btn-fw">{ _submitText }</button>
           </div>
+          { currentUser
+            &&
+            <div className="form-group">
+              <button className="btn btn-destructive btn-fw" onClick={::this._handleDeleteClick}>Delete Account</button>
+            </div>
+          }
       </form>
     );
   }

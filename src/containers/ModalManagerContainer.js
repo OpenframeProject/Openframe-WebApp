@@ -16,6 +16,8 @@ import EditArtworkModalComponent from '../components/artwork/EditArtworkModalCom
 
 import ResetPasswordModalContainer from './ResetPasswordModalContainer';
 
+import { getById } from '../reducers/index';
+
 class ModalManagerContainer extends Component {
   _handleSubmitLogin(fields) {
     let { actions } = this.props;
@@ -76,7 +78,6 @@ class ModalManagerContainer extends Component {
   _handleSubmitSaveArtwork(fields) {
     let { actions, editingArtworkId } = this.props;
     fields.is_public = fields.is_public === "true";
-    console.log('fields', fields);
     fields.format = fields.format.value;
     if (!fields.format) {
       actions.updateArtworkFailure('You must select a format.');
@@ -109,13 +110,14 @@ class ModalManagerContainer extends Component {
   }
 
   _renderEditArtwork() {
-    const {actions, modalError} = this.props;
+    const {actions, modalError, editingArtwork} = this.props;
     return  <EditArtworkModalComponent
-          isOpen={true}
           title="Edit Artwork"
           submitText="Save Changes"
           updateVisibleModal={actions.updateVisibleModal}
           onSubmit={::this._handleSubmitSaveArtwork}
+          artwork={editingArtwork}
+          deleteArtworkRequest={actions.deleteArtworkRequest}
           modalError={modalError} />;
   }
 
@@ -176,7 +178,8 @@ function mapStateToProps(state) {
     visibleModal: state.ui.visibleModal,
     modalError: state.ui.modalError,
     settingsFrameId: state.frames.settingsFrameId,
-    editingArtworkId: state.artwork.editingArtworkId
+    editingArtworkId: state.artwork.editingArtworkId,
+    editingArtwork: getById(state.artwork.byId, state.artwork.editingArtworkId)
   };
   return props;
 }
@@ -193,6 +196,8 @@ function mapDispatchToProps(dispatch) {
     createArtworkFailure: require('../actions/artwork/createArtworkFailure.js'),
     updateArtworkRequest: require('../actions/artwork/updateArtworkRequest'),
     updateArtworkFailure: require('../actions/artwork/updateArtworkFailure'),
+    deleteArtworkRequest: require('../actions/artwork/deleteArtworkRequest.js'),
+    deleteArtworkFailure: require('../actions/artwork/deleteArtworkFailure.js'),
     updateUserRequest: require('../actions/user/updateUserRequest'),
     updateUserFailure: require('../actions/user/updateUserFailure'),
     updateFrameRequest: require('../actions/frame/updateFrameRequest.js'),

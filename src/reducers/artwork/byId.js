@@ -7,6 +7,7 @@ import {
   FETCH_STREAM_SUCCESS,
   FETCH_SINGLE_ARTWORK_SUCCESS,
   UPDATE_ARTWORK_SUCCESS,
+  DELETE_ARTWORK_SUCCESS,
   FETCH_SINGLE_COLLECTION_SUCCESS,
   FETCH_USER_ARTWORK_SUCCESS,
   FETCH_USER_LIKES_SUCCESS,
@@ -30,6 +31,13 @@ export default function(state = initialState, action) {
         ...state,
         ...action.response.entities.artwork
       };
+    }
+    case DELETE_ARTWORK_SUCCESS: {
+      let newState = {
+        ...state
+      };
+      delete newState[action.artwork.id];
+      return newState;
     }
     default: {
       /* Return original state if no actions were consumed. */

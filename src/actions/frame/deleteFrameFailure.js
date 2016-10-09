@@ -1,5 +1,5 @@
 import {DELETE_FRAME_FAILURE} from './../const';
 
-module.exports = function(parameter) {
-  return { type: DELETE_FRAME_FAILURE, parameter };
+module.exports = function(error) {
+  return { type: DELETE_FRAME_FAILURE, error };
 };

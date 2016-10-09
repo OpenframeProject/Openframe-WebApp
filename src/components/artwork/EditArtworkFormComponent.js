@@ -66,10 +66,8 @@ class EditArtworkFormComponent extends React.Component {
     }
   }
 
-
-
   render() {
-    const { handleSubmit, is_author, submitText, artwork } = this.props;
+    const { handleSubmit, handleDelete, is_author, submitText, artwork } = this.props;
     return (
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -110,11 +108,14 @@ class EditArtworkFormComponent extends React.Component {
 
         <div className="form-group">
             <button type="submit" className="btn btn-default btn-fw">{submitText}</button>
-            { artwork
-              ? <button className="btn btn-destructive btn-fw" onClick={::this._handleConfirmableClick}>Delete Artwork</button>
-              : null
-            }
         </div>
+        { artwork
+          &&
+          <div className="form-group">
+            <button className="btn btn-destructive btn-fw" onClick={handleDelete}>Delete Artwork</button>
+          </div>
+
+        }
     </form>
     );
   }

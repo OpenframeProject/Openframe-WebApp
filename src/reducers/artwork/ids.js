@@ -8,6 +8,7 @@ import { uniq } from 'lodash';
 import {
   FETCH_STREAM_SUCCESS,
   CREATE_ARTWORK_SUCCESS,
+  DELETE_ARTWORK_SUCCESS,
   FETCH_SINGLE_ARTWORK_SUCCESS,
   FETCH_USER_ARTWORK_SUCCESS
 } from '../../actions/const'
@@ -35,6 +36,17 @@ export default function(state = initialState, action) {
         action.response.result
       ];
       return uniq(ids);
+    }
+
+    case DELETE_ARTWORK_SUCCESS: {
+      let ids = [
+        ...state
+      ];
+      let index = ids.indexOf(action.artwork.id);
+      if (index > -1) {
+          ids.splice(index, 1);
+      }
+      return ids;
     }
 
     default: {
