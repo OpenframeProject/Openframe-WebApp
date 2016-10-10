@@ -28,8 +28,12 @@ class TopbarComponent extends React.Component {
     });
   }
 
+  _gotoInfoLanding() {
+    console.log('TODO: go to landing');
+  }
+
   render() {
-    let {openSidebar, openLoginModal, openCreateAccountModal, selectedFrame, user, isFetching, location} = this.props;
+    let {updateSidebarState, updateVisibleModal, selectedFrame, user, isFetching, location} = this.props;
     let username = user ? `/${user.username}` : null;
 
     let browseActiveRoutes = ['/stream', '/channels', '/collections', '/artwork'];
@@ -60,7 +64,7 @@ class TopbarComponent extends React.Component {
           {
             user
             ? (
-                <div className="topbar__tab topbar__tab--transparent pull-right" onClick={openSidebar}>
+                <div className="topbar__tab topbar__tab--transparent pull-right" onClick={() => updateSidebarState(true)}>
                   <div className="sidebar-btn" ></div>
                 </div>
               )
@@ -70,7 +74,7 @@ class TopbarComponent extends React.Component {
           {
             !user && !isFetching
             ? (
-                  <span className="topbar__tab topbar__tab--link pull-right" onClick={openLoginModal} >Log in</span>
+                  <span className="topbar__tab topbar__tab--link pull-right" onClick={() => updateVisibleModal('login')} >Log in</span>
               )
             : null
           }
@@ -78,7 +82,15 @@ class TopbarComponent extends React.Component {
           {
             !user && !isFetching
             ? (
-                  <span className="topbar__tab topbar__tab--link pull-right" onClick={openCreateAccountModal} >Create an account</span>
+                  <span className="topbar__tab topbar__tab--link pull-right" onClick={() => updateVisibleModal('create-account')} >Create an account</span>
+              )
+            : null
+          }
+
+          {
+            !user && !isFetching
+            ? (
+                  <span className="topbar__tab topbar__tab--link pull-right" onClick={::this._gotoInfoLanding} >About Openframe</span>
               )
             : null
           }

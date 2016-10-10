@@ -1,4 +1,65 @@
+@import "bootstrap/variables";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+
 .notice-banner {
   background: #fff;
-  padding: 20px;
+  overflow-y: hidden;
+
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  z-index: 200;
+
+  .container {
+    padding: 15px;
+  }
+
+  &--info {
+    color: #006;
+  }
+
+  &--success {
+    color: #060;
+  }
+
+  &--warning {
+    color: #600;
+  }
 }
+
+.notice-banner-enter {
+  @include transition(all .25s ease-out);
+  max-height: 0;
+  opacity: .8;
+  &-active {
+    opacity: 1;
+    max-height: 200px;
+  }
+}
+
+.notice-banner-leave {
+  @include transition(all .25s ease-in-out);
+  max-height: 200px;
+  &-active {
+    max-height: 0;
+    opacity: .8;
+  }
+}
+
+
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+  .notice-banner {
+    .container {
+      padding: 20px;
+    }
+  }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {}

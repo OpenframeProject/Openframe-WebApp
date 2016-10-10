@@ -7,6 +7,8 @@ import {
   FETCH_FRAMES_SUCCESS,
   FRAME_UPDATED,
   UPDATE_FRAME_MANAGERS_SUCCESS,
+  DELETE_FRAME_SUCCESS,
+  REMOVE_FROM_FRAME_SUCCESS,
   LOGOUT_REQUEST
 } from '../../actions/const'
 
@@ -24,6 +26,14 @@ export default function(state = initialState, action) {
     }
     case LOGOUT_REQUEST: {
       return {};
+    }
+    case DELETE_FRAME_SUCCESS:
+    case REMOVE_FROM_FRAME_SUCCESS: {
+      let newState = {
+        ...state
+      };
+      delete newState[action.frameId];
+      return newState;
     }
     default: {
       /* Return original state if no actions were consumed. */

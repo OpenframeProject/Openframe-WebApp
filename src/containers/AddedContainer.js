@@ -8,11 +8,12 @@ import { connect } from 'react-redux';
 import Masonry from 'react-masonry-component';
 
 import ProfileHeaderComponent from '../components/user/ProfileHeaderComponent';
+import AddArtworkBlockComponent from '../components/artwork/AddArtworkBlockComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
-import ArtworkListItemComponent from '../components/artwork/ArtworkListItemComponent';
+import ArtworkListItemContainer from './artwork/ArtworkListItemContainer';
 import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
 
-import { getProfileUser, getCurrentUser, isLiked } from '../reducers/user/index';
+import { getProfileUser, getCurrentUser } from '../reducers/user/index';
 import { getArtworkList } from '../reducers/artwork/index';
 
 require('styles/user/AddedContainer.scss');
@@ -23,10 +24,18 @@ const masonryOptions = {
 
 class AddedContainer extends Component {
   render() {
-    const { actions, userState, user, currentUser, isFetching, auth, artworkList, location } = this.props;
+    const { actions, user, currentUser, artworkList, location } = this.props;
+
+    // TODO: probably not best practice...
+    if (this.props.artworkList.length === 0 || this.props.artworkList[0].type !== 'add') {
+      this.props.artworkList.unshift({
+        type: 'add'
+      });
+    }
+
     return (
       <div>
-        <ProfileHeaderComponent user={user} currentUser={currentUser} openEditProfileModal={actions.openEditProfileModal} />
+        <ProfileHeaderComponent user={user} currentUser={currentUser} updateVisibleModal={actions.updateVisibleModal} />
 
         <div className="container">
           <YouSubMenuComponent location={location} user={user} currentUser={currentUser} />
@@ -42,17 +51,19 @@ class AddedContainer extends Component {
                     options={masonryOptions}>
                   {
                     artworkList.map(artwork => {
+                      if (artwork.type === 'add') {
+                        return (
+                          <AddArtworkBlockComponent
+                            key={artwork.type}
+                            updateVisibleModal={actions.updateVisibleModal} />
+                        );
+                      }
                       return (
-                        <ArtworkListItemComponent
-                          isAuthenticated={auth.isAuthenticated}
+                        <ArtworkListItemContainer
                           key={artwork.id}
                           artwork={artwork}
-                          location={location}
-                          pushArtwork={actions.pushArtwork}
-                          likeArtwork={actions.likeArtwork}
-                          unlikeArtwork={actions.unlikeArtwork}
-                          isLiked={isLiked(userState, artwork.id)} />
-                      )
+                          location={location} />
+                      );
                     })
                   }
                   </Masonry>
@@ -73,11 +84,8 @@ AddedContainer.propTypes = {
 function mapStateToProps(state) {
   const props = {
     user: getProfileUser(state.user),
-    userState: state.user,
     currentUser: getCurrentUser(state.user),
-    isFetching: state.artwork.isFetching,
-    artworkList: getArtworkList(state.user.profileArtworkIds, state.artwork.byId),
-    auth: state.auth
+    artworkList: getArtworkList(state.user.profileArtworkIds, state.artwork.byId)
   };
   return props;
 }
@@ -85,10 +93,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   const actions = {
     fetchUserArtworkRequest: require('../actions/user/fetchUserArtworkRequest.js'),
-    openEditProfileModal: require('../actions/ui/openEditProfileModal.js'),
-    pushArtwork: require('../actions/artwork/pushArtwork.js'),
-    likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
-    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js')
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

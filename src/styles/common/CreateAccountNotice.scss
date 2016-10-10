@@ -1,0 +1,18 @@
+.create-account-notice {
+  font-size: 16px;
+  &__links {
+    color: #51d7b9;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      padding: 10px 0;
+    }
+    li:before {
+      content: '> ';
+    }
+    a {
+      color: #51d7b9;
+    }
+  }
+}

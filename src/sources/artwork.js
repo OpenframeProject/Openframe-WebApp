@@ -63,7 +63,7 @@ const artwork = {
   create: function(artworkData) {
     // TODO: for now we're only allowing artwork creation via current user REST relation
     // return fetchJSON(`${modelPrefix}`, { method: 'POST', data: artworkData });
-    return fetchJSON('/api/users/current/owned_artwork', { method: 'POST', data: artworkData });
+    return fetchJSON('users/current/created_artwork', { method: 'POST', data: artworkData });
   },
 
   /**

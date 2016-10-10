@@ -1,21 +1,60 @@
 'use strict';
 
 import React from 'react';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 require('styles/common/NoticeBanner.scss');
 
 class NoticeBannerComponent extends React.Component {
-  render() {
-    const { notice } = this.props;
+  constructor(props) {
+    super(props);
+    this.state = {
+      notice: null,
+      isOpen: false
+    }
+  }
 
+  _close() {
+    this.props.updateNoticeBanner(null);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.notice) {
+      this.setState({
+        notice: nextProps.notice,
+        isOpen: true
+      });
+      setTimeout(() => {
+        this._close();
+      }, 5000, this);
+    } else {
+      this.setState({
+        isOpen: false
+      });
+    }
+  }
+
+  render() {
+    let noticeType = this.props.noticeType || 'info';
+    let noticeClass = 'notice-banner--' + noticeType;
     return (
-      <div className="notice-banner">
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-12" dangerouslySetInnerHTML={{__html: notice}}></div>
-          </div>
-        </div>
-      </div>
+      <ReactCSSTransitionGroup
+        transitionName="notice-banner"
+        transitionEnterTimeout={250}
+        transitionLeaveTimeout={250}>
+
+        {
+          this.state.isOpen
+          ? <div className={'notice-banner ' + noticeClass}>
+              <div className="container">
+                <button type="button" className="close" aria-label="Close" onClick={::this._close}><span aria-hidden="true">&times;</span></button>
+                <span dangerouslySetInnerHTML={{__html: this.state.notice }}></span>
+              </div>
+            </div>
+          : null
+        }
+
+      </ReactCSSTransitionGroup>
     );
   }
 }

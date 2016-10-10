@@ -1,14 +1,17 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import {reduxForm} from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import { debounce } from 'lodash';
 
 // import Select from 'react-select';
 // import 'react-select/dist/react-select.css';
 
 import CustomSelectComponent from '../form/CustomSelectComponent';
+import CustomInputComponent from '../form/CustomInputComponent';
+import ConfirmDialogComponent from '../common/ConfirmDialogComponent';
 import { getById } from '../../reducers/index';
 import { getUserList } from '../../reducers/user/index';
 
@@ -17,8 +20,20 @@ import { users } from '../../sources/api';
 require('styles//frame/FrameSettingsModal.scss');
 
 class FrameSettingsModalComponent extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      confirmAction: false,
+      body: props.isOwner
+        ? 'Deleting a frame cannot be undone.'
+        : 'Leaving this frame will remove it from your Frames list, and you will no longer be able to push artwork to it.',
+      title: 'Are you sure?',
+      acceptText: props.isOwner ? 'Delete Frame' : 'Leave Frame',
+      cancelText: 'Cancel',
+      acceptHandler: props.isOwner ? ::this._doDelete : ::this._doLeave,
+      isOpen: props.isOpen
+    };
     this.fetchOptions = debounce((input, callback) => {
       users.searchByUsername(input)
         .then(response => {
@@ -35,117 +50,196 @@ class FrameSettingsModalComponent extends React.Component {
         });
     }, 250);
   }
+
+  // Allow opening from parent, reset context-specific confirm dialog
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      confirmAction: false,
+      body: nextProps.isOwner
+        ? 'Deleting a frame cannot be undone.'
+        : 'Leaving this frame will remove it from your Frames list, and you will no longer be able to push artwork to it.',
+      title: 'Are you sure?',
+      acceptText: nextProps.isOwner ? 'Delete Frame' : 'Leave Frame',
+      cancelText: 'Cancel',
+      acceptHandler: nextProps.isOwner ? ::this._doDelete : ::this._doLeave,
+      isOpen: nextProps.isOpen
+    });
+  }
+
   afterOpenModal() {
-    this.refs.name.focus();
+    this.refs.frameName.getRenderedComponent().focus();
   }
 
-  closeModal() {
-    this.props.resetForm();
-    this.props.close();
+  _close() {
+    this.props.reset();
+    this.setState({
+      confirmAction: false
+    });
+    this.props.updateVisibleModal(null);
   }
 
-  deleteFrame() {
-    // TODO: Launch confirm modal for delete...
-    console.log('Delete me!');
+  _handleConfirmableClick(e) {
+    e.preventDefault();
+    this.setState({
+      confirmAction: true,
+      isOpen: false
+    });
+  }
+
+  _doDelete() {
+    let { deleteFrameRequest, frame } = this.props;
+    deleteFrameRequest(frame);
+    this._close();
+  }
+
+  _doLeave() {
+    let { removeFromFrameRequest, frame } = this.props;
+    removeFromFrameRequest(frame);
+    this._close();
+  }
+
+  _cancelAction() {
+    this.setState({
+      confirmAction: false,
+      isOpen: true
+    });
+  }
+
+  _renderConfirmAction() {
+    return (
+      <ConfirmDialogComponent
+          isOpen={this.state.confirmAction}
+          body={this.state.body}
+          title={this.state.title}
+          acceptText={this.state.acceptText}
+          cancelText={this.state.cancelText}
+          acceptHandler={this.state.acceptHandler}
+          cancelHandler={::this._cancelAction}
+           />
+    );
   }
 
   render() {
-    let {fields: {name, managers}, frame, handleSubmit, errorMessage, isOpen} = this.props;
-    // extensions.value = Object.keys(extensions.value).map(key => key).join(', ');
-    // console.log(extensionNames);
+    let {frame, handleSubmit, errorMessage, isOwner, owner} = this.props;
 
     let extensions = frame ? Object.keys(frame.extensions).map(key => key) : null;
 
-    let errorClasses = 'row row-errors ';
+    let errorClasses = 'row-errors ';
     errorClasses += errorMessage ? 'show' : 'hide';
 
     return (
-      <Modal
-        isOpen={isOpen}
-        shouldCloseOnOverlayClick={true}
-        onAfterOpen={::this.afterOpenModal}
-        onRequestClose={::this.closeModal}
-        className="of-modal modal-dialog"
-        overlayClassName="modal-backdrop"
-        closeTimeoutMS={500}
-        >
-        <div className="modal-content">
-            <div className="modal-header">
-                <button className="close" onClick={::this.closeModal} type=
-                  "button">&times;</button>
-                <h3 className="modal-title">Frame settings</h3>
-            </div>
-            <div className="modal-body container container-centered-form">
-                <div className={errorClasses}>
-                  <div className="col-md-12">
-                    <div className="alert alert-danger" role="alert">
-                      {errorMessage}
+      <div>
+        <Modal
+          isOpen={this.state.isOpen}
+          shouldCloseOnOverlayClick={true}
+          onAfterOpen={::this.afterOpenModal}
+          onRequestClose={::this._close}
+          className="of-modal modal-dialog"
+          overlayClassName="modal-backdrop"
+          closeTimeoutMS={500}
+          >
+          <div className="modal-content">
+              <form onSubmit={handleSubmit}>
+                <div className="modal-header">
+                    <button className="close" onClick={::this._close} type=
+                      "button">&times;</button>
+                    <h3 className="modal-title">Frame settings</h3>
+                    {!isOwner && <p>You are a curator for this frame.</p>}
+                </div>
+                <div className="modal-body">
+                    <div className={errorClasses}>
+                      <div className="alert alert-danger" role="alert">
+                        {errorMessage}
+                      </div>
+                    </div>
+
+                    <Field
+                      withRef
+                      ref="frameName"
+                      name="name"
+                      component={CustomInputComponent}
+                      type="text"
+                      placeholder="name"
+                      label="Name"
+                      disabled={!isOwner} />
+
+                    { /* Sitting outside redux-form */ }
+                    { !isOwner
+                      ? <div className="form-group">
+                          <label>Owner</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="owner"
+                            disabled={true}
+                            value={owner.username} />
+                        </div>
+                      : null
+                    }
+
+                    <Field
+                      name="managers"
+                      component={CustomSelectComponent}
+                      label="Additional curators"
+                      placeholder={isOwner ? 'Add by username...' : 'No additional curators'}
+                      help="Curators can push art to this frame, but can't modify settings."
+                      disabled={!isOwner}
+                      multi={true}
+                      clearable={false}
+                      loadOptions={::this.fetchOptions} />
+
+                    <div className="form-group">
+                        <label>Extensions installed in this frame</label>
+                        <ul className="frame-settings-modal__extensions">
+                        {
+                          extensions && extensions.map(name => <li key={name} className="frame-settings-modal__extension">{name}</li>)
+                        }
+                        </ul>
                     </div>
                   </div>
+                <div className="modal-footer">
+                  { isOwner
+                    ? <div>
+                        <button type="submit" className="btn btn-default btn-fw">Save Changes</button>
+                        <button className="btn btn-destructive btn-fw" onClick={::this._handleConfirmableClick}>Delete Frame</button>
+                      </div>
+                    : <button className="btn btn-destructive btn-fw" onClick={::this._handleConfirmableClick}>Leave Frame</button>
+                  }
                 </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-group">
-                                <label for="name">Frame name</label>
-                                <input ref={name.name} type="text" className="form-control" name="name" id="Framename" placeholder="name" autoFocus={true} autoCapitalize="off" {...name} />
-                            </div>
-                            <div className="form-group">
-                                <label className="with-fine-copy" for="Managers">Frame managers</label>
-                                <CustomSelectComponent
-                                    {...managers}
-                                    loadOptions={::this.fetchOptions}
-                                />
-                                <p className="fine-copy">Managers can push artwork to this frame, but not update its settings.</p>
-                            </div>
-                            <div className="form-group">
-                                <label for="Extensions">Extensions installed in this frame</label>
-                                {
-                                  //<input type="text" className="form-control" name="extensions" id="Extensions" placeholder="no extensions" autoCapitalize="off" readOnly {...extensions}/>
-                                }
-                                <ul className="frame-settings-modal__extensions">
-                                {
-                                  extensions && extensions.map(name => <li key={name} className="frame-settings-modal__extension">{name}</li>)
-                                }
-                                </ul>
-                            </div>
-                            <div className="form-group">
-                                <button type="submit" className="btn btn-default btn-fw">Save Changes</button>
-                            </div>
-                            <div className="switch-text">
-                                <p><a href="#" className="red" onClick={::this.deleteFrame}>Click here</a> to delete this frame</p>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </Modal>
+              </form>
+          </div>
+        </Modal>
+        { ::this._renderConfirmAction() }
+      </div>
     );
   }
 }
 
-FrameSettingsModalComponent = reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-    form: 'frameSettings',                           // a unique name for this form
-    fields: ['name', 'managers'] // all the fields in your form
-  },
+FrameSettingsModalComponent = reduxForm({
+    form: 'frameSettings'
+  })(FrameSettingsModalComponent);
+
+FrameSettingsModalComponent = connect(
   state => {
     let frame = getById(state.frames.byId, state.frames.settingsFrameId);
-    let managerUsers = getUserList(state.user.byId, frame ? frame.managers : []);
+    let managerUsers = getUserList(state.user.byId, frame && frame.managers ? frame.managers : []);
     let managers = managerUsers.map(user => ({
       label: user.username,
       value: user.id
     }));
-    // let extensions = frame ? Object.keys(frame.extensions).map(key => key).join(', ') : null;
+
     return { // mapStateToProps
       frame: frame,
+      owner: frame && frame.ownerId ? getById(state.user.byId, frame.ownerId) : {},
+      isOwner: frame && frame.ownerId === state.user.current,
       errorMessage: state.ui.frameSettingsError,
       initialValues: {
         ...frame,
         managers
       }  // will pull state into form's initialValues
     }
-  })(FrameSettingsModalComponent);
+  }
+)(FrameSettingsModalComponent);
 
 FrameSettingsModalComponent.displayName = 'FrameSettingsModalComponent';
 

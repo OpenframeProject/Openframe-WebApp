@@ -1,5 +1,12 @@
-import {EDIT_ARTWORK} from './../const';
+import { EDIT_ARTWORK } from './../const';
+import updateVisibleModal from './../ui/updateVisibleModal';
 
-module.exports = function(parameter) {
-  return { type: EDIT_ARTWORK, parameter };
+module.exports = function(artworkId) {
+  return dispatch => {
+    dispatch({
+      type: EDIT_ARTWORK, artworkId
+    });
+
+    dispatch(updateVisibleModal('edit-artwork'));
+  };
 };

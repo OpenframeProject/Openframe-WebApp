@@ -4,6 +4,7 @@ import {
   FETCH_USER_LIKES_SUCCESS,
   LIKE_ARTWORK_REQUEST,
   UNLIKE_ARTWORK_REQUEST,
+  DELETE_ARTWORK_SUCCESS,
   LOGOUT_SUCCESS
 } from '../../actions/const'
 
@@ -33,6 +34,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         [action.userId]: uniq(ids)
+      }
+    }
+    case DELETE_ARTWORK_SUCCESS: {
+      let ids = filter(state[action.artwork.ownerId], (n) => {
+        return n !== action.artwork.id
+      });
+      return {
+        ...state,
+        [action.artwork.ownerId]: uniq(ids)
       }
     }
     case LOGOUT_SUCCESS:

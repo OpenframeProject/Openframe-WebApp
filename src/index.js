@@ -18,7 +18,13 @@ import ProfileContainer from './containers/ProfileContainer';
 import LikesContainer from './containers/LikesContainer';
 import AddedContainer from './containers/AddedContainer';
 import FeatureFlagsContainer from './containers/FeatureFlagsContainer';
+import VerifiedEmailContainer from './containers/VerifiedEmailContainer';
+import ResetPasswordContainer from './containers/ResetPasswordContainer';
 
+require('./images/touch-icon-iphone.png');
+require('./images/touch-icon-ipad.png');
+require('./images/touch-icon-iphone-retina.png');
+require('./images/touch-icon-ipad-retina.png');
 
 const fixBody = require('./actions/ui/fixBody.js');
 const unfixBody = require('./actions/ui/unfixBody.js');
@@ -55,13 +61,17 @@ render(
 
         <Route path="/ff-conf" component={FeatureFlagsContainer} />
 
+        <Route path="/verified" component={VerifiedEmailContainer} />
+
+        <Route path="/reset-password/:accessToken" component={ResetPasswordContainer} />
+
         <Route component={BrowseSectionComponent}>
           <IndexRoute component={StreamContainer} />
           <Route path="/stream" component={StreamContainer} />
           <Route path="/collections" component={CollectionsContainer} />
           <Route path="/channels" component={ChannelsContainer} />
 
-          <Route path="artwork/:artworkId" component={ArtworkDetailContainer} onEnter={doFixBody} onLeave={doUnfixBody} />
+          <Route path="artwork/:artworkId" component={ArtworkDetailContainer} />
           <Route path="collections/:collectionId" component={CollectionDetailContainer} />
         </Route>
 

@@ -9,8 +9,10 @@ import { Link } from 'react-router';
 
 import PushButtonComponent from '../common/PushButtonComponent';
 import LikeButtonComponent from '../common/LikeButtonComponent';
+import EditButtonComponent from '../common/EditButtonComponent';
 
 let noThumbImg = require('../../images/preview-missing.png');
+let thumb404 = require('../../images/not-found.png');
 
 require('styles/artwork/ArtworkListItem.scss');
 // let settingsBtnImage = require('../../images/artwork-settings.svg');
@@ -19,14 +21,15 @@ require('styles/artwork/ArtworkListItem.scss');
 
 class ArtworkListItemComponent extends Component {
 
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       hover: false,
       style: {
         visibility: 'hidden',
         height: '400px'
-      }
+      },
+      thumb_url: this._generateThumbUrl(props.artwork.thumb_url)
     };
   }
 
@@ -47,25 +50,30 @@ class ArtworkListItemComponent extends Component {
 
   _handlePushClick(e) {
     e.preventDefault();
-    let {artwork, pushArtwork, isAuthenticated} = this.props;
+    let {artwork, actions, isAuthenticated} = this.props;
     if (isAuthenticated) {
-      pushArtwork(artwork.id);
+      actions.pushArtwork(artwork.id);
     } else {
-      // TODO: user-facing notice about what pushing an artwork means.
+      actions.updateVisibleModal('create-account-notice');
     }
+  }
+
+  _handleEditClick(e) {
+    e.preventDefault();
+    this.props.actions.editArtwork(this.props.artwork.id);
   }
 
   _handleLikeClick(e) {
     e.preventDefault();
-    let {artwork, likeArtwork, unlikeArtwork, isAuthenticated, isLiked } = this.props;
+    let {artwork, actions, isAuthenticated, isLiked } = this.props;
     if (isAuthenticated) {
       if (isLiked) {
-        unlikeArtwork(artwork.id);
+        actions.unlikeArtwork(artwork.id);
       } else {
-        likeArtwork(artwork.id);
+        actions.likeArtwork(artwork.id);
       }
     } else {
-      // TODO: user-facing notice about what liking an artwork means.
+      actions.updateVisibleModal('create-account-notice');
     }
   }
 
@@ -99,8 +107,18 @@ class ArtworkListItemComponent extends Component {
     });
   }
 
+  _imageError() {
+    this.setState({
+      style: {
+        visibility: 'visible',
+        'height': 'auto'
+      },
+      thumb_url: noThumbImg
+    });
+  }
+
   render() {
-    let { artwork, currentArtwork, isLiked } = this.props;
+    let { artwork, currentArtwork, isLiked, isOwner } = this.props;
 
 
     let isCurrentClass = 'selected-frame-indicator';
@@ -114,7 +132,7 @@ class ArtworkListItemComponent extends Component {
             }}>
             <div className="list-item artwork-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
               <div className="artwork-list-item__thumb">
-                <img className="artwork-list-item__thumb-img" src={this._generateThumbUrl(artwork.thumb_url)} onLoad={::this._imageLoaded} />
+                <img className="artwork-list-item__thumb-img" src={this.state.thumb_url} onLoad={::this._imageLoaded} onError={::this._imageError} />
               </div>
               <div className="artwork-list-item__info">
                 <div className="artwork-list-item__author">{artwork.author_name}</div>
@@ -135,6 +153,13 @@ class ArtworkListItemComponent extends Component {
                   </div>
                 : null
               }
+              { isOwner &&
+                <div className="artwork-list-item__action artwork-list-item__action--edit" title="Edit artwork">
+                  <EditButtonComponent
+                    handleClick={::this._handleEditClick}
+                    invert={true} />
+                </div>
+              }
             </div>
           </Link>
         </div>
@@ -148,8 +173,7 @@ ArtworkListItemComponent.displayName = 'ArtworkListItemComponent';
 ArtworkListItemComponent.propTypes = {
   artwork: PropTypes.object.isRequired,
   user: PropTypes.object,
-  pushArtwork: PropTypes.func.isRequired,
-  likeArtwork: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool,
   isLoadingImages: PropTypes.bool
 };

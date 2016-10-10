@@ -8,28 +8,23 @@ import FrameItemContainer from '../../containers/frame/FrameItemContainer'
 
 let checkmarkIcon = require('../../images/checkmark_white.svg');
 let settingsIcon = require('../../images/settings_white.svg');
+let infoIcon = require('../../images/threedots.svg');
 
 class SidebarFrameItemComponent extends React.Component {
 
-  handleClick() {
+  _selectFrame() {
     let {selectFrame, frame} = this.props;
     selectFrame(frame.id);
   }
 
-  openFrameSettings(e) {
-    e.preventDefault();
-    const {frame, openFrameSettingsModal} = this.props;
-    openFrameSettingsModal(frame.id);
-  }
-
   render() {
-    let {isSelected, isOwner, frame} = this.props;
+    let {isSelected, editFrameSettings, isOwner, frame} = this.props;
 
     let className = 'sidebar-frame-item sidebar__row sidebar__row--frame';
     className += isSelected ? ' sidebar_row--frame-active' : '';
 
     return (
-      <li className={className} onClick={this.handleClick.bind(this)}>
+      <li className={className} onClick={::this._selectFrame}>
 
         <FrameItemContainer
           frame={frame} />
@@ -42,10 +37,12 @@ class SidebarFrameItemComponent extends React.Component {
             : ''
           }
           { isOwner
-            ? <span className="sidebar-frame-item__settings" onClick={::this.openFrameSettings}>
+            ? <span className="sidebar-frame-item__settings" onClick={editFrameSettings}>
                 <img className="icon-settings" src={settingsIcon} />
               </span>
-            : ''
+            : <span className="sidebar-frame-item__settings" onClick={editFrameSettings}>
+                <img className="icon-settings" src={settingsIcon} />
+              </span>
           }
         </div>
       </li>

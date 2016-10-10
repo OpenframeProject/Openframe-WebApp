@@ -6,7 +6,8 @@
 
 import {
   SELECT_FRAME,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  DELETE_FRAME_SUCCESS
 } from '../../actions/const'
 
 // pull selected frame id from localStorage, if present
@@ -23,6 +24,7 @@ export default function(state = initialState, action) {
     case SELECT_FRAME:
       return action.frameId;
     case LOGOUT_SUCCESS:
+    case DELETE_FRAME_SUCCESS:
       return null;
     default: {
       /* Return original state if no actions were consumed. */
