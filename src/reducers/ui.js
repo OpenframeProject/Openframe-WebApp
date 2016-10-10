@@ -23,7 +23,7 @@ import {
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILURE,
 
-  UPDATE_NOTICE_BANNER,
+  UPDATE_NOTIFICATION,
   UPDATE_VISIBLE_MODAL,
   UPDATE_SIDEBAR_STATE,
 
@@ -38,7 +38,11 @@ const initialState = {
   visibleModal: null,
   modalError: null,
   fixBody: false,
-  // notice: 'This is a test of the emergency alert system.'
+  // notice: {
+  //   text: 'Where\'s the internet?',
+  //   type: 'info',
+  //   dismissible: true
+  // }
   notice: null
 };
 
@@ -115,7 +119,7 @@ module.exports = function(state = initialState, action) {
         fixBody: false
       }
 
-    case UPDATE_NOTICE_BANNER: {
+    case UPDATE_NOTIFICATION: {
       return {
         ...state,
         notice: action.notice

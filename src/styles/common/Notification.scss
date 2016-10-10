@@ -1,0 +1,85 @@
+@import "bootstrap/variables";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+@import "compass/css3/flexbox";
+@import "./colors";
+
+.notification-container {
+  @include display-flex();
+  @include justify-content(center);
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  z-index: 200;
+}
+
+.notification {
+  position: relative;
+  width: 100%;
+  padding: 12px 30px 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+
+  &--info {
+    background-color: $of-info;
+  }
+
+  &--warning {
+    background-color: $of-error;
+  }
+
+  .close {
+    position: relative;
+    top: -2px;
+  }
+}
+
+.notification-container-enter {
+  @include transition(all .25s ease-out);
+  opacity: 0;
+  &-active {
+    opacity: 1;
+  }
+}
+
+.notification-container-leave {
+  @include transition(all .25s ease-in-out);
+  &-active {
+    opacity: 0;
+  }
+}
+
+
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+  .notification-container {
+    top: 80px;
+  }
+
+  .notification {
+    width: 600px;
+    border-radius: 3px;
+  }
+
+  .notification-container-enter {
+    @include transition(all .25s ease-out);
+    opacity: 0;
+    &-active {
+      opacity: 1;
+    }
+  }
+
+  .notification-container-leave {
+    @include transition(all .25s ease-in-out);
+    &-active {
+      opacity: 0;
+    }
+  }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {}

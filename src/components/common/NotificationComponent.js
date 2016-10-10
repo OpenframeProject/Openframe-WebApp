@@ -3,9 +3,9 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
-require('styles/common/NoticeBanner.scss');
+require('styles/common/Notification.scss');
 
-class NoticeBannerComponent extends React.Component {
+class NotificationComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,9 +24,11 @@ class NoticeBannerComponent extends React.Component {
         notice: nextProps.notice,
         isOpen: true
       });
-      setTimeout(() => {
-        this._close();
-      }, 5000, this);
+      if (nextProps.notice.dismissible) {
+        setTimeout(() => {
+          this._close();
+        }, 5000, this);
+      }
     } else {
       this.setState({
         isOpen: false
@@ -35,34 +37,39 @@ class NoticeBannerComponent extends React.Component {
   }
 
   render() {
-    let noticeType = this.props.noticeType || 'info';
-    let noticeClass = 'notice-banner--' + noticeType;
+    let notice = this.state.notice;
+
+    if (!notice) return null;
+
+    let noticeType = notice.type || 'info';
+    let noticeClass = 'notification--' + noticeType;
     return (
       <ReactCSSTransitionGroup
-        transitionName="notice-banner"
+        transitionName="notification-container"
         transitionEnterTimeout={250}
         transitionLeaveTimeout={250}>
-
         {
           this.state.isOpen
-          ? <div className={'notice-banner ' + noticeClass}>
-              <div className="container">
+          &&
+          <div className='notification-container' key='notification'>
+            <div className={'notification ' + noticeClass}>
+              { notice.dismissible
+                &&
                 <button type="button" className="close" aria-label="Close" onClick={::this._close}><span aria-hidden="true">&times;</span></button>
-                <span dangerouslySetInnerHTML={{__html: this.state.notice }}></span>
-              </div>
+              }
+              <span dangerouslySetInnerHTML={{__html: notice.text }}></span>
             </div>
-          : null
+          </div>
         }
-
       </ReactCSSTransitionGroup>
     );
   }
 }
 
-NoticeBannerComponent.displayName = 'CommonNoticeBannerComponent';
+NotificationComponent.displayName = 'CommonNotificationComponent';
 
 // Uncomment properties you need
-// NoticeBannerComponent.propTypes = {};
-// NoticeBannerComponent.defaultProps = {};
+// NotificationComponent.propTypes = {};
+// NotificationComponent.defaultProps = {};
 
-export default NoticeBannerComponent;
+export default NotificationComponent;

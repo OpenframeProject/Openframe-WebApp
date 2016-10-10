@@ -16,7 +16,7 @@ import SidebarContainer from './sidebar/SidebarContainer';
 import ModalManagerContainer from './ModalManagerContainer';
 
 import TopbarComponent from '../components/topbar/TopbarComponent';
-import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
+import Notification from '../components/common/NotificationComponent';
 
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import StatefulModalComponent from '../components/common/StatefulModalComponent';
@@ -108,7 +108,7 @@ class App extends Component {
           scrollableAncestor={window}
         />
 
-        <NoticeBannerComponent notice={ ui.notice } updateNoticeBanner={actions.updateNoticeBanner}/>
+        <Notification notice={ ui.notice } updateNotification={actions.updateNotification}/>
 
         <div className='app-content-wrap'>
           {isStatefulModal ?
@@ -194,7 +194,7 @@ function mapDispatchToProps(dispatch) {
 
     updateVisibleModal: require('../actions/ui/updateVisibleModal.js'),
     updateSidebarState: require('../actions/ui/updateSidebarState.js'),
-    updateNoticeBanner: require('../actions/ui/updateNoticeBanner.js'),
+    updateNotification: require('../actions/ui/updateNotification.js'),
 
     hideConfirmDialog: require('../actions/common/hideConfirmDialog.js'),
     openStatefulModal: require('../actions/ui/openStatefulModal.js'),
