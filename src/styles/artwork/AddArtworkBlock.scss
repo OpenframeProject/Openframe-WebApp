@@ -1,15 +1,18 @@
 @import "compass/css3/flexbox";
+@import "../common/colors";
 
 .add-artwork-block {
   @include display-flex;
   @include justify-content(center);
   @include align-items(center);
   height: 80px;
-  border: 1px solid #999;
+  border: 1px solid $of-normal-grey;
   cursor: pointer;
   background: none;
+  box-shadow: none;
 
   &:hover {
-    background: #fff;
+    border: 1px solid $of-darkest-grey;
+    box-shadow: none;
   }
 }
