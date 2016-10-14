@@ -11,6 +11,7 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Waypoint from 'react-waypoint';
+import { Notifs } from 'redux-notifications';
 
 import SidebarContainer from './sidebar/SidebarContainer';
 import ModalManagerContainer from './ModalManagerContainer';
@@ -108,7 +109,10 @@ class App extends Component {
           scrollableAncestor={window}
         />
 
-        <Notification notice={ ui.notice } updateNotification={actions.updateNotification}/>
+        {
+          //<Notification notice={ ui.notice } updateNotification={actions.updateNotification}/>
+        }
+        <Notifs />
 
         <div className='app-content-wrap'>
           {isStatefulModal ?

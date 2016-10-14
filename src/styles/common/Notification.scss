@@ -35,9 +35,16 @@
   }
 }
 
+.notification-container-appear {
+  opacity: .01;
+  &-active {
+    opacity: 1;
+  }
+}
+
 .notification-container-enter {
-  @include transition(all .25s ease-out);
-  opacity: 0;
+  @include transition(all .25s ease-in-out);
+  opacity: .01;
   &-active {
     opacity: 1;
   }
@@ -45,8 +52,9 @@
 
 .notification-container-leave {
   @include transition(all .25s ease-in-out);
+  opacity: 1;
   &-active {
-    opacity: 0;
+    opacity: .01;
   }
 }
 
@@ -62,20 +70,20 @@
     border-radius: 3px;
   }
 
-  .notification-container-enter {
-    @include transition(all .25s ease-out);
-    opacity: 0;
-    &-active {
-      opacity: 1;
-    }
-  }
+  // .notification-container-enter {
+  //   @include transition(all .25s ease-out);
+  //   opacity: 0;
+  //   &-active {
+  //     opacity: 1;
+  //   }
+  // }
 
-  .notification-container-leave {
-    @include transition(all .25s ease-in-out);
-    &-active {
-      opacity: 0;
-    }
-  }
+  // .notification-container-leave {
+  //   @include transition(all .25s ease-in-out);
+  //   &-active {
+  //     opacity: 0;
+  //   }
+  // }
 }
 
 // overridden styles for md screen / desktop

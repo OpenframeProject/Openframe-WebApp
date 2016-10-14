@@ -9,8 +9,7 @@ class NotificationComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notice: null,
-      isOpen: false
+      notifications: []
     }
   }
 
@@ -18,16 +17,23 @@ class NotificationComponent extends React.Component {
     this.props.updateNotification(null);
   }
 
+  _addItem(notification) {
+    var notifications = this.state.notifications;
+    notifications.push(notification);
+    this.setState({
+      notifications: notifications
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.notice) {
       this.setState({
-        notice: nextProps.notice,
-        isOpen: true
+        notifications: this.state.notifications.push(nextProps.notice)
       });
       if (nextProps.notice.dismissible) {
         setTimeout(() => {
           this._close();
-        }, 5000, this);
+        }, 50000, this);
       }
     } else {
       this.setState({
@@ -39,19 +45,22 @@ class NotificationComponent extends React.Component {
   render() {
     let notice = this.state.notice;
 
-    if (!notice) return null;
+    if (!notice) {
+      notice = {};
+    }
 
     let noticeType = notice.type || 'info';
     let noticeClass = 'notification--' + noticeType;
+
     return (
       <ReactCSSTransitionGroup
         transitionName="notification-container"
-        transitionEnterTimeout={250}
-        transitionLeaveTimeout={250}>
+        transitionEnterTimeout={10000}
+        transitionLeaveTimeout={10000}>
         {
           this.state.isOpen
-          &&
-          <div className='notification-container' key='notification'>
+          ?
+          <div className='notification-container' key={notice.text}>
             <div className={'notification ' + noticeClass}>
               { notice.dismissible
                 &&
@@ -60,6 +69,7 @@ class NotificationComponent extends React.Component {
               <span dangerouslySetInnerHTML={{__html: notice.text }}></span>
             </div>
           </div>
+          : null
         }
       </ReactCSSTransitionGroup>
     );
