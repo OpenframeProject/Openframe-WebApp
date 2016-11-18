@@ -7,7 +7,7 @@
   height: auto;
   font-size: 16px;
   color: black;
-  font-weight: normal;
+  font-weight: 300;
 }
 
 label {
@@ -26,4 +26,39 @@ input:placeholder-shown {
   margin: 3px 10px 3px 0;
   font-weight: 200;
   font-size: 12px;
+}
+
+.radio-inline {
+	margin-top: 20px;
+	padding-left: 25px;
+}
+
+.radio-inline+.radio-inline {
+	margin-top: 20px;
+	margin-left: 30px;
+	padding-left: 25px;
+}
+
+.checkbox-inline {
+	padding-left: 25px;
+}
+
+.radio-inline input[type=radio] {
+	margin-left: -25px;
+}
+
+input[type=radio] {
+	margin-left: -25px;
+	margin: 3px 0 0;
+}
+
+.checkbox-inline input[type=checkbox] {
+	margin-left: -25px;
+}
+
+.Select-placeholder {
+	font-size: 16px;
+	font-weight: 300;
+	font-style: italic;
+	color: $of-normal-grey;
 }
