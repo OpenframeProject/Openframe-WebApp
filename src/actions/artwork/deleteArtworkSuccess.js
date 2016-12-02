@@ -1,14 +1,15 @@
 import {DELETE_ARTWORK_SUCCESS} from './../const';
-const updateNotification = require('../ui/updateNotification.js');
+import { actions as notifActions } from 'redux-notifications';
+const { notifSend } = notifActions;
 
 module.exports = function(artwork) {
   return (dispatch) => {
     dispatch({ type: DELETE_ARTWORK_SUCCESS, artwork: artwork });
     let notification = {
-      text: `<strong style="text-transform: uppercase;">${artwork.title}</strong> has been <strong>deleted</strong>.`,
-      type: 'info',
-      dismissible: true
+      message: `The artwork '${artwork.title}' has been deleted.`,
+      kind: 'info',
+      dismissAfter: 5000
     }
-    dispatch(updateNotification(notification));
+    dispatch(notifSend(notification));
   };
 };

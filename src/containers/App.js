@@ -17,7 +17,6 @@ import SidebarContainer from './sidebar/SidebarContainer';
 import ModalManagerContainer from './ModalManagerContainer';
 
 import TopbarComponent from '../components/topbar/TopbarComponent';
-import Notification from '../components/common/NotificationComponent';
 
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import StatefulModalComponent from '../components/common/StatefulModalComponent';

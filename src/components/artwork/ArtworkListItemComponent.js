@@ -12,7 +12,7 @@ import LikeButtonComponent from '../common/LikeButtonComponent';
 import EditButtonComponent from '../common/EditButtonComponent';
 
 let noThumbImg = require('../../images/preview-missing.png');
-let thumb404 = require('../../images/not-found.png');
+let lockIcon = require('../../images/icon_lock.svg');
 
 require('styles/artwork/ArtworkListItem.scss');
 // let settingsBtnImage = require('../../images/artwork-settings.svg');
@@ -138,6 +138,9 @@ class ArtworkListItemComponent extends Component {
                 <div className="artwork-list-item__author">{artwork.author_name}</div>
                 <div className="artwork-list-item__title">{artwork.title}</div>
                 <div className="artwork-list-item__format">{this._formatDisplayName(artwork.format)}</div>
+                {
+                  !artwork.is_public && <img src={lockIcon} alt="Private artwork" />
+                }
               </div>
               <div className="artwork-list-item__actions">
                 <div className="artwork-list-item__action" title="Push to frame">

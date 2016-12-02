@@ -1,8 +1,8 @@
 import { normalize } from 'normalizr';
 import {UPDATE_USER_SUCCESS} from './../const';
 import * as schema from '../schema';
-
-const updateNotification = require('../ui/updateNotification.js');
+import { actions as notifActions } from 'redux-notifications';
+const { notifSend } = notifActions;
 
 module.exports = function(response, notice) {
   return dispatch => {
@@ -12,11 +12,11 @@ module.exports = function(response, notice) {
     });
     if (notice) {
       let notification = {
-        text: notice,
+        message: notice,
         type: 'info',
-        dismissible: true
+        dismissAfter: 5000
       }
-      dispatch(updateNotification(notification));
+      dispatch(notifSend(notification));
     }
   }
 };

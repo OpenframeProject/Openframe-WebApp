@@ -1,17 +1,18 @@
 import {DELETE_FRAME_SUCCESS} from './../const';
-
 import { unbindFrameEvents } from '../../services/pubsub';
-const updateNotification = require('../ui/updateNotification.js');
+import { actions as notifActions } from 'redux-notifications';
+const { notifSend } = notifActions;
 
 module.exports = function(frame) {
   return (dispatch) => {
     dispatch({ type: DELETE_FRAME_SUCCESS, frameId: frame.id });
+    let name = frame.name.toUpperCase();
     let notification = {
-      text: `Your <strong style="text-transform: uppercase;">${frame.name}</strong> frame has been <strong>deleted</strong>.`,
+      message: `Your ${name} frame has been deleted.`,
       type: 'info',
-      dismissible: true
+      dismissAfter: 5000
     }
-    dispatch(updateNotification(notification));
+    dispatch(notifSend(notification));
     unbindFrameEvents(frame.id);
   }
 };

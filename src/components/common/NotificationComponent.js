@@ -1,3 +1,7 @@
+/**
+ * UNUSED - Now using redux-notifications module
+ */
+
 'use strict';
 
 import React from 'react';
