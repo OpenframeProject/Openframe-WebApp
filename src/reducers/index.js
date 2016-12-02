@@ -7,7 +7,8 @@
  *          you edit them, they are not updated again.
  */
 import { combineReducers } from 'redux';
-import {reducer as formReducer} from 'redux-form';
+import { reducer as formReducer } from 'redux-form';
+import { reducer as notifReducer } from 'redux-notifications';
 /* Populated by react-webpack-redux:reducer */
 const reducers = {
   artwork: require('./artwork/index').default,
@@ -19,7 +20,8 @@ const reducers = {
   ui: require('./ui.js'),
   channels: require('./channels.js'),
   featureFlags: require('./feature-flags.js'),
-  form: formReducer
+  form: formReducer,
+  notifs: notifReducer
 };
 
 export default combineReducers(reducers);

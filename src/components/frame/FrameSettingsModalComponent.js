@@ -144,7 +144,6 @@ class FrameSettingsModalComponent extends React.Component {
                     <button className="close" onClick={::this._close} type=
                       "button">&times;</button>
                     <h3 className="modal-title">Frame settings</h3>
-                    {!isOwner && <p>You are a curator for this frame.</p>}
                 </div>
                 <div className="modal-body">
                     <div className={errorClasses}>
@@ -152,6 +151,8 @@ class FrameSettingsModalComponent extends React.Component {
                         {errorMessage}
                       </div>
                     </div>
+
+                    {!isOwner && <div className="alert alert-info">You are a curator for this frame.</div>}
 
                     <Field
                       withRef

@@ -1,8 +1,8 @@
 import { normalize } from 'normalizr';
 import {UPDATE_USER_SUCCESS} from './../const';
 import * as schema from '../schema';
-
-const updateNoticeBanner = require('../ui/updateNoticeBanner.js');
+import { actions as notifActions } from 'redux-notifications';
+const { notifSend } = notifActions;
 
 module.exports = function(response, notice) {
   return dispatch => {
@@ -10,7 +10,13 @@ module.exports = function(response, notice) {
       type: UPDATE_USER_SUCCESS,
       response: normalize(response, schema.user)
     });
-
-    if (notice) dispatch(updateNoticeBanner(notice));
+    if (notice) {
+      let notification = {
+        message: notice,
+        type: 'info',
+        dismissAfter: 5000
+      }
+      dispatch(notifSend(notification));
+    }
   }
 };

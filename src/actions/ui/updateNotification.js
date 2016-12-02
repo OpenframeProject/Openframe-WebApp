@@ -6,9 +6,6 @@ module.exports = function(notice) {
     notice
   };
   return dispatch => {
-    // if we want to animate, we need to delay the action
-    // setTimeout(() => dispatch(noticeAction), 500);
-
-    dispatch(noticeAction);
+    setTimeout(() => dispatch(noticeAction), 500);
   };
 };

@@ -71,16 +71,18 @@ class EditArtworkFormComponent extends React.Component {
     return (
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Author</label>
           <div>
             <label className="checkbox-inline"><Field withRef ref="isAuthor" name="is_author" component={CustomInputComponent} type="checkbox" raw onChange={::this._isAuthorOnChange} />I am the author of this work</label>
+          </div>
+          <label>Author</label>
+          <div>
             <Field withRef ref="authorName" name="author_name" component={CustomInputComponent} type="text" placeholder="Author" raw disabled={is_author} onChange={::this._authorNameOnChange} />
           </div>
         </div>
 
         <Field withRef ref="title" name="title" component={CustomInputComponent} type="text" placeholder="Title" label="Title" />
 
-        <Field name="description" component={CustomInputComponent} type="text" placeholder="description" label="Description" />
+        <Field name="description" component={CustomInputComponent} type="text" placeholder="Description" label="Description" />
 
         <div className="form-group">
 
@@ -89,7 +91,7 @@ class EditArtworkFormComponent extends React.Component {
               component={CustomSelectComponent}
               type="creatable"
               label="Artwork format"
-              placeholder="format"
+              placeholder="Select format"
               help="Select a format or enter the name of the npm package for a format extension, e.g. 'openframe-of'"
               options={this.options} />
 
