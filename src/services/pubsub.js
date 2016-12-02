@@ -1,5 +1,7 @@
 import faye from 'faye';
 import { getToken } from '../services/auth';
+import { actions as notifActions } from 'redux-notifications';
+const { notifSend, notifDismiss } = notifActions;
 
 const PubSub = {
   client: null,
@@ -43,6 +45,20 @@ function connect(psUrl, accessToken) {
 
     // add auth extension to client
     this.client.addExtension(_clientAuth);
+
+    // add notification if realtime connection to server is lost
+    this.client.on('transport:down', () => {
+      let notification = {
+        message: 'There is a problem connecting to Openframe server.',
+        kind: 'danger',
+        id: 'no-network'
+      }
+      this.dispatch(notifSend(notification));
+    });
+
+    this.client.on('transport:up', () => {
+      this.dispatch(notifDismiss('no-network'));
+    });
 
     return this.client;
 }
