@@ -27,7 +27,7 @@ class AddedContainer extends Component {
     const { actions, user, currentUser, artworkList, location } = this.props;
 
     // TODO: probably not best practice...
-    if (this.props.artworkList.length === 0 || this.props.artworkList[0].type !== 'add') {
+    if (user && currentUser && user.id === currentUser.id && (artworkList.length === 0 || artworkList[0].type !== 'add')) {
       this.props.artworkList.unshift({
         type: 'add'
       });

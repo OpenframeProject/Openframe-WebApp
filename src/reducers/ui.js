@@ -38,7 +38,11 @@ const initialState = {
   visibleModal: null,
   modalError: null,
   fixBody: false,
-  // notice: 'This is a test of the emergency alert system.'
+  // notice: {
+  //   message: 'Where\'s the internet?',
+  //   type: 'info',
+  //   dismissible: true
+  // }
   notice: null
 };
 

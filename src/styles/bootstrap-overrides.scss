@@ -8,12 +8,17 @@
   &-info {
     background-color: $of-info;
     border: 1px solid darken($of-info, 5%);
-    color: darken($of-info, 75%);
+    color: #fff;
   }
 }
 
 div[class^="col-"] {
     padding: 0;
+}
+
+.close {
+  font-size: 18px;
+  text-shadow: none;
 }
 
 

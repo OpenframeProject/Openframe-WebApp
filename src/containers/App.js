@@ -11,15 +11,16 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Waypoint from 'react-waypoint';
+import { Notifs } from 'redux-notifications';
 
 import SidebarContainer from './sidebar/SidebarContainer';
 import ModalManagerContainer from './ModalManagerContainer';
 
 import TopbarComponent from '../components/topbar/TopbarComponent';
-import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
 
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import StatefulModalComponent from '../components/common/StatefulModalComponent';
+import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
 
 import { getSelectedFrame } from '../reducers/frame';
 import { getCurrentUser } from '../reducers/user/index';
@@ -108,7 +109,14 @@ class App extends Component {
           scrollableAncestor={window}
         />
 
-        <NoticeBannerComponent notice={ ui.notice } updateNoticeBanner={actions.updateNoticeBanner}/>
+        {
+          //<Notification notice={ ui.notice } updateNotification={actions.updateNotification}/>
+        }
+        <Notifs />
+
+        {
+          ui.notice && <NoticeBannerComponent notice={ ui.notice } updateNoticeBanner={ actions.updateNoticeBanner } />
+        }
 
         <div className='app-content-wrap'>
           {isStatefulModal ?

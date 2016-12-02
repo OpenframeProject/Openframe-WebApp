@@ -1,0 +1,88 @@
+@import "bootstrap/variables";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+@import "compass/css3/flexbox";
+@import "./colors";
+
+.notif-transition-enter {
+  opacity: 0.01;
+  @include transform(translateY(-100px));
+  @include transition(all .25s ease-in-out);
+}
+
+.notif-transition-enter-active {
+  @include transform(translateY(0px));
+  opacity: 1;
+}
+
+.notif-transition-leave {
+  opacity: 1;
+  @include transition(all .25s ease-in-out);
+}
+
+.notif-transition-leave-active {
+  opacity: 0.01;
+  @include transform(translateY(-100px));
+}
+
+.notif {
+  position: relative;
+  font: 12px normal Helvetica, sans-serif;
+  font-weight: 100;
+  overflow: hidden;
+  border-radius: 0px;
+  margin-bottom: 2px;
+  max-height: 400px;
+  box-sizing: border-box;
+  padding: 1.25em;
+  color: #fff;
+  text-align: center;
+  letter-spacing: .3px;
+  width: 100%;
+}
+
+.notif--success {
+  background-color: $of-info;
+}
+
+.notif--info {
+  background-color: $of-info;
+}
+
+.notif--warning {
+  background-color: $of-error;
+}
+
+.notif--danger {
+  background-color: $of-error;
+}
+
+.notif__container {
+  position: fixed;
+  top: 50px;
+  right: 0;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  margin: auto;
+  max-width: none;
+}
+
+
+// overridden styles for sm screen / tablet
+@media(min-width: $screen-sm-min) {
+  .notif__container {
+    top: 80px;
+    width: 80%;
+    max-width: 600px;
+  }
+  .notif {
+    border-radius: 3px;
+  }
+}
+
+// overridden styles for md screen / desktop
+@media(min-width: $screen-md-min) {}
+
+// overridden styles for lg screen / wide desktop
+@media(min-width: $screen-lg-min) {}

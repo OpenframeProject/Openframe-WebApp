@@ -4,11 +4,13 @@ import React, { PropTypes } from 'react';
 import Modal from 'react-modal';
 import {reduxForm, Field} from 'redux-form';
 
+import CustomInputComponent from '../form/CustomInputComponent';
+
 require('styles/user/LoginModal.scss');
 
 class RequestPasswordResetModalComponent extends React.Component {
   afterOpenModal() {
-    this.refs.email.focus();
+    this.refs.email.getRenderedComponent().focus();
   }
 
   _close() {
@@ -43,10 +45,9 @@ class RequestPasswordResetModalComponent extends React.Component {
                   {modalError}
                 </div>
               </div>
-              <div className="form-group">
-                  <label htmlFor="Email">Email Address</label>
-                  <Field ref="email" name="email" component="input" type="text" placeholder="email"/>
-              </div>
+
+              <Field withRef ref="email" name="email" component={CustomInputComponent} type="email" placeholder="email" label="Email Address" />
+
             </div>
             <div className="modal-footer">
               <div className="form-group">

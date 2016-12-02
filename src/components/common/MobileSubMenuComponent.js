@@ -20,6 +20,10 @@ class MobileSubMenuComponent extends React.Component {
 
     let activeRoutes = [`/${username}`, `/${username}/added`];
     let active = activeRoutes.indexOf(location.pathname) !== -1 ? 'footerbar__tab footerbar__tab--active' : 'footerbar__tab';
+    // TODO: Temporary, until we release channels / collections
+    if (!user) {
+      return null;
+    }
     return (
       <nav className="footerbar">
         <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/stream">

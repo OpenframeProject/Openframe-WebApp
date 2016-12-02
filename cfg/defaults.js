@@ -8,6 +8,7 @@
 
 const path = require('path');
 const srcPath = path.join(__dirname, '/../src');
+const npmPath = path.resolve(__dirname, '../node_modules');
 const dfltPort = 8000;
 
 /**
@@ -39,6 +40,7 @@ function getDefaultModules() {
       {
         test: /\.scss/,
         loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+          // TODO: consolidate, no reason to have any includePaths other than /node_modules
           + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/compass-mixins/lib')
           + '&includePaths[]=' + path.resolve(__dirname, '../node_modules/bootstrap-sass/assets/stylesheets')
           + '&includePaths[]=' + path.resolve(__dirname, '../node_modules')

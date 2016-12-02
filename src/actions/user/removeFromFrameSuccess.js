@@ -1,14 +1,20 @@
 import {REMOVE_FROM_FRAME_SUCCESS} from './../const';
 import { unbindFrameEvents } from '../../services/pubsub';
-
-const updateNoticeBanner = require('../ui/updateNoticeBanner.js');
+import { actions as notifActions } from 'redux-notifications';
+const { notifSend } = notifActions;
 
 module.exports = function(frame) {
   return (dispatch, getState) => {
     const state = getState();
     const owner = state.user.byId[frame.ownerId];
+    let name = frame.name.toUpperCase();
     dispatch({ type: REMOVE_FROM_FRAME_SUCCESS, frameId: frame.id });
-    dispatch(updateNoticeBanner(`You are no longer curating <strong>${owner.username}</strong>'s frame <strong style="text-transform: uppercase;">${frame.name}</strong>.`));
+    let notification = {
+      message: `You are no longer curating ${owner.username}'s frame ${name}.`,
+      type: 'info',
+      dismissAfter: 5000
+    }
+    dispatch(notifSend(notification));
     unbindFrameEvents(frame.id);
   }
 };
