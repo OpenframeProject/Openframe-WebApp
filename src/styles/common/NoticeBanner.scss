@@ -8,6 +8,19 @@
   color: #fff;
   padding: 15px;
 
+  * {
+    color: #fff;
+  }
+
+  a {
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+  }
+
   &--info {
     background-color: $of-info;
   }

@@ -29,11 +29,11 @@ module.exports = function(response) {
     if (frames.length === 0) {
       // no frames... update notice banner
       let notice = {
-        message: '<h3>Welcome to Openframe!</h3><p>To start displaying artwork, <a href="http://openframe.io" target="_blank">set up a frame.</a>',
+        message: '<h4>Welcome to Openframe!</h4><div>To start displaying artwork, <a href="http://openframe.io" target="_blank">set up a frame.</a></div>',
         type: 'info',
-        dismissible: false
+        dismissible: true
       };
-      updateNoticeBanner(notice);
+      dispatch(updateNoticeBanner(notice));
     }
   }
 };

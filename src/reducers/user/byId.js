@@ -28,9 +28,11 @@ export default function(state = initialState, action) {
       // entire object
       let incomingUsers = action.response.entities.user;
       let updatedUsers = {};
-      Object.keys(incomingUsers).map(id => {
-        updatedUsers[id] = state[id] ? {...state[id], ...incomingUsers[id] } : incomingUsers[id];
-      });
+      if (incomingUsers) {
+        Object.keys(incomingUsers).map(id => {
+          updatedUsers[id] = state[id] ? {...state[id], ...incomingUsers[id] } : incomingUsers[id];
+        });
+      }
       return {
         ...state,
         ...updatedUsers

@@ -11,7 +11,7 @@ module.exports = function(user, password) {
     let notice = {
       message: 'On it! A verification email has been sent to the address you provided. Please follow the link in the email to complete setting up your account.',
       type: 'info',
-      dismissible: false
+      dismissible: true
     };
     dispatch(updateNoticeBanner(notice));
   };
