@@ -1,50 +1,23 @@
 @import "bootstrap/variables";
 @import "compass/css3/transition";
 @import "compass/css3/transform";
+@import "./colors";
 
 .notice-banner {
-  background: #fff;
-  overflow-y: hidden;
-
-  position: fixed;
-  bottom: 0;
   width: 100%;
-  box-shadow: 0 0 10px rgba(0,0,0,.5);
-  z-index: 200;
-
-  .container {
-    padding: 15px;
-  }
+  color: #fff;
+  padding: 15px;
 
   &--info {
-    color: #006;
+    background-color: $of-info;
   }
 
   &--success {
-    color: #060;
+    background-color: $of-info;
   }
 
   &--warning {
-    color: #600;
-  }
-}
-
-.notice-banner-enter {
-  @include transition(all .25s ease-out);
-  max-height: 0;
-  opacity: .8;
-  &-active {
-    opacity: 1;
-    max-height: 200px;
-  }
-}
-
-.notice-banner-leave {
-  @include transition(all .25s ease-in-out);
-  max-height: 200px;
-  &-active {
-    max-height: 0;
-    opacity: .8;
+    background-color: $of-error;
   }
 }
 
@@ -52,9 +25,10 @@
 // overridden styles for sm screen / tablet
 @media(min-width: $screen-sm-min) {
   .notice-banner {
-    .container {
-      padding: 20px;
-    }
+    max-width: 700px;
+    margin: 20px auto;
+    border-radius: 3px;
+    text-align: center;
   }
 }
 

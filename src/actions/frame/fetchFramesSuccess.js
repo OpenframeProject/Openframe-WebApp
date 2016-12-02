@@ -5,6 +5,7 @@ import * as schema from '../schema';
 import { bindEventToAction } from '../../services/pubsub';
 import frameUpdated from './frameUpdated';
 import selectFrame from './selectFrame';
+import updateNoticeBanner from '../ui/updateNoticeBanner';
 
 module.exports = function(response) {
   return (dispatch, getState) => {
@@ -24,6 +25,16 @@ module.exports = function(response) {
       _subscribeToFrameEvents(frame, dispatch);
     });
     dispatch({ type: FETCH_FRAMES_SUCCESS, response: normalized});
+
+    if (frames.length === 0) {
+      // no frames... update notice banner
+      let notice = {
+        message: '<h3>Welcome to Openframe!</h3><p>To start displaying artwork, <a href="http://openframe.io" target="_blank">set up a frame.</a>',
+        type: 'info',
+        dismissible: false
+      };
+      updateNoticeBanner(notice);
+    }
   }
 };
 

@@ -16,6 +16,11 @@ div[class^="col-"] {
     padding: 0;
 }
 
+.close {
+  font-size: 18px;
+  text-shadow: none;
+}
+
 
 
 @media(min-width: $screen-sm-min) {

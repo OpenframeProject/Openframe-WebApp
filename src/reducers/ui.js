@@ -23,7 +23,7 @@ import {
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILURE,
 
-  UPDATE_NOTIFICATION,
+  UPDATE_NOTICE_BANNER,
   UPDATE_VISIBLE_MODAL,
   UPDATE_SIDEBAR_STATE,
 
@@ -39,7 +39,7 @@ const initialState = {
   modalError: null,
   fixBody: false,
   // notice: {
-  //   text: 'Where\'s the internet?',
+  //   message: 'Where\'s the internet?',
   //   type: 'info',
   //   dismissible: true
   // }
@@ -119,7 +119,7 @@ module.exports = function(state = initialState, action) {
         fixBody: false
       }
 
-    case UPDATE_NOTIFICATION: {
+    case UPDATE_NOTICE_BANNER: {
       return {
         ...state,
         notice: action.notice

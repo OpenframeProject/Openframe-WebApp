@@ -20,6 +20,7 @@ import TopbarComponent from '../components/topbar/TopbarComponent';
 
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
 import StatefulModalComponent from '../components/common/StatefulModalComponent';
+import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
 
 import { getSelectedFrame } from '../reducers/frame';
 import { getCurrentUser } from '../reducers/user/index';
@@ -113,6 +114,10 @@ class App extends Component {
         }
         <Notifs />
 
+        {
+          ui.notice && <NoticeBannerComponent notice={ ui.notice } updateNoticeBanner={ actions.updateNoticeBanner } />
+        }
+
         <div className='app-content-wrap'>
           {isStatefulModal ?
             this.previousChildren :
@@ -197,7 +202,7 @@ function mapDispatchToProps(dispatch) {
 
     updateVisibleModal: require('../actions/ui/updateVisibleModal.js'),
     updateSidebarState: require('../actions/ui/updateSidebarState.js'),
-    updateNotification: require('../actions/ui/updateNotification.js'),
+    updateNoticeBanner: require('../actions/ui/updateNoticeBanner.js'),
 
     hideConfirmDialog: require('../actions/common/hideConfirmDialog.js'),
     openStatefulModal: require('../actions/ui/openStatefulModal.js'),
