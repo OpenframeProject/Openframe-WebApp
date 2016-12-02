@@ -49,7 +49,7 @@ function connect(psUrl, accessToken) {
     // add notification if realtime connection to server is lost
     this.client.on('transport:down', () => {
       let notification = {
-        message: 'There is a problem connecting to Openframe server.',
+        message: 'Connection to Openframe interrupted... retrying.',
         kind: 'danger',
         id: 'no-network'
       }
