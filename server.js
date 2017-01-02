@@ -5,7 +5,6 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./webpack.config');
 const open = require('open');
-const path = require('path');
 
 let server = new WebpackDevServer(webpack(config), config.devServer);
 

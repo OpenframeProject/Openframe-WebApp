@@ -25,6 +25,14 @@ const users = {
   },
 
   /**
+   * Logout
+   * @return {Promise}
+   */
+  logout: function() {
+    return fetchJSON(`${modelPrefix}/logout`, { method: 'POST' });
+  },
+
+  /**
    * Fetch a list of users.
    * @param  {Boolean}
    * @return {Promise}

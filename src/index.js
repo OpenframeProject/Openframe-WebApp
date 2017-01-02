@@ -2,8 +2,7 @@ import 'babel-polyfill'
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRedirect, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router'
-import useScroll from 'react-router-scroll';
+import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router'
 import configureStore from './stores';
 
 import App from './containers/App';
@@ -17,6 +16,7 @@ import ChannelsContainer from './containers/ChannelsContainer';
 import ProfileContainer from './containers/ProfileContainer';
 import LikesContainer from './containers/LikesContainer';
 import AddedContainer from './containers/AddedContainer';
+import LoginContainer from './containers/LoginContainer';
 import FeatureFlagsContainer from './containers/FeatureFlagsContainer';
 import VerifiedEmailContainer from './containers/VerifiedEmailContainer';
 import ResetPasswordContainer from './containers/ResetPasswordContainer';
@@ -56,14 +56,18 @@ function doUnfixBody() {
 render(
   <Provider store={store}>
     <Router history={browserHistory} >
+
       <Route path="/" component={App}>
         <IndexRedirect to="/stream" />
+
+        <Route path="/login" component={LoginContainer} />
 
         <Route path="/ff-conf" component={FeatureFlagsContainer} />
 
         <Route path="/verified" component={VerifiedEmailContainer} />
 
         <Route path="/reset-password/:accessToken" component={ResetPasswordContainer} />
+
 
         <Route component={BrowseSectionComponent}>
           <IndexRoute component={StreamContainer} />

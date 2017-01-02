@@ -12,20 +12,11 @@ import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComp
 import InfiniteMasonryComponent from '../components/common/InfiniteMasonryComponent';
 
 import { getArtworkList } from '../reducers/artwork/index';
-import { getCurrentArtwork } from '../reducers/frame/index';
-import { isLiked } from '../reducers/user/index';
+import { getCurrentUser } from '../reducers/user/index';
 
 class StreamContainer extends Component {
   componentWillMount() {
     this._loadArtworks(0);
-  }
-
-  componentWillUpdate(newProps) {
-
-  }
-
-  componentWillUnmount() {
-
   }
 
   _loadArtworks(page) {
@@ -71,6 +62,7 @@ StreamContainer.propTypes = {
 
 function mapStateToProps(state) {
   const props = {
+    currentUser: getCurrentUser(state.user),
     artworkList: getArtworkList(state.artwork.streamIds, state.artwork.byId),
     streamHasMore: state.artwork.streamHasMore,
     isFirstLoad: state.artwork.isFirstLoad,

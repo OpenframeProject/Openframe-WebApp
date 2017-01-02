@@ -1,6 +1,8 @@
 import {LOGOUT_REQUEST} from './../const';
 import logoutSuccess from './logoutSuccess';
+import logoutFailure from './logoutFailure';
 import {clearToken} from '../../services/auth';
+import {users} from '../../sources/api';
 
 // Logout simply requires deleting the access token
 module.exports = function() {
@@ -8,7 +10,12 @@ module.exports = function() {
     dispatch({
       type: LOGOUT_REQUEST
     });
-    clearToken();
-    dispatch(logoutSuccess());
+    return users.logout().then(
+      response => {
+        clearToken();
+        dispatch(logoutSuccess());
+      },
+      error => dispatch(logoutFailure(error))
+    );
   };
 };
