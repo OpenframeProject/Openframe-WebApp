@@ -2,6 +2,8 @@
 
 import React, { PropTypes } from 'react';
 
+import { urlify } from '../../services/util';
+
 import EditButtonComponent from '../common/EditButtonComponent';
 
 require('styles/user/ProfileHeader.scss');
@@ -18,7 +20,7 @@ class ProfileHeaderComponent extends React.Component {
         { user.website || user.twitter
           ? <div className="profile-header__social">
             { user.website
-              ? <a href={user.website} target="_blank">{user.website}</a>
+              ? <a href={urlify(user.website)} target="_blank">{user.website}</a>
               : null
             }
             { user.website && user.twitter
