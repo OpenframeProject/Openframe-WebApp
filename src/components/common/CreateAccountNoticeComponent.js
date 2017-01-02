@@ -18,7 +18,7 @@ class CreateAccountNoticeComponent extends React.Component {
         shouldCloseOnOverlayClick={true}
         onRequestClose={::this._close}
         className="of-modal modal-dialog create-account-notice"
-        overlayClassName="modal-backdrop"
+        overlayClassName="modal-backdrop create-account-notice-backdrop"
         closeTimeoutMS={300}
         >
 

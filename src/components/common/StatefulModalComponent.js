@@ -1,7 +1,6 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { browserHistory } from 'react-router';
 
@@ -55,8 +54,8 @@ class StatefulModalComponent extends React.Component {
         shouldCloseOnOverlayClick={true}
         onRequestClose={::this.onRequestClose}
         onAfterOpen={::this.onAfterOpen}
-        className={`of-modal modal-dialog ${extraClasses}`}
-        overlayClassName="modal-backdrop"
+        className={`of-modal modal-dialog stateful-modal ${extraClasses}`}
+        overlayClassName="modal-backdrop stateful-modal-backdrop"
         closeTimeoutMS={500}
         ref="modal-instance"
         >
