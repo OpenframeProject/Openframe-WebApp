@@ -29,7 +29,6 @@ class TopbarComponent extends React.Component {
   }
 
   _gotoInfoLanding() {
-    console.log('TODO: go to landing');
   }
 
   render() {
@@ -90,7 +89,7 @@ class TopbarComponent extends React.Component {
           {
             !user && !isFetching
             ? (
-                  <span className="topbar__tab topbar__tab--link pull-right" onClick={::this._gotoInfoLanding} >About Openframe</span>
+                  <a className="topbar__tab topbar__tab--link pull-right" onClick={::this._gotoInfoLanding} href="http://openframe.io" target="_blank">About Openframe</a>
               )
             : null
           }
