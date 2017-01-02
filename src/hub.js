@@ -1,8 +1,4 @@
 import { CrossStorageHub } from 'cross-storage';
+import config from 'config';
 
-CrossStorageHub.init([
-    {
-        origin: /localhost:3030$/,
-        allow: ['get']
-    }
-]);
+CrossStorageHub.init(config.crossStorageRules);
