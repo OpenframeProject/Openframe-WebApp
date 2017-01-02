@@ -9,11 +9,12 @@ let defaultSettings = require('./defaults');
 let BowerWebpackPlugin = require('bower-webpack-plugin');
 
 let config = Object.assign({}, baseConfig, {
-  entry: [
-    'webpack-dev-server/client?http://localhost:8000',
-    'webpack/hot/only-dev-server',
-    './src/index'
-  ],
+  entry: {
+    app: ['./src/index', 'webpack-dev-server/client?http://localhost:8000', 'webpack/hot/only-dev-server'],
+    hub: ['./src/hub', 'webpack-dev-server/client?http://localhost:8000', 'webpack/hot/only-dev-server']
+    // If we decide to make a separate mini-app for login functionality only (for third party apps)
+    // login: ['./src/login', 'webpack-dev-server/client?http://localhost:8000', 'webpack/hot/only-dev-server']
+  },
   cache: true,
   devtool: 'eval-source-map',
   plugins: [
