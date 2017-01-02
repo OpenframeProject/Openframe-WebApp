@@ -56,7 +56,7 @@ class ArtworkDetailContainer extends Component {
     if (isAuthenticated) {
       actions.pushArtwork(params.artworkId);
     } else {
-      // TODO: user-facing notice about what pushing an artwork means.
+      actions.updateVisibleModal('create-account-notice');
     }
   }
 
@@ -71,7 +71,7 @@ class ArtworkDetailContainer extends Component {
         actions.likeArtwork(singleArtwork.id);
       }
     } else {
-      // TODO: user-facing notice about what liking an artwork means.
+      actions.updateVisibleModal('create-account-notice');
     }
   }
 
@@ -184,6 +184,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js'),
     fetchSingleArtworkRequest: require('../actions/artwork/fetchSingleArtworkRequest.js'),
     pushArtwork: require('../actions/artwork/pushArtwork.js'),
     likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
