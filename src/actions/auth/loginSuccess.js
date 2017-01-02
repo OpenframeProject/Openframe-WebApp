@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 import {LOGIN_SUCCESS} from './../const';
 import {setToken} from '../../services/auth';
 import fetchCurrentUserRequest from '../user/fetchCurrentUserRequest';
@@ -8,7 +8,8 @@ module.exports = function(token) {
   // set accesToken on localStorage
   setToken(token.id);
 
-  browserHistory.push('/');
+  // I can't remember why this is here. Darn. Leaving it in case I remember.
+  // browserHistory.push('/');
 
   return dispatch => {
     dispatch({
