@@ -7,6 +7,10 @@ let config = {
   apiBase: 'https://api.openframe.io/v0/',
   crossStorageRules: [
     {
+        origin: /localhost:3030$/,
+        allow: ['get']
+    },
+    {
         origin: /editor\.thebookofshaders\.com$/,
         allow: ['get']
     }
