@@ -89,7 +89,7 @@ class TopbarComponent extends React.Component {
           {
             !user && !isFetching
             ? (
-                  <a className="topbar__tab topbar__tab--link pull-right" onClick={::this._gotoInfoLanding} href="http://openframe.io" target="_blank">About Openframe</a>
+                  <a className="topbar__tab topbar__tab--link pull-right" onClick={::this._gotoInfoLanding} href="/">About Openframe</a>
               )
             : null
           }
