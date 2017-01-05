@@ -4,7 +4,7 @@ import baseConfig from './base';
 
 let config = {
   appEnv: 'dev',  // feel free to remove the appEnv property here
-  apiBase: 'http://localhost:8888/api/',
+  apiBase: 'http://localhost:8888/v0/',
   crossStorageRules: [
     {
         origin: /localhost:3030$/,

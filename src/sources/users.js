@@ -104,10 +104,13 @@ const users = {
    */
   fetchUserLikedArtwork: function(userId = 'current', filter = {}) {
     let defaultFilter = {
-      // limit: config.perPage
+      order: 'created DESC'
     };
     let finalFilter = Object.assign({}, defaultFilter, filter);
-    return fetchJSON(`${modelPrefix}/${userId}/liked_artwork`, { data: finalFilter });
+    return fetchJSON(`${modelPrefix}/${userId}/liked_artwork`, { data: finalFilter })
+      .then(likes => {
+        return likes.reverse();
+      });
   },
 
   /**
