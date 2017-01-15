@@ -17,8 +17,15 @@ class SidebarFrameItemComponent extends React.Component {
     selectFrame(frame.id);
   }
 
+  _editFrameSettings(e) {
+    let { editFrameSettings, updateSidebarState } = this.props;
+    e.stopPropagation();
+    updateSidebarState(false);
+    editFrameSettings();
+  }
+
   render() {
-    let {isSelected, editFrameSettings, isOwner, frame} = this.props;
+    let {isSelected, isOwner, frame} = this.props;
 
     let className = 'sidebar-frame-item sidebar__row sidebar__row--frame';
     className += isSelected ? ' sidebar_row--frame-active' : '';
@@ -37,10 +44,10 @@ class SidebarFrameItemComponent extends React.Component {
             : ''
           }
           { isOwner
-            ? <span className="sidebar-frame-item__settings" onClick={editFrameSettings}>
+            ? <span className="sidebar-frame-item__settings" onClick={::this._editFrameSettings}>
                 <img className="icon-settings" src={settingsIcon} />
               </span>
-            : <span className="sidebar-frame-item__settings" onClick={editFrameSettings}>
+            : <span className="sidebar-frame-item__settings" onClick={::this._editFrameSettings}>
                 <img className="icon-settings" src={settingsIcon} />
               </span>
           }

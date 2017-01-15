@@ -97,11 +97,12 @@ class EditProfileFormComponent extends React.Component {
           <div className="form-group">
             <button href="#" className="btn btn-default btn-fw">{ _submitText }</button>
           </div>
-          { currentUser
-            &&
-            <div className="form-group">
-              <button className="btn btn-destructive btn-fw" onClick={::this._handleDeleteClick}>Delete Account</button>
-            </div>
+          {
+            // currentUser
+            // &&
+            // <div className="form-group">
+            //   <button className="btn btn-destructive btn-fw" onClick={::this._handleDeleteClick}>Delete Account</button>
+            // </div>
           }
       </form>
     );

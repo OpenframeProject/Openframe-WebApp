@@ -44,6 +44,7 @@ class SidebarComponent extends Component {
     		    			isSelected={frame.id == selectedFrameId} // TODO: === once we can ensure string ids
     		    			isOwner={frame.ownerId === user.id}
                   editFrameSettings={() => editFrameSettings(frame.id)}
+                  updateSidebarState={updateSidebarState}
                   selectFrame={selectFrame}
                   pathname={location.pathname} />
     		    	)}

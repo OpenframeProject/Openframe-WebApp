@@ -16,7 +16,7 @@ class ProfileHeaderComponent extends React.Component {
 
     return (
       <div className="profile-header">
-        <div className="profile-header__name">{user.full_name}</div>
+        <div className="profile-header__name">{user.full_name || user.username}</div>
         { user.website || user.twitter
           ? <div className="profile-header__social">
             { user.website
