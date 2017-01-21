@@ -40,10 +40,10 @@ export const getFramesList = function(framesById, frameIds) {
  */
 export const getSelectedFrame = function(framesById, selectedFrameId, artworkById) {
   let selectedFrame = getById(framesById, selectedFrameId);
-  if (selectedFrame && artworkById) {
-    let currentArtwork = selectedFrame && selectedFrame.currentArtworkId && getById(artworkById, selectedFrame.currentArtworkId);
-    selectedFrame.currentArtworkObj = currentArtwork;
-  }
+  // if (selectedFrame && artworkById) {
+  //   let currentArtwork = selectedFrame && selectedFrame.currentArtworkId && getById(artworkById, selectedFrame.currentArtworkId);
+  //   selectedFrame.currentArtworkObj = currentArtwork;
+  // }
   return selectedFrame;
 }
 

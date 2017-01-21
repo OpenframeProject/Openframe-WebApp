@@ -144,7 +144,7 @@ const users = {
    * @return {Promise}
    */
   update: function(userId = 'current', userData, access_token = null) {
-    return fetchJSON(`${modelPrefix}/${userId}`, { method: 'PUT', data: userData, access_token });
+    return fetchJSON(`${modelPrefix}/${userId}`, { method: 'PATCH', data: userData, access_token });
   },
 
   /**

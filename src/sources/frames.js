@@ -3,6 +3,7 @@ import fetchJSON from './fetchJSON';
 const modelPrefix = 'frames';
 
 const frames = {
+
   /**
    * Fetch a list of frames.
    * @param  {Object}
@@ -35,7 +36,7 @@ const frames = {
    * @return {Promise}
    */
   update: function(frameId, frameData) {
-    return fetchJSON(`${modelPrefix}/${frameId}`, { method: 'PUT', data: frameData });
+    return fetchJSON(`${modelPrefix}/${frameId}`, { method: 'PATCH', data: frameData });
   },
 
   /**

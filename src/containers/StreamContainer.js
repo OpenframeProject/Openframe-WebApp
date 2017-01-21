@@ -39,7 +39,7 @@ class StreamContainer extends Component {
                   hasMore={streamHasMore}
                   endComponent={<div>That's all, folks.</div>} >
                 {
-                  artworkList.map(artwork => {
+                  artworkList.filter(art => { return art.is_public === true; }).map(artwork => {
                     return (
                       <ArtworkListItemContainer
                         key={artwork.id}

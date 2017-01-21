@@ -24,12 +24,10 @@ const artwork = {
    */
   fetchStream: function(filter = {}) {
     let defaultFilter = {
-      where: {
-        is_public: true
-      }
+      limit: config.perPage
     };
     let finalFilter = Object.assign({}, defaultFilter, filter);
-    return this.fetch(finalFilter);
+    return fetchJSON(`${modelPrefix}/stream`, { data: finalFilter });
   },
 
   /**
@@ -73,7 +71,7 @@ const artwork = {
    * @return {Promise}
    */
   update: function(artworkId, artworkData) {
-    return fetchJSON(`${modelPrefix}/${artworkId}`, { method: 'PUT', data: artworkData });
+    return fetchJSON(`${modelPrefix}/${artworkId}`, { method: 'PATCH', data: artworkData });
   },
 
   /**
