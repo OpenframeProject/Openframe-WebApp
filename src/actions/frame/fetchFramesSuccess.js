@@ -41,7 +41,10 @@ module.exports = function(response) {
 function _subscribeToFrameEvents(frame, dispatch) {
   let frameId = frame.id;
   // bindEventToAction('/frame/' + frameId + '/connected', frameUpdated);
+
+  // bindEventToAction('/frame/' + frameId + '/frame_updated', frameUpdated);
   bindEventToAction('/frame/' + frameId + '/db_updated', frameUpdated);
+
   // bindEventToAction('/frame/' + frameId + '/db_updated', function() {
   //   dispatch(fetchFramesRequest());
   // });

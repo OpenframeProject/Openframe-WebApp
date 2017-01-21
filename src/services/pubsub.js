@@ -7,6 +7,7 @@ const PubSub = {
   client: null,
   init: init,
   connect: connect,
+  publish: publish,
   subscribe: subscribe
 };
 
@@ -61,6 +62,16 @@ function connect(psUrl, accessToken) {
     });
 
     return this.client;
+}
+
+/**
+ * Publish
+ */
+function publish() {
+  if (!this.client) {
+    throw new Error('PubSub client hasn\'t been initialized.');
+  }
+  this.client.publish.apply(this.client, arguments);
 }
 
 /**

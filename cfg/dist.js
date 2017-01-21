@@ -1,5 +1,7 @@
 'use strict';
 
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 let path = require('path');
 let webpack = require('webpack');
 
@@ -27,7 +29,16 @@ let config = Object.assign({}, baseConfig, {
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new CopyWebpackPlugin([
+            // {output}/to/file.txt
+            {
+                from: 'src/images/touch*.png',
+                to: 'images/',
+                flatten: true
+            }
+
+        ])
   ],
   module: defaultSettings.getDefaultModules()
 });

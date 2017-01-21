@@ -17,6 +17,8 @@ import { getUserList } from '../../reducers/user/index';
 
 import { users } from '../../sources/api';
 
+import PubSub from '../../services/pubsub';
+
 require('styles//frame/FrameSettingsModal.scss');
 
 class FrameSettingsModalComponent extends React.Component {
@@ -76,6 +78,14 @@ class FrameSettingsModalComponent extends React.Component {
       confirmAction: false
     });
     this.props.updateVisibleModal(null);
+  }
+
+  _onExtensionBlur(e) {
+    console.log(e.target.value);
+    let { frame } = this.props;
+    PubSub.publish(`/frame/${frame.id}/install_extension`, {
+      extension: e.target.value
+    });
   }
 
   _handleConfirmableClick(e) {
@@ -197,6 +207,16 @@ class FrameSettingsModalComponent extends React.Component {
                         }
                         </ul>
                     </div>
+                    {/*
+                    <Field
+                      name="extension"
+                      component={CustomInputComponent}
+                      type="text"
+                      placeholder="add extension"
+                      label="Add Extension"
+                      disabled={!isOwner}
+                      onBlur={::this._onExtensionBlur} />
+                    */}
                   </div>
                 <div className="modal-footer">
                   { isOwner
