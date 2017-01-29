@@ -35,10 +35,15 @@ class ArtworkDetailContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps);
     this.setState({
       thumb_url: nextProps.singleArtwork && nextProps.singleArtwork.thumb_url || noThumbImg
     });
+  }
+
+  componentDidUpdate() {
+    if (this.canvas && !this.glslCanvas) {
+      this.glslCanvas = new GlslCanvas(this.canvas);
+    }
   }
 
   _formatDisplayName(format) {
@@ -47,6 +52,23 @@ class ArtworkDetailContainer extends Component {
             return 'shader';
         default:
             return format.replace('openframe-', '');
+    }
+  }
+
+  _getPreviewElement() {
+    const url = this.props.singleArtwork.url;
+    const re = /thebookofshaders\.com/i;
+    const bos = url.match(re);
+    if (bos) {
+      return (<canvas
+        ref={(canvas) => { this.canvas = canvas; }}
+        className="artwork-detail__canvas"
+        data-fragment-url={url}
+        width="1000"
+        height="1000"></canvas>);
+
+    } else {
+      return (<img className="artwork-detail__img" src={this.state.thumb_url} onError={::this._imageError} />);
     }
   }
 
@@ -111,7 +133,9 @@ class ArtworkDetailContainer extends Component {
                 <div className="artwork-detail__author">by {singleArtwork.author_name}</div>
               </div>
 
-              <img className="artwork-detail__img" src={this.state.thumb_url} onError={::this._imageError} />
+              {
+                ::this._getPreviewElement(this.state.thumb_url)
+              }
 
               <div className="artwork-detail__info">
 

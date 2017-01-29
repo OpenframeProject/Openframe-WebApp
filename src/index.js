@@ -21,6 +21,8 @@ import FeatureFlagsContainer from './containers/FeatureFlagsContainer';
 import VerifiedEmailContainer from './containers/VerifiedEmailContainer';
 import ResetPasswordContainer from './containers/ResetPasswordContainer';
 
+import GlslCanvas from '../node_modules/glslCanvas/src/GlslCanvas.js';
+
 require('./images/touch-icon-iphone.png');
 require('./images/touch-icon-ipad.png');
 require('./images/touch-icon-iphone-retina.png');
