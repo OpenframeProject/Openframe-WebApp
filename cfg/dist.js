@@ -49,7 +49,8 @@ config.module.loaders.push({
   loader: 'babel',
   include: [].concat(
     config.additionalPaths,
-    [ path.join(__dirname, '/../src') ]
+    [ path.join(__dirname, '/../src') ],
+    [ path.join(__dirname, '/../node_modules/glslCanvas') ]
   )
 });
 
