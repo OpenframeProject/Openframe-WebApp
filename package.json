@@ -2,7 +2,7 @@
   "name": "openframe-webapp",
   "private": true,
   "version": "0.1.0",
-  "description": "Front-end web app for Openframe",
+  "description": "A responsive front-end web app for Openframe.",
   "main": "",
   "scripts": {
     "start": "node server.js --env=dev",
@@ -15,14 +15,19 @@
     "lint": "eslint ./src",
     "copy": "copyfiles -f ./src/index.html ./src/hub.html ./src/favicon.ico ./dist",
     "clean": "rimraf dist/*",
-    "release:major": "npm version major && npm publish && git push --follow-tags",
-    "release:minor": "npm version minor && npm publish && git push --follow-tags",
-    "release:patch": "npm version patch && npm publish && git push --follow-tags",
-    "deploy:dev": "npm run dist && git add . && git commit -m \"dev-build.`date +%Y%m%d%H%m%S`\" && git push origin dist && scp -r ./dist of-dev:/var/www"
+    "release:major": "npm version major && git push upstream --follow-tags",
+    "release:minor": "npm version minor && git push upstream --follow-tags",
+    "release:patch": "npm version patch && git push upstream --follow-tags",
+    "deploy:dev": "scp -r ./dist of-dev:/var/www",
+    "deploy": "scp -r ./dist of:/var/www"
   },
-  "repository": "",
-  "keywords": [],
-  "author": "Your name here",
+  "repository": "https://github.com/OpenframeProject/Openframe-WebApp.git",
+  "keywords": [
+    "openframe",
+    "openframe-webapp"
+  ],
+  "author": "Jonathan Wohl <jon@jonwohl.com>",
+  "license": "AGPL-3.0+",
   "devDependencies": {
     "babel-core": "^6.0.0",
     "babel-eslint": "^6.0.0",
