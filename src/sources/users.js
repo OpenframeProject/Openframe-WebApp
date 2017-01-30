@@ -90,7 +90,8 @@ const users = {
    */
   fetchUserArtwork: function(userId = 'current', filter = {}) {
     let defaultFilter = {
-      limit: config.perPage
+      limit: config.perPage,
+      order: 'created DESC'
     };
     let finalFilter = Object.assign({}, defaultFilter, filter);
     return fetchJSON(`${modelPrefix}/${userId}/created_artwork`, { data: finalFilter });
@@ -107,10 +108,7 @@ const users = {
       order: 'created DESC'
     };
     let finalFilter = Object.assign({}, defaultFilter, filter);
-    return fetchJSON(`${modelPrefix}/${userId}/liked_artwork`, { data: finalFilter })
-      .then(likes => {
-        return likes.reverse();
-      });
+    return fetchJSON(`${modelPrefix}/${userId}/liked_artwork`, { data: finalFilter });
   },
 
   /**
@@ -162,6 +160,25 @@ const users = {
 
   unlikeArtwork: function(artworkId, userId = 'current') {
     return fetchJSON(`${modelPrefix}/${userId}/liked_artwork/rel/${artworkId}`, { method: 'DELETE'});
+  },
+
+  /**
+   * Update a artwork
+   * @param  {String} artworkId
+   * @param  {Object} artworkData
+   * @return {Promise}
+   */
+  updateArtwork: function(artworkId, artworkData) {
+    return fetchJSON(`${modelPrefix}/current/created_artwork/${artworkId}`, { method: 'PUT', data: artworkData });
+  },
+
+  /**
+   * Delete a artwork
+   * @param  {String} artworkId
+   * @return {Promise}
+   */
+  deleteArtwork: function(artworkId) {
+    return fetchJSON(`${modelPrefix}/current/created_artwork/${artworkId}`, { method: 'DELETE' });
   },
 
   removeFromFrame: function(frameId, userId = 'current') {

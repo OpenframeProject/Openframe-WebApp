@@ -8,14 +8,17 @@ import {
   LOGOUT_SUCCESS
 } from '../../actions/const'
 
-const initialState = {};
-
-export default function(state = initialState, action) {
+export default function(state = {}, action) {
   switch(action.type) {
     case FETCH_USER_LIKES_SUCCESS:
+      state[action.userId] = state[action.userId] || [];
+      let ids = [
+        ...state[action.userId],
+        ...action.response.result
+      ];
       return {
         ...state,
-        [action.userId]: action.response.result
+        [action.userId]: uniq(ids)
       };
     case LIKE_ARTWORK_REQUEST: {
       let ids = [

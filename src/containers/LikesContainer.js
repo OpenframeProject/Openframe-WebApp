@@ -69,6 +69,7 @@ function mapStateToProps(state) {
   const props = {
     user: getProfileUser(state.user),
     currentUser: currentUser,
+    likesHasMore: state.user.likesHasMore,
     artworkList: getArtworkList(getUserLikes(state.user, currentUserId), state.artwork.byId),
     isFetching: state.artwork.isFetching
   };

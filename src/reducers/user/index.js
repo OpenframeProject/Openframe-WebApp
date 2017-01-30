@@ -11,9 +11,10 @@ import ids from './ids';
 import current from './current';
 import profile from './profile';
 import profileNotFound from './profileNotFound';
-import profileArtworkIds from './profileArtworkIds';
+import profileArtworksById from './profileArtworksById';
 import userLikedArtworksById from './userLikedArtworksById';
 import likesHasMore from './likesHasMore';
+import userArtworkHasMore from './userArtworkHasMore';
 import { isFetching } from './meta';
 
 export default combineReducers({
@@ -22,10 +23,11 @@ export default combineReducers({
   current,
   profile,
   profileNotFound,
-  profileArtworkIds,
+  profileArtworksById,
   userLikedArtworksById,
   isFetching,
-  likesHasMore
+  likesHasMore,
+  userArtworkHasMore
 });
 
 export const getUserList = function(usersById, userIds) {
@@ -46,6 +48,10 @@ export const getProfileNotFound = function(userState) {
 
 export const getUserLikes = function(userState, userId) {
   return userState.userLikedArtworksById[userId] || [];
+}
+
+export const getUserArtworks = function(userState, userId) {
+  return userState.profileArtworksById[userId] || [];
 }
 
 export const isLiked = function(userState, artworkId) {

@@ -5,26 +5,26 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Masonry from 'react-masonry-component';
-
 import ProfileHeaderComponent from '../components/user/ProfileHeaderComponent';
 import AddArtworkBlockComponent from '../components/artwork/AddArtworkBlockComponent';
 import LoadingIndicatorComponent from '../components/common/LoadingIndicatorComponent';
 import ArtworkListItemContainer from './artwork/ArtworkListItemContainer';
 import YouSubMenuComponent from '../components/common/YouSubMenuComponent';
+import InfiniteMasonryComponent from '../components/common/InfiniteMasonryComponent';
 
-import { getProfileUser, getCurrentUser } from '../reducers/user/index';
+import { getProfileUser, getCurrentUser, getUserArtworks } from '../reducers/user/index';
 import { getArtworkList } from '../reducers/artwork/index';
 
 require('styles/user/AddedContainer.scss');
 
-const masonryOptions = {
-    transitionDuration: '0.2s'
-};
-
 class AddedContainer extends Component {
+  _loadArtworks(page) {
+    const { actions, user } = this.props;
+    actions.fetchUserArtworkRequest(user.id, page);
+  }
+
   render() {
-    const { actions, user, currentUser, artworkList, location } = this.props;
+    const { actions, user, currentUser, artworkList, userArtworkHasMore, location } = this.props;
 
     // TODO: probably not best practice...
     if (user && currentUser && user.id === currentUser.id && (artworkList.length === 0 || artworkList[0].type !== 'add')) {
@@ -47,8 +47,9 @@ class AddedContainer extends Component {
             : (<div>
 
                 <div className="row">
-                  <Masonry
-                    options={masonryOptions}>
+                  <InfiniteMasonryComponent
+                    loadMore={::this._loadArtworks}
+                    hasMore={userArtworkHasMore} >
                   {
                     artworkList.map(artwork => {
                       if (artwork.type === 'add') {
@@ -66,7 +67,7 @@ class AddedContainer extends Component {
                       );
                     })
                   }
-                  </Masonry>
+                  </InfiniteMasonryComponent>
                 </div>
 
               </div>)
@@ -82,10 +83,13 @@ AddedContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
+  const profileUser = getProfileUser(state.user);
+  const profileUserId = profileUser ? profileUser.id : null;
   const props = {
-    user: getProfileUser(state.user),
+    user: profileUser,
     currentUser: getCurrentUser(state.user),
-    artworkList: getArtworkList(state.user.profileArtworkIds, state.artwork.byId)
+    userArtworkHasMore: state.user.userArtworkHasMore,
+    artworkList: getArtworkList(getUserArtworks(state.user, profileUserId), state.artwork.byId)
   };
   return props;
 }

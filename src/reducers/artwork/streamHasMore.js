@@ -1,8 +1,4 @@
-/* Define your initial state here.
- *
- * If you change the type from object to something else, do not forget to update
- * src/container/App.js accordingly.
- */
+import config from 'config';
 
 import {
   FETCH_STREAM_SUCCESS
@@ -15,7 +11,7 @@ export default function(state = initialState, action) {
 
     // Array of artworks... concat with state and make sure entries are unique
     case FETCH_STREAM_SUCCESS: {
-        return action.response.result.length !== 0;
+        return action.response.result.length === config.perPage;
     }
 
     default: {

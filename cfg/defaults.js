@@ -8,7 +8,6 @@
 
 const path = require('path');
 const srcPath = path.join(__dirname, '/../src');
-const npmPath = path.resolve(__dirname, '../node_modules');
 const dfltPort = 8000;
 
 /**

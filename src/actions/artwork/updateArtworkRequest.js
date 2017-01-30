@@ -1,13 +1,13 @@
 import {UPDATE_ARTWORK_REQUEST} from './../const';
 import updateArtworkSuccess from './updateArtworkSuccess';
 import updateArtworkFailure from './updateArtworkFailure';
-import {artwork} from '../../sources/api';
+import { users } from '../../sources/api';
 module.exports = function(artworkId, data) {
   return dispatch => {
 		dispatch({
 			type: UPDATE_ARTWORK_REQUEST
 		});
-		return artwork.update(artworkId, data).then(
+		return users.updateArtwork(artworkId, data).then(
 			response => dispatch(updateArtworkSuccess(response)),
 			error => {
 				dispatch(updateArtworkFailure(error))
