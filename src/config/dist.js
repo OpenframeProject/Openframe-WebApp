@@ -13,6 +13,11 @@ let config = {
     {
         origin: /editor\.thebookofshaders\.com$/,
         allow: ['get']
+    },
+    {
+
+        origin: /patriciogonzalezvivo\.github\.io$/,
+        allow: ['get']
     }
   ]
 };
