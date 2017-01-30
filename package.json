@@ -1,7 +1,7 @@
 {
   "name": "openframe-webapp",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "A responsive front-end web app for Openframe.",
   "main": "",
   "scripts": {
@@ -19,7 +19,7 @@
     "release:minor": "npm version minor && git push upstream --follow-tags",
     "release:patch": "npm version patch && git push upstream --follow-tags",
     "deploy:dev": "scp -r ./dist of-dev:/var/www",
-    "deploy": "scp -r ./dist of:/var/www"
+    "deploy": "scp -r ./dist/* of:/var/www/openframe-webapp"
   },
   "repository": "https://github.com/OpenframeProject/Openframe-WebApp.git",
   "keywords": [
