@@ -41,10 +41,14 @@
     margin: 20px 0;
   }
 
-  &__canvas {
+  &__canvas, &__iframe {
     width: 100%;
     margin: 20px 0;
     border: none;
+  }
+
+  &__iframe {
+    height: 540px;
   }
 
   &__label {

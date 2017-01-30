@@ -56,9 +56,12 @@ class ArtworkDetailContainer extends Component {
   }
 
   _getPreviewElement() {
-    const url = this.props.singleArtwork.url;
+    const { url, format } = this.props.singleArtwork;
     const re = /thebookofshaders\.com/i;
     const bos = url.match(re);
+    if (format === 'openframe-website') {
+      return (<iframe className="artwork-detail__iframe" src={url} onError={::this._imageError} />);
+    }
     if (bos) {
       return (<canvas
         ref={(canvas) => { this.canvas = canvas; }}
