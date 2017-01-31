@@ -33,7 +33,7 @@ class CreateAccountNoticeComponent extends React.Component {
 
             <ul className="create-account-notice__links">
               <li><a href="" onClick={(e) => { e.preventDefault(); updateVisibleModal('create-account'); } }> Create an account </a></li>
-              <li><a href="https://github.com/OpenframeProject/Openframe/wiki/Openframe-User-Guide" target="_blank">Learn how to set up a frame</a></li>
+              <li><a href="http://docs.openframe.io/frame-setup-guide" target="_blank">Learn how to set up a frame</a></li>
             </ul>
           </div>
         </div>
