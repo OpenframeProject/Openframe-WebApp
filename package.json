@@ -17,8 +17,8 @@
     "clean": "rimraf dist/*",
     "release:major": "npm version major && git push upstream --follow-tags",
     "release:minor": "npm version minor && git push upstream --follow-tags",
-    "release:patch": "npm version patch && git push upstream --follow-tags",
-    "deploy:dev": "scp -r ./dist of-dev:/var/www",
+    "release:patch": "npm run dist && git add . && git commit -m \"release-build.`date +%Y%m%d%H%m%S`\" && npm version patch && git push upstream --follow-tags",
+    "deploy:dev": "npm run dist && git add . && git commit -m \"dev-build.`date +%Y%m%d%H%m%S`\" && git push origin dist && scp -r ./dist of-dev:/var/www",
     "deploy": "scp -r ./dist/* of:/var/www/openframe-webapp"
   },
   "repository": "https://github.com/OpenframeProject/Openframe-WebApp.git",
