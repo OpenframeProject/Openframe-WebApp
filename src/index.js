@@ -1,4 +1,4 @@
-import 'babel-polyfill'
+import '@babel/polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -20,8 +20,6 @@ import LoginContainer from './containers/LoginContainer';
 import FeatureFlagsContainer from './containers/FeatureFlagsContainer';
 import VerifiedEmailContainer from './containers/VerifiedEmailContainer';
 import ResetPasswordContainer from './containers/ResetPasswordContainer';
-
-import GlslCanvas from '../node_modules/glslCanvas/src/GlslCanvas.js';
 
 require('./images/touch-icon-iphone.png');
 require('./images/touch-icon-ipad.png');

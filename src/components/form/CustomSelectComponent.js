@@ -6,7 +6,7 @@ import Select, { Creatable } from 'react-select';
 // import 'react-select/dist/react-select.css';
 // import 'react-select/scss/components.scss';
 
-require('styles/form/CustomSelect.scss');
+// require('styles/form/CustomSelect.scss');
 
 class CustomSelectComponent extends React.Component {
 
