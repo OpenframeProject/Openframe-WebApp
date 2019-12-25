@@ -8,7 +8,7 @@ import reducers from '../reducers';
  * @param  {Object} initialState
  * @return {Store} A redux store
  */
-module.exports = function(initialState) {
+export default function(initialState) {
 
   const middlewares = [thunk];
 

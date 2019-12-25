@@ -15,7 +15,7 @@ const initialState = {
   pubsub_url: null
 };
 
-module.exports = function(state = initialState, action) {
+export default function(state = initialState, action) {
    switch(action.type) {
 
     case FETCH_CONFIG_REQUEST:

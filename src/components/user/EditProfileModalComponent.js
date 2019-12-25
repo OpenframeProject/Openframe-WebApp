@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Modal from 'react-modal';
-
 import EditProfileFormComponent from './EditProfileFormComponent';
 
 require('styles/user/EditProfileModal.scss');

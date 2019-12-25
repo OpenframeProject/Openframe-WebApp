@@ -1,11 +1,12 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 
 require('styles/common/EditButton.scss');
 
-let editBtn = require('../../images/icon_edit.svg');
-let editBtnWhite = require('../../images/icon_edit_white.svg');
+import editBtn from '../../images/icon_edit.svg'
+import editBtnWhite from '../../images/icon_edit_white.svg'
 
 class EditButtonComponent extends React.Component {
 

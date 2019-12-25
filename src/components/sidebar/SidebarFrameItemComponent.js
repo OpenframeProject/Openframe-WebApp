@@ -1,14 +1,14 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 
 require('styles/sidebar/SidebarFrameItem.scss');
 
 import FrameItemContainer from '../../containers/frame/FrameItemContainer'
 
-let checkmarkIcon = require('../../images/checkmark_white.svg');
-let settingsIcon = require('../../images/settings_white.svg');
-let infoIcon = require('../../images/threedots.svg');
+import checkmarkIcon from '../../images/checkmark_white.svg'
+import settingsIcon from '../../images/settings_white.svg'
 
 class SidebarFrameItemComponent extends React.Component {
 

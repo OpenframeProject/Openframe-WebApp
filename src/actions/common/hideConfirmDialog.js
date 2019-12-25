@@ -1,6 +1,6 @@
 import { HIDE_CONFIRM_DIALOG } from './../const';
 
-module.exports = function(action) {
+export default function(action) {
   return dispatch => {
     dispatch({
       type: HIDE_CONFIRM_DIALOG

@@ -1,9 +1,9 @@
 'use strict';
 
 import React from 'react';
-import { reduxForm, formValueSelector, Field } from 'redux-form';
+import { reduxForm, formValueSelector, Field, change } from 'redux-form';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import CustomInputComponent from '../form/CustomInputComponent';
 import CustomSelectComponent from '../form/CustomSelectComponent';
 import { getCurrentUser } from '../../reducers/user/index';
@@ -20,28 +20,27 @@ const defaultFormatOptions = [
 ];
 
 class EditArtworkFormComponent extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.options = [].concat(defaultFormatOptions);
     // if an existing unsupported format is present , add it to the options
     if (!find(defaultFormatOptions, { value: this.props.format.value })) {
       this.options.unshift(this.props.format);
     }
     this.prevAuthorName = '';
-  }
 
-  componentDidMount() {
     setTimeout(function() {
       this.refs.title.getRenderedComponent().focus();
     }.bind(this), 0);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // if (nextProps.is_author) {
-    //   // this.refs.authorName.onChange(currentUser.full_name);
-    //   let name = (nextProps.currentUser && nextProps.currentUser.full_name) || nextProps.currentUser.username;
-    //   console.log('Attempting to set the author name', name);
-    //   this.refs.authorName.getRenderedComponent().props.input.onChange(name);
-    // }
+  componentDidUpdate() {
+    if (this.props.is_author) {
+      // this.refs.authorName.onChange(currentUser.full_name);
+      let name = (this.props.currentUser && this.props.currentUser.full_name) || this.props.currentUser.username;
+      console.log('Attempting to set the author name', name);
+      // this.refs.authorName.getRenderedComponent().props.input.onChange(name);
+      this.props.change('author_name', name);
+    }
   }
 
   _handleConfirmableClick(e) {
@@ -49,17 +48,21 @@ class EditArtworkFormComponent extends React.Component {
   }
 
   _authorNameOnChange(e) {
+    console.log('_authorNameOnChange', e)
     this.prevAuthorName = e.target.value;
   }
 
   _isAuthorOnChange(e) {
-    const { currentUser } = this.props;
+    const { currentUser, change } = this.props;
     if (e.target.checked) {
       // this.refs.authorName.onChange(currentUser.full_name);
-      this.refs.authorName.getRenderedComponent().props.input.onChange(currentUser.full_name || currentUser.username);
+      this.props.change('author_name', currentUser.full_name || currentUser.username);
+      // this.refs.authorName.getRenderedComponent().props.input.onChange(currentUser.full_name || currentUser.username);
     } else {
-      this.refs.authorName.getRenderedComponent().props.input.onChange(this.prevAuthorName);
-      this.refs.isPublic.getRenderedComponent().props.input.onChange("false");
+      this.props.change('author_name', this.prevAuthorName);
+      // this.refs.authorName.getRenderedComponent().props.input.onChange(this.prevAuthorName);
+      this.props.change('is_public', "false");
+      // this.refs.isPublic.getRenderedComponent().props.input.onChange("false");
       setTimeout(function() {
         this.refs.authorName.getRenderedComponent().focus();
       }.bind(this), 0);
@@ -72,15 +75,15 @@ class EditArtworkFormComponent extends React.Component {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <div>
-            <label className="checkbox-inline"><Field withRef ref="isAuthor" name="is_author" component={CustomInputComponent} type="checkbox" raw onChange={::this._isAuthorOnChange} />I am the author of this work</label>
+            <label className="checkbox-inline"><Field ref="isAuthor" forwardRef="isAuthor" name="is_author" component={CustomInputComponent} type="checkbox" raw onChange={::this._isAuthorOnChange} />I am the author of this work</label>
           </div>
           <label>Author</label>
           <div>
-            <Field withRef ref="authorName" name="author_name" component={CustomInputComponent} type="text" placeholder="Author" raw disabled={is_author} onChange={::this._authorNameOnChange} />
+            <Field ref="authorName" forwardRef="authorName" name="author_name" component={CustomInputComponent} type="text" placeholder="Author" raw disabled={is_author} onChange={::this._authorNameOnChange} />
           </div>
         </div>
 
-        <Field withRef ref="title" name="title" component={CustomInputComponent} type="text" placeholder="Title" label="Title" />
+        <Field forwardRef="title" ref="title" name="title" component={CustomInputComponent} type="text" placeholder="Title" label="Title" />
 
         <Field name="description" component={CustomInputComponent} type="text" placeholder="Description" label="Description" />
 
@@ -102,7 +105,7 @@ class EditArtworkFormComponent extends React.Component {
         <Field name="thumb_url" component={CustomInputComponent} type="text" placeholder="https://" label="URL of a preview image" />
 
         <div className="form-group">
-          <label className="radio-inline"><Field withRef ref="isPublic" name="is_public" component={CustomInputComponent} type="radio" value="false" raw disabled={!is_author} /> Keep private</label>
+          <label className="radio-inline"><Field ref="isPublic" forwardRef="isPublic" name="is_public" component={CustomInputComponent} type="radio" value="false" raw disabled={!is_author} /> Keep private</label>
           <label className="radio-inline"><Field name="is_public" component={CustomInputComponent} type="radio" value="true" raw disabled={!is_author} /> Publish to Stream</label>
           <p className="fine-copy">Only works that are your own can be published to the stream.</p>
 
@@ -129,6 +132,15 @@ EditArtworkFormComponent = reduxForm({
 })(EditArtworkFormComponent);
 
 const selector = formValueSelector('profile');
+
+function mapDispatchToProps(dispatch) {
+  const actions = {
+    change: change
+  };
+  const actionMap = { actions: bindActionCreators(actions, dispatch) };
+  return actionMap;
+}
+
 EditArtworkFormComponent = connect(
   (state, ownProps) => {
     let currentUser = getCurrentUser(state.user);
@@ -164,7 +176,7 @@ EditArtworkFormComponent = connect(
         label: formatLabel
       }
     };
-  }
+  }, mapDispatchToProps
 )(EditArtworkFormComponent);
 
 

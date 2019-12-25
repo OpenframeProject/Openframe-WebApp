@@ -3,7 +3,7 @@ import deleteFrameSuccess from './deleteFrameSuccess';
 import deleteFrameFailure from './deleteFrameFailure';
 import {frames} from '../../sources/api';
 
-module.exports = function(frame) {
+export default function(frame) {
   return dispatch => {
 		dispatch({
 			type: DELETE_FRAME_REQUEST

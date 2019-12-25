@@ -5,7 +5,7 @@ import * as schema from '../schema';
 // import { actions as notifActions } from 'redux-notifications';
 // const { notifSend } = notifActions;
 
-module.exports = function(response) {
+export default function(response) {
   return dispatch => {
     let frame = response;
     dispatch({ type: UPDATE_CURRENT_ARTWORK_SUCCESS, response: normalize(frame, schema.frame) });

@@ -1,5 +1,5 @@
 import {REMOVE_ARTWORK} from './../const';
 
-module.exports = function(parameter) {
+export default function(parameter) {
   return { type: REMOVE_ARTWORK, parameter };
 };

@@ -3,7 +3,7 @@ import { unbindFrameEvents } from '../../services/pubsub';
 import { actions as notifActions } from 'redux-notifications';
 const { notifSend } = notifActions;
 
-module.exports = function(frame) {
+export default function(frame) {
   return (dispatch) => {
     dispatch({ type: DELETE_FRAME_SUCCESS, frameId: frame.id });
     let name = frame.name.toUpperCase();

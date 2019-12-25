@@ -3,7 +3,7 @@ import loginSuccess from './loginSuccess';
 import loginFailure from './loginFailure';
 import {users} from '../../sources/api';
 
-module.exports = function(credentials) {
+export default function(credentials) {
   return dispatch => {
   	dispatch({
   	  type: LOGIN_REQUEST

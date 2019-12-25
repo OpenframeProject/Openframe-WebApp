@@ -1,5 +1,5 @@
 import {FETCH_CONFIG_FAILURE} from './../const';
 
-module.exports = function(parameter) {
+export default function(parameter) {
   return { type: FETCH_CONFIG_FAILURE, parameter };
 };

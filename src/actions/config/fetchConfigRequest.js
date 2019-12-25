@@ -3,7 +3,7 @@ import fetchConfigSuccess from './fetchConfigSuccess';
 import fetchConfigFailure from './fetchConfigFailure';
 import {config} from '../../sources/api';
 
-module.exports = function() {
+export default function() {
   return dispatch => {
     dispatch({
       type: FETCH_CONFIG_REQUEST
@@ -14,5 +14,4 @@ module.exports = function() {
       error => dispatch(fetchConfigFailure(error))
     );
   }
-};
-
+}

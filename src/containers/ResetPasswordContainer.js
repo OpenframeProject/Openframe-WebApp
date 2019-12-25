@@ -1,8 +1,8 @@
-import { browserHistory } from 'react-router';
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import { useHistory } from "react-router-dom";
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ResetPasswordModalContainer from './ResetPasswordModalContainer';
@@ -19,6 +19,7 @@ class ResetPasswordContainer extends Component {
       tokenIsValid: false,
       isLoading: true
     }
+    this.history = useHistory()
   }
 
   componentWillMount() {
@@ -53,7 +54,7 @@ class ResetPasswordContainer extends Component {
   }
 
   _onRequestClose() {
-    browserHistory.push('/');
+    this.history.push('/');
   }
 
   render() {

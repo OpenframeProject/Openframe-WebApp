@@ -1,16 +1,17 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 
-import { Link } from 'react-router'
+import { NavLink } from 'react-router-dom'
 
 require('styles/common/MobileSubMenu.scss');
 
-let streamImg = require('../../images/icon_stream.svg');
-let channelsImg = require('../../images/icon_channels.svg');
-let collectionsImg = require('../../images/icon_collection.svg');
-let likesImg = require('../../images/icon_likes.svg');
-let youImg = require('../../images/icon_you.svg');
+import streamImg from '../../images/icon_stream.svg'
+import channelsImg from '../../images/icon_channels.svg'
+import collectionsImg from '../../images/icon_collection.svg'
+import likesImg from '../../images/icon_likes.svg'
+import youImg from '../../images/icon_you.svg'
 
 class MobileSubMenuComponent extends React.Component {
   render() {
@@ -26,59 +27,59 @@ class MobileSubMenuComponent extends React.Component {
     }
     return (
       <nav className="footerbar">
-        <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/stream">
+        <NavLink className="footerbar__tab" activeClassName="footerbar__tab--active" to="/stream">
           <div className="footerbar__tab-icon-wrap">
             <img className="footerbar__tab-icon" src={streamImg} />
           </div>
           <div className="footerbar__tab-text">
             Stream
           </div>
-        </Link>
+        </NavLink>
         { featureFlags.channels
-          ? <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/channels">
+          ? <NavLink className="footerbar__tab" activeClassName="footerbar__tab--active" to="/channels">
               <div className="footerbar__tab-icon-wrap">
                 <img className="footerbar__tab-icon" src={channelsImg} />
               </div>
               <div className="footerbar__tab-text">
                 Channels
               </div>
-            </Link>
+            </NavLink>
           : null
         }
         { featureFlags.collections
-          ? <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to="/collections">
+          ? <NavLink className="footerbar__tab" activeClassName="footerbar__tab--active" to="/collections">
               <div className="footerbar__tab-icon-wrap">
                 <img className="footerbar__tab-icon" src={collectionsImg} />
               </div>
               <div className="footerbar__tab-text">
                 Collect.
               </div>
-            </Link>
+            </NavLink>
           : null
         }
         { user
           ? (
-            <Link className="footerbar__tab" activeClassName="footerbar__tab--active" to={likes}>
+            <NavLink className="footerbar__tab" activeClassName="footerbar__tab--active" to={likes}>
               <div className="footerbar__tab-icon-wrap">
                 <img className="footerbar__tab-icon" src={likesImg} />
               </div>
               <div className="footerbar__tab-text">
                 Likes
               </div>
-            </Link>
+            </NavLink>
             )
           : null
         }
         { user
           ? (
-            <Link className={active} to={added}>
+            <NavLink className={active} to={added}>
               <div className="footerbar__tab-icon-wrap">
                 <img className="footerbar__tab-icon" src={youImg} />
               </div>
               <div className="footerbar__tab-text">
                 You
               </div>
-            </Link>
+            </NavLink>
             )
           : null
         }

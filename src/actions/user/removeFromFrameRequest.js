@@ -3,7 +3,7 @@ import removeFromFrameSuccess from './removeFromFrameSuccess';
 import removeFromFrameFailure from './removeFromFrameFailure';
 import {users} from '../../sources/api';
 
-module.exports = function(frame) {
+export default function(frame) {
   return dispatch => {
 		dispatch({
 			type: REMOVE_FROM_FRAME_REQUEST

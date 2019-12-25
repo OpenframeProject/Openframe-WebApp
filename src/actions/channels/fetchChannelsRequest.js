@@ -3,7 +3,7 @@ import fetchChannelsSuccess from './fetchChannelsSuccess';
 import fetchChannelsFailure from './fetchChannelsFailure';
 import {channels} from '../../sources/api';
 
-module.exports = function() {
+export default function() {
   return dispatch => {
     dispatch({
       type: FETCH_CHANNELS_REQUEST

@@ -1,5 +1,5 @@
 import {FETCH_COLLECTIONS_FAILURE} from './../const';
 
-module.exports = function(collectionId) {
+export default function(collectionId) {
   return { type: FETCH_COLLECTIONS_FAILURE, collectionId };
 };

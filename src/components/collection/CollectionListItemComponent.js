@@ -1,13 +1,14 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router'
+import React from 'react';
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import PushButtonComponent from '../common/PushButtonComponent';
 
 require('styles//collection/CollectionListItem.scss');
 
-let rightCaret = require('../../images/right_caret.svg');
+import rightCaret from '../../images/right_caret.svg'
 
 class CollectionListItemComponent extends React.Component {
   constructor() {

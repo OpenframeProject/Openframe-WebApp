@@ -4,7 +4,7 @@ import {setToken} from '../../services/auth';
 import fetchCurrentUserRequest from '../user/fetchCurrentUserRequest';
 import fetchFramesRequest from '../frame/fetchFramesRequest';
 import fetchConfigRequest from '../config/fetchConfigRequest';
-module.exports = function(token) {
+export default function(token) {
   // set accesToken on localStorage
   setToken(token.id);
 

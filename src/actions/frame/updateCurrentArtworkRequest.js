@@ -3,7 +3,7 @@ import updateCurrentArtworkSuccess from './updateCurrentArtworkSuccess';
 import updateCurrentArtworkFailure from './updateCurrentArtworkFailure';
 import {frames} from '../../sources/api';
 
-module.exports =  function(frameId, artworkId) {
+export default  function(frameId, artworkId) {
   return dispatch => {
 		dispatch({
 			type: UPDATE_CURRENT_ARTWORK_REQUEST

@@ -12,12 +12,6 @@ import { getCurrentUser } from '../../reducers/user/index';
 require('styles/user/EditProfileForm.scss');
 
 class EditProfileFormComponent extends React.Component {
-  componentDidMount() {
-    setTimeout(function() {
-      this.refs.fullName.getRenderedComponent().focus();
-    }.bind(this), 0);
-  }
-
   doCloseActions() {
     if (this.props.closeActions && this.props.closeActions.length) {
       this.props.closeActions.each(action => {
@@ -66,7 +60,9 @@ class EditProfileFormComponent extends React.Component {
 
     return (
       <form onSubmit={handleSubmit}>
-          <Field withRef ref="fullName" name="full_name" component={CustomInputComponent} type="text" placeholder="First Last" label="Full name" />
+          <Field autoFocus ref="fullName" name="full_name" component={CustomInputComponent} type="text" placeholder="First Last" label="Full name" />
+
+          {/* <Field ref="lastName" name="last_name" component={CustomInputComponent} type="text" placeholder="Last name" label="Last name" /> */}
 
           <Field name="username" component={CustomInputComponent} type="text" placeholder="username" label="Username" />
 

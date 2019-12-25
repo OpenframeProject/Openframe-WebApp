@@ -3,7 +3,7 @@ import unlikeArtworkSuccess from './unlikeArtworkSuccess';
 import unlikeArtworkFailure from './unlikeArtworkFailure';
 import { users } from '../../sources/api';
 
-module.exports = function(artworkId) {
+export default function(artworkId) {
   return (dispatch, getState) => {
     const state = getState();
     dispatch({

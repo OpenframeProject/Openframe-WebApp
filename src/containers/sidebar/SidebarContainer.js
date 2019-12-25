@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -49,12 +49,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    updateVisibleModal: require('../../actions/ui/updateVisibleModal.js'),
-    updateSidebarState: require('../../actions/ui/updateSidebarState.js'),
-    selectFrame: require('../../actions/frame/selectFrame.js'),
-    editFrameSettings: require('../../actions/frame/editFrameSettings.js'),
+    updateVisibleModal: require('../../actions/ui/updateVisibleModal.js').default,
+    updateSidebarState: require('../../actions/ui/updateSidebarState.js').default,
+    selectFrame: require('../../actions/frame/selectFrame.js').default,
+    editFrameSettings: require('../../actions/frame/editFrameSettings.js').default,
 
-    logoutRequest: require('../../actions/auth/logoutRequest.js')
+    logoutRequest: require('../../actions/auth/logoutRequest.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

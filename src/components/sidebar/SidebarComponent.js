@@ -1,13 +1,14 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import onClickOutside from 'react-onclickoutside';
 
 import SidebarFrameItemComponent from './SidebarFrameItemComponent'
 
 require('styles//sidebar/Sidebar.scss');
 
-let closeIcon = require('../../images/icon_cross_mobile.svg');
+import closeIcon from '../../images/icon_cross_mobile.svg'
 
 class SidebarComponent extends Component {
 

@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -36,11 +36,11 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    pushArtwork: require('../../actions/artwork/pushArtwork.js'),
-    likeArtwork: require('../../actions/artwork/likeArtworkRequest.js'),
-    unlikeArtwork: require('../../actions/artwork/unlikeArtworkRequest.js'),
-    editArtwork: require('../../actions/artwork/editArtwork.js'),
-    updateVisibleModal: require('../../actions/ui/updateVisibleModal.js')
+    pushArtwork: require('../../actions/artwork/pushArtwork.js').default,
+    likeArtwork: require('../../actions/artwork/likeArtworkRequest.js').default,
+    unlikeArtwork: require('../../actions/artwork/unlikeArtworkRequest.js').default,
+    editArtwork: require('../../actions/artwork/editArtwork.js').default,
+    updateVisibleModal: require('../../actions/ui/updateVisibleModal.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

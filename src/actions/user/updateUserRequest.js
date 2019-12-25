@@ -4,7 +4,7 @@ import updateUserFailure from './updateUserFailure';
 import updateVisibleModal from '../ui/updateVisibleModal';
 import {users} from '../../sources/api';
 
-module.exports = function(data, userId = 'current', accessToken) {
+export default function(data, userId = 'current', accessToken) {
   console.log('accessToken', accessToken)
   return dispatch => {
     dispatch({

@@ -1,10 +1,10 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import NotFoundComponent from '../components/common/NotFoundComponent';
@@ -13,10 +13,12 @@ import PushButtonComponent from '../components/common/PushButtonComponent';
 import LikeButtonComponent from '../components/common/LikeButtonComponent';
 import EditButtonComponent from '../components/common/EditButtonComponent';
 
+import GlslCanvas from 'glslCanvas'
+
 import { getById } from '../reducers/index';
 import { isLiked } from '../reducers/user/index';
 
-let noThumbImg = require('./../images/preview-missing.png');
+import noThumbImg  from './../images/preview-missing.png'
 
 require('styles/artwork/ArtworkDetail.scss');
 
@@ -25,22 +27,21 @@ class ArtworkDetailContainer extends Component {
     super(props);
 
     this.state = {
-      thumb_url: props.singleArtwork && props.singleArtwork.thumb_url
+      thumb_url: props.singleArtwork && props.singleArtwork.thumb_url || noThumbImg
     };
   }
 
-  componentWillMount() {
-    const {actions, params} = this.props;
+  componentDidMount() {
+    const { actions, params } = this.props;
     actions.fetchSingleArtworkRequest(params.artworkId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      thumb_url: nextProps.singleArtwork && nextProps.singleArtwork.thumb_url || noThumbImg
-    });
-  }
-
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (this.props.singleArtwork && !prevProps.singleArtwork) {
+      this.setState({
+        thumb_url: this.props.singleArtwork && this.props.singleArtwork.thumb_url || noThumbImg
+      });
+    }
     if (this.canvas && !this.glslCanvas) {
       this.glslCanvas = new GlslCanvas(this.canvas);
     }
@@ -48,10 +49,10 @@ class ArtworkDetailContainer extends Component {
 
   _formatDisplayName(format) {
     switch (format) {
-        case 'openframe-glslviewer':
-            return 'shader';
-        default:
-            return format.replace('openframe-', '');
+      case 'openframe-glslviewer':
+        return 'shader';
+      default:
+        return format.replace('openframe-', '');
     }
   }
 
@@ -74,7 +75,7 @@ class ArtworkDetailContainer extends Component {
 
   _handlePushClick(e) {
     e.preventDefault();
-    let {params, actions, isAuthenticated} = this.props;
+    let { params, actions, isAuthenticated } = this.props;
     if (isAuthenticated) {
       actions.pushArtwork(params.artworkId);
     } else {
@@ -84,7 +85,7 @@ class ArtworkDetailContainer extends Component {
 
   _handleLikeClick(e) {
     e.preventDefault();
-    let {artwork, params, user, actions, isAuthenticated } = this.props;
+    let { artwork, params, user, actions, isAuthenticated } = this.props;
     let singleArtwork = getById(artwork.byId, params.artworkId);
     if (isAuthenticated) {
       if (isLiked(user, singleArtwork.id)) {
@@ -109,7 +110,7 @@ class ArtworkDetailContainer extends Component {
   }
 
   render() {
-    const {artwork, singleArtwork, user } = this.props;
+    const { artwork, singleArtwork, user } = this.props;
     let owner = singleArtwork && getById(user.byId, singleArtwork.ownerId);
     owner = owner || (singleArtwork && singleArtwork.owner ? getById(user.byId, singleArtwork.owner) : null);
     let ownerUrl = owner ? `/${owner.username}` : null;
@@ -134,39 +135,39 @@ class ArtworkDetailContainer extends Component {
               </div>
 
               {
-                ::this._getPreviewElement(this.state.thumb_url)
+                  ::this._getPreviewElement(this.state.thumb_url)
               }
 
-              <div className="artwork-detail__info">
+                <div className="artwork-detail__info">
 
                 <div className="artwork-detail__format">{this._formatDisplayName(singleArtwork.format)}</div>
                 {
                   singleArtwork.resolution
-                  ? <div className="artwork-detail__resolution">{singleArtwork.resolution}</div>
-                  : null
+                    ? <div className="artwork-detail__resolution">{singleArtwork.resolution}</div>
+                    : null
                 }
 
                 <div className="artwork-detail__description">{singleArtwork.description}</div>
 
                 {
                   owner
-                  ? <div className="artwork-detail__added-by">Added by <Link to={ownerUrl} activeClassName="active">{owner.username}</Link> on {moment(singleArtwork.created).format('L')}</div>
-                  : null
+                    ? <div className="artwork-detail__added-by">Added by <Link to={ownerUrl}>{owner.username}</Link> on {moment(singleArtwork.created).format('L')}</div>
+                    : null
                 }
 
                 <div className="artwork-detail__actions">
                   <div className="artwork-detail__action" title="Push to frame">
                     <PushButtonComponent handleClick={::this._handlePushClick} show={true} />
-                  </div>
+                    </div>
                   <div className="artwork-detail__action" title="Like artwork">
                     <LikeButtonComponent handleClick={::this._handleLikeClick} show={true} initialLikedState={isLiked(user, singleArtwork.id)}/>
-                  </div>
-                  { user.current === singleArtwork.ownerId
+                    </div>
+                  {user.current === singleArtwork.ownerId
                     ? <div className="artwork-detail__action" title="Edit artwork">
-                        <EditButtonComponent
-                          handleClick={::this._handleEditClick}
-                          show={true} />
-                      </div>
+                      <EditButtonComponent
+                        handleClick={::this._handleEditClick}
+                            show={true} />
+                        </div>
                     : null
                   }
                 </div>
@@ -177,12 +178,12 @@ class ArtworkDetailContainer extends Component {
 
         {
           owner
-          ? <div className="artwork-detail__artist-profile">
+            ? <div className="artwork-detail__artist-profile">
               <Link to={ownerUrl} className="link">
                 See more by {owner.username}
               </Link>
             </div>
-          : null
+            : null
         }
 
       </div>
@@ -208,12 +209,12 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    updateVisibleModal: require('../actions/ui/updateVisibleModal.js'),
-    fetchSingleArtworkRequest: require('../actions/artwork/fetchSingleArtworkRequest.js'),
-    pushArtwork: require('../actions/artwork/pushArtwork.js'),
-    likeArtwork: require('../actions/artwork/likeArtworkRequest.js'),
-    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js'),
-    editArtwork: require('../actions/artwork/editArtwork.js')
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js').default,
+    fetchSingleArtworkRequest: require('../actions/artwork/fetchSingleArtworkRequest.js').default,
+    pushArtwork: require('../actions/artwork/pushArtwork.js').default,
+    likeArtwork: require('../actions/artwork/likeArtworkRequest.js').default,
+    unlikeArtwork: require('../actions/artwork/unlikeArtworkRequest.js').default,
+    editArtwork: require('../actions/artwork/editArtwork.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

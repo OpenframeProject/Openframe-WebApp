@@ -1,7 +1,7 @@
 import {CREATE_ACCOUNT_SUCCESS} from './../const';
 import updateNoticeBanner from '../ui/updateNoticeBanner';
 
-module.exports = function(user, password) {
+export default function(user, password) {
   return dispatch => {
     dispatch({
       type: CREATE_ACCOUNT_SUCCESS,

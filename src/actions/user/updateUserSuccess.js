@@ -4,7 +4,7 @@ import * as schema from '../schema';
 import { actions as notifActions } from 'redux-notifications';
 const { notifSend } = notifActions;
 
-module.exports = function(response, notice) {
+export default function(response, notice) {
   return dispatch => {
     dispatch({
       type: UPDATE_USER_SUCCESS,

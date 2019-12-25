@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import Spinner from 'react-spin';
+// import Spinner from 'react-spin';
 import config from 'config';
 
 require('styles/common/LoadingIndicator.scss');
@@ -24,7 +24,8 @@ class LoadingIndicatorComponent extends React.Component {
     return (
       <div className="loading-indicator">
         <div className="loading-indicator__indicator">
-          <Spinner config={this.spinnerConfig} />
+          {/* <Spinner config={this.spinnerConfig} /> */}
+          ...
         </div>
       </div>
     );

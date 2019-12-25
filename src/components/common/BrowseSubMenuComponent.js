@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'react-router'
+import { NavLink } from 'react-router-dom'
 
 require('styles/common/BrowseSubMenu.scss');
 
@@ -13,13 +13,13 @@ class BrowseSubMenuComponent extends React.Component {
         <div className="col-md-12">
           <div className="browse-sub-menu__wrap">
             <ul className="tabs">
-              <li><Link to="/stream" activeClassName="active">Stream</Link></li>
+              <li><NavLink to="/stream" activeClassName="active">Stream</NavLink></li>
               { featureFlags.channels
-                ? <li><Link to="/channels" activeClassName="active">Channels</Link></li>
+                ? <li><NavLink to="/channels" activeClassName="active">Channels</NavLink></li>
                 : null
               }
               { featureFlags.collections
-                ? <li><Link to="/collections" activeClassName="active">Collections</Link></li>
+                ? <li><NavLink to="/collections" activeClassName="active">Collections</NavLink></li>
                 : null
               }
             </ul>

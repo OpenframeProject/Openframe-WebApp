@@ -1,7 +1,7 @@
 import {PUSH_ARTWORK} from './../const';
 import updateCurrentArtworkRequest from '../frame/updateCurrentArtworkRequest';
 
-module.exports = function(artworkId) {
+export default function(artworkId) {
   return (dispatch, getState) => {
     dispatch({
       type: PUSH_ARTWORK

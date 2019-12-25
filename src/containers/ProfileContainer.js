@@ -1,22 +1,25 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
+import { Switch, Route, Redirect, useParams, useRouteMatch } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import NotFoundComponent from '../components/common/NotFoundComponent';
-import { getProfileNotFound, getCurrentUser } from '../reducers/user/index';
+import LikesContainer from './LikesContainer';
+import AddedContainer from './AddedContainer';
+import { getProfileNotFound } from '../reducers/user/index';
 
 class ProfileContainer extends Component {
   fetchUser(username) {
-    // console.log('ProfileContainer.fetchUser', username);
     const {actions} = this.props;
     actions.fetchUserRequest(username);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const {params} = this.props;
+    console.log("ProfileContainer", this.props);
     this.fetchUser(params.username);
   }
 
@@ -24,24 +27,27 @@ class ProfileContainer extends Component {
   //   this.fetchUser();
   // }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(this.props, nextProps);
-    const {params} = this.props;
+  componentDidUpdate(prevProps) {
+    console.log("ProfileContainer", this.props, prevProps);
+    const { params } = this.props;
     let username = params.username;
 
-    if (nextProps.params.username !== username) {
-      this.fetchUser(nextProps.params.username);
+    if (prevProps.params.username !== username) {
+      this.fetchUser(username);
     }
   }
 
   render() {
-    const { profileNotFound } = this.props;
+    const { profileNotFound, params: { username } } = this.props;
     return (
       <div className="profile-container">
-        { profileNotFound
-          ? <NotFoundComponent></NotFoundComponent>
-          : this.props.children
-        }
+        <Switch>
+            {profileNotFound && <Route path={`/${username}`} component={NotFoundComponent} />}
+            <Route path={`/${username}/likes`} component={LikesContainer} />
+            <Route path={`/${username}/added`} component={AddedContainer} />
+            <Route path={`/${username}`} component={AddedContainer} />
+            {/* <Redirect from={`/${username}`} to={`/${username}/added`} /> */}
+        </Switch>
       </div>
     );
   }
@@ -60,7 +66,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchUserRequest: require('../actions/user/fetchUserRequest.js')
+    fetchUserRequest: require('../actions/user/fetchUserRequest.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

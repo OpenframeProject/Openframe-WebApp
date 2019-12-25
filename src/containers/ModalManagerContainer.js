@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -66,7 +66,11 @@ class ModalManagerContainer extends Component {
   _handleSubmitAddArtwork(fields) {
     let { actions } = this.props;
     fields.is_public = fields.is_public === "true";
-    fields.format = fields.format.value;
+    fields.format = fields.format && fields.format.value;
+    if (!fields.url) {
+      actions.createArtworkFailure('You must enter a URL.');
+      return;
+    }
     if (!fields.format) {
       actions.createArtworkFailure('You must select a format.');
       return;
@@ -186,29 +190,29 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    updateVisibleModal: require('../actions/ui/updateVisibleModal.js'),
-    deleteFrameRequest: require('../actions/frame/deleteFrameRequest.js'),
-    removeFromFrameRequest: require('../actions/user/removeFromFrameRequest.js'),
-    loginRequest: require('../actions/auth/loginRequest.js'),
-    createAccountRequest: require('../actions/user/createAccountRequest.js'),
-    createAccountFailure: require('../actions/user/createAccountFailure.js'),
-    createArtworkRequest: require('../actions/artwork/createArtworkRequest.js'),
-    createArtworkFailure: require('../actions/artwork/createArtworkFailure.js'),
-    updateArtworkRequest: require('../actions/artwork/updateArtworkRequest'),
-    updateArtworkFailure: require('../actions/artwork/updateArtworkFailure'),
-    deleteArtworkRequest: require('../actions/artwork/deleteArtworkRequest.js'),
-    deleteArtworkFailure: require('../actions/artwork/deleteArtworkFailure.js'),
-    updateUserRequest: require('../actions/user/updateUserRequest'),
-    updateUserFailure: require('../actions/user/updateUserFailure'),
-    updateFrameRequest: require('../actions/frame/updateFrameRequest.js'),
-    deleteFrameRequest: require('../actions/frame/deleteFrameRequest.js'),
-    deleteFrameFailure: require('../actions/frame/deleteFrameFailure.js'),
-    removeFromFrameRequest: require('../actions/user/removeFromFrameRequest.js'),
-    removeFromFrameFailure: require('../actions/user/removeFromFrameFailure.js'),
-    updateFrameManagersRequest: require('../actions/frame/updateFrameManagersRequest.js'),
-    updateFrameFailure: require('../actions/frame/updateFrameFailure.js'),
-    passwordResetRequest: require('../actions/auth/passwordResetRequest.js'),
-    passwordResetFailure: require('../actions/auth/passwordResetFailure.js')
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js').default,
+    deleteFrameRequest: require('../actions/frame/deleteFrameRequest.js').default,
+    removeFromFrameRequest: require('../actions/user/removeFromFrameRequest.js').default,
+    loginRequest: require('../actions/auth/loginRequest.js').default,
+    createAccountRequest: require('../actions/user/createAccountRequest.js').default,
+    createAccountFailure: require('../actions/user/createAccountFailure.js').default,
+    createArtworkRequest: require('../actions/artwork/createArtworkRequest.js').default,
+    createArtworkFailure: require('../actions/artwork/createArtworkFailure.js').default,
+    updateArtworkRequest: require('../actions/artwork/updateArtworkRequest').default,
+    updateArtworkFailure: require('../actions/artwork/updateArtworkFailure').default,
+    deleteArtworkRequest: require('../actions/artwork/deleteArtworkRequest.js').default,
+    deleteArtworkFailure: require('../actions/artwork/deleteArtworkFailure.js').default,
+    updateUserRequest: require('../actions/user/updateUserRequest').default,
+    updateUserFailure: require('../actions/user/updateUserFailure').default,
+    updateFrameRequest: require('../actions/frame/updateFrameRequest.js').default,
+    deleteFrameRequest: require('../actions/frame/deleteFrameRequest.js').default,
+    deleteFrameFailure: require('../actions/frame/deleteFrameFailure.js').default,
+    removeFromFrameRequest: require('../actions/user/removeFromFrameRequest.js').default,
+    removeFromFrameFailure: require('../actions/user/removeFromFrameFailure.js').default,
+    updateFrameManagersRequest: require('../actions/frame/updateFrameManagersRequest.js').default,
+    updateFrameFailure: require('../actions/frame/updateFrameFailure.js').default,
+    passwordResetRequest: require('../actions/auth/passwordResetRequest.js').default,
+    passwordResetFailure: require('../actions/auth/passwordResetFailure.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

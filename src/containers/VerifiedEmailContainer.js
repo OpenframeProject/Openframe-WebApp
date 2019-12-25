@@ -1,21 +1,26 @@
-import { browserHistory } from 'react-router';
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import { useHistory } from "react-router-dom";
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 require('styles/common/VerifiedEmailContainer.scss');
 
 class VerifiedEmailContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.history = useHistory()
+  }
+
   _gotoLogin() {
     const {actions} = this.props;
     actions.updateVisibleModal('login');
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser) {
-      browserHistory.push('/');
+      this.history.push('/');
     }
   }
   render() {
@@ -26,7 +31,7 @@ class VerifiedEmailContainer extends Component {
           <button className="btn btn-default" onClick={::this._gotoLogin}>Login now</button>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -43,7 +48,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    updateVisibleModal: require('../actions/ui/updateVisibleModal.js')
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

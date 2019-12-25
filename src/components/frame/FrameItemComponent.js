@@ -1,13 +1,14 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 
-import { Link } from 'react-router';
-import Spinner from 'react-spin';
+import { Link } from 'react-router-dom';
+// import Spinner from 'react-spin';
 import config from 'config';
 
 require('styles//frame/FrameItem.scss');
-let settingsImg = require('../../images/settings_white.svg');
+import settingsImg from '../../images/settings_white.svg'
 
 class FrameItemComponent extends React.Component {
   constructor() {
@@ -20,13 +21,13 @@ class FrameItemComponent extends React.Component {
   }
 
   openSettings() {
-    const {frame, actions} = this.props;
+    const { frame, actions } = this.props;
     actions.editFrameSettings(frame.id);
   }
 
   render() {
 
-    let { isPushing, isSelected, currentArtwork, showSettingsButton, pathname } = this.props;
+    let { isPushing, isSelected, currentArtwork, showSettingsButton, location } = this.props;
 
     let { connected, name } = this.props.frame; // props.frame, NOT PROPS!!
 
@@ -43,40 +44,40 @@ class FrameItemComponent extends React.Component {
 
     return (
       <div className="frame-item">
-        <span className={ connectedClass }>&bull;</span>
-        { currentArtwork
-            ? <Link to={{
-                pathname: '/artwork/'+currentArtwork.id,
-                state: { modal: true, returnTo: pathname }
-              }}>
-                <div className="frame-item__thumb" style={thumbStyles}>
-                  { isPushing && isSelected
+        <span className={connectedClass}>&bull;</span>
+        {currentArtwork && location
+          ? <Link to={{
+            pathname: '/artwork/' + currentArtwork.id,
+            state: { background: location, returnTo: location.pathname }
+          }}>
+            <div className="frame-item__thumb" style={thumbStyles}>
+              {/* { isPushing && isSelected
                     ? <Spinner config={this.spinnerConfig} />
                     : null
-                  }
-                </div>
-              </Link>
-            : <div className="frame-item__thumb frame-item__thumb--empty">
-                { isPushing && isSelected
+                  } */}
+            </div>
+          </Link>
+          : <div className="frame-item__thumb frame-item__thumb--empty">
+            {/* { isPushing && isSelected
                   ? <Spinner config={this.spinnerConfig} />
                   : null
-                }
-              </div>
+                } */}
+          </div>
         }
 
         <div className="frame-item__info">
           <div className="frame-item__name">
-              { name }
-              { showSettingsButton
-                ? <img className="frame-item__settings" src={settingsImg} onClick={::this.openSettings} />
-                : null
-              }
+            {name}
+            {showSettingsButton
+              ? <img className="frame-item__settings" src={settingsImg} onClick={::this.openSettings} />
+            : null
+          }
           </div>
           <div className="frame-item__status displaying">
-              { currentArtwork
-                  ? <span>{ currentArtwork.author_name } - { currentArtwork.title }</span>
-                  : <span>No Artwork Displayed</span>
-              }
+            {currentArtwork
+              ? <span>{currentArtwork.author_name} - {currentArtwork.title}</span>
+              : <span>No Artwork Displayed</span>
+            }
           </div>
         </div>
       </div>
@@ -92,8 +93,8 @@ FrameItemComponent.propTypes = {
   isPushing: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool.isRequired,
   showSettingsButton: PropTypes.bool.isRequired,
+  location: PropTypes.object,
   currentArtwork: PropTypes.object,
-  pathname: PropTypes.string
 };
 
 FrameItemComponent.defaultProps = {

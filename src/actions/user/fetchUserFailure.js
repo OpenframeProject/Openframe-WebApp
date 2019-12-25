@@ -1,4 +1,4 @@
 import {FETCH_USER_FAILURE} from './../const';
-module.exports = function(parameter) {
+export default function(parameter) {
   return { type: FETCH_USER_FAILURE, parameter };
 };

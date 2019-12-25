@@ -2,7 +2,7 @@ import {DELETE_ARTWORK_SUCCESS} from './../const';
 import { actions as notifActions } from 'redux-notifications';
 const { notifSend } = notifActions;
 
-module.exports = function(artwork) {
+export default function(artwork) {
   return (dispatch) => {
     dispatch({ type: DELETE_ARTWORK_SUCCESS, artwork: artwork });
     let notification = {

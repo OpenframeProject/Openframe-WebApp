@@ -1,12 +1,9 @@
-import React, {
-  Component,
-  PropTypes,
-  cloneElement
-} from 'react';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Masonry from 'react-masonry-component';
-import Waypoint from 'react-waypoint';
-import Spinner from 'react-spin';
+import { Waypoint } from 'react-waypoint';
+// import Spinner from 'react-spin';
 import { throttle } from 'lodash';
 
 import config from 'config';
@@ -74,7 +71,8 @@ class InfiniteMasonryComponent extends Component {
   }
 
   render() {
-    let loadingComponent = this.props.loadingComponent || <Spinner config={config.spinnerConfig} />;
+    // TODO
+    let loadingComponent = this.props.loadingComponent || '...';
     let endComponent = this.props.endComponent || null;
     return (
       <div className="infinite-masonry">

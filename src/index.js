@@ -2,34 +2,22 @@ import '@babel/polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router'
+import { Router } from 'react-router-dom'
+import history from "./services/history";
 import configureStore from './stores';
 
 import App from './containers/App';
-import ArtworkDetailContainer from './containers/ArtworkDetailContainer';
-import CollectionDetailContainer from './containers/CollectionDetailContainer';
 
-import BrowseSectionComponent from './components/sections/BrowseSectionComponent';
-import StreamContainer from './containers/StreamContainer';
-import CollectionsContainer from './containers/CollectionsContainer';
-import ChannelsContainer from './containers/ChannelsContainer';
-import ProfileContainer from './containers/ProfileContainer';
-import LikesContainer from './containers/LikesContainer';
-import AddedContainer from './containers/AddedContainer';
-import LoginContainer from './containers/LoginContainer';
-import FeatureFlagsContainer from './containers/FeatureFlagsContainer';
-import VerifiedEmailContainer from './containers/VerifiedEmailContainer';
-import ResetPasswordContainer from './containers/ResetPasswordContainer';
+import PubSub from './services/pubsub';
 
-require('./images/touch-icon-iphone.png');
-require('./images/touch-icon-ipad.png');
-require('./images/touch-icon-iphone-retina.png');
-require('./images/touch-icon-ipad-retina.png');
+import favicon from './images/favicon.ico'
+import image from './images/touch-icon-iphone.png'
+import imageA from './images/touch-icon-ipad.png'
+import imageB from './images/touch-icon-iphone-retina.png'
+import imageC from './images/touch-icon-ipad-retina.png'
 
 const fixBody = require('./actions/ui/fixBody.js');
 const unfixBody = require('./actions/ui/unfixBody.js');
-
-import PubSub from './services/pubsub';
 
 // test data
 const initialState = require('../test/fixture.js');
@@ -55,37 +43,8 @@ function doUnfixBody() {
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory} >
-
-      <Route path="/" component={App}>
-        <IndexRedirect to="/stream" />
-
-        <Route path="/login" component={LoginContainer} />
-
-        <Route path="/ff-conf" component={FeatureFlagsContainer} />
-
-        <Route path="/verified" component={VerifiedEmailContainer} />
-
-        <Route path="/reset-password/:accessToken" component={ResetPasswordContainer} />
-
-
-        <Route component={BrowseSectionComponent}>
-          <IndexRoute component={StreamContainer} />
-          <Route path="/stream" component={StreamContainer} />
-          <Route path="/collections" component={CollectionsContainer} />
-          <Route path="/channels" component={ChannelsContainer} />
-
-          <Route path="artwork/:artworkId" component={ArtworkDetailContainer} />
-          <Route path="collections/:collectionId" component={CollectionDetailContainer} />
-        </Route>
-
-        // User routes
-        <Route path="/:username" component={ProfileContainer}>
-          <IndexRoute component={AddedContainer} />
-          <Route path="/:username/likes" component={LikesContainer} />
-          <Route path="/:username/added" component={AddedContainer} />
-        </Route>
-      </Route>
+    <Router history={history}>
+      <App />
     </Router>
   </Provider>,
   document.getElementById('app')

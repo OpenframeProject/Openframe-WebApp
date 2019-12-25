@@ -1,18 +1,17 @@
 'use strict';
 
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
-
-import { Link } from 'react-router';
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 import PushButtonComponent from '../common/PushButtonComponent';
 import LikeButtonComponent from '../common/LikeButtonComponent';
 import EditButtonComponent from '../common/EditButtonComponent';
 
-let noThumbImg = require('../../images/preview-missing.png');
-let lockIcon = require('../../images/icon_lock.svg');
+import noThumbImg from '../../images/preview-missing.png'
+import lockIcon from '../../images/icon_lock.svg'
 
 require('styles/artwork/ArtworkListItem.scss');
 // let settingsBtnImage = require('../../images/artwork-settings.svg');
@@ -118,8 +117,7 @@ class ArtworkListItemComponent extends Component {
   }
 
   render() {
-    let { artwork, currentArtwork, isLiked, isOwner } = this.props;
-
+    let { artwork, currentArtwork, isLiked, isOwner, location } = this.props;
 
     let isCurrentClass = 'selected-frame-indicator';
     isCurrentClass += artwork.id === currentArtwork ? ' selected-frame-indicator--connected' : '';
@@ -128,7 +126,13 @@ class ArtworkListItemComponent extends Component {
         <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3" style={this.state.style}>
           <Link to={{
               pathname: '/artwork/'+artwork.id,
-              state: { modal: true, returnTo: this.props.location.pathname }
+              // This is the trick! This link sets
+              // the `background` in location state.
+              state: {
+                background: location,
+                returnTo: location.pathname
+              }
+              // state: { modal: true, returnTo: this.props.location.pathname }
             }}>
             <div className="list-item artwork-list-item" onMouseOver={::this.toggleHover} onMouseOut={::this.toggleHover}>
               <div className="artwork-list-item__thumb">
@@ -176,6 +180,7 @@ ArtworkListItemComponent.displayName = 'ArtworkListItemComponent';
 ArtworkListItemComponent.propTypes = {
   artwork: PropTypes.object.isRequired,
   user: PropTypes.object,
+  location: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool,
   isLoadingImages: PropTypes.bool
