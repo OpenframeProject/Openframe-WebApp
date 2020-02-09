@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --mode=development --config webpack.dev.js",
     "build": "./node_modules/.bin/webpack --mode=production --config webpack.prod.js",
-    "start": "node server.js --mode=development --env=dev",
+    "start": "npm run dev",
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
     "posttest": "npm run lint",
