@@ -14,7 +14,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import Modal from 'react-modal';
-// import { Notifs } from 'redux-notifications';
+import Notifs from '../components/notifications/notifs'
 
 require('normalize.css/normalize.css');
 require('styles/bootstrap-overrides.scss');
@@ -127,7 +127,7 @@ class App extends Component {
         {
           //<Notification notice={ ui.notice } updateNotification={actions.updateNotification}/>
         }
-        {/* <Notifs /> */}
+        <Notifs />
 
         {
           ui.notice && <NoticeBannerComponent notice={ ui.notice } updateNoticeBanner={ actions.updateNoticeBanner } />
@@ -201,6 +201,7 @@ function mapStateToProps(state) {
   };
   return props;
 }
+
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {

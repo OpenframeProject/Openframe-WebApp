@@ -1,8 +1,7 @@
 import { normalize } from 'normalizr';
 import {UPDATE_USER_SUCCESS} from './../const';
 import * as schema from '../schema';
-import { actions as notifActions } from 'redux-notifications';
-const { notifSend } = notifActions;
+import { notifSend } from '../notifications';
 
 export default function(response, notice) {
   return dispatch => {
