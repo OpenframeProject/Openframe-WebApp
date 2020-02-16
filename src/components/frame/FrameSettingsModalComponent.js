@@ -1,6 +1,7 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { reduxForm, Field } from 'redux-form';
@@ -39,16 +40,13 @@ class FrameSettingsModalComponent extends React.Component {
     this.fetchOptions = debounce((input, callback) => {
       users.searchByUsername(input)
         .then(response => {
-          let result = {
-            options: response.map(user => {
-              let option = {
-                value: user.id,
-                label: user.username
-              };
-              return option;
-            })
-          };
-          callback(null, result);
+          callback(response.map(user => {
+            let option = {
+              value: user.id,
+              label: user.username
+            };
+            return option;
+          }));
         });
     }, 250);
   }
@@ -69,7 +67,7 @@ class FrameSettingsModalComponent extends React.Component {
   }
 
   afterOpenModal() {
-    this.refs.frameName.getRenderedComponent().focus();
+    // this.refs.frameName.getRenderedComponent().focus();
   }
 
   _close() {
@@ -165,7 +163,7 @@ class FrameSettingsModalComponent extends React.Component {
                     {!isOwner && <div className="alert alert-info">You are a curator for this frame.</div>}
 
                     <Field
-                      withRef
+                      autoFocus
                       ref="frameName"
                       name="name"
                       component={CustomInputComponent}
@@ -195,8 +193,9 @@ class FrameSettingsModalComponent extends React.Component {
                       placeholder={isOwner ? 'Add by username...' : 'No additional curators'}
                       help="Curators can push art to this frame, but can't modify settings."
                       disabled={!isOwner}
-                      multi={true}
-                      clearable={false}
+                      isMulti
+                      isClearable={false}
+                      selectAsync
                       loadOptions={::this.fetchOptions} />
 
                     <div className="form-group">

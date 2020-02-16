@@ -7,10 +7,10 @@ import frameUpdated from './frameUpdated';
 import selectFrame from './selectFrame';
 import updateNoticeBanner from '../ui/updateNoticeBanner';
 
-module.exports = function(response) {
+export default function(response) {
   return (dispatch, getState) => {
     let frames = response.frames;
-    let normalized = normalize(frames, schema.arrayOfFrames);
+    let normalized = normalize(frames, [schema.frame]);
 
     // if there isn't a frame selected, select the first
     const state = getState();

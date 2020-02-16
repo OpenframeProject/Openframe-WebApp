@@ -1,6 +1,7 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 import Modal from 'react-modal';
 import { Field, reduxForm } from 'redux-form'
 
@@ -10,7 +11,7 @@ require('styles/user/LoginModal.scss');
 
 class LoginModalComponent extends React.Component {
   afterOpenModal() {
-    this.refs.username.getRenderedComponent().focus();
+    // this.refs.username.getRenderedComponent().focus();
   }
 
   _close() {
@@ -33,7 +34,7 @@ class LoginModalComponent extends React.Component {
       <Modal
         isOpen={isOpen}
         shouldCloseOnOverlayClick={true}
-        onAfterOpen={::this.afterOpenModal}
+        // onAfterOpen={::this.afterOpenModal}
         onRequestClose={::this._close}
         className="of-modal modal-dialog"
         overlayClassName="modal-backdrop"
@@ -54,7 +55,7 @@ class LoginModalComponent extends React.Component {
                 </div>
               </div>
 
-              <Field withRef ref="username" name="username" component={CustomInputComponent} type="text" placeholder="username" label="Username" />
+              <Field autoFocus ref="username" name="username" component={CustomInputComponent} type="text" placeholder="username" label="Username" />
 
               <Field name="password" component={CustomInputComponent} type="password" placeholder="password" label="Password" />
 

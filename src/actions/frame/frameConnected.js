@@ -1,5 +1,5 @@
 import { FRAME_CONNECTED } from './../const';
 
-module.exports = function(frameId) {
+export default function(frameId) {
   return { type: FRAME_CONNECTED, frameId };
 };

@@ -3,7 +3,7 @@ import updateFrameSuccess from './updateFrameSuccess';
 import updateFrameFailure from './updateFrameFailure';
 import {frames} from '../../sources/api';
 
-module.exports = function(frameId, frameData) {
+export default function(frameId, frameData) {
   return dispatch => {
 		dispatch({
 			type: UPDATE_FRAME_REQUEST

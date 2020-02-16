@@ -4,7 +4,7 @@ import fetchUserArtworkFailure from './fetchUserArtworkFailure';
 import { users } from '../../sources/api';
 import config from 'config';
 
-module.exports = function(userId, page = 0) {
+export default function(userId, page = 0) {
   let perPage = config.perPage;
   let skip = perPage * page;
 

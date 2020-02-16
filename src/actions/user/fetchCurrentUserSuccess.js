@@ -4,7 +4,7 @@ import * as schema from '../schema';
 import fetchFramesRequest from '../frame/fetchFramesRequest';
 import fetchUserLikesRequest from './fetchUserLikesRequest';
 
-module.exports = function(response) {
+export default function(response) {
 
   return dispatch => {
     dispatch({

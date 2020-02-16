@@ -1,18 +1,17 @@
-'use strict';
-
 import React from 'react';
-import Select, { Creatable } from 'react-select';
+import Select from 'react-select';
+import Async from 'react-select/async';
+import Creatable from 'react-select/creatable';
 
 // import 'react-select/dist/react-select.css';
 // import 'react-select/scss/components.scss';
 
-require('styles/form/CustomSelect.scss');
+// require('styles/form/CustomSelect.scss');
 
 class CustomSelectComponent extends React.Component {
 
   _renderCreatable() {
     const props = this.props; // onBlur and value was on this.props.fields.myField in MyForm
-    console.log('PROSP', props);
     return (
       <Creatable
         {...props}
@@ -25,7 +24,7 @@ class CustomSelectComponent extends React.Component {
   _renderSelectAsync() {
     const props = this.props; // onBlur and value was on this.props.fields.myField in MyForm
     return (
-      <Select.Async
+      <Async
         {...props}
         {...props.input}
         onBlur={() => { props.input.onBlur(props.input.value) }}
@@ -35,7 +34,6 @@ class CustomSelectComponent extends React.Component {
 
   render() {
     const props = this.props; // onBlur and value was on this.props.fields.myField in MyForm
-    // debugger;
     return (
       <div className="form-group">
         <label>{props.label}</label>

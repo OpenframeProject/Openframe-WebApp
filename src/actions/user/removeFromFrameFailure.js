@@ -1,5 +1,5 @@
 import {REMOVE_FROM_FRAME_FAILURE} from './../const';
 
-module.exports = function(parameter) {
+export default function(parameter) {
   return { type: REMOVE_FROM_FRAME_FAILURE, parameter };
 };

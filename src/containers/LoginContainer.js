@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -43,7 +43,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    updateVisibleModal: require('../actions/ui/updateVisibleModal.js')
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

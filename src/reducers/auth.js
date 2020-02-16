@@ -19,7 +19,7 @@ const initialState = {
   isAuthenticated: false
 };
 
-module.exports = function(state = initialState, action) {
+export default function(state = initialState, action) {
    switch(action.type) {
 
     case LOGIN_REQUEST:

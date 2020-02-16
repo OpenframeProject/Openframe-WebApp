@@ -1,8 +1,7 @@
-'use strict';
-
-import React, { PropTypes } from 'react';
+import React from 'react';
+import history from '../../services/history'
+import PropTypes from 'prop-types'
 import Modal from 'react-modal';
-import { browserHistory } from 'react-router';
 
 require('styles/common/StatefulModal.scss');
 
@@ -30,7 +29,7 @@ class StatefulModalComponent extends React.Component {
 
     this.setState({isOpen: false});
     setTimeout(() => {
-      browserHistory.push(this.props.returnTo);
+      history.push(this.props.returnTo)
     }, 250);
   }
 

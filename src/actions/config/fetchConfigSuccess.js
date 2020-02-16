@@ -2,7 +2,7 @@ import {FETCH_CONFIG_SUCCESS} from './../const';
 
 import PubSub from '../../services/pubsub';
 
-module.exports = function(config) {
+export default function(config) {
   return dispatch => {
 
     PubSub.connect(config.pubsub_url);

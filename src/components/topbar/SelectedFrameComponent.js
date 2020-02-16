@@ -7,14 +7,14 @@ import FrameItemContainer from '../../containers/frame/FrameItemContainer';
 
 class SelectedFrameComponent extends React.Component {
   render() {
-    let { selectedFrame, pathname } = this.props;
+    let { selectedFrame, location } = this.props;
 
     return (
       <div className="selected-frame">
         <FrameItemContainer
           frame={selectedFrame}
           showSettingsButton={true}
-          pathname={pathname} />
+          location={location} />
       </div>
     );
   }

@@ -15,7 +15,7 @@ const initialState = {
   items: []
 };
 
-module.exports = function(state = initialState, action) {
+export default function(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
   //let nextState = Object.assign({}, state);
 

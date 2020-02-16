@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -73,9 +73,9 @@ function mapStateToProps(state, { params }) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchSingleCollectionRequest: require('../actions/collections/fetchSingleCollectionRequest.js')
-    // pushArtwork: require('../actions/artwork/pushArtwork.js'),
-    // openArtworkDetail: require('../actions/artwork/openArtworkDetail.js')
+    fetchSingleCollectionRequest: require('../actions/collections/fetchSingleCollectionRequest.js').default
+    // pushArtwork: require('../actions/artwork/pushArtwork.js').default,
+    // openArtworkDetail: require('../actions/artwork/openArtworkDetail.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

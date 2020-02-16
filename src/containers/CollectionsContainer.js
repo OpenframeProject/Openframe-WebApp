@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -54,10 +54,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchCollectionsRequest: require('../actions/collections/fetchCollectionsRequest.js'),
-    fetchCollectionsSuccess: require('../actions/collections/fetchCollectionsSuccess.js'),
-    fetchCollectionsFailure: require('../actions/collections/fetchCollectionsFailure.js'),
-    pushCollection: require('../actions/collections/pushCollection.js')
+    fetchCollectionsRequest: require('../actions/collections/fetchCollectionsRequest.js').default,
+    fetchCollectionsSuccess: require('../actions/collections/fetchCollectionsSuccess.js').default,
+    fetchCollectionsFailure: require('../actions/collections/fetchCollectionsFailure.js').default,
+    pushCollection: require('../actions/collections/pushCollection.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

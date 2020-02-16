@@ -1,33 +1,28 @@
-import { Schema, arrayOf } from 'normalizr';
+import { schema } from 'normalizr';
 
-export const user = new Schema('user');
-export const arrayOfUsers = arrayOf(user);
+export const user = new schema.Entity('user');
 
-export const artwork = new Schema('artwork');
-export const arrayOfArtworks = arrayOf(artwork);
+export const artwork = new schema.Entity('artwork');
 artwork.define({
   owner: user
 });
 
-export const frame = new Schema('frame');
-export const arrayOfFrames = arrayOf(frame);
+export const frame = new schema.Entity('frame');
 frame.define({
   owner: user,
-  managers: arrayOfUsers,
+  managers: [user],
   current_artwork: artwork
 });
 
-export const channel = new Schema('channel');
-export const arrayOfChannels = arrayOf(channel);
+export const channel = new schema.Entity('channel');
 channel.define({
   current_artwork: artwork,
   // not currently implemented
   artworkHistory: artwork
 });
 
-export const collection = new Schema('collection');
-export const arrayOfCollections = arrayOf(collection);
+export const collection = new schema.Entity('collection');
 collection.define({
-  artwork: arrayOf(artwork),
+  artwork: [artwork],
   owner: user
 });

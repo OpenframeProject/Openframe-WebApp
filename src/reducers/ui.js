@@ -46,7 +46,7 @@ const initialState = {
   notice: null
 };
 
-module.exports = function(state = initialState, action) {
+export default function(state = initialState, action) {
   switch(action.type) {
     // Modal-related
     case UPDATE_VISIBLE_MODAL: {

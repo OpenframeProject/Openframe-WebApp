@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -55,7 +55,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    setFeatureFlag: require('../actions/common/setFeatureFlag.js')
+    setFeatureFlag: require('../actions/common/setFeatureFlag.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

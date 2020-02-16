@@ -1,15 +1,15 @@
 import { LOGOUT_SUCCESS } from './../const';
-import { browserHistory } from 'react-router';
 import { reset } from 'redux-form';
+import history from '../../services/history'
 
-module.exports = function() {
+export default function() {
   return dispatch => {
     try {
       localStorage.removeItem('selectedFrameId');
     } catch(e) {
       // nada
     }
-    browserHistory.push('/');
+    history.push('/');
 
     dispatch({
       type: LOGOUT_SUCCESS

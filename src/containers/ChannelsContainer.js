@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -53,10 +53,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchChannelsRequest: require('../actions/channels/fetchChannelsRequest.js'),
-    fetchChannelsSuccess: require('../actions/channels/fetchChannelsSuccess.js'),
-    fetchChannelsFailure: require('../actions/channels/fetchChannelsFailure.js'),
-    pushChannel: require('../actions/channels/pushChannel.js'),
+    fetchChannelsRequest: require('../actions/channels/fetchChannelsRequest.js').default,
+    fetchChannelsSuccess: require('../actions/channels/fetchChannelsSuccess.js').default,
+    fetchChannelsFailure: require('../actions/channels/fetchChannelsFailure.js').default,
+    pushChannel: require('../actions/channels/pushChannel.js').default,
 
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };

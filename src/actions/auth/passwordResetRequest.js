@@ -3,7 +3,7 @@ import passwordResetSuccess from './passwordResetSuccess';
 import passwordResetFailure from './passwordResetFailure';
 import {users} from '../../sources/api';
 
-module.exports = function(email) {
+export default function(email) {
   return dispatch => {
   	dispatch({
   	  type: PASSWORD_RESET_REQUEST

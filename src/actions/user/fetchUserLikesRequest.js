@@ -4,7 +4,7 @@ import fetchUserLikesFailure from './fetchUserLikesFailure';
 import { users } from '../../sources/api';
 import config from 'config';
 
-module.exports = function(userId = 'current', page = 0) {
+export default function(userId = 'current', page = 0) {
   let perPage = config.perPage;
   let skip = perPage * page;
 

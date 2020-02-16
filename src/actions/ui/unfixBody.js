@@ -1,5 +1,5 @@
 import { UNFIX_BODY } from './../const';
 
-module.exports = function() {
+export default function() {
   return { type: UNFIX_BODY };
 };

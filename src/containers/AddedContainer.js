@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -20,7 +20,9 @@ require('styles/user/AddedContainer.scss');
 class AddedContainer extends Component {
   _loadArtworks(page) {
     const { actions, user } = this.props;
-    actions.fetchUserArtworkRequest(user.id, page);
+    if (user && user.id) {
+      actions.fetchUserArtworkRequest(user.id, page);
+    }
   }
 
   render() {
@@ -96,8 +98,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    fetchUserArtworkRequest: require('../actions/user/fetchUserArtworkRequest.js'),
-    updateVisibleModal: require('../actions/ui/updateVisibleModal.js')
+    fetchUserArtworkRequest: require('../actions/user/fetchUserArtworkRequest.js').default,
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

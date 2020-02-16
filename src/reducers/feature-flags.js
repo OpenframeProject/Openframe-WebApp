@@ -16,7 +16,7 @@ let defaults = {
 };
 const initialState = Object.assign({}, defaults, featureFlags);
 
-module.exports = function(state = initialState, action) {
+export default function(state = initialState, action) {
   switch(action.type) {
     case SET_FEATURE_FLAG: {
       setFlag(action.flag, action.value);

@@ -1,7 +1,7 @@
 import {UNLIKE_ARTWORK_SUCCESS} from './../const';
 import fetchUserLikesRequest from '../user/fetchUserLikesRequest';
 
-module.exports = function(artworkId) {
+export default function(artworkId) {
   return (dispatch, getState) => {
     const state = getState();
     dispatch({

@@ -5,13 +5,20 @@
  *          you edit them, they are not updated again.
  */
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
+import { withRouter } from "react-router";
+import { Router, Switch, Route, Redirect } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Waypoint from 'react-waypoint';
-import { Notifs } from 'redux-notifications';
+import { Waypoint } from 'react-waypoint';
+import Modal from 'react-modal';
+// import { Notifs } from 'redux-notifications';
+
+require('normalize.css/normalize.css');
+require('styles/bootstrap-overrides.scss');
+require('styles/App.scss');
 
 import SidebarContainer from './sidebar/SidebarContainer';
 import ModalManagerContainer from './ModalManagerContainer';
@@ -19,39 +26,43 @@ import ModalManagerContainer from './ModalManagerContainer';
 import TopbarComponent from '../components/topbar/TopbarComponent';
 
 import MobileSubMenuComponent from '../components/common/MobileSubMenuComponent';
-import StatefulModalComponent from '../components/common/StatefulModalComponent';
 import NoticeBannerComponent from '../components/common/NoticeBannerComponent';
+
+import BrowseSectionComponent from '../components/sections/BrowseSectionComponent';
+import ProfileContainer from './ProfileContainer';
+import LoginContainer from './LoginContainer';
+import FeatureFlagsContainer from './FeatureFlagsContainer';
+import VerifiedEmailContainer from './VerifiedEmailContainer';
+import ResetPasswordContainer from './ResetPasswordContainer';
+import ArtworkDetailModal from '../components/artwork/ArtworkDetailModal';
 
 import { getSelectedFrame } from '../reducers/frame';
 import { getCurrentUser } from '../reducers/user/index';
 
-require('normalize.css/normalize.css');
-require('styles/bootstrap-overrides.scss');
-require('styles/App.scss');
-
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const {actions, auth} = this.props;
+    Modal.setAppElement('body');
     actions.fetchConfigRequest();
     if (auth.accessToken) {
       actions.fetchCurrentUserRequest();
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     // console.log('componentWillReceiveProps', nextProps);
     // if we changed routes...
     if ((
-      nextProps.location.key !== this.props.location.key &&
-      nextProps.location.state &&
-      nextProps.location.state.modal
+      prevProps.location.key !== this.props.location.key &&
+      this.props.location.state &&
+      this.props.location.state.modal
     )) {
       // save the old children (just like animation)
       this.previousChildren = this.props.children
     }
 
-    if (nextProps.ui.fixBody) {
+    if (this.props.ui.fixBody) {
       document.body.style.maxWidth = document.body.clientWidth + 'px';
       document.body.style.height   = '100%';
       document.body.style.overflow = 'hidden';
@@ -76,17 +87,21 @@ class App extends Component {
     this.refs.topbar._showShadow();
   }
 
+
   render() {
     let {actions, frames, user, currentUser, ui, route, location, artwork, featureFlags} = this.props;
 
     let selectedFrameId = frames.selectedFrameId;
     let selectedFrame = getSelectedFrame(frames.byId, selectedFrameId, artwork.byId);
 
-    let isStatefulModal = (
-      location.state &&
-      location.state.modal &&
-      this.previousChildren
-    );
+    // This piece of state is set when one of the
+    // gallery links is clicked. The `background` state
+    // is the location that we were at when one of
+    // the gallery links was clicked. If it's there,
+    // use it as the location for the <Switch> so
+    // we show the gallery in the background, behind
+    // the modal.
+    let background = location.state && location.state.background;
 
     return (
       <div>
@@ -112,40 +127,41 @@ class App extends Component {
         {
           //<Notification notice={ ui.notice } updateNotification={actions.updateNotification}/>
         }
-        <Notifs />
+        {/* <Notifs /> */}
 
         {
           ui.notice && <NoticeBannerComponent notice={ ui.notice } updateNoticeBanner={ actions.updateNoticeBanner } />
         }
 
         <div className='app-content-wrap'>
-          {isStatefulModal ?
-            this.previousChildren :
-            this.props.children
-          }
+          <Switch location={background || location}>
+            <Route path="/login" component={LoginContainer} />
+            <Route path="/ff-conf" component={FeatureFlagsContainer} />
+            <Route path="/verified" component={VerifiedEmailContainer} />
+            <Route path="/reset-password/:accessToken" component={ResetPasswordContainer} />
 
-          {isStatefulModal && (
-            <StatefulModalComponent
-              initialOpenState={true}
-              returnTo={location.state.returnTo}
-              openStatefulModal={actions.openStatefulModal}
-              closeStatefulModal={actions.closeStatefulModal}
-              extraClasses="artwork-detail-modal"
-              showHeader={false}>
-              {this.props.children}
-            </StatefulModalComponent>
-          )}
+            <Route path="/stream" component={BrowseSectionComponent} />
+
+            {/* <Route path="/artwork/:artworkId" render={({match}) => <ArtworkDetailContainer params={match.params} />} /> */}
+
+            {/* // User routes */}
+            <Route path="/:username" render={({ match }) => <ProfileContainer params={match.params} />} />
+
+            <Redirect from="/" to="/stream" />
+          </Switch>
+
+          {background && <Route path="/artwork/:artworkId" render={
+            ({match, location}) => <ArtworkDetailModal params={match.params} returnTo={location.state.returnTo} />
+          } />}
+
         </div>
 
-
         <SidebarContainer location={location} />
-
 
         <MobileSubMenuComponent
           user={currentUser}
           location={location}
           featureFlags={featureFlags} />
-
 
         <ModalManagerContainer />
       </div>
@@ -188,27 +204,27 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
-    loginRequest: require('../actions/auth/loginRequest.js'),
-    loginSuccess: require('../actions/auth/loginSuccess.js'),
-    loginFailure: require('../actions/auth/loginFailure.js'),
-    logoutRequest: require('../actions/auth/logoutRequest.js'),
-    logoutSuccess: require('../actions/auth/logoutSuccess.js'),
-    logoutFailure: require('../actions/auth/logoutFailure.js'),
+    loginRequest: require('../actions/auth/loginRequest.js').default,
+    loginSuccess: require('../actions/auth/loginSuccess.js').default,
+    loginFailure: require('../actions/auth/loginFailure.js').default,
+    logoutRequest: require('../actions/auth/logoutRequest.js').default,
+    logoutSuccess: require('../actions/auth/logoutSuccess.js').default,
+    logoutFailure: require('../actions/auth/logoutFailure.js').default,
 
-    selectFrame: require('../actions/frame/selectFrame.js'),
+    selectFrame: require('../actions/frame/selectFrame.js').default,
 
-    fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js'),
-    fetchConfigRequest: require('../actions/config/fetchConfigRequest.js'),
+    fetchCurrentUserRequest: require('../actions/user/fetchCurrentUserRequest.js').default,
+    fetchConfigRequest: require('../actions/config/fetchConfigRequest.js').default,
 
-    updateVisibleModal: require('../actions/ui/updateVisibleModal.js'),
-    updateSidebarState: require('../actions/ui/updateSidebarState.js'),
-    updateNoticeBanner: require('../actions/ui/updateNoticeBanner.js'),
+    updateVisibleModal: require('../actions/ui/updateVisibleModal.js').default,
+    updateSidebarState: require('../actions/ui/updateSidebarState.js').default,
+    updateNoticeBanner: require('../actions/ui/updateNoticeBanner.js').default,
 
-    hideConfirmDialog: require('../actions/common/hideConfirmDialog.js'),
-    openStatefulModal: require('../actions/ui/openStatefulModal.js'),
-    closeStatefulModal: require('../actions/ui/closeStatefulModal.js')
+    hideConfirmDialog: require('../actions/common/hideConfirmDialog.js').default,
+    openStatefulModal: require('../actions/ui/openStatefulModal.js').default,
+    closeStatefulModal: require('../actions/ui/closeStatefulModal.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

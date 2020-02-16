@@ -1,10 +1,11 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 
 require('styles/common/PushButton.scss');
 
-let pushBtn = require('../../images/icon_push.svg');
+import pushBtn from '../../images/icon_push.svg'
 
 class PushButtonComponent extends React.Component {
 

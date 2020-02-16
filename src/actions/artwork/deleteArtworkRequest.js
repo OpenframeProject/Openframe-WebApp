@@ -3,7 +3,7 @@ import deleteArtworkSuccess from './deleteArtworkSuccess';
 import deleteArtworkFailure from './deleteArtworkFailure';
 import { users } from '../../sources/api';
 
-module.exports = function(_artwork) {
+export default function(_artwork) {
   return dispatch => {
 		dispatch({
 			type: DELETE_ARTWORK_REQUEST

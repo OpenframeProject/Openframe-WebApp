@@ -2,7 +2,7 @@ import {CREATE_ARTWORK_REQUEST} from './../const';
 import createArtworkSuccess from './createArtworkSuccess';
 import createArtworkFailure from './createArtworkFailure';
 import {artwork} from '../../sources/api';
-module.exports = function(data) {
+export default function(data) {
   return dispatch => {
 		dispatch({
 			type: CREATE_ARTWORK_REQUEST

@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import FrameItemComponent from '../../components/frame/FrameItemComponent';
@@ -31,7 +31,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    editFrameSettings: require('../../actions/frame/editFrameSettings.js')
+    editFrameSettings: require('../../actions/frame/editFrameSettings.js').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

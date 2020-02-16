@@ -1,5 +1,5 @@
 import {OPEN_STATEFUL_MODAL} from './../const';
 
-module.exports = function() {
+export default function() {
   return { type: OPEN_STATEFUL_MODAL };
 };

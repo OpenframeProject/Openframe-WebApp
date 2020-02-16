@@ -5,7 +5,7 @@ import {clearToken} from '../../services/auth';
 import {users} from '../../sources/api';
 
 // Logout simply requires deleting the access token
-module.exports = function() {
+export default function() {
   return dispatch => {
     dispatch({
       type: LOGOUT_REQUEST

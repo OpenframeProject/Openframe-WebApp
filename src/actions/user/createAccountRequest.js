@@ -3,7 +3,7 @@ import createAccountSuccess from './createAccountSuccess';
 import createAccountFailure from './createAccountFailure';
 import {users} from '../../sources/api';
 
-module.exports = function(data) {
+export default function(data) {
   return dispatch => {
     dispatch({
       type: CREATE_ACCOUNT_REQUEST

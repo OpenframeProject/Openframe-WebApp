@@ -1,5 +1,5 @@
 import {PREVIEW_ARTWORK} from './../const';
 
-module.exports = function(parameter) {
+export default function(parameter) {
   return { type: PREVIEW_ARTWORK, parameter };
 };

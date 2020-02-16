@@ -1,7 +1,7 @@
 import React, {
-  Component,
-  PropTypes
+  Component
 } from 'react';
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
@@ -86,9 +86,9 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const actions = {
-    updateUserRequest: require('../actions/user/updateUserRequest'),
-    updateUserFailure: require('../actions/user/updateUserFailure'),
-    updateVisibleModal: require('../actions/ui/updateVisibleModal')
+    updateUserRequest: require('../actions/user/updateUserRequest').default,
+    updateUserFailure: require('../actions/user/updateUserFailure').default,
+    updateVisibleModal: require('../actions/ui/updateVisibleModal').default
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

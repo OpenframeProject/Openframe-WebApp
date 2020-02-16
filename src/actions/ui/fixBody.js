@@ -1,5 +1,5 @@
 import { FIX_BODY } from './../const';
 
-module.exports = function() {
+export default function() {
   return { type: FIX_BODY };
 };

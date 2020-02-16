@@ -1,7 +1,7 @@
 import {LOGOUT_FAILURE} from './../const';
 import {clearToken} from '../../services/auth';
 
-module.exports = function() {
+export default function() {
   return dispatch => {
     clearToken();
     dispatch({

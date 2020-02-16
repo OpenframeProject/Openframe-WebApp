@@ -3,7 +3,7 @@ import fetchCurrentUserSuccess from './fetchCurrentUserSuccess';
 import fetchCurrentUserFailure from './fetchCurrentUserFailure';
 import {users} from '../../sources/api';
 
-module.exports = function() {
+export default function() {
 	return dispatch => {
 		dispatch({
 			type: FETCH_CURRENT_USER_REQUEST

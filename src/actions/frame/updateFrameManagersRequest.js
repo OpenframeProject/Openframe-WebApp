@@ -7,7 +7,7 @@ import {frames} from '../../sources/api';
  * @param  {String} frameId
  * @param  {Array} managers An array of manager usernames
  */
-module.exports = function(frameId, managers) {
+export default function(frameId, managers) {
   return dispatch => {
 		dispatch({
 			type: UPDATE_FRAME_MANAGERS_REQUEST

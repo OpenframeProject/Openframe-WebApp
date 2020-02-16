@@ -15,11 +15,11 @@ const reducers = {
   collections: require('./collections/index').default,
   frames: require('./frame/index').default,
   user: require('./user/index').default,
-  config: require('./config.js'),
-  auth: require('./auth.js'),
-  ui: require('./ui.js'),
-  channels: require('./channels.js'),
-  featureFlags: require('./feature-flags.js'),
+  config: require('./config.js').default,
+  auth: require('./auth.js').default,
+  ui: require('./ui.js').default,
+  channels: require('./channels.js').default,
+  featureFlags: require('./feature-flags.js').default,
   form: formReducer,
   notifs: notifReducer
 };

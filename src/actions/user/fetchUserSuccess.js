@@ -5,9 +5,9 @@ import fetchUserArtworkRequest from './fetchUserArtworkRequest';
 // import fetchUserLikesRequest from './fetchUserLikesRequest';
 
 
-module.exports = function(response) {
+export default function(response) {
   return dispatch => {
-    let normalized = normalize(response, schema.arrayOfUsers);
+    let normalized = normalize(response, [schema.user]);
     dispatch({
       type: FETCH_USER_SUCCESS,
       response: normalized

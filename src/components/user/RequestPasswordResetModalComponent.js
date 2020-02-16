@@ -1,6 +1,7 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 import Modal from 'react-modal';
 import {reduxForm, Field} from 'redux-form';
 
