@@ -78,7 +78,7 @@ class EditArtworkModalComponent extends React.Component {
             <div className="modal-body">
               <div className={errorClasses}>
                 <div className="alert alert-danger" role="alert">
-                  {modalError}
+                  {modalError && modalError.message}
                 </div>
               </div>
 
