@@ -10,7 +10,7 @@ import {getToken} from '../services/auth';
  * @return {String}
  */
 function prependApiBase(url) {
-  return `${config.apiBase}${url}`;
+  return `${process.env.API_HOST}${url}`;
 }
 
 /**

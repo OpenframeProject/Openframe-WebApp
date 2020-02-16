@@ -83,6 +83,7 @@
     "compass-mixins": "jmwohl/compass-mixins",
     "core-js": "^2.0.0",
     "cross-storage": "^1.0.0",
+    "dotenv-webpack": "^1.7.0",
     "faye": "^1.1.2",
     "glslCanvas": "^0.1.7",
     "i": "^0.3.6",

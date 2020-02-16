@@ -6,8 +6,6 @@ import { Waypoint } from 'react-waypoint';
 // import Spinner from 'react-spin';
 import { throttle } from 'lodash';
 
-import config from 'config';
-
 require('styles//common/InfiniteMasonry.scss');
 
 const masonryOptions = {
