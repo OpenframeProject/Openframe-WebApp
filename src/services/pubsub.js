@@ -1,7 +1,6 @@
 import faye from 'faye';
 import { getToken } from '../services/auth';
-import { actions as notifActions } from 'redux-notifications';
-const { notifSend, notifDismiss } = notifActions;
+import { notifSend, notifDismiss } from '../actions/notifications';
 
 const PubSub = {
   client: null,

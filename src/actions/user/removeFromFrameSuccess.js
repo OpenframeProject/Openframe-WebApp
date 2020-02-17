@@ -1,7 +1,6 @@
 import {REMOVE_FROM_FRAME_SUCCESS} from './../const';
 import { unbindFrameEvents } from '../../services/pubsub';
-import { actions as notifActions } from 'redux-notifications';
-const { notifSend } = notifActions;
+import { notifSend } from '../notifications';
 
 export default function(frame) {
   return (dispatch, getState) => {

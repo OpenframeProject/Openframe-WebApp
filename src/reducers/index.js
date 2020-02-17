@@ -8,7 +8,6 @@
  */
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import { reducer as notifReducer } from 'redux-notifications';
 /* Populated by react-webpack-redux:reducer */
 const reducers = {
   artwork: require('./artwork/index').default,
@@ -20,8 +19,8 @@ const reducers = {
   ui: require('./ui.js').default,
   channels: require('./channels.js').default,
   featureFlags: require('./feature-flags.js').default,
+  notifs: require('./notifications.js').default,
   form: formReducer,
-  notifs: notifReducer
 };
 
 export default combineReducers(reducers);

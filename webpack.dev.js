@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path')
 const webpack = require('webpack')
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
 const packagejson = require('./package.json')
 const defaultSettings = require('./cfg/defaults');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = (env, argv) => {
 
@@ -100,10 +100,6 @@ module.exports = (env, argv) => {
           test: /\.(svg)$/,
           loader: 'url-loader'
         },
-        // {
-        //   test: /\.(mp4|ogg)$/,
-        //   loader: 'file-loader'
-        // },
         {
           test: /\.(js|jsx)$/,
           loader: 'babel-loader',
@@ -116,11 +112,12 @@ module.exports = (env, argv) => {
     },
 
     plugins: [
+      new Dotenv({
+        systemvars: true
+      }),
       new webpack.DefinePlugin({
         'process.env': {
           CLIENT_ENV: JSON.stringify('development'),
-          // API_HOST: JSON.stringify(process.env.API_HOST || 'http://0.0.0.0:8888'),
-          API_HOST: JSON.stringify(process.env.API_HOST || 'https://api.openframe.io/v0/'),
           VERSION: JSON.stringify(packagejson.version)
         }
       }),
